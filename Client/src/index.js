@@ -8,10 +8,16 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers/index';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const store = createStore(
 	rootReducer,
 	composeWithDevTools(applyMiddleware(thunk)),
 );
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById('root'),
+);
