@@ -1,0 +1,53 @@
+body {
+	background: #151515 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+div {
+	color: white !important;
+}
+
+.btn-primary,
+.modal-header {
+	background-color: #292929 !important;
+	border: none !important;
+	&:hover {
+		background-color: #333 !important;
+	}
+}
+
+.offcanvas {
+	background-color: #4d4d4d !important;
+}
+
+.card {
+	border: none !important;
+}
+
+.card-body,
+.modal-header,
+.accordion-button {
+	background-color: #1f1f1f !important;
+	border: none !important;
+	color: white !important;
+}
+
+.accordion-button::after {
+	background-image: url('../images/down-arrow.svg') !important;
+}
+
+.modal-body,
+.accordion-body {
+	background-color: #333 !important;
+}
+
+.modal-content img {
+	background-color: #333 !important;
+}

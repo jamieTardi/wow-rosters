@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
+import { AnimatePresence, motion } from 'framer-motion';
 
-const Raid = ({ raid }) => {
-	const [expandCard, setExpandCard] = useState(false);
+const Raid = ({ raid, setSelectedRaid, setExpandCard }) => {
+	const handleShowRaid = (raid) => {
+		setSelectedRaid(raid);
+		setExpandCard(true);
+	};
 	return (
-		<div>
-			<Card style={{ width: '18rem' }}>
-				<Card.Img variant='top' src={raid.selectedFile[0]} />
+		<div className='col-6 col-md-4 col-lg-3'>
+			<Card style={{ width: '90%' }}>
+				<Card.Img
+					variant='top'
+					src={raid.selectedFile[0]}
+					style={{ height: '200px' }}
+				/>
 				<Card.Body>
 					<Card.Title>{raid.title}</Card.Title>
-					<Card.Text
-						style={!expandCard ? { display: 'none' } : { display: 'block' }}>
+					<Card.Text>
 						Some quick example text to build on the card title and make up the
 						bulk of the card's content.
 					</Card.Text>
-					<Button variant='primary'>Go somewhere</Button>
+					<Button
+						variant='primary'
+						onClick={() => {
+							handleShowRaid(raid);
+						}}>
+						See Raid Details
+					</Button>
 				</Card.Body>
 			</Card>
 		</div>
