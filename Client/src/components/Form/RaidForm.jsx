@@ -7,6 +7,7 @@ import { createRaid } from '../../actions/raids';
 
 const RaidForm = ({ raidModalShow, setRaidModalShow }) => {
 	const [startDate, setStartDate] = useState(new Date());
+
 	const [raidForm, setRaidForm] = useState({
 		title: '',
 		message: '',
@@ -15,6 +16,7 @@ const RaidForm = ({ raidModalShow, setRaidModalShow }) => {
 		selectedFile: [],
 		time: '',
 		date: '',
+		roster: [],
 	});
 	const dispatch = useDispatch();
 	const handleClose = () => setRaidModalShow(false);
@@ -89,6 +91,7 @@ const RaidForm = ({ raidModalShow, setRaidModalShow }) => {
 								}}
 							/>
 						</Form.Group>
+
 						<Form.Group controlId='formFile' className='mb-3'>
 							<Form.Label>Please select some images to upload</Form.Label>
 							<FileBase
@@ -109,6 +112,7 @@ const RaidForm = ({ raidModalShow, setRaidModalShow }) => {
 						Close
 					</Button>
 				</Modal.Footer>
+				<div></div>
 			</Modal>
 		</>
 	);

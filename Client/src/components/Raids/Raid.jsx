@@ -28,6 +28,13 @@ const Raid = ({ raid, setSelectedRaid, setExpandCard }) => {
 						}}>
 						See Raid Details
 					</Button>
+					<Button
+						variant='primary'
+						onClick={() => {
+							handleShowRaid(raid);
+						}}>
+						Create a Roster
+					</Button>
 				</Card.Body>
 			</Card>
 		</div>

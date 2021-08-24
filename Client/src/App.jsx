@@ -1,6 +1,7 @@
 import React from 'react';
 import { Nav } from './components';
 import Raids from './components/Raids/Raids';
+import RosterForm from './components/Form/RosterForm';
 
 const App = () => {
 	return (
@@ -10,6 +11,9 @@ const App = () => {
 			</div>
 			<div>
 				<Raids />
+			</div>
+			<div>
+				<RosterForm />
 			</div>
 		</div>
 	);

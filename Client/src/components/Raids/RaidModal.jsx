@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Accordion } from 'react-bootstrap';
 import moment from 'moment';
 import Roster from '../Roster/Roster';
+import Assignment from '../Assignments/Assignments';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	return (
@@ -41,6 +42,12 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 								</Accordion.Header>
 								<Accordion.Body>
 									<Roster />
+								</Accordion.Body>
+							</Accordion.Item>
+							<Accordion.Item eventKey='1'>
+								<Accordion.Header>Raid Assignments</Accordion.Header>
+								<Accordion.Body>
+									<Assignment />
 								</Accordion.Body>
 							</Accordion.Item>
 						</Accordion>
