@@ -1,7 +1,19 @@
 import React from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Roster = ({ addRoster }) => {
+const Roster = () => {
+	const dispatch = useDispatch();
+	const addRoster = useSelector((state) => state.roster);
+
+	const handleRemoveRaider = (id) => {
+		dispatch({ type: 'REMOVE_RAIDER', payload: id });
+	};
+
+	const handleClearRoster = () => {
+		dispatch({ type: 'CLEAR_ROSTER' });
+	};
+
 	return (
 		<div>
 			<h2>Tanks</h2>
@@ -12,6 +24,7 @@ const Roster = ({ addRoster }) => {
 						<th>Character Name</th>
 						<th>Class</th>
 						<th>Notes</th>
+						<th>Remove Character</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -25,6 +38,15 @@ const Roster = ({ addRoster }) => {
 										<td>{character.name}</td>
 										<td>{character.class}</td>
 										<td>{character.notes}</td>
+										<td>
+											<Button
+												variant='danger'
+												onClick={() => {
+													handleRemoveRaider(character.id);
+												}}>
+												Remove
+											</Button>
+										</td>
 									</>
 								)}
 							</>
@@ -41,6 +63,7 @@ const Roster = ({ addRoster }) => {
 						<th>Character Name</th>
 						<th>Class</th>
 						<th>Notes</th>
+						<th>Remove Character</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,6 +77,9 @@ const Roster = ({ addRoster }) => {
 										<td>{character.name}</td>
 										<td>{character.class}</td>
 										<td>{character.notes}</td>
+										<td>
+											<Button variant='danger'>Remove</Button>
+										</td>
 									</>
 								)}
 							</>
@@ -70,6 +96,7 @@ const Roster = ({ addRoster }) => {
 						<th>Character Name</th>
 						<th>Class</th>
 						<th>Notes</th>
+						<th>Remove Character</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -83,6 +110,9 @@ const Roster = ({ addRoster }) => {
 										<td>{character.name}</td>
 										<td>{character.class}</td>
 										<td>{character.notes}</td>
+										<td>
+											<Button variant='danger'>Remove</Button>
+										</td>
 									</>
 								)}
 							</>
@@ -90,6 +120,7 @@ const Roster = ({ addRoster }) => {
 					))}
 				</tbody>
 			</Table>
+			<Button onClick={handleClearRoster}>Clear Roster</Button>
 		</div>
 	);
 };

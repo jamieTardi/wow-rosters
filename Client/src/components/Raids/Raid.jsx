@@ -30,6 +30,7 @@ const Raid = ({ raid, setSelectedRaid, setExpandCard }) => {
 					</Button>
 					<Button
 						variant='primary'
+						className='mt-2'
 						onClick={() => {
 							handleShowRaid(raid);
 						}}>

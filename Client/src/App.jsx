@@ -5,7 +5,7 @@ import RosterForm from './components/Form/RosterForm';
 
 const App = () => {
 	return (
-		<div>
+		<div className='container'>
 			<div>
 				<Nav />
 			</div>

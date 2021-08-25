@@ -3,14 +3,14 @@ import { Modal, Accordion } from 'react-bootstrap';
 import moment from 'moment';
 import Roster from '../Roster/Roster';
 import Assignment from '../Assignments/Assignments';
+import RosterForm from '../Form/RosterForm';
+import { useSelector } from 'react-redux';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
+	const addRoster = useSelector((state) => state.roster);
 	return (
 		<div>
-			<Modal
-				show={expandCard}
-				fullscreen={true}
-				onHide={() => setExpandCard(false)}>
+			<Modal show={expandCard} size='xl' onHide={() => setExpandCard(false)}>
 				<Modal.Header closeButton variant='white'>
 					<Modal.Title>{selectedRaid.title}</Modal.Title>
 				</Modal.Header>
@@ -41,7 +41,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 									Click to see the weeks roster
 								</Accordion.Header>
 								<Accordion.Body>
-									<Roster />
+									{addRoster.length !== 0 ? <Roster /> : <RosterForm />}
 								</Accordion.Body>
 							</Accordion.Item>
 							<Accordion.Item eventKey='1'>

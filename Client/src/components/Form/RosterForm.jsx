@@ -3,6 +3,7 @@ import { Form, Button, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { createRoster } from '../../api';
 import Roster from '../Roster/Roster';
+import { v4 as uuidv4 } from 'uuid';
 
 const RosterForm = () => {
 	const [addCharacter, setAddCharacter] = useState({
@@ -10,6 +11,7 @@ const RosterForm = () => {
 		name: '',
 		role: '',
 		notes: '',
+		id: uuidv4(),
 	});
 	const dispatch = useDispatch();
 	const [show, setShow] = useState(true);
@@ -17,22 +19,22 @@ const RosterForm = () => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const [addRoster, setAddRoster] = useState([]);
 	const handleAddCharacter = (e) => {
 		e.preventDefault();
-		setAddRoster([...addRoster, addCharacter]);
+		dispatch({ type: 'ADD_ROSTER', payload: addCharacter });
 	};
-	console.log(addRoster);
 
 	return (
 		<div className='row'>
 			<div className='col-12 col-md-6'>
 				<Form
+					className='row'
 					onSubmit={(e) => {
 						handleAddCharacter(e);
 					}}>
 					<Form.Select
 						aria-label='Default select example'
+						className='col-6 container'
 						onChange={(e) => {
 							setAddCharacter({ ...addCharacter, role: e.target.value });
 						}}>
@@ -41,7 +43,7 @@ const RosterForm = () => {
 						<option value='DPS'>DPS</option>
 						<option value='Healer'>Healer</option>
 					</Form.Select>
-					<Form.Group className='mb-3' controlId='formBasicEmail'>
+					<Form.Group className='mb-3 col-6' controlId='formBasicEmail'>
 						<Form.Label>Character Name</Form.Label>
 						<Form.Control
 							type='name'
@@ -52,7 +54,7 @@ const RosterForm = () => {
 						/>
 					</Form.Group>
 
-					<Form.Group className='mb-3' controlId='formBasicPassword'>
+					<Form.Group className='mb-3 col-6' controlId='formBasicPassword'>
 						<Form.Label>Class</Form.Label>
 						<Form.Control
 							type='name'
@@ -62,7 +64,7 @@ const RosterForm = () => {
 							}}
 						/>
 					</Form.Group>
-					<Form.Group className='mb-3' controlId='formBasicPassword'>
+					<Form.Group className='mb-3 col-6' controlId='formBasicPassword'>
 						<Form.Label>Notes</Form.Label>
 						<Form.Control
 							type='name'
@@ -79,7 +81,7 @@ const RosterForm = () => {
 				</Form>
 			</div>
 			<div className='col-12 col-md-6'>
-				<Roster addRoster={addRoster} />
+				<Roster />
 			</div>
 		</div>
 	);
