@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getRaids } from '../../actions/raids';
 import Raid from './Raid';
 import RaidModal from './RaidModal';
+import NewestRaid from './NewestRaid';
+import { v4 as uuidv4 } from 'uuid';
+import { Nav } from '../index';
 
 const Raids = () => {
 	const [selectedRaid, setSelectedRaid] = useState(null);
@@ -16,13 +19,26 @@ const Raids = () => {
 
 	return (
 		<div>
-			<div className=' row'>
-				{createdRaids.map((raid) => (
-					<Raid
-						raid={raid}
-						setSelectedRaid={setSelectedRaid}
-						setExpandCard={setExpandCard}
-					/>
+			<div className='row'>
+				{createdRaids.reverse().map((raid, i) => (
+					<>
+						{i === 0 ? (
+							<>
+								<NewestRaid
+									raid={raid}
+									setSelectedRaid={setSelectedRaid}
+									setExpandCard={setExpandCard}
+								/>
+								<Nav />
+							</>
+						) : (
+							<Raid
+								raid={raid}
+								setSelectedRaid={setSelectedRaid}
+								setExpandCard={setExpandCard}
+							/>
+						)}
+					</>
 				))}
 			</div>
 

@@ -1,5 +1,5 @@
 body {
-  background: #151515 !important;
+  background: #1f1f1f !important;
 }
 
 h1,
@@ -12,6 +12,15 @@ p,
 li,
 div {
   color: white !important;
+}
+
+.btn-secondary {
+  background-color: #3dd115 !important;
+  border: none !important;
+}
+
+.btn-secondary:hover {
+  background-color: #87f06a !important;
 }
 
 .btn-primary,
@@ -30,15 +39,48 @@ div {
 }
 
 .card {
-  border: none !important;
+  border: 1px solid #3dd115 !important;
+  background-color: inherit !important;
+}
+
+.newest-title {
+  background-color: #3dd115;
 }
 
 .card-body,
 .modal-header,
 .accordion-button {
   background-color: #1f1f1f !important;
-  border: none !important;
   color: white !important;
+}
+
+.custom-button-container {
+  background-color: #151515;
+  border-radius: 0 0 0.25em 0.25em;
+  border-top: 1px solid #3dd115;
+}
+
+.custom-button-container .custom-button-1,
+.custom-button-container .custom-button-2 {
+  cursor: pointer;
+  padding: 2% 2%;
+}
+
+.custom-button-container .custom-button-1 {
+  border-right: 1px solid #3dd115;
+  width: 50%;
+  text-align: center;
+}
+
+.custom-button-container .custom-button-2 {
+  width: 50%;
+  text-align: center;
+}
+
+.card-title {
+  margin: 0 !important;
+  padding: 2% 0%;
+  border-radius: 0.25em 0.25em 0 0;
 }
 
 .accordion-button::after {

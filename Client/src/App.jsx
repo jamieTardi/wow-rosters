@@ -1,19 +1,13 @@
 import React from 'react';
-import { Nav } from './components';
 import Raids from './components/Raids/Raids';
 import RosterForm from './components/Form/RosterForm';
-
+import RaidForm from './components/Form/RaidForm';
 const App = () => {
 	return (
 		<div className='container'>
 			<div>
-				<Nav />
-			</div>
-			<div>
 				<Raids />
-			</div>
-			<div>
-				<RosterForm />
+				<RaidForm />
 			</div>
 		</div>
 	);

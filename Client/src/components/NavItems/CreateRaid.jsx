@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import RaidForm from '../Form/RaidForm';
+import { useDispatch } from 'react-redux';
 
 const CreateRaid = ({ setRaidModalShow, raidModalShow }) => {
-	const handleShowRaidModel = () => setRaidModalShow(true);
+	const dispatch = useDispatch();
+	const handleShowRaidModel = () =>
+		dispatch({ type: 'SHOW_RAID_MODAL', action: true });
 	return (
 		<div>
 			<Button
@@ -19,10 +22,7 @@ const CreateRaid = ({ setRaidModalShow, raidModalShow }) => {
 				<ion-icon name='add-circle'></ion-icon>
 				<h6 className='ms-2'>Create a new Roster</h6>
 			</Button>
-			<RaidForm
-				raidModalShow={raidModalShow}
-				setRaidModalShow={setRaidModalShow}
-			/>
+			<RaidForm />
 		</div>
 	);
 };

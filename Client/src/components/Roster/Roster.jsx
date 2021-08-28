@@ -121,6 +121,9 @@ const Roster = () => {
 				</tbody>
 			</Table>
 			<Button onClick={handleClearRoster}>Clear Roster</Button>
+			<Button className='ms-3' variant='secondary'>
+				Add this roster to the raid
+			</Button>
 		</div>
 	);
 };
