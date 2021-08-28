@@ -9,6 +9,7 @@ export const roster = (state = [], action) => {
 				return raider.id !== action.payload;
 			});
 			return filiteredState;
+
 		default:
 			return state;
 	}

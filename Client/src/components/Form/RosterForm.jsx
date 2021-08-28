@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createRoster } from '../../api';
 import Roster from '../Roster/Roster';
 import { v4 as uuidv4 } from 'uuid';
 
-const RosterForm = () => {
+const RosterForm = ({ selectedRaid }) => {
 	const [addCharacter, setAddCharacter] = useState({
 		role: '',
 		name: '',
@@ -17,6 +17,7 @@ const RosterForm = () => {
 	const [show, setShow] = useState(true);
 	const [title, setTitle] = useState(false);
 	const [assignedRoster, setAssignedRoster] = useState(null);
+	const addRoster = useSelector((state) => state.roster);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -79,13 +80,13 @@ const RosterForm = () => {
 								/>
 							</Form.Group>
 
-							<Button variant='primary' type='submit'>
+							<Button variant='secondary' type='submit'>
 								Add Character to Roster
 							</Button>
 						</Form>
 					</div>
 					<div className='col-12'>
-						<Roster />
+						<Roster selectedRaid={selectedRaid} />
 					</div>
 				</div>
 			)}

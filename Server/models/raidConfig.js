@@ -12,7 +12,7 @@ const raidSchema = mongoose.Schema({
 		type: Date,
 		default: new Date(),
 	},
-	rosters: [Object],
+	roster: [Object],
 });
 
 const RaidConfig = mongoose.model('PostMessage', raidSchema);

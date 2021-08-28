@@ -43,7 +43,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 									Click to see the weeks roster
 								</Accordion.Header>
 								<Accordion.Body>
-									<RosterForm />
+									<RosterForm selectedRaid={selectedRaid} />
 								</Accordion.Body>
 							</Accordion.Item>
 							<Accordion.Item eventKey='1'>

@@ -12,6 +12,7 @@ const Nav = () => {
 				className='py-2 px-3'
 				onClick={() => {
 					dispatch({ type: 'SHOW_RAID_MODAL' });
+					dispatch({ type: 'CURRENT_ID', payload: null });
 				}}>
 				<img src={plus} alt='plus' className='me-3' />
 				Create new raid
