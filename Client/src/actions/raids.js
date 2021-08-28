@@ -18,3 +18,9 @@ export const createRaid = (raid) => async (dispatch) => {
 		console.log(err);
 	}
 };
+
+// export const updateRaid = (raid) => async(dispatch) => {
+// 	try{
+
+// 	}
+// }

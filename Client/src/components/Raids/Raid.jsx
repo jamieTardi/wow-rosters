@@ -21,22 +21,25 @@ const Raid = ({ raid, setSelectedRaid, setExpandCard }) => {
 						Some quick example text to build on the card title and make up the
 						bulk of the card's content.
 					</Card.Text>
-					<Button
-						variant='primary'
+				</Card.Body>
+				<div className='d-flex align-items-center justify-content-between custom-button-container'>
+					<div
+						className='custom-button-1 py-2'
+						style={{ fontSize: '0.8rem' }}
 						onClick={() => {
 							handleShowRaid(raid);
 						}}>
 						See Raid Details
-					</Button>
-					<Button
-						variant='primary'
-						className='mt-2'
+					</div>
+					<div
+						className='custom-button-2 py-2'
+						style={{ fontSize: '0.8rem' }}
 						onClick={() => {
 							handleShowRaid(raid);
 						}}>
 						Create a Roster
-					</Button>
-				</Card.Body>
+					</div>
+				</div>
 			</Card>
 		</div>
 	);
