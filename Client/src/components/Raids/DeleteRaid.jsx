@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { deleteRaid } from '../../actions/raids';
+import { useDispatch } from 'react-redux';
 
 const DeleteRaid = ({ raid, deleteWarning, setDeleteWarning }) => {
+	const dispatch = useDispatch();
 	const handleClose = () => setDeleteWarning(false);
+
+	const handleDeleteRaid = () => {
+		dispatch(deleteRaid(raid._id));
+	};
 
 	return (
 		<>
@@ -21,7 +28,9 @@ const DeleteRaid = ({ raid, deleteWarning, setDeleteWarning }) => {
 					<Button variant='secondary' onClick={handleClose}>
 						Close
 					</Button>
-					<Button variant='danger'>Delete Raid</Button>
+					<Button variant='danger' onClick={handleDeleteRaid}>
+						Delete Raid
+					</Button>
 				</Modal.Footer>
 			</Modal>
 		</>

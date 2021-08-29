@@ -15,6 +15,13 @@ export const updateRaid = (id, updatedRaid) => {
 		.catch((err) => console.log(err));
 };
 
+export const deleteRaid = (id) => {
+	axios
+		.delete(`${url}/${id}`)
+		.then((res) => console.log(res))
+		.catch((err) => console.log(err));
+};
+
 export const fetchRoster = () => axios.get(rosterUrl);
 
 export const createRoster = (newRoster) => axios.post(rosterUrl, newRoster);

@@ -27,3 +27,13 @@ export const updateRaid = (id, raid) => async (dispatch) => {
 		console.log(err);
 	}
 };
+
+export const deleteRaid = (id) => async (dispatch) => {
+	try {
+		console.log(id);
+		await api.deleteRaid(id);
+		dispatch({ type: 'DELETE_RAID', payload: id });
+	} catch (err) {
+		console.log(err);
+	}
+};

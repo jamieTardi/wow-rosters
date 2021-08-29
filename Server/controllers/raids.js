@@ -37,3 +37,15 @@ export const updateRaid = async (req, res) => {
 	);
 	res.json(updatedRaid);
 };
+
+export const deletedRaid = async (req, res) => {
+	const { id } = req.params;
+
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(404).send('No Raid with that id');
+	}
+
+	await RaidConfig.findByIdAndRemove(id);
+	console.log('deleted raid');
+	return res.json({ message: 'Raid has been deleted' });
+};
