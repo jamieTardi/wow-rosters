@@ -6,6 +6,8 @@ import RaidModal from './RaidModal';
 import NewestRaid from './NewestRaid';
 import { v4 as uuidv4 } from 'uuid';
 import { Nav } from '../index';
+import emptyImg from '../../images/empty.svg';
+import { Image } from 'react-bootstrap';
 
 const Raids = () => {
 	const [selectedRaid, setSelectedRaid] = useState(null);
@@ -20,26 +22,36 @@ const Raids = () => {
 	return (
 		<div>
 			<div className='row'>
-				{createdRaids.reverse().map((raid, i) => (
-					<>
-						{i === 0 ? (
-							<>
-								<NewestRaid
+				{createdRaids.length !== 0 ? (
+					createdRaids.reverse().map((raid, i) => (
+						<>
+							{i === 0 ? (
+								<>
+									<NewestRaid
+										raid={raid}
+										setSelectedRaid={setSelectedRaid}
+										setExpandCard={setExpandCard}
+									/>
+									<Nav />
+								</>
+							) : (
+								<Raid
 									raid={raid}
 									setSelectedRaid={setSelectedRaid}
 									setExpandCard={setExpandCard}
 								/>
-								<Nav />
-							</>
-						) : (
-							<Raid
-								raid={raid}
-								setSelectedRaid={setSelectedRaid}
-								setExpandCard={setExpandCard}
-							/>
-						)}
-					</>
-				))}
+							)}
+						</>
+					))
+				) : (
+					<div
+						style={{ height: '500px' }}
+						className='d-flex justify-content-center align-items-center flex-column'>
+						<Nav />
+						<h1>Currently there are no raids, let's create one!</h1>
+						<Image src={emptyImg} fluid style={{ height: '100%' }} />
+					</div>
+				)}
 			</div>
 
 			{selectedRaid && (

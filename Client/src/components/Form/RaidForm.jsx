@@ -73,14 +73,25 @@ const RaidForm = () => {
 								handleSubmitSucess={handleSubmitSucess}
 							/>
 						)}
-
-						<Button
-							variant='primary'
-							onClick={() => {
-								setPageNum(pageNum + 1);
-							}}>
-							Next page ➡️
-						</Button>
+						{pageNum > 1 && (
+							<Button
+								variant='primary'
+								className='me-4'
+								onClick={() => {
+									setPageNum(pageNum - 1);
+								}}>
+								⬅️ Previous page
+							</Button>
+						)}
+						{pageNum < 3 && pageNum > 0 && (
+							<Button
+								variant='primary'
+								onClick={() => {
+									setPageNum(pageNum + 1);
+								}}>
+								Next page ➡️
+							</Button>
+						)}
 					</Form>
 				</Modal.Body>
 			</Modal>

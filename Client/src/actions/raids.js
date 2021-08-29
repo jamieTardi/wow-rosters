@@ -30,9 +30,10 @@ export const updateRaid = (id, raid) => async (dispatch) => {
 
 export const deleteRaid = (id) => async (dispatch) => {
 	try {
-		console.log(id);
+		dispatch({ type: 'DELETE_IN_PROGRESS', payload: true });
 		await api.deleteRaid(id);
 		dispatch({ type: 'DELETE_RAID', payload: id });
+		dispatch({ type: 'DELETE_IS_COMPLETE', payload: false });
 	} catch (err) {
 		console.log(err);
 	}

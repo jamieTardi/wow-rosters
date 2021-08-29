@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import defaultImg from '../../images/sscImage.jpg';
+import DeleteRaid from './DeleteRaid';
 
 const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 	const dispatch = useDispatch();
+	const [deleteWarning, setDeleteWarning] = useState(false);
+
 	const handleShowRaid = (raid) => {
 		dispatch({ type: 'CURRENT_RAID', payload: raid });
 		setSelectedRaid(raid);
 		setExpandCard(true);
+	};
+	const handleDeleteRaid = () => {
+		setDeleteWarning(true);
 	};
 	return (
 		<div className='w-100 d-flex justify-content-center align-items-center'>
@@ -55,9 +61,18 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 						}}>
 						Show Raid Details
 					</div>
-					<div className='custom-button-2'>Show Raid Roster</div>
+					<div className='custom-button-2' onClick={handleDeleteRaid}>
+						Delete this Raid
+					</div>
 				</div>
 			</Card>
+			{deleteWarning && (
+				<DeleteRaid
+					raid={raid}
+					deleteWarning={deleteWarning}
+					setDeleteWarning={setDeleteWarning}
+				/>
+			)}
 		</div>
 	);
 };

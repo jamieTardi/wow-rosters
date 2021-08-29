@@ -98,6 +98,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 						setRaidForm={setRaidForm}
 						raidForm={raidForm}
 						assignedRoster={assignedRoster}
+						setAssignedRoster={setAssignedRoster}
 					/>
 				</div>
 			</div>

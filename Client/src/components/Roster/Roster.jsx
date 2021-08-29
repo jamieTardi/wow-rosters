@@ -3,7 +3,14 @@ import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRaid } from '../../actions/raids';
 
-const Roster = ({ selectedRaid, setRaidForm, raidForm, assignedRoster }) => {
+const Roster = ({
+	selectedRaid,
+	setRaidForm,
+	raidForm,
+	assignedRoster,
+	setAssignedRoster,
+}) => {
+	const [rosterAssigned, setRosterAssigned] = useState(true);
 	const dispatch = useDispatch();
 	const addRoster = useSelector((state) => state.roster);
 
@@ -11,6 +18,10 @@ const Roster = ({ selectedRaid, setRaidForm, raidForm, assignedRoster }) => {
 
 	const handleRemoveRaider = (id) => {
 		dispatch({ type: 'REMOVE_RAIDER', payload: id });
+		let filitered = assignedRoster.filter((raider) => {
+			return raider.id !== id;
+		});
+		setAssignedRoster(filitered);
 	};
 
 	const handleClearRoster = () => {
@@ -21,8 +32,15 @@ const Roster = ({ selectedRaid, setRaidForm, raidForm, assignedRoster }) => {
 		setRaidForm({ ...raidForm, roster: assignedRoster });
 	};
 
+	useEffect(() => {
+		if (assignedRoster.length !== 0) {
+			setRosterAssigned(false);
+		} else {
+			setRosterAssigned(true);
+		}
+	}, [assignedRoster]);
 	return (
-		<div>
+		<div className='mb-5'>
 			<h2>Tanks</h2>
 			<Table striped bordered hover variant='dark'>
 				<thead>
@@ -85,7 +103,13 @@ const Roster = ({ selectedRaid, setRaidForm, raidForm, assignedRoster }) => {
 										<td>{character.class}</td>
 										<td>{character.notes}</td>
 										<td>
-											<Button variant='danger'>Remove</Button>
+											<Button
+												variant='danger'
+												onClick={() => {
+													handleRemoveRaider(character.id);
+												}}>
+												Remove
+											</Button>
 										</td>
 									</>
 								)}
@@ -118,7 +142,13 @@ const Roster = ({ selectedRaid, setRaidForm, raidForm, assignedRoster }) => {
 										<td>{character.class}</td>
 										<td>{character.notes}</td>
 										<td>
-											<Button variant='danger'>Remove</Button>
+											<Button
+												variant='danger'
+												onClick={() => {
+													handleRemoveRaider(character.id);
+												}}>
+												Remove
+											</Button>
 										</td>
 									</>
 								)}
@@ -128,7 +158,11 @@ const Roster = ({ selectedRaid, setRaidForm, raidForm, assignedRoster }) => {
 				</tbody>
 			</Table>
 			<Button onClick={handleClearRoster}>Clear Roster</Button>
-			<Button className='ms-3' variant='secondary' onClick={handleUpdateRaid}>
+			<Button
+				disabled={rosterAssigned}
+				className='ms-3 '
+				variant='secondary'
+				onClick={handleUpdateRaid}>
 				Add this roster to the raid
 			</Button>
 		</div>

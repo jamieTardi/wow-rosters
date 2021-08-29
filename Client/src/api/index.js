@@ -3,6 +3,8 @@ import axios from 'axios';
 const url = 'http://localhost:5000/raids';
 const rosterUrl = 'http://localhost:5000/roster';
 
+export let deleteRes = null;
+
 export const fetchRaids = () => axios.get(url);
 
 export const createRaid = (newRaid) =>
@@ -18,7 +20,11 @@ export const updateRaid = (id, updatedRaid) => {
 export const deleteRaid = (id) => {
 	axios
 		.delete(`${url}/${id}`)
-		.then((res) => console.log(res))
+		.then((res) => {
+			const { data } = res;
+			return (deleteRes = data);
+		})
+
 		.catch((err) => console.log(err));
 };
 
