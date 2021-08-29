@@ -46,6 +46,6 @@ export const deletedRaid = async (req, res) => {
 	}
 
 	await RaidConfig.findByIdAndRemove(id);
-	console.log('deleted raid');
+
 	return res.json({ message: 'Raid has been deleted' });
 };
