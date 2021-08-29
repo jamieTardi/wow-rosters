@@ -101,4 +101,9 @@ div {
 .modal-content img {
   background-color: #333 !important;
 }
+
+.modal-footer {
+  background-color: #333 !important;
+  border-top: 1px solid #3dd115 !important;
+}
 /*# sourceMappingURL=main.css.map */

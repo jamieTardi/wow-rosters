@@ -1,9 +1,13 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import defaultImg from '../../images/sscImage.jpg';
 
 const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
+	const dispatch = useDispatch();
 	const handleShowRaid = (raid) => {
+		dispatch({ type: 'CURRENT_RAID', payload: raid });
 		setSelectedRaid(raid);
 		setExpandCard(true);
 	};
@@ -23,7 +27,9 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 						className='d-flex justify-content-center align-items-center'>
 						<Card.Img
 							variant='top'
-							src={raid.selectedFile[0]}
+							src={
+								raid.selectedFile[0] !== '' ? raid.selectedFile[0] : defaultImg
+							}
 							style={{
 								borderRadius: '5%',
 								width: '50%',

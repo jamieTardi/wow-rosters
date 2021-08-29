@@ -3,25 +3,12 @@ import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRaid } from '../../actions/raids';
 
-const Roster = ({ selectedRaid }) => {
+const Roster = ({ selectedRaid, setRaidForm, raidForm, assignedRoster }) => {
 	const dispatch = useDispatch();
 	const addRoster = useSelector((state) => state.roster);
-	const [completeRoster, setCompleteRoster] = useState(null);
-	const raids = useSelector((state) => state.raids);
+
 	const currentId = useSelector((state) => state.currentId);
-	let currentRaid = raids.filter((raid) => raid._id === currentId);
-	const [updateCurrentRaid, setUpdateCurrentRaid] = useState({
-		_id: currentRaid[0]._id,
-		title: currentRaid[0].title,
-		message: currentRaid[0].message,
-		creator: currentRaid[0].creator,
-		raiders: currentRaid[0].raiders,
-		selectedFile: currentRaid[0].selectedFile,
-		time: currentRaid[0].time,
-		date: currentRaid[0].date,
-		roster: currentRaid[0].roster,
-	});
-	console.log(currentRaid);
+
 	const handleRemoveRaider = (id) => {
 		dispatch({ type: 'REMOVE_RAIDER', payload: id });
 	};
@@ -31,18 +18,9 @@ const Roster = ({ selectedRaid }) => {
 	};
 
 	const handleUpdateRaid = () => {
-		setUpdateCurrentRaid({
-			...updateCurrentRaid,
-			roster: addRoster,
-		});
-		dispatch(updateRaid(updateCurrentRaid._id, updateCurrentRaid));
+		setRaidForm({ ...raidForm, roster: assignedRoster });
 	};
 
-	useEffect(() => {
-		dispatch({ type: 'CURRENT_ID', payload: selectedRaid._id });
-	}, []);
-	console.log(updateCurrentRaid);
-	console.log(currentId);
 	return (
 		<div>
 			<h2>Tanks</h2>
@@ -57,7 +35,7 @@ const Roster = ({ selectedRaid }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{addRoster.map((character) => (
+					{assignedRoster.map((character) => (
 						<tr>
 							<>
 								{character.role === 'Tank' && (
@@ -96,7 +74,7 @@ const Roster = ({ selectedRaid }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{addRoster.map((character) => (
+					{assignedRoster.map((character) => (
 						<tr>
 							<>
 								{character.role === 'DPS' && (
@@ -129,7 +107,7 @@ const Roster = ({ selectedRaid }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{addRoster.map((character) => (
+					{assignedRoster.map((character) => (
 						<tr>
 							<>
 								{character.role === 'Healer' && (

@@ -6,10 +6,9 @@ import Assignment from '../Assignments/Assignments';
 import RosterForm from '../Form/RosterForm';
 import { useSelector } from 'react-redux';
 import AssignRoster from '../Roster/AssignRoster';
+import CurrentRoster from '../Roster/CurrentRoster';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
-	const addRoster = useSelector((state) => state.roster);
-
 	return (
 		<div>
 			<Modal show={expandCard} size='xl' onHide={() => setExpandCard(false)}>
@@ -43,7 +42,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 									Click to see the weeks roster
 								</Accordion.Header>
 								<Accordion.Body>
-									<RosterForm selectedRaid={selectedRaid} />
+									<CurrentRoster />
 								</Accordion.Body>
 							</Accordion.Item>
 							<Accordion.Item eventKey='1'>
