@@ -23,7 +23,7 @@ const Raid = ({ raid, setSelectedRaid, setExpandCard }) => {
 	}, []);
 
 	return (
-		<div className='col-6 col-md-4 col-lg-4'>
+		<div className='col-6 col-md-4 col-lg-4 mb-5'>
 			<Card style={{ width: '90%' }}>
 				<Card.Img
 					variant='top'
