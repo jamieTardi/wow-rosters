@@ -9,7 +9,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 	const [addCharacter, setAddCharacter] = useState({
 		role: '',
 		name: '',
-		role: '',
+		class: '',
 		notes: '',
 		id: uuidv4(),
 	});
@@ -26,11 +26,12 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 		setAddCharacter({
 			role: '',
 			name: '',
-			role: '',
+			class: '',
 			notes: '',
 			id: uuidv4(),
 		});
 	};
+	console.log(addCharacter);
 
 	return (
 		<>
@@ -56,6 +57,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 							<Form.Label>Character Name</Form.Label>
 							<Form.Control
 								type='name'
+								value={addCharacter.name}
 								placeholder='Character Name'
 								onChange={(e) => {
 									setAddCharacter({ ...addCharacter, name: e.target.value });
@@ -67,6 +69,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 							<Form.Label>Class</Form.Label>
 							<Form.Control
 								type='name'
+								value={addCharacter.class}
 								placeholder='Warrior, Druid etc'
 								onChange={(e) => {
 									setAddCharacter({ ...addCharacter, class: e.target.value });
@@ -77,6 +80,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 							<Form.Label>Notes</Form.Label>
 							<Form.Control
 								type='name'
+								value={addCharacter.notes}
 								placeholder='Leaving early etc..'
 								onChange={(e) => {
 									setAddCharacter({ ...addCharacter, notes: e.target.value });

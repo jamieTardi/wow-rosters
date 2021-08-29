@@ -26,6 +26,7 @@ const Roster = ({
 
 	const handleClearRoster = () => {
 		dispatch({ type: 'CLEAR_ROSTER' });
+		setAssignedRoster([]);
 	};
 
 	const handleUpdateRaid = () => {

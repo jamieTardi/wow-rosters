@@ -4,7 +4,7 @@ const raidSchema = mongoose.Schema({
 	title: String,
 	message: String,
 	creator: String,
-	raiders: [String],
+	tactics: [Object],
 	selectedFile: [String],
 	date: String,
 	time: String,

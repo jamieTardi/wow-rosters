@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import TacticsForm from './TacticsForm';
 
 const RaidPageThree = ({ isLoading, handleSubmitSucess }) => {
 	return (
 		<div>
-			Page 3
+			<TacticsForm />
 			<Button
 				variant='primary'
 				type='submit'
