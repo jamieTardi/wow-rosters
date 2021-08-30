@@ -6,6 +6,7 @@ import { raidModal } from './raidModal';
 import { currentId } from './currentId';
 import { currentRaid } from './currentRaid';
 import { deleteLoad } from './deleteLoad';
+import { assignments } from './assignments';
 
 const rootReducer = combineReducers({
 	raids,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
 	currentId,
 	currentRaid,
 	deleteLoad,
+	assignments,
 });
 
 export default rootReducer;

@@ -18,6 +18,7 @@
     "react-file-base64": "^1.0.3",
     "react-redux": "^7.2.4",
     "react-scripts": "4.0.3",
+    "react-table": "^7.7.0",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",

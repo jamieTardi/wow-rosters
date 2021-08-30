@@ -1,39 +1,99 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Table } from 'react-bootstrap';
+import Assignments from '../Assignments/Assignments';
+import { v4 as uuidv4 } from 'uuid';
+import FileBase from 'react-file-base64';
 
 const TacticsForm = () => {
-	let numberOfRows = [];
+	const [columnSelect, setColoumnSelect] = useState(0);
+	const [selectedColumns, setSelectedColumns] = useState([]);
+	const [tactics, setTactics] = useState({
+		image: '',
+		assignedRaiders: [],
+		id: uuidv4(),
+	});
+	const [addCharacter, setAddCharacter] = useState({
+		role: '',
+		name: '',
+		target: '',
+		notes: '',
+		id: uuidv4(),
+	});
 
-	for (let i = 1; i < 20; i++) {
-		numberOfRows.push(i);
-	}
-
-	console.log(numberOfRows);
+	const handleAddCharacter = () => {
+		setTactics({
+			...tactics,
+			assignedRaiders: [...tactics.assignedRaiders, addCharacter],
+		});
+		setAddCharacter({
+			role: '',
+			name: '',
+			target: '',
+			notes: '',
+			id: uuidv4(),
+		});
+		console.log(tactics);
+	};
 
 	return (
 		<div>
 			<Form>
-				<h3>Tactics Form</h3>
-				<Form.Group className='mb-3' controlId='formBasicEmail'>
-					<Form.Label>Title</Form.Label>
-					<Form.Control type='email' placeholder='Tank assignments etc' />
+				<h3>Assignments Form(optional)</h3>
+
+				<h6>Pick an image for this assignment (optional) </h6>
+				<FileBase
+					type='file'
+					multiple={false}
+					onDone={({ base64 }) => setTactics({ ...tactics, image: base64 })}
+				/>
+				<Form.Select
+					aria-label='Default select example'
+					className='col-6 container'
+					onChange={(e) => {
+						setAddCharacter({ ...addCharacter, role: e.target.value });
+					}}>
+					<option>Select a role</option>
+					<option value='Tank'>Tank</option>
+					<option value='DPS'>DPS</option>
+					<option value='Healer'>Healer</option>
+				</Form.Select>
+				<Form.Group className='mb-3 col-12' controlId='formBasicEmail'>
+					<Form.Label>Character Name</Form.Label>
+					<Form.Control
+						type='name'
+						value={addCharacter.name}
+						placeholder='Character Name'
+						onChange={(e) => {
+							setAddCharacter({ ...addCharacter, name: e.target.value });
+						}}
+					/>
 				</Form.Group>
 
-				<Form.Group className='mb-3' controlId='formBasicPassword'>
-					<Form.Label>Create a Table</Form.Label>
-					<Form.Select aria-label='Default select example'>
-						<option>Number of Columns</option>
+				<Form.Group className='mb-3 col-12' controlId='formBasicPassword'>
+					<Form.Label>Target</Form.Label>
+					<Form.Control
+						type='name'
+						value={addCharacter.target}
+						placeholder='Skull, X etc'
+						onChange={(e) => {
+							setAddCharacter({ ...addCharacter, target: e.target.value });
+						}}
+					/>
+				</Form.Group>
+				<Form.Group className='mb-3 col-12' controlId='formBasicPassword'>
+					<Form.Label>Assignment Details</Form.Label>
+					<Form.Control
+						as='textarea'
+						value={addCharacter.notes}
+						placeholder='Leaving early etc..'
+						onChange={(e) => {
+							setAddCharacter({ ...addCharacter, notes: e.target.value });
+						}}
+					/>
+				</Form.Group>
 
-						{numberOfRows.map((num) => (
-							<option value={num}>{num}</option>
-						))}
-					</Form.Select>
-				</Form.Group>
-				<Form.Group className='mb-3' controlId='formBasicCheckbox'>
-					<Form.Check type='checkbox' label='Check me out' />
-				</Form.Group>
-				<Button variant='primary' type='submit'>
-					Submit
+				<Button variant='secondary' type='button' onClick={handleAddCharacter}>
+					Add Character to Assignment
 				</Button>
 			</Form>
 		</div>
