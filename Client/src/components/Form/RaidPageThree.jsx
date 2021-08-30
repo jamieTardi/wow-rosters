@@ -3,7 +3,12 @@ import { Button } from 'react-bootstrap';
 import TacticsForm from './TacticsForm';
 import plus from '../../images/plus.svg';
 
-const RaidPageThree = ({ isLoading, handleSubmitSucess }) => {
+const RaidPageThree = ({
+	isLoading,
+	handleSubmitSucess,
+	raidForm,
+	setRaidForm,
+}) => {
 	const [numberOfTactics, setNumberOfTactics] = useState(0);
 	const [tactics, setTactics] = useState([]);
 
@@ -23,7 +28,7 @@ const RaidPageThree = ({ isLoading, handleSubmitSucess }) => {
 				</Button>
 				{tacticsArr.map(() => (
 					<>
-						<TacticsForm />
+						<TacticsForm raidForm={raidForm} setRaidForm={setRaidForm} />
 					</>
 				))}
 			</>
@@ -37,6 +42,7 @@ const RaidPageThree = ({ isLoading, handleSubmitSucess }) => {
 				variant='primary'
 				type='submit'
 				disabled={isLoading}
+				className='mt-3'
 				onClick={!isLoading ? handleSubmitSucess : null}>
 				Create Raid
 			</Button>

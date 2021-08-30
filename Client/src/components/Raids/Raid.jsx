@@ -32,10 +32,7 @@ const Raid = ({ raid, setSelectedRaid, setExpandCard }) => {
 				/>
 				<Card.Body>
 					<Card.Title>{raid.title}</Card.Title>
-					<Card.Text>
-						Some quick example text to build on the card title and make up the
-						bulk of the card's content.
-					</Card.Text>
+					<Card.Text>{raid.message}</Card.Text>
 				</Card.Body>
 				<div className='d-flex align-items-center justify-content-between custom-button-container'>
 					<div

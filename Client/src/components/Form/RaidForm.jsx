@@ -18,7 +18,7 @@ const RaidForm = () => {
 		title: '',
 		message: '',
 		creator: '',
-		raiders: [],
+		tactics: [],
 		selectedFile: [],
 		time: '',
 		date: '',
@@ -36,7 +36,7 @@ const RaidForm = () => {
 			title: '',
 			message: '',
 			creator: '',
-			raiders: [],
+			tactics: [],
 			selectedFile: [],
 			time: '',
 			date: '',
@@ -54,7 +54,7 @@ const RaidForm = () => {
 
 	return (
 		<>
-			<Modal show={showRaid} onHide={handleClose}>
+			<Modal show={showRaid} onHide={handleClose} size='xl'>
 				<Modal.Header closeButton>
 					<Modal.Title>Create a new raid</Modal.Title>
 				</Modal.Header>
@@ -71,6 +71,8 @@ const RaidForm = () => {
 							<RaidPageThree
 								isLoading={isLoading}
 								handleSubmitSucess={handleSubmitSucess}
+								raidForm={raidForm}
+								setRaidForm={setRaidForm}
 							/>
 						)}
 						{pageNum > 1 && (

@@ -7,6 +7,7 @@ import RosterForm from '../Form/RosterForm';
 import { useSelector } from 'react-redux';
 import AssignRoster from '../Roster/AssignRoster';
 import CurrentRoster from '../Roster/CurrentRoster';
+import CurrentAssignments from './CurrentAssignments';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	return (
@@ -48,7 +49,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 							<Accordion.Item eventKey='1'>
 								<Accordion.Header>Raid Assignments</Accordion.Header>
 								<Accordion.Body>
-									<Assignment />
+									<CurrentAssignments selectedRaid={selectedRaid} />
 								</Accordion.Body>
 							</Accordion.Item>
 						</Accordion>

@@ -3,10 +3,12 @@ import { Form, Button, Table } from 'react-bootstrap';
 import Assignments from '../Assignments/Assignments';
 import { v4 as uuidv4 } from 'uuid';
 import FileBase from 'react-file-base64';
+import { useDispatch } from 'react-redux';
 
-const TacticsForm = () => {
+const TacticsForm = ({ raidForm, setRaidForm }) => {
 	const [columnSelect, setColoumnSelect] = useState(0);
 	const [selectedColumns, setSelectedColumns] = useState([]);
+	const dispatch = useDispatch();
 	const [tactics, setTactics] = useState({
 		image: '',
 		assignedRaiders: [],
@@ -32,7 +34,11 @@ const TacticsForm = () => {
 			notes: '',
 			id: uuidv4(),
 		});
-		console.log(tactics);
+	};
+
+	const handleSubmit = () => {
+		dispatch({ type: 'ADD_ASSIGNMENT', payload: tactics });
+		setRaidForm({ ...raidForm, tactics });
 	};
 
 	return (
@@ -94,6 +100,10 @@ const TacticsForm = () => {
 
 				<Button variant='secondary' type='button' onClick={handleAddCharacter}>
 					Add Character to Assignment
+				</Button>
+				<Assignments tactics={tactics} />
+				<Button variant='primary' type='button' onClick={handleSubmit}>
+					Submit Table
 				</Button>
 			</Form>
 		</div>
