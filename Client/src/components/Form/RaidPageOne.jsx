@@ -1,65 +1,118 @@
 import React, { useState } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
 import FileBase from 'react-file-base64';
-import DatePicker from 'react-datepicker';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+	appBar: {
+		position: 'relative',
+	},
+	layout: {
+		width: 'auto',
+		marginLeft: theme.spacing(2),
+		marginRight: theme.spacing(2),
+		[theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+			width: 600,
+			marginLeft: 'auto',
+			marginRight: 'auto',
+		},
+	},
+	paper: {
+		marginTop: theme.spacing(3),
+		marginBottom: theme.spacing(3),
+		padding: theme.spacing(2),
+		[theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+			marginTop: theme.spacing(6),
+			marginBottom: theme.spacing(6),
+			padding: theme.spacing(3),
+		},
+	},
+	stepper: {
+		padding: theme.spacing(3, 0, 5),
+	},
+	buttons: {
+		display: 'flex',
+		justifyContent: 'flex-end',
+	},
+	button: {
+		marginTop: theme.spacing(3),
+		marginLeft: theme.spacing(1),
+	},
+}));
 
 const RaidPageOne = ({ raidForm, setRaidForm }) => {
-	const [startDate, setStartDate] = useState(new Date());
+	const classes = useStyles();
 	return (
 		<div>
-			<Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-				<Form.Label>Name of Raid</Form.Label>
-				<Form.Control
-					type='name'
-					placeholder='Gruul etc'
-					onChange={(e) => {
-						setRaidForm({ ...raidForm, title: e.target.value });
-					}}
-				/>
-			</Form.Group>
-			<Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-				<Form.Label>Date of raid commencing</Form.Label>
-				<DatePicker
-					selected={startDate}
-					onChange={(date) =>
-						setRaidForm({ ...raidForm, date: date.toString() })
-					}
-				/>
-			</Form.Group>
-			<Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-				<Form.Label>Time of raid commencing</Form.Label>
-				<Form.Control
-					type='name'
-					placeholder='20:30 ST etc'
-					onChange={(e) => {
-						setRaidForm({ ...raidForm, time: e.target.value });
-					}}
-				/>
-			</Form.Group>
-			<Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-				<Form.Label>Author</Form.Label>
-				<Form.Control
-					type='name'
-					placeholder='Jeco etc'
-					onChange={(e) => {
-						setRaidForm({ ...raidForm, creator: e.target.value });
-					}}
-				/>
-			</Form.Group>
-			<Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
-				<Form.Label>Additional information</Form.Label>
-				<Form.Control
-					as='textarea'
-					rows={5}
-					placeholder='Enter any raid specfic info here'
-					onChange={(e) => {
-						setRaidForm({ ...raidForm, message: e.target.value });
-					}}
-				/>
-			</Form.Group>
+			<Typography variant='h4' gutterBottom>
+				Main raid details
+			</Typography>
+			<Grid container spacing={3}>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						id='standard-basic'
+						fullWidth
+						label='Name Of the Raid'
+						onChange={(e) => {
+							setRaidForm({ ...raidForm, title: e.target.value });
+						}}
+					/>
+				</Grid>
 
-			<Form.Group controlId='formFile' className='mb-3'>
-				<Form.Label>Please select some images to upload</Form.Label>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						id='standard-basic'
+						fullWidth
+						label='Start Time'
+						onChange={(e) => {
+							setRaidForm({ ...raidForm, time: e.target.value });
+						}}
+					/>
+				</Grid>
+
+				<Grid item xs={12} sm={6}>
+					<TextField
+						id='standard-basic'
+						label='Author'
+						fullWidth
+						onChange={(e) => {
+							setRaidForm({ ...raidForm, creator: e.target.value });
+						}}
+					/>
+				</Grid>
+
+				<Grid item xs={12} sm={6}>
+					<TextField
+						id='standard-basic'
+						label='Date'
+						fullWidth
+						onChange={(e) => {
+							setRaidForm({ ...raidForm, date: e.target.value });
+						}}
+					/>
+				</Grid>
+
+				<Grid item xs={12} sm={6}>
+					<TextField
+						id='standard-multiline-static'
+						label='Additional Information'
+						multiline
+						fullWidth
+						rows={8}
+						defaultValue='Enter any raid specfic information here.'
+						onChange={(e) => {
+							setRaidForm({ ...raidForm, message: e.target.value });
+						}}
+					/>
+				</Grid>
+			</Grid>
+
+			<Typography variant='h6' gutterBottom className='mt-4'>
+				Please add a Raid image to upload
+			</Typography>
+			<Grid item xs={12} sm={6}>
 				<FileBase
 					type='file'
 					multiple={false}
@@ -67,7 +120,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 						setRaidForm({ ...raidForm, selectedFile: base64 })
 					}
 				/>
-			</Form.Group>
+			</Grid>
 		</div>
 	);
 };
