@@ -99,7 +99,15 @@ div {
 	border-top: 1px solid #3dd115 !important;
 }
 
-.MuiStepLabel-label.MuiStepLabel-active,
-.MuiStepLabel-label {
+.MuiInput-root:before {
+	border-bottom: #fff 1px solid !important;
+}
+
+.MuiStepLabel-label.MuiStepLabel-active {
 	color: #fff !important;
+}
+
+.MuiStepIcon-root.MuiStepIcon-completed,
+.MuiStepLabel-completed {
+	color: #3dd115 !important;
 }

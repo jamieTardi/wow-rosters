@@ -3,91 +3,7 @@ import FileBase from 'react-file-base64';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-
-import { makeStyles } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-	appBar: {
-		position: 'relative',
-	},
-	root: {
-		'& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-			borderColor: 'green',
-		},
-		'&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-			borderColor: 'red',
-		},
-		'& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-			borderColor: 'purple',
-		},
-		'& .MuiOutlinedInput-input': {
-			color: 'green',
-		},
-		'& .MuiInputBase-input MuiInput-input': {
-			color: '#3dd115',
-		},
-		'&:hover .MuiOutlinedInput-input': {
-			color: 'red',
-		},
-		'& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input': {
-			color: 'purple',
-		},
-		'& .MuiInputLabel-outlined': {
-			color: 'green',
-		},
-		'&:hover .MuiInputLabel-outlined': {
-			color: 'red',
-		},
-		'& .MuiInputLabel-outlined.Mui-focused': {
-			color: 'purple',
-		},
-	},
-
-	layout: {
-		width: 'auto',
-		marginLeft: theme.spacing(2),
-		marginRight: theme.spacing(2),
-		[theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-			width: 600,
-			marginLeft: 'auto',
-			marginRight: 'auto',
-		},
-	},
-	paper: {
-		marginTop: theme.spacing(3),
-		marginBottom: theme.spacing(3),
-		padding: theme.spacing(2),
-		[theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-			marginTop: theme.spacing(6),
-			marginBottom: theme.spacing(6),
-			padding: theme.spacing(3),
-		},
-	},
-	stepper: {
-		padding: theme.spacing(3, 0, 5),
-	},
-	buttons: {
-		display: 'flex',
-		justifyContent: 'flex-end',
-	},
-	button: {
-		marginTop: theme.spacing(3),
-		marginLeft: theme.spacing(1),
-	},
-	input: {
-		color: '#3dd115',
-
-		'& label.Mui-focused': {
-			color: 'white',
-		},
-		'& .MuiInput-underline:after': {
-			borderBottomColor: '#3dd115',
-		},
-		'& .MuiInput-underline:before': {
-			borderBottomColor: '#fff',
-		},
-	},
-}));
+import { useStyles } from './styles';
 
 const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	const [uploadedImg, setUploadedImg] = useState('');
@@ -95,7 +11,6 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	const handleImgUpload = (base64) => {
 		setUploadedImg(base64);
 		setRaidForm({ ...raidForm, selectedFile: base64 });
-		console.log(uploadedImg);
 	};
 	return (
 		<div>
@@ -174,7 +89,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 						multiline
 						fullWidth
 						rows={8}
-						defaultValue='Enter any raid specfic information here.'
+						defaultValue='Enter any raid specific information here.'
 						onChange={(e) => {
 							setRaidForm({ ...raidForm, message: e.target.value });
 						}}

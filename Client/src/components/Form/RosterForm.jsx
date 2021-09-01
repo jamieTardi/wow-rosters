@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { createRoster } from '../../api';
 import Roster from '../Roster/Roster';
@@ -7,6 +6,11 @@ import { v4 as uuidv4 } from 'uuid';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import { InputLabel, Button } from '@material-ui/core';
+import { useStyles } from './styles';
 
 const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 	const [addCharacter, setAddCharacter] = useState({
@@ -34,80 +38,92 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 			id: uuidv4(),
 		});
 	};
-	console.log(addCharacter);
-
+	const classes = useStyles();
 	return (
 		<>
-			<div className='row'>
-				<div className='col-12 w-100'>
-					<Form
-						className='row'
-						onSubmit={(e) => {
-							handleAddCharacter(e);
-						}}>
-						<Form.Select
-							aria-label='Default select example'
-							className='col-6 container'
+			<FormControl
+				className='w-100'
+				onSubmit={(e) => {
+					handleAddCharacter(e);
+				}}>
+				<InputLabel id='demo-simple-select-label' className={classes.select}>
+					Select a role
+				</InputLabel>
+				<Select
+					onChange={(e) => {
+						setAddCharacter({ ...addCharacter, role: e.target.value });
+					}}>
+					<MenuItem value='Tank'>Tank</MenuItem>
+					<MenuItem value='DPS'>DPS</MenuItem>
+					<MenuItem value='Healer'>Healer</MenuItem>
+				</Select>
+
+				<div className='d-flex justify-content-between mt-3'>
+					<Grid item xs={5}>
+						<TextField
+							type='name'
+							fullWidth
+							value={addCharacter.name}
+							className={classes.input}
+							InputLabelProps={{
+								style: { color: '#fff ' },
+							}}
+							label='Character Name'
 							onChange={(e) => {
-								setAddCharacter({ ...addCharacter, role: e.target.value });
-							}}>
-							<option>Select a role</option>
-							<option value='Tank'>Tank</option>
-							<option value='DPS'>DPS</option>
-							<option value='Healer'>Healer</option>
-						</Form.Select>
-						<Form.Group className='mb-3 col-6' controlId='formBasicEmail'>
-							<Form.Label>Character Name</Form.Label>
-							<Form.Control
-								type='name'
-								value={addCharacter.name}
-								placeholder='Character Name'
-								onChange={(e) => {
-									setAddCharacter({ ...addCharacter, name: e.target.value });
-								}}
-							/>
-						</Form.Group>
+								setAddCharacter({ ...addCharacter, name: e.target.value });
+							}}
+						/>
+					</Grid>
 
-						<Form.Group className='mb-3 col-6' controlId='formBasicPassword'>
-							<Form.Label>Class</Form.Label>
-							<Form.Control
-								type='name'
-								value={addCharacter.class}
-								placeholder='Warrior, Druid etc'
-								onChange={(e) => {
-									setAddCharacter({ ...addCharacter, class: e.target.value });
-								}}
-							/>
-						</Form.Group>
-						<Form.Group className='mb-3 col-6' controlId='formBasicPassword'>
-							<Form.Label>Notes</Form.Label>
-							<Form.Control
-								type='name'
-								value={addCharacter.notes}
-								placeholder='Leaving early etc..'
-								onChange={(e) => {
-									setAddCharacter({ ...addCharacter, notes: e.target.value });
-								}}
-							/>
-						</Form.Group>
-
-						<Button
-							variant='secondary'
-							type='button'
-							onClick={handleAddCharacter}>
-							Add Character to Roster
-						</Button>
-					</Form>
+					<Grid item xs={5}>
+						<TextField
+							type='name'
+							fullWidth
+							value={addCharacter.class}
+							className={classes.input}
+							InputLabelProps={{
+								style: { color: '#fff ' },
+							}}
+							label='Class'
+							onChange={(e) => {
+								setAddCharacter({ ...addCharacter, class: e.target.value });
+							}}
+						/>
+					</Grid>
 				</div>
-				<div className='col-12'>
-					<Roster
-						selectedRaid={selectedRaid}
-						setRaidForm={setRaidForm}
-						raidForm={raidForm}
-						assignedRoster={assignedRoster}
-						setAssignedRoster={setAssignedRoster}
+				<Grid item>
+					<TextField
+						fullWidth
+						type='name'
+						value={addCharacter.notes}
+						className={classes.input}
+						InputLabelProps={{
+							style: { color: '#fff ' },
+						}}
+						label='Notes'
+						onChange={(e) => {
+							setAddCharacter({ ...addCharacter, notes: e.target.value });
+						}}
 					/>
-				</div>
+				</Grid>
+
+				<Button
+					variant='contained'
+					color='default'
+					type='button'
+					onClick={handleAddCharacter}>
+					Add Character to Roster
+				</Button>
+			</FormControl>
+
+			<div>
+				<Roster
+					selectedRaid={selectedRaid}
+					setRaidForm={setRaidForm}
+					raidForm={raidForm}
+					assignedRoster={assignedRoster}
+					setAssignedRoster={setAssignedRoster}
+				/>
 			</div>
 		</>
 	);
