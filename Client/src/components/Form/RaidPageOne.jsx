@@ -3,6 +3,7 @@ import FileBase from 'react-file-base64';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -162,7 +163,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 					/>
 				</Grid>
 
-				<Grid item xs={12} sm={6}>
+				<Grid item xs={12}>
 					<TextField
 						id='standard-multiline-static'
 						label='Additional Information'
@@ -180,12 +181,14 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 					/>
 				</Grid>
 			</Grid>
-			<img src={uploadedImg} alt='raid image' />
+			<Grid item xs={12}>
+				<Typography variant='h6' gutterBottom className='mt-4'>
+					Please add a Raid image to upload
+				</Typography>
+				<img src={uploadedImg} alt='raid image' style={{ width: '100%' }} />
+			</Grid>
 
-			<Typography variant='h6' gutterBottom className='mt-4'>
-				Please add a Raid image to upload
-			</Typography>
-			<Grid item xs={12} sm={6}>
+			<Grid item xs={12}>
 				<FileBase
 					type='file'
 					multiple={false}

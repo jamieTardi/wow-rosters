@@ -8,6 +8,8 @@ import RaidPageOne from './RaidPageOne';
 import RaidPageTwo from './RaidPageTwo';
 import RaidPageThree from './RaidPageThree';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Container from '@material-ui/core/Container';
+
 import { makeStyles } from '@material-ui/core/styles';
 import {
 	Stepper,
@@ -126,8 +128,8 @@ const RaidForm = () => {
 	}
 
 	return (
-		<>
-			<Modal show={showRaid} onHide={handleClose} size='lg'>
+		<Container maxWidth='sm'>
+			<Modal show={showRaid} onHide={handleClose} size='md'>
 				<Modal.Header closeButton>
 					<Modal.Title>Create a new raid</Modal.Title>
 				</Modal.Header>
@@ -188,7 +190,7 @@ const RaidForm = () => {
 					</form>
 				</Modal.Body>
 			</Modal>
-		</>
+		</Container>
 	);
 };
 
