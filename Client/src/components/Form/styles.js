@@ -72,7 +72,7 @@ export const useStyles = makeStyles((theme) => ({
 		color: '#fff',
 		borderBottomColor: '#fff',
 		border: '#fff',
-		'& .MuiInput-root:before': {
+		'& .MuiFormLabel-root': {
 			borderBottomColor: '#fff',
 			color: '#fff',
 		},

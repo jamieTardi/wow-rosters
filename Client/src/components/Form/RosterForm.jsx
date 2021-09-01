@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { InputLabel, Button } from '@material-ui/core';
 import { useStyles } from './styles';
+import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 
 const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 	const [addCharacter, setAddCharacter] = useState({
@@ -53,12 +54,18 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 					onChange={(e) => {
 						setAddCharacter({ ...addCharacter, role: e.target.value });
 					}}>
-					<MenuItem value='Tank'>Tank</MenuItem>
-					<MenuItem value='DPS'>DPS</MenuItem>
-					<MenuItem value='Healer'>Healer</MenuItem>
+					<MenuItem value='Tank' className='text-black'>
+						Tank
+					</MenuItem>
+					<MenuItem value='DPS' className='text-black'>
+						DPS
+					</MenuItem>
+					<MenuItem value='Healer' className='text-black'>
+						Healer
+					</MenuItem>
 				</Select>
 
-				<div className='d-flex justify-content-between mt-3'>
+				<div className='d-flex justify-content-between my-3'>
 					<Grid item xs={5}>
 						<TextField
 							type='name'
@@ -97,6 +104,8 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 						type='name'
 						value={addCharacter.notes}
 						className={classes.input}
+						multiline
+						rows={8}
 						InputLabelProps={{
 							style: { color: '#fff ' },
 						}}
@@ -109,8 +118,10 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 
 				<Button
 					variant='contained'
+					className='my-4'
 					color='default'
 					type='button'
+					startIcon={<AddToPhotosIcon />}
 					onClick={handleAddCharacter}>
 					Add Character to Roster
 				</Button>

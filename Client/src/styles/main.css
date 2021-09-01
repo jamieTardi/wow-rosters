@@ -119,4 +119,12 @@ div {
 .MuiStepLabel-completed {
   color: #3dd115 !important;
 }
+
+.Mui-focused {
+  color: #fff !important;
+}
+
+.MuiSelect-icon {
+  color: #fff !important;
+}
 /*# sourceMappingURL=main.css.map */
