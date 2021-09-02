@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRaid } from '../../actions/raids';
+import SaveIcon from '@material-ui/icons/Save';
+import { Button } from '@material-ui/core';
+import { useStyles } from '../Form/styles';
 
 const Roster = ({
 	selectedRaid,
@@ -15,6 +18,7 @@ const Roster = ({
 	const addRoster = useSelector((state) => state.roster);
 
 	const currentId = useSelector((state) => state.currentId);
+	const classes = useStyles();
 
 	const handleRemoveRaider = (id) => {
 		dispatch({ type: 'REMOVE_RAIDER', payload: id });
@@ -30,7 +34,11 @@ const Roster = ({
 	};
 
 	const handleUpdateRaid = () => {
+		setRosterAssigned(true);
 		setRaidForm({ ...raidForm, roster: assignedRoster });
+		setTimeout(() => {
+			setRosterAssigned(false);
+		}, 1300);
 	};
 
 	useEffect(() => {
@@ -159,12 +167,16 @@ const Roster = ({
 				</tbody>
 			</Table>
 			<Button onClick={handleClearRoster}>Clear Roster</Button>
+
 			<Button
+				variant='contained'
 				disabled={rosterAssigned}
-				className='ms-3 '
-				variant='secondary'
-				onClick={handleUpdateRaid}>
-				Add this roster to the raid
+				color='primary'
+				size='small'
+				className={classes.button}
+				onClick={handleUpdateRaid}
+				startIcon={<SaveIcon />}>
+				{!rosterAssigned ? 'Add this roster to the raid' : 'Adding...'}
 			</Button>
 		</div>
 	);

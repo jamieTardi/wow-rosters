@@ -26,20 +26,24 @@ const Raids = () => {
 					createdRaids.reverse().map((raid, i) => (
 						<>
 							{i === 0 ? (
-								<>
+								<div className='col-12 mt-5'>
+									<div className='d-flex justify-content-center align-items-center'>
+										<NewestRaid
+											raid={raid}
+											setSelectedRaid={setSelectedRaid}
+											setExpandCard={setExpandCard}
+										/>
+									</div>
+									<Nav />
+								</div>
+							) : (
+								<div className='col-12 col-md-4 col-lg-4 d-flex justify-content-center align-items-center'>
 									<NewestRaid
 										raid={raid}
 										setSelectedRaid={setSelectedRaid}
 										setExpandCard={setExpandCard}
 									/>
-									<Nav />
-								</>
-							) : (
-								<Raid
-									raid={raid}
-									setSelectedRaid={setSelectedRaid}
-									setExpandCard={setExpandCard}
-								/>
+								</div>
 							)}
 						</>
 					))

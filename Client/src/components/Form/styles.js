@@ -47,6 +47,13 @@ export const useStyles = makeStyles((theme) => ({
 			marginRight: 'auto',
 		},
 	},
+	cardText: {
+		color: 'rgba(255, 255, 255, 0.7)',
+	},
+	media: {
+		height: '200px',
+		width: '100%',
+	},
 	paper: {
 		marginTop: theme.spacing(3),
 		marginBottom: theme.spacing(3),
@@ -56,6 +63,10 @@ export const useStyles = makeStyles((theme) => ({
 			marginBottom: theme.spacing(6),
 			padding: theme.spacing(3),
 		},
+	},
+	card: {
+		background: '#424242',
+		maxWidth: '345px',
 	},
 	stepper: {
 		padding: theme.spacing(3, 0, 5),

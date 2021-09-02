@@ -127,4 +127,17 @@ div {
 .MuiSelect-icon {
   color: #fff !important;
 }
+
+.clock-icon-span .MuiSvgIcon-root {
+  height: 0.7em;
+}
+
+.MuiButton-textPrimary {
+  color: #3dd115 !important;
+}
+
+.makeStyles-cardText-4,
+.grey-text-card {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
 /*# sourceMappingURL=main.css.map */
