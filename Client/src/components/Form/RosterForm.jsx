@@ -25,11 +25,14 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 	const [show, setShow] = useState(true);
 	const [title, setTitle] = useState(false);
 	const [assignedRoster, setAssignedRoster] = useState([]);
+	const [showText, setShowText] = useState('');
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
 	const handleAddCharacter = () => {
+		setShowText('Character Added to Roster 👍');
+		handleShowAddInfo();
 		setAssignedRoster([...assignedRoster, addCharacter]);
 		setAddCharacter({
 			role: '',
@@ -39,6 +42,13 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 			id: uuidv4(),
 		});
 	};
+
+	const handleShowAddInfo = () => {
+		setTimeout(() => {
+			setShowText('');
+		}, 2000);
+	};
+
 	const classes = useStyles();
 	return (
 		<>
@@ -125,6 +135,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 					onClick={handleAddCharacter}>
 					Add Character to Roster
 				</Button>
+				<Typography>{showText}</Typography>
 			</FormControl>
 
 			<div>

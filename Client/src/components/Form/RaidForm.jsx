@@ -17,6 +17,7 @@ import {
 	StepLabel,
 	Button,
 	Typography,
+	CircularProgress,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -84,7 +85,7 @@ const RaidForm = () => {
 	const steps = ['Initial Raid Set up', 'Roster Set up', 'Assignments'];
 
 	const handleSubmit = () => {
-		console.log('form submitted');
+		setIsLoading(true);
 
 		dispatch(createRaid(raidForm));
 		setRaidForm({
@@ -97,6 +98,9 @@ const RaidForm = () => {
 			date: '',
 			roster: [],
 		});
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2200);
 	};
 
 	function simulateNetworkRequest() {
@@ -168,8 +172,15 @@ const RaidForm = () => {
 										<Button
 											variant='contained'
 											color='primary'
-											startIcon={<CloudUploadIcon />}
+											startIcon={
+												!isLoading ? (
+													<CloudUploadIcon />
+												) : (
+													<CircularProgress size='1rem' />
+												)
+											}
 											className={classes.button}
+											disabled={isLoading}
 											onClick={handleSubmit}>
 											Create Raid
 										</Button>

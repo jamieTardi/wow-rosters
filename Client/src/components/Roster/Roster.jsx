@@ -16,7 +16,7 @@ const Roster = ({
 	const [rosterAssigned, setRosterAssigned] = useState(true);
 	const dispatch = useDispatch();
 	const addRoster = useSelector((state) => state.roster);
-
+	const [isLoading, setIsLoading] = useState(false);
 	const currentId = useSelector((state) => state.currentId);
 	const classes = useStyles();
 
@@ -34,10 +34,10 @@ const Roster = ({
 	};
 
 	const handleUpdateRaid = () => {
-		setRosterAssigned(true);
+		setIsLoading(true);
 		setRaidForm({ ...raidForm, roster: assignedRoster });
 		setTimeout(() => {
-			setRosterAssigned(false);
+			setIsLoading(false);
 		}, 1300);
 	};
 
@@ -74,7 +74,8 @@ const Roster = ({
 										<td>{character.notes}</td>
 										<td>
 											<Button
-												variant='danger'
+												variant='contained'
+												color='secondary'
 												onClick={() => {
 													handleRemoveRaider(character.id);
 												}}>
@@ -113,7 +114,8 @@ const Roster = ({
 										<td>{character.notes}</td>
 										<td>
 											<Button
-												variant='danger'
+												variant='contained'
+												color='secondary'
 												onClick={() => {
 													handleRemoveRaider(character.id);
 												}}>
@@ -152,7 +154,8 @@ const Roster = ({
 										<td>{character.notes}</td>
 										<td>
 											<Button
-												variant='danger'
+												variant='contained'
+												color='secondary'
 												onClick={() => {
 													handleRemoveRaider(character.id);
 												}}>
@@ -166,18 +169,36 @@ const Roster = ({
 					))}
 				</tbody>
 			</Table>
-			<Button onClick={handleClearRoster}>Clear Roster</Button>
+			<div className='d-flex justify-content-center align-items-center'>
+				<Button
+					variant='contained'
+					color='secondary'
+					size='small'
+					onClick={handleClearRoster}>
+					Clear Roster
+				</Button>
 
-			<Button
-				variant='contained'
-				disabled={rosterAssigned}
-				color='primary'
-				size='small'
-				className={classes.button}
-				onClick={handleUpdateRaid}
-				startIcon={<SaveIcon />}>
-				{!rosterAssigned ? 'Add this roster to the raid' : 'Adding...'}
-			</Button>
+				{!isLoading ? (
+					<Button
+						variant='contained'
+						color='primary'
+						size='small'
+						className={classes.button}
+						onClick={handleUpdateRaid}
+						startIcon={<SaveIcon />}>
+						Add this roster to the raid
+					</Button>
+				) : (
+					<Button
+						variant='contained'
+						color='primary'
+						size='small'
+						className={classes.button}
+						disabled>
+						Adding Roster...
+					</Button>
+				)}
+			</div>
 		</div>
 	);
 };

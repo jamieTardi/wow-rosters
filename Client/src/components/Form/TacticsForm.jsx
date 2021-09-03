@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Table } from 'react-bootstrap';
+
 import Assignments from '../Assignments/Assignments';
 import { v4 as uuidv4 } from 'uuid';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
+import { useStyles } from './styles';
+import {
+	Typography,
+	Grid,
+	InputLabel,
+	Select,
+	MenuItem,
+	TextField,
+	Button,
+} from '@material-ui/core';
+import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 
 const TacticsForm = ({ raidForm, setRaidForm }) => {
+	const classes = useStyles();
 	const [columnSelect, setColoumnSelect] = useState(0);
 	const [selectedColumns, setSelectedColumns] = useState([]);
+
 	const dispatch = useDispatch();
 	const [tactics, setTactics] = useState({
 		image: '',
@@ -42,70 +55,130 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 	};
 
 	return (
-		<div>
-			<Form>
-				<h3>Assignments Form(optional)</h3>
+		<div className='w-100'>
+			<form className='w-100'>
+				<Grid container spacing={3}>
+					<Grid item xs={12}>
+						<Typography variant='h4' gutterBottom>
+							Assignments for the Raid (optional)
+						</Typography>
 
-				<h6>Pick an image for this assignment (optional) </h6>
-				<FileBase
-					type='file'
-					multiple={false}
-					onDone={({ base64 }) => setTactics({ ...tactics, image: base64 })}
-				/>
-				<Form.Select
-					aria-label='Default select example'
-					className='col-6 container'
-					onChange={(e) => {
-						setAddCharacter({ ...addCharacter, role: e.target.value });
-					}}>
-					<option>Select a role</option>
-					<option value='Tank'>Tank</option>
-					<option value='DPS'>DPS</option>
-					<option value='Healer'>Healer</option>
-				</Form.Select>
-				<Form.Group className='mb-3 col-12' controlId='formBasicEmail'>
-					<Form.Label>Character Name</Form.Label>
-					<Form.Control
-						type='name'
-						value={addCharacter.name}
-						placeholder='Character Name'
-						onChange={(e) => {
-							setAddCharacter({ ...addCharacter, name: e.target.value });
-						}}
-					/>
-				</Form.Group>
+						<Typography variant='h6' gutterBottom>
+							Pick an image for this assignment (optional){' '}
+						</Typography>
+						<div>
+							<img
+								style={{ width: '100%' }}
+								src={tactics.image}
+								alt='raid pic'
+							/>
+						</div>
+					</Grid>
+					<div className='w-100 px-3'>
+						<Grid item xs={12}>
+							<FileBase
+								type='file'
+								multiple={false}
+								onDone={({ base64 }) =>
+									setTactics({ ...tactics, image: base64 })
+								}
+							/>
+						</Grid>
+						<div className=' my-3 '>
+							<Grid item xs={12}>
+								<InputLabel
+									id='demo-simple-select-label'
+									className={classes.select}>
+									Select a role
+								</InputLabel>
+								<Select
+									style={{ width: '100%' }}
+									onChange={(e) => {
+										setAddCharacter({ ...addCharacter, role: e.target.value });
+									}}>
+									<MenuItem value='Tank' className='text-black'>
+										Tank
+									</MenuItem>
+									<MenuItem value='DPS' className='text-black'>
+										DPS
+									</MenuItem>
+									<MenuItem value='Healer' className='text-black'>
+										Healer
+									</MenuItem>
+								</Select>
+							</Grid>
+						</div>
+					</div>
 
-				<Form.Group className='mb-3 col-12' controlId='formBasicPassword'>
-					<Form.Label>Target</Form.Label>
-					<Form.Control
-						type='name'
-						value={addCharacter.target}
-						placeholder='Skull, X etc'
-						onChange={(e) => {
-							setAddCharacter({ ...addCharacter, target: e.target.value });
-						}}
-					/>
-				</Form.Group>
-				<Form.Group className='mb-3 col-12' controlId='formBasicPassword'>
-					<Form.Label>Assignment Details</Form.Label>
-					<Form.Control
-						as='textarea'
-						value={addCharacter.notes}
-						placeholder='Leaving early etc..'
-						onChange={(e) => {
-							setAddCharacter({ ...addCharacter, notes: e.target.value });
-						}}
-					/>
-				</Form.Group>
+					<Grid item xs={12} sm={6}>
+						<TextField
+							type='name'
+							fullWidth
+							value={addCharacter.name}
+							className={classes.input}
+							InputLabelProps={{
+								style: { color: '#fff ' },
+							}}
+							label='Character Name'
+							onChange={(e) => {
+								setAddCharacter({ ...addCharacter, name: e.target.value });
+							}}
+						/>
+					</Grid>
 
-				<Button variant='secondary' type='button' onClick={handleAddCharacter}>
-					Add Character to Assignment
-				</Button>
+					<Grid item xs={12} sm={6}>
+						<TextField
+							type='name'
+							fullWidth
+							value={addCharacter.target}
+							className={classes.input}
+							InputLabelProps={{
+								style: { color: '#fff ' },
+							}}
+							label='Target'
+							onChange={(e) => {
+								setAddCharacter({ ...addCharacter, target: e.target.value });
+							}}
+						/>
+					</Grid>
+
+					<Grid item xs={12}>
+						<TextField
+							fullWidth
+							type='name'
+							value={addCharacter.notes}
+							className={classes.input}
+							multiline
+							rows={8}
+							InputLabelProps={{
+								style: { color: '#fff ' },
+							}}
+							label='Assignment Details'
+							onChange={(e) => {
+								setAddCharacter({ ...addCharacter, notes: e.target.value });
+							}}
+						/>
+					</Grid>
+				</Grid>
+				<div className='my-3'>
+					<Button
+						color='default'
+						startIcon={<AddToPhotosIcon />}
+						variant='contained'
+						type='button'
+						onClick={handleAddCharacter}>
+						Add Character to Assignment
+					</Button>
+				</div>
 				<Assignments tactics={tactics} />
-				<Button variant='primary' type='button' onClick={handleSubmit}>
-					Submit Table
+				<Button
+					color='primary'
+					variant='contained'
+					type='button'
+					onClick={handleSubmit}>
+					Create Assignment
 				</Button>
-			</Form>
+			</form>
 		</div>
 	);
 };

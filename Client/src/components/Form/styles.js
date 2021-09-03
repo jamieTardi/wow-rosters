@@ -74,6 +74,7 @@ export const useStyles = makeStyles((theme) => ({
 	buttons: {
 		display: 'flex',
 		justifyContent: 'flex-end',
+		backgroundColor: '#3dd115',
 	},
 	button: {
 		marginTop: theme.spacing(3),
