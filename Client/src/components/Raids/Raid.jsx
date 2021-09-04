@@ -32,8 +32,9 @@ const Raid = ({ raid, setSelectedRaid, setExpandCard }) => {
 				/>
 				<Card.Body>
 					<Card.Title>{raid.title}</Card.Title>
-					<Card.Text>{raid.message}</Card.Text>
+					<Card.Text>{raid.message.substring(0, 100)}...</Card.Text>
 				</Card.Body>
+
 				<div className='d-flex align-items-center justify-content-between custom-button-container'>
 					<div
 						className='custom-button-1 py-2'

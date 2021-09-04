@@ -64,9 +64,23 @@ export const useStyles = makeStyles((theme) => ({
 			padding: theme.spacing(3),
 		},
 	},
+	modal: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		background: '#424242',
+	},
+	paperModal: {
+		backgroundColor: '#424242',
+		border: '2px solid #000',
+		boxShadow: theme.shadows[5],
+		padding: theme.spacing(2, 4, 3),
+	},
 	card: {
 		background: '#424242',
-		maxWidth: '345px',
+
+		width: '345px',
+		minHeight: '400px',
 	},
 	stepper: {
 		padding: theme.spacing(3, 0, 5),

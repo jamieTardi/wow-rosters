@@ -28,53 +28,58 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 	};
 	const classes = useStyles();
 	return (
-		<>
+		<div style={{ position: 'relative' }}>
 			<Card className={classes.card}>
-				<CardMedia
-					variant='top'
-					className={classes.media}
-					image={
-						raid.selectedFile[0] !== '' ? raid.selectedFile[0] : defaultImg
-					}
-					title='Newest Raid'
-				/>
+				<div>
+					<div>
+						<CardMedia
+							variant='top'
+							className={classes.media}
+							image={
+								raid.selectedFile[0] !== '' ? raid.selectedFile[0] : defaultImg
+							}
+							title='Newest Raid'
+						/>
 
-				<CardContent>
-					<Typography variant='h5'>{raid.title}</Typography>
-					<Typography variant='body2' component='p' className='mb-2'>
-						<span
-							className='clock-icon-span'
-							style={{ fontSize: '0.6rem !important' }}>
-							<AccessTimeIcon />
-						</span>
-						<span className='ms-1 grey-text-card '>
-							Raid created {moment(raid.createdAt).fromNow()}{' '}
-						</span>
-					</Typography>
-					<Typography
-						variant='body2'
-						component='p'
-						InputLabelProps={{
-							style: { color: 'rgba(255, 255, 255, 0.7) ' },
-						}}
-						className={classes.cardText}>
-						{raid.message}
-					</Typography>
-				</CardContent>
-
-				<CardActions>
-					<Button
-						size='small'
-						color='primary'
-						onClick={() => {
-							handleShowRaid(raid);
-						}}>
-						Show Raid Details
-					</Button>
-					<Button size='small' color='secondary' onClick={handleDeleteRaid}>
-						Delete this Raid
-					</Button>
-				</CardActions>
+						<CardContent>
+							<Typography variant='h5'>{raid.title}</Typography>
+							<Typography variant='body2' component='p' className='mb-2'>
+								<span
+									className='clock-icon-span'
+									style={{ fontSize: '0.6rem !important' }}>
+									<AccessTimeIcon />
+								</span>
+								<span className='ms-1 grey-text-card '>
+									Raid created {moment(raid.createdAt).fromNow()}{' '}
+								</span>
+							</Typography>
+							<Typography
+								variant='body2'
+								component='p'
+								InputLabelProps={{
+									style: { color: 'rgba(255, 255, 255, 0.7) !important ' },
+								}}
+								className={classes.cardText}>
+								{raid.message}
+							</Typography>
+						</CardContent>
+					</div>
+					<div style={{ position: 'absolute', bottom: '0%' }}>
+						<CardActions className='d-flex justify-content-between w-100'>
+							<Button
+								size='small'
+								color='primary'
+								onClick={() => {
+									handleShowRaid(raid);
+								}}>
+								Show Raid Details
+							</Button>
+							<Button size='small' color='secondary' onClick={handleDeleteRaid}>
+								Delete this Raid
+							</Button>
+						</CardActions>
+					</div>
+				</div>
 			</Card>
 			{deleteWarning && (
 				<DeleteRaid
@@ -83,7 +88,7 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 					setDeleteWarning={setDeleteWarning}
 				/>
 			)}
-		</>
+		</div>
 	);
 };
 
