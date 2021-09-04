@@ -25,6 +25,7 @@ const EditPageTwo = ({ hideModal }) => {
 
 	const [newRoster, setNewRoster] = useState(raid.roster);
 	const [raidEdit, setRaidEdit] = useState({ ...raid, roster: newRoster });
+
 	const [currentRaider, setCurrentRaider] = useState(null);
 	const classes = useStyles();
 	const [show, setShow] = useState(true);
@@ -35,12 +36,16 @@ const EditPageTwo = ({ hideModal }) => {
 				setCurrentRaider(raider);
 			}
 		});
-		console.log(currentRaider);
+	};
+
+	const handleAppendRaider = () => {
+		setNewRoster([...raid.roster, currentRaider]);
+		console.log(newRoster);
 	};
 
 	return (
 		<div>
-			<Modal show={show}>
+			<Modal show={show} size='lg'>
 				<Paper className={classes.paperModal}>
 					<Grid container spacing={3}>
 						<Typography variant='h5'>Edit the current roster</Typography>
@@ -118,7 +123,10 @@ const EditPageTwo = ({ hideModal }) => {
 						</Grid>
 
 						<Grid item xs={8}>
-							<Button variant='contained' color='default'>
+							<Button
+								variant='contained'
+								color='default'
+								onClick={handleAppendRaider}>
 								Append Assignee
 							</Button>
 						</Grid>
@@ -128,6 +136,9 @@ const EditPageTwo = ({ hideModal }) => {
 								<TableHead>
 									<TableRow>
 										<TableCell className={classes.tableHeaders}>Name</TableCell>
+										<TableCell className={classes.tableHeaders} align='right'>
+											Class
+										</TableCell>
 										<TableCell className={classes.tableHeaders} align='right'>
 											Role
 										</TableCell>
@@ -156,6 +167,9 @@ const EditPageTwo = ({ hideModal }) => {
 												{raider.class}
 											</TableCell>
 											<TableCell className={classes.tableCells} align='right'>
+												{raider.role}
+											</TableCell>
+											<TableCell className={classes.tableCells} align='right'>
 												{raider.notes}
 											</TableCell>
 											<TableCell className={classes.tableCells} align='right'>
@@ -180,7 +194,10 @@ const EditPageTwo = ({ hideModal }) => {
 						</TableContainer>
 
 						<Grid item xs={6}>
-							<Button variant='contained' color='primary'>
+							<Button
+								variant='contained'
+								color='primary'
+								onClick={handleAppendRaider}>
 								Ammend Roster
 							</Button>
 						</Grid>
