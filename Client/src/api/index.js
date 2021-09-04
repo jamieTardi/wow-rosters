@@ -11,10 +11,7 @@ export const createRaid = (newRaid) =>
 	axios.post(url, newRaid).then((res) => console.log(res));
 
 export const updateRaid = (id, updatedRaid) => {
-	axios
-		.put(`${url}/${id}`, updatedRaid)
-		.then((res) => console.log(res))
-		.catch((err) => console.log(err));
+	axios.patch(`${url}/${id}`, updatedRaid);
 };
 
 export const deleteRaid = (id) => {

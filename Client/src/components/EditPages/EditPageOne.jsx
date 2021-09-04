@@ -20,8 +20,8 @@ const EditPageOne = () => {
 		setShow(false);
 	};
 
-	const handleUpdateSelectedRaid = (id, raid) => {
-		dispatch(updateRaid(id, raid));
+	const handleUpdateSelectedRaid = () => {
+		dispatch(updateRaid(editRaid._id, editRaid));
 	};
 
 	return (
@@ -106,13 +106,16 @@ const EditPageOne = () => {
 								fullWidth
 								rows={8}
 								defaultValue={selectedRaid.message}
+								onChange={(e) => {
+									setEditRaid({ ...editRaid, message: e.target.value });
+								}}
 							/>
 						</Grid>
 						<Button
 							variant='contained'
 							color='primary'
 							onClick={() => {
-								handleUpdateSelectedRaid(editRaid._id, editRaid);
+								handleUpdateSelectedRaid();
 							}}
 							startIcon={<SaveIcon />}>
 							Ammend Raid

@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get('/', getRaids);
 router.post('/', createRaid);
-router.put('/:id', updateRaid);
+router.patch('/:id', updateRaid);
 router.delete('/:id', deletedRaid);
 
 export default router;
