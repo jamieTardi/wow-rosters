@@ -26,7 +26,7 @@ export const updateRaid = async (req, res) => {
 	const { id: _id } = req.params;
 	const raid = req.body;
 
-	if (!mongoose.Types.ObjectId.isValid(_id)) {
+	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(404).send('No Raid with that id');
 	}
 

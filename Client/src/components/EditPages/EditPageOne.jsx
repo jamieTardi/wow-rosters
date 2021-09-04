@@ -4,6 +4,7 @@ import { Modal } from 'react-bootstrap';
 import { useStyles } from '../Form/styles';
 import SaveIcon from '@material-ui/icons/Save';
 import { useSelector, useDispatch } from 'react-redux';
+import { updateRaid } from '../../actions/raids';
 
 const EditPageOne = () => {
 	const dispatch = useDispatch();
@@ -19,10 +20,8 @@ const EditPageOne = () => {
 		setShow(false);
 	};
 
-	console.log(editRaid);
-
-	const handleUpdateSelectedRaid = () => {
-		dispatch({ type: 'UPDATE_CURRENT_RAID', payload: editRaid });
+	const handleUpdateSelectedRaid = (id, raid) => {
+		dispatch(updateRaid(id, raid));
 	};
 
 	return (
@@ -112,8 +111,14 @@ const EditPageOne = () => {
 						<Button
 							variant='contained'
 							color='primary'
+							onClick={() => {
+								handleUpdateSelectedRaid(editRaid._id, editRaid);
+							}}
 							startIcon={<SaveIcon />}>
 							Ammend Raid
+						</Button>
+						<Button variant='contained' color='secondary' onClick={handleClose}>
+							Close
 						</Button>
 					</Grid>
 				</div>
