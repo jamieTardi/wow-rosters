@@ -19,17 +19,18 @@ import {
 } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
 import { classicNameResolver } from 'typescript';
+import { useDispatch } from 'react-redux';
+import { updateRaid } from '../../actions/raids';
 
 const EditPageTwo = ({ hideModal }) => {
 	const raid = useSelector((state) => state.currentRaid);
 
+	const dispatch = useDispatch();
 	const [newRoster, setNewRoster] = useState(raid.roster);
-	const [raidEdit, setRaidEdit] = useState({ ...raid, roster: newRoster });
 	const [currentId, setCurrentId] = useState(0);
 	const [currentRaider, setCurrentRaider] = useState(null);
 	const classes = useStyles();
 	const [show, setShow] = useState(true);
-	const [filiteredRaid, setFiliteredRaid] = useState(null);
 
 	const handleEditCharacter = (id) => {
 		raid.roster.map((raider) => {
@@ -39,17 +40,27 @@ const EditPageTwo = ({ hideModal }) => {
 		});
 	};
 
+	const handleRemove = (id) => {
+		let filitered = newRoster.filter((raider) => {
+			return raider.id !== id;
+		});
+		setNewRoster(filitered);
+	};
+
 	const handleAppendRaider = () => {
 		setNewRoster([...raid.roster, currentRaider]);
-		console.log(currentRaider);
 
-		const updatedItems = newRoster.map((el) =>
-			el.id === currentRaider.id ? currentRaider : el,
+		const updatedItems = newRoster.map((raider) =>
+			raider.id === currentRaider.id ? currentRaider : raider,
 		);
 		setNewRoster(updatedItems);
 	};
 
-	// arr.filter((v,i,a)=>a.findIndex(t=>(t.label === v.label && t.value===v.value))===i)
+	const handleAppendRoster = () => {
+		const id = raid._id;
+		dispatch(updateRaid(id, { ...raid, roster: newRoster }));
+	};
+
 	return (
 		<div>
 			<Modal show={show} size='lg'>
@@ -161,97 +172,46 @@ const EditPageTwo = ({ hideModal }) => {
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{newRoster !== null && newRoster.length !== 0
-										? newRoster.map((raider) => (
-												<TableRow key={raider.id}>
-													<TableCell
-														className={classes.tableCells}
-														component='th'
-														scope='row'>
-														{raider.name}
-													</TableCell>
+									{newRoster.map((raider) => (
+										<TableRow key={raider.id}>
+											<TableCell
+												className={classes.tableCells}
+												component='th'
+												scope='row'>
+												{raider.name}
+											</TableCell>
 
-													<TableCell
-														className={classes.tableCells}
-														align='right'>
-														{raider.class}
-													</TableCell>
-													<TableCell
-														className={classes.tableCells}
-														align='right'>
-														{raider.role}
-													</TableCell>
-													<TableCell
-														className={classes.tableCells}
-														align='right'>
-														{raider.notes}
-													</TableCell>
-													<TableCell
-														className={classes.tableCells}
-														align='right'>
-														<Button variant='contained' color='secondary'>
-															Remove
-														</Button>
-													</TableCell>
-													<TableCell
-														className={classes.tableCells}
-														align='right'>
-														<Button
-															variant='contained'
-															color='default'
-															onClick={() => {
-																handleEditCharacter(raider.id);
-															}}>
-															Edit
-														</Button>
-													</TableCell>
-												</TableRow>
-										  ))
-										: raid.roster.map((raider) => (
-												<TableRow key={raider.id}>
-													<TableCell
-														className={classes.tableCells}
-														component='th'
-														scope='row'>
-														{raider.name}
-													</TableCell>
-
-													<TableCell
-														className={classes.tableCells}
-														align='right'>
-														{raider.class}
-													</TableCell>
-													<TableCell
-														className={classes.tableCells}
-														align='right'>
-														{raider.role}
-													</TableCell>
-													<TableCell
-														className={classes.tableCells}
-														align='right'>
-														{raider.notes}
-													</TableCell>
-													<TableCell
-														className={classes.tableCells}
-														align='right'>
-														<Button variant='contained' color='secondary'>
-															Remove
-														</Button>
-													</TableCell>
-													<TableCell
-														className={classes.tableCells}
-														align='right'>
-														<Button
-															variant='contained'
-															color='default'
-															onClick={() => {
-																handleEditCharacter(raider.id);
-															}}>
-															Edit
-														</Button>
-													</TableCell>
-												</TableRow>
-										  ))}
+											<TableCell className={classes.tableCells} align='right'>
+												{raider.class}
+											</TableCell>
+											<TableCell className={classes.tableCells} align='right'>
+												{raider.role}
+											</TableCell>
+											<TableCell className={classes.tableCells} align='right'>
+												{raider.notes}
+											</TableCell>
+											<TableCell className={classes.tableCells} align='right'>
+												<Button
+													variant='contained'
+													color='secondary'
+													onClick={() => {
+														handleRemove(raider.id);
+													}}>
+													Remove
+												</Button>
+											</TableCell>
+											<TableCell className={classes.tableCells} align='right'>
+												<Button
+													variant='contained'
+													color='default'
+													onClick={() => {
+														handleEditCharacter(raider.id);
+													}}>
+													Edit
+												</Button>
+											</TableCell>
+										</TableRow>
+									))}
 								</TableBody>
 							</Table>
 						</TableContainer>
@@ -260,12 +220,17 @@ const EditPageTwo = ({ hideModal }) => {
 							<Button
 								variant='contained'
 								color='primary'
-								onClick={handleAppendRaider}>
+								onClick={handleAppendRoster}>
 								Ammend Roster
 							</Button>
 						</Grid>
 						<Grid item xs={6}>
-							<Button variant='contained' color='secondary'>
+							<Button
+								variant='contained'
+								color='secondary'
+								onClick={() => {
+									setShow(false);
+								}}>
 								Close
 							</Button>
 						</Grid>

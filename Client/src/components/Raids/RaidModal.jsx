@@ -11,6 +11,7 @@ import CurrentAssignments from './CurrentAssignments';
 import { Button } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import EditPageOne from '../EditPages/EditPageOne';
+import MoreHorizSharpIcon from '@material-ui/icons/MoreHorizSharp';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	const [editModal, setEditModal] = useState(false);
@@ -35,24 +36,26 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 								Raid created {moment(selectedRaid.createdAt).fromNow()}
 							</div>
 							<div className='col-6 text-end'>
-								Created by {selectedRaid.creator}
+								<Button
+									variant='outlined'
+									color='primary'
+									onClick={() => {
+										setEditModal((prev) => !prev);
+									}}
+									startIcon={<EditIcon />}>
+									Edit
+								</Button>
 							</div>
+						</div>
+						<div>
+							<span className='me-4'>Created by {selectedRaid.creator}</span>
 						</div>
 						<div>
 							<h3>Raid Information</h3>
 							<p>{selectedRaid.message}</p>
 						</div>
 						<div>
-							<div className='my-3'>
-								<Button
-									variant='contained'
-									onClick={() => {
-										setEditModal((prev) => !prev);
-									}}
-									color='primary'>
-									<EditIcon />
-								</Button>
-							</div>
+							<div className='my-3'></div>
 							<Accordion variant='dark'>
 								<Accordion.Item eventKey='0'>
 									<Accordion.Header>
