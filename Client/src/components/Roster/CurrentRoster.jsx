@@ -1,8 +1,12 @@
-import React from 'react';
-import { Table, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Table } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { Button } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import EditPageTwo from '../EditPages/EditPageTwo';
 
 const CurrentRoster = () => {
+	const [hideModal, setHideModal] = useState(true);
 	const raid = useSelector((state) => state.currentRaid);
 	const roster = raid.roster;
 	return (
@@ -85,7 +89,7 @@ const CurrentRoster = () => {
 									<>
 										{character.role === 'Healer' && (
 											<>
-												<td>❤️‍🩹</td>
+												<td>❤️</td>
 
 												<td>{character.name}</td>
 												<td>{character.class}</td>
@@ -97,7 +101,19 @@ const CurrentRoster = () => {
 							))}
 					</tbody>
 				</Table>
+				<Button
+					variant='contained'
+					onClick={() => {
+						setHideModal((prev) => !prev);
+					}}
+					startIcon={<EditIcon />}
+					color='primary'>
+					Edit Roster
+				</Button>
 			</div>
+			{!hideModal && (
+				<EditPageTwo setHideModal={setHideModal} hideModal={hideModal} />
+			)}
 		</div>
 	);
 };

@@ -85,6 +85,18 @@ export const useStyles = makeStyles((theme) => ({
 	stepper: {
 		padding: theme.spacing(3, 0, 5),
 	},
+	table: {
+		background: '#333333',
+		color: '#fff',
+		fontWeight: 'bolder',
+	},
+	tableCells: {
+		color: '#fff',
+	},
+	tableHeaders: {
+		color: '#fff',
+		fontWeight: 'bolder',
+	},
 	buttons: {
 		display: 'flex',
 		justifyContent: 'flex-end',

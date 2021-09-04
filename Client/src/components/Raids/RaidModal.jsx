@@ -14,9 +14,7 @@ import EditPageOne from '../EditPages/EditPageOne';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	const [editModal, setEditModal] = useState(false);
-	const handleEditPageOne = () => {
-		return <EditPageOne />;
-	};
+	console.log(editModal);
 	return (
 		<>
 			<div>
@@ -45,15 +43,16 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 							<p>{selectedRaid.message}</p>
 						</div>
 						<div>
-							<Button
-								variant='contained'
-								onClick={() => {
-									setEditModal(true);
-								}}
-								color='primary'
-								startIcon={<EditIcon />}>
-								Edit Raid Details
-							</Button>
+							<div className='my-3'>
+								<Button
+									variant='contained'
+									onClick={() => {
+										setEditModal((prev) => !prev);
+									}}
+									color='primary'>
+									<EditIcon />
+								</Button>
+							</div>
 							<Accordion variant='dark'>
 								<Accordion.Item eventKey='0'>
 									<Accordion.Header>

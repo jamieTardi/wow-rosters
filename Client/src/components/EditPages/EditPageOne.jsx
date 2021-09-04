@@ -6,7 +6,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateRaid } from '../../actions/raids';
 
-const EditPageOne = () => {
+const EditPageOne = ({ setEditModal }) => {
 	const dispatch = useDispatch();
 	const selectedRaid = useSelector((state) => state.currentRaid);
 	const classes = useStyles();
@@ -22,6 +22,8 @@ const EditPageOne = () => {
 
 	const handleUpdateSelectedRaid = () => {
 		dispatch(updateRaid(editRaid._id, editRaid));
+		setShow(false);
+		setEditModal((prev) => !prev);
 	};
 
 	return (
@@ -111,18 +113,25 @@ const EditPageOne = () => {
 								}}
 							/>
 						</Grid>
-						<Button
-							variant='contained'
-							color='primary'
-							onClick={() => {
-								handleUpdateSelectedRaid();
-							}}
-							startIcon={<SaveIcon />}>
-							Ammend Raid
-						</Button>
-						<Button variant='contained' color='secondary' onClick={handleClose}>
-							Close
-						</Button>
+						<Grid item xs={6}>
+							<Button
+								variant='contained'
+								color='primary'
+								onClick={() => {
+									handleUpdateSelectedRaid();
+								}}
+								startIcon={<SaveIcon />}>
+								Ammend Raid
+							</Button>
+						</Grid>
+						<Grid item xs={6}>
+							<Button
+								variant='contained'
+								color='secondary'
+								onClick={handleClose}>
+								Close
+							</Button>
+						</Grid>
 					</Grid>
 				</div>
 			</Modal>
