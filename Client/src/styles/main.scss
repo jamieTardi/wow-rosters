@@ -1,3 +1,5 @@
+@import './darkmode';
+
 body {
 	background: #1f1f1f !important;
 }
@@ -12,6 +14,10 @@ p,
 li,
 div {
 	color: white !important;
+}
+.makeStyles-button-15 {
+	margin-top: 0% !important;
+	margin-left: 0% !important;
 }
 
 .btn-secondary {

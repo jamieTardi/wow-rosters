@@ -6,12 +6,13 @@ import { useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import { useStyles } from '../Form/styles';
+import DarkModeBTN from '../UIcomponents/DarkModeBTN';
 
 const Nav = () => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	return (
-		<div className='my-4 d-flex justify-content-between align-items-center'>
+		<div className='my-4 d-flex justify-content-between align-items-center my-4'>
 			<Button
 				variant='contained'
 				color='primary'
@@ -24,7 +25,8 @@ const Nav = () => {
 				}}>
 				Create a new Raid
 			</Button>
-			<div></div>
+
+			<DarkModeBTN />
 		</div>
 	);
 };
