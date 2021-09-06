@@ -420,6 +420,85 @@ footer a {
 }
 
 /* footer  */
+.skeleton-parent {
+  width: 350px;
+}
+
+.skeleton-container {
+  width: 100%;
+  background: #424242;
+}
+
+.skeleton-container .skeleton-image {
+  height: 200px;
+  opacity: 0.7;
+  -webkit-animation: skeleton-loading 1.3s linear infinite;
+          animation: skeleton-loading 1.3s linear infinite;
+}
+
+.skeleton-container .skeleton-title {
+  height: 30px;
+  width: 100%;
+  border-radius: 25px;
+  opacity: 0.7;
+  -webkit-animation: skeleton-loading 1.3s linear infinite;
+          animation: skeleton-loading 1.3s linear infinite;
+}
+
+.skeleton-container .skeleton-date {
+  height: 20px;
+  width: 100%;
+  border-radius: 25px;
+  opacity: 0.7;
+  -webkit-animation: skeleton-loading 1.3s linear infinite;
+          animation: skeleton-loading 1.3s linear infinite;
+}
+
+.skeleton-container .skeleton-content {
+  height: 15px;
+  width: 100%;
+  border-radius: 25px;
+  opacity: 0.7;
+  -webkit-animation: skeleton-loading 1.3s linear infinite;
+          animation: skeleton-loading 1.3s linear infinite;
+}
+
+.skeleton-container .skeleton-content-small {
+  height: 15px;
+  width: 85%;
+  border-radius: 25px;
+  opacity: 0.7;
+  -webkit-animation: skeleton-loading 1.3s linear infinite;
+          animation: skeleton-loading 1.3s linear infinite;
+}
+
+.skeleton-container .skeleton-button {
+  height: 25px;
+  width: 30%;
+  border-radius: 25px;
+  opacity: 0.7;
+  -webkit-animation: skeleton-loading 1.3s linear infinite;
+          animation: skeleton-loading 1.3s linear infinite;
+}
+
+@-webkit-keyframes skeleton-loading {
+  0% {
+    background: #545454;
+  }
+  100% {
+    background: #787878;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background: #545454;
+  }
+  100% {
+    background: #787878;
+  }
+}
+
 body {
   background: #1f1f1f !important;
 }

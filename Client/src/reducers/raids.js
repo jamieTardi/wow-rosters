@@ -10,6 +10,8 @@ export const raids = (state = [], action) => {
 			);
 		case 'DELETE_RAID':
 			return state.filter((raid) => raid._id !== action.payload);
+		case 'CLEAR_RAIDS':
+			return [];
 		default:
 			return state;
 	}

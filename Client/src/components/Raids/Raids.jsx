@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Nav } from '../index';
 import emptyImg from '../../images/empty.svg';
 import { Image } from 'react-bootstrap';
+import Loading from '../UIcomponents/Loading';
 
 const Raids = () => {
 	const [selectedRaid, setSelectedRaid] = useState(null);
@@ -16,13 +17,18 @@ const Raids = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		dispatch({ type: 'CLEAR_RAIDS' });
 		dispatch(getRaids());
 	}, []);
 
 	return (
 		<div>
 			<div className='row'>
-				{createdRaids.length !== 0 ? (
+				{createdRaids.length === 0 ? (
+					<div className='mt-5'>
+						<Loading />
+					</div>
+				) : createdRaids ? (
 					createdRaids.reverse().map((raid, i) => (
 						<>
 							{i === 0 ? (

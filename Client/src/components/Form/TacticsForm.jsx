@@ -61,14 +61,9 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 
 	const handleSubmit = () => {
 		dispatch({ type: 'ADD_ASSIGNMENT', payload: newTactics });
-
 		raidForm.tactics.push(newTactics);
-
 		setNewTactics({ image: '', assignedRaiders: [], id: uuidv4() });
 	};
-
-	console.log(raidForm);
-	console.log(selectedRaid);
 
 	return (
 		<div className='w-100'>

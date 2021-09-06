@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, Table } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
+import TabbedMenu from '../Assignments/TabbedMenu';
 
 const CurrentAssignments = ({ selectedRaid }) => {
 	const assignments = selectedRaid.tactics;
@@ -33,6 +34,7 @@ const CurrentAssignments = ({ selectedRaid }) => {
 					</Table>
 				</div>
 			))}
+			<TabbedMenu />
 		</div>
 	);
 };

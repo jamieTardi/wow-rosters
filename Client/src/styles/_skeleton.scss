@@ -1,0 +1,58 @@
+@mixin animate-skeleton {
+	opacity: 0.7;
+	animation: skeleton-loading 1.3s linear infinite;
+}
+
+.skeleton-parent {
+	width: 350px;
+}
+
+.skeleton-container {
+	width: 100%;
+	background: #424242;
+	.skeleton-image {
+		height: 200px;
+		@include animate-skeleton();
+	}
+	.skeleton-title {
+		height: 30px;
+		width: 100%;
+		border-radius: 25px;
+		@include animate-skeleton();
+	}
+
+	.skeleton-date {
+		height: 20px;
+		width: 100%;
+		border-radius: 25px;
+		@include animate-skeleton();
+	}
+
+	.skeleton-content {
+		height: 15px;
+		width: 100%;
+		border-radius: 25px;
+		@include animate-skeleton();
+	}
+	.skeleton-content-small {
+		height: 15px;
+		width: 85%;
+		border-radius: 25px;
+		@include animate-skeleton();
+	}
+	.skeleton-button {
+		height: 25px;
+		width: 30%;
+		border-radius: 25px;
+		@include animate-skeleton();
+	}
+}
+
+@keyframes skeleton-loading {
+	0% {
+		background: #545454;
+	}
+	100% {
+		background: #787878;
+	}
+}
