@@ -27,6 +27,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 
 	const dispatch = useDispatch();
 	const [newTactics, setNewTactics] = useState({
+		title: '',
 		image: '',
 		assignedRaiders: [],
 		id: uuidv4(),
@@ -73,6 +74,21 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 						<Typography variant='h4' gutterBottom>
 							Assignments for the Raid (optional)
 						</Typography>
+						<Grid item xs={12} sm={6}>
+							<TextField
+								type='name'
+								fullWidth
+								value={newTactics.title}
+								className={classes.input}
+								InputLabelProps={{
+									style: { color: '#fff ' },
+								}}
+								label='Title of the Assignment'
+								onChange={(e) => {
+									setNewTactics({ ...newTactics, title: e.target.value });
+								}}
+							/>
+						</Grid>
 
 						<Typography variant='h6' gutterBottom>
 							Pick an image for this assignment (optional)
@@ -85,6 +101,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 							/>
 						</div>
 					</Grid>
+
 					<div className='w-100 px-3'>
 						<Grid item xs={12}>
 							<FileBase
@@ -95,6 +112,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 								}
 							/>
 						</Grid>
+
 						<div className=' my-3 '>
 							<Grid item xs={12}>
 								<InputLabel

@@ -2,9 +2,11 @@ import React from 'react';
 import { Image, Table } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 import TabbedMenu from '../Assignments/TabbedMenu';
+import { useSelector } from 'react-redux';
 
-const CurrentAssignments = ({ selectedRaid }) => {
-	const assignments = selectedRaid.tactics;
+const CurrentAssignments = () => {
+	const raid = useSelector((state) => state.currentRaid);
+	const assignments = raid.tactics;
 	return (
 		<div>
 			<h2>Assignments for this raid</h2>
@@ -34,7 +36,6 @@ const CurrentAssignments = ({ selectedRaid }) => {
 					</Table>
 				</div>
 			))}
-			<TabbedMenu />
 		</div>
 	);
 };

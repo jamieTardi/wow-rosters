@@ -12,10 +12,11 @@ import { Button } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import EditPageOne from '../EditPages/EditPageOne';
 import MoreHorizSharpIcon from '@material-ui/icons/MoreHorizSharp';
+import TabbedMenu from '../Assignments/TabbedMenu';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	const [editModal, setEditModal] = useState(false);
-	console.log(editModal);
+
 	return (
 		<>
 			<div>
@@ -68,7 +69,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 								<Accordion.Item eventKey='1'>
 									<Accordion.Header>Raid Assignments</Accordion.Header>
 									<Accordion.Body>
-										<CurrentAssignments selectedRaid={selectedRaid} />
+										<TabbedMenu />
 									</Accordion.Body>
 								</Accordion.Item>
 							</Accordion>
