@@ -14,22 +14,19 @@ import {
 	Button,
 } from '@material-ui/core';
 import EditAssignTable from '../Assignments/EditAssignTable';
+import { useSelector } from 'react-redux';
 
 const EditAssignments = ({ show, setShow, assignment }) => {
+	const raid = useSelector((state) => state.currentRaid);
 	const [newTactics, setNewTactics] = useState({
 		title: assignment.title,
 		image: assignment.image,
 		assignedRaiders: assignment.assignedRaiders,
 		id: assignment.id,
 	});
-	const [addCharacter, setAddCharacter] = useState({
-		role: '',
-		name: '',
-		target: '',
-		notes: '',
-		id: '',
-	});
+
 	const raiders = assignment.assignedRaiders;
+	const [addCharacter, setAddCharacter] = useState(raiders);
 	const [currentRaider, setCurrentRaider] = useState(null);
 	const classes = useStyles();
 	const handleClose = () => setShow(false);
@@ -38,10 +35,11 @@ const EditAssignments = ({ show, setShow, assignment }) => {
 		const updatedRaiders = raiders.map((raider) =>
 			raider.id === currentRaider.id ? currentRaider : raider,
 		);
+		setAddCharacter(updatedRaiders);
+		console.log(addCharacter);
 	};
 
 	const handleSubmit = () => {};
-	// console.log(assignment);
 
 	return (
 		<div>
@@ -110,7 +108,7 @@ const EditAssignments = ({ show, setShow, assignment }) => {
 											</InputLabel>
 											<Select
 												style={{ width: '100%' }}
-												value={currentRaider && currentRaider.role}
+												value={currentRaider ? currentRaider.role : ''}
 												onChange={(e) => {
 													setCurrentRaider({
 														...currentRaider,
@@ -135,7 +133,7 @@ const EditAssignments = ({ show, setShow, assignment }) => {
 									<TextField
 										type='name'
 										fullWidth
-										value={currentRaider && currentRaider.name}
+										value={currentRaider ? currentRaider.name : ''}
 										className={classes.input}
 										InputLabelProps={{
 											style: { color: '#fff ' },
@@ -154,7 +152,7 @@ const EditAssignments = ({ show, setShow, assignment }) => {
 									<TextField
 										type='name'
 										fullWidth
-										value={currentRaider && currentRaider.target}
+										value={currentRaider ? currentRaider.target : ''}
 										className={classes.input}
 										InputLabelProps={{
 											style: { color: '#fff ' },
@@ -173,7 +171,7 @@ const EditAssignments = ({ show, setShow, assignment }) => {
 									<TextField
 										fullWidth
 										type='name'
-										value={currentRaider && currentRaider.notes}
+										value={currentRaider ? currentRaider.notes : ''}
 										className={classes.input}
 										multiline
 										rows={8}
@@ -197,7 +195,7 @@ const EditAssignments = ({ show, setShow, assignment }) => {
 									variant='contained'
 									type='button'
 									onClick={handleAppendCharacter}>
-									Add Character to Assignment
+									Append Raider
 								</Button>
 							</div>
 
@@ -207,6 +205,8 @@ const EditAssignments = ({ show, setShow, assignment }) => {
 									currentRaider={currentRaider}
 									setCurrentRaider={setCurrentRaider}
 									handleAppendCharacter={handleAppendCharacter}
+									newTactics={newTactics}
+									addCharacter={addCharacter}
 								/>
 							</div>
 

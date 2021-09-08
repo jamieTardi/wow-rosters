@@ -17,10 +17,16 @@ import {
 } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
 
-const EditAssignTable = ({ assignment, currentRaider, setCurrentRaider }) => {
+const EditAssignTable = ({
+	assignment,
+	currentRaider,
+	setCurrentRaider,
+	newTactics,
+	addCharacter,
+}) => {
 	const classes = useStyles();
 
-	const raiders = assignment.assignedRaiders;
+	const raiders = newTactics.assignedRaiders;
 
 	const handleRemove = () => {};
 
@@ -31,8 +37,6 @@ const EditAssignTable = ({ assignment, currentRaider, setCurrentRaider }) => {
 			}
 		});
 	};
-
-	console.log(currentRaider);
 
 	const handleAmmendRaider = () => {
 		const updatedRaiders = raiders.map((raider) =>
@@ -65,7 +69,7 @@ const EditAssignTable = ({ assignment, currentRaider, setCurrentRaider }) => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{raiders.map((raider) => (
+						{addCharacter.map((raider) => (
 							<TableRow key={raider.id}>
 								<TableCell
 									className={classes.tableCells}
