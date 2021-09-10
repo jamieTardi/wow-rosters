@@ -5,10 +5,12 @@ import { useStyles } from '../Form/styles';
 import SaveIcon from '@material-ui/icons/Save';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateRaid } from '../../actions/raids';
+import FileBase from 'react-file-base64';
 
 const EditPageOne = ({ setEditModal }) => {
 	const dispatch = useDispatch();
 	const selectedRaid = useSelector((state) => state.currentRaid);
+	const [uploadedImg, setUploadedImg] = useState('');
 	const classes = useStyles();
 	const [show, setShow] = useState(true);
 	const [editRaid, setEditRaid] = useState(selectedRaid);
@@ -26,12 +28,35 @@ const EditPageOne = ({ setEditModal }) => {
 		setEditModal((prev) => !prev);
 	};
 
+	const handleImgUpload = (base64) => {
+		setUploadedImg(base64);
+		setEditRaid({ ...editRaid, selectedFile: base64 });
+	};
+
 	return (
 		<div>
 			<Modal show={show} onHide={handleClose}>
 				<div className={classes.paperModal}>
 					<h4 id='transition-modal-title'>Edit Raid Details</h4>
 					<Grid container spacing={3}>
+						<Grid item xs={12}>
+							<Typography variant='h6' gutterBottom className='mt-4'>
+								Please add a Raid image to upload
+							</Typography>
+							<img
+								src={uploadedImg}
+								alt='raid image'
+								style={{ width: '100%' }}
+							/>
+						</Grid>
+
+						<Grid item xs={12}>
+							<FileBase
+								type='file'
+								multiple={false}
+								onDone={({ base64 }) => handleImgUpload(base64)}
+							/>
+						</Grid>
 						<Grid item xs={12} sm={6}>
 							<TextField
 								id='standard-basic'

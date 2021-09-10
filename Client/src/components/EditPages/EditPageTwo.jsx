@@ -61,6 +61,10 @@ const EditPageTwo = ({ hideModal }) => {
 		dispatch(updateRaid(id, { ...raid, roster: newRoster }));
 	};
 
+	const handleAddNewRaider = () => {
+		setNewRoster([...raid.roster, currentRaider]);
+	};
+
 	return (
 		<div>
 			<Modal show={show} size='lg'>
@@ -143,9 +147,17 @@ const EditPageTwo = ({ hideModal }) => {
 						<Grid item xs={8}>
 							<Button
 								variant='contained'
-								color='default'
+								color='primary'
 								onClick={handleAppendRaider}>
 								Append Assignee
+							</Button>
+						</Grid>
+						<Grid item xs={4}>
+							<Button
+								variant='contained'
+								color='default'
+								onClick={handleAddNewRaider}>
+								Add New Raider
 							</Button>
 						</Grid>
 

@@ -66,7 +66,7 @@ const RaidForm = () => {
 	const showRaid = useSelector((state) => state.raidModal);
 
 	const [isLoading, setIsLoading] = useState(false);
-	const [pageNum, setPageNum] = useState(1);
+	const [pageNum, setPageNum] = useState(0);
 	const [activeStep, setActiveStep] = useState(0);
 	const [raidForm, setRaidForm] = useState({
 		title: '',
@@ -100,6 +100,7 @@ const RaidForm = () => {
 		});
 		setTimeout(() => {
 			setIsLoading(false);
+			handleClose();
 		}, 2200);
 	};
 
@@ -108,6 +109,7 @@ const RaidForm = () => {
 	}
 	const handleSubmitSucess = () => {
 		setIsLoading(true);
+
 		simulateNetworkRequest().then(() => setIsLoading(false));
 	};
 

@@ -18,13 +18,7 @@ import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 
 const TacticsForm = ({ raidForm, setRaidForm }) => {
 	const classes = useStyles();
-	const [numberOfAssignments, setNumberOfAssignments] = useState(0);
-	const [assignments, setAssignments] = useState([]);
-	const [selectedColumns, setSelectedColumns] = useState([]);
-	const selectedRaid = useSelector((state) => state.currentRaid);
-	const [newRaid, setNewRaid] = useState(selectedRaid);
-	const [completedAssignments, setCompletedAssignments] = useState({});
-
+	const [completedTxt, setCompletedTxt] = useState(false);
 	const dispatch = useDispatch();
 	const [newTactics, setNewTactics] = useState({
 		title: '',
@@ -40,11 +34,6 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 		id: uuidv4(),
 	});
 
-	const handleCreateAssignment = () => {
-		setNumberOfAssignments(numberOfAssignments + 1);
-		setAssignments([...assignments, numberOfAssignments]);
-	};
-
 	const handleAddCharacter = () => {
 		setNewTactics({
 			...newTactics,
@@ -52,7 +41,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 		});
 
 		setAddCharacter({
-			role: '',
+			...addCharacter,
 			name: '',
 			target: '',
 			notes: '',
@@ -64,6 +53,10 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 		dispatch({ type: 'ADD_ASSIGNMENT', payload: newTactics });
 		raidForm.tactics.push(newTactics);
 		setNewTactics({ image: '', assignedRaiders: [], id: uuidv4() });
+		setCompletedTxt(true);
+		setTimeout(() => {
+			setCompletedTxt(false);
+		}, 2000);
 	};
 
 	return (
@@ -74,21 +67,6 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 						<Typography variant='h4' gutterBottom>
 							Assignments for the Raid (optional)
 						</Typography>
-						<Grid item xs={12} sm={6}>
-							<TextField
-								type='name'
-								fullWidth
-								value={newTactics.title}
-								className={classes.input}
-								InputLabelProps={{
-									style: { color: '#fff ' },
-								}}
-								label='Title of the Assignment'
-								onChange={(e) => {
-									setNewTactics({ ...newTactics, title: e.target.value });
-								}}
-							/>
-						</Grid>
 
 						<Typography variant='h6' gutterBottom>
 							Pick an image for this assignment (optional)
@@ -114,6 +92,21 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 						</Grid>
 
 						<div className=' my-3 '>
+							<Grid item xs={12} sm={6} className='mb-4'>
+								<TextField
+									type='name'
+									fullWidth
+									value={newTactics.title}
+									className={classes.input}
+									InputLabelProps={{
+										style: { color: '#fff ' },
+									}}
+									label='Title of the Assignment'
+									onChange={(e) => {
+										setNewTactics({ ...newTactics, title: e.target.value });
+									}}
+								/>
+							</Grid>
 							<Grid item xs={12}>
 								<InputLabel
 									id='demo-simple-select-label'
@@ -211,6 +204,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 					Add this Assignment
 				</Button>
 			</form>
+			{completedTxt && <p>Assignment added, feel free to add another! 👍</p>}
 		</div>
 	);
 };

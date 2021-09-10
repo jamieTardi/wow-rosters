@@ -35,7 +35,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 		handleShowAddInfo();
 		setAssignedRoster([...assignedRoster, addCharacter]);
 		setAddCharacter({
-			role: '',
+			...addCharacter,
 			name: '',
 			class: '',
 			notes: '',

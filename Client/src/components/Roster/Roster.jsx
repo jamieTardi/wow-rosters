@@ -19,6 +19,7 @@ const Roster = ({
 	const [isLoading, setIsLoading] = useState(false);
 	const currentId = useSelector((state) => state.currentId);
 	const classes = useStyles();
+	const [completedTxt, setCompletedTxt] = useState(false);
 
 	const handleRemoveRaider = (id) => {
 		dispatch({ type: 'REMOVE_RAIDER', payload: id });
@@ -35,9 +36,11 @@ const Roster = ({
 
 	const handleUpdateRaid = () => {
 		setIsLoading(true);
+		setCompletedTxt(true);
 		setRaidForm({ ...raidForm, roster: assignedRoster });
 		setTimeout(() => {
 			setIsLoading(false);
+			setCompletedTxt(false);
 		}, 1300);
 	};
 
@@ -169,7 +172,7 @@ const Roster = ({
 					))}
 				</tbody>
 			</Table>
-			<div className='d-flex justify-content-center align-items-center'>
+			<div className='d-flex justify-content-between align-items-center'>
 				<Button
 					variant='contained'
 					color='secondary'
@@ -199,6 +202,11 @@ const Roster = ({
 					</Button>
 				)}
 			</div>
+			{completedTxt && (
+				<p style={{ textAlign: 'center', marginTop: '3%' }}>
+					Roster has been added 🎉
+				</p>
+			)}
 		</div>
 	);
 };

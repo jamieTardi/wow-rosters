@@ -43,7 +43,7 @@ const Raids = () => {
 									<Nav />
 								</div>
 							) : (
-								<div className='col-12 col-sm-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center mb-5'>
+								<div className='col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex justify-content-center align-items-center mb-5'>
 									<NewestRaid
 										raid={raid}
 										setSelectedRaid={setSelectedRaid}

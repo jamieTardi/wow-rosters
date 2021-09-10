@@ -28,6 +28,8 @@ const EditAssignments = ({ show, setShow, assignment }) => {
 	const raiders = assignment.assignedRaiders;
 	const [addCharacter, setAddCharacter] = useState(raiders);
 	const [currentRaider, setCurrentRaider] = useState(null);
+	const [updatedAssign, setUpdatedAssign] = useState(assignment);
+	const [newRaid, setNewRaid] = useState(raid);
 	const classes = useStyles();
 	const handleClose = () => setShow(false);
 
@@ -36,10 +38,16 @@ const EditAssignments = ({ show, setShow, assignment }) => {
 			raider.id === currentRaider.id ? currentRaider : raider,
 		);
 		setAddCharacter(updatedRaiders);
-		console.log(addCharacter);
+		setUpdatedAssign({ ...updatedAssign, assignedRaiders: addCharacter });
 	};
 
-	const handleSubmit = () => {};
+	const handleSubmit = () => {
+		const updatedRaidAssigns = raid.tactics.map((assignments) =>
+			assignments.id === addCharacter.id ? addCharacter : assignment,
+		);
+		console.log(updatedRaidAssigns);
+		setNewRaid({ ...raid, tactics: [...raid.tactics, updatedAssign] });
+	};
 
 	return (
 		<div>
