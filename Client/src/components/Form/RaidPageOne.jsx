@@ -98,7 +98,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 			</Grid>
 			<Grid item xs={12}>
 				<Typography variant='h6' gutterBottom className='mt-4'>
-					Please add a Raid image to upload
+					Please add a raid image to upload
 				</Typography>
 				<img src={uploadedImg} alt='raid image' style={{ width: '100%' }} />
 			</Grid>
