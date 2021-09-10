@@ -7,6 +7,7 @@ import { Button } from '@material-ui/core';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import { useStyles } from '../Form/styles';
 import DarkModeBTN from '../UIcomponents/DarkModeBTN';
+import { Link } from 'react-router-dom';
 
 const Nav = () => {
 	const classes = useStyles();
@@ -24,6 +25,14 @@ const Nav = () => {
 					dispatch({ type: 'CURRENT_ID', payload: null });
 				}}>
 				Create a new Raid
+			</Button>
+			<Button
+				variant='contained'
+				color='primary'
+				size='large'
+				className={classes.button}
+				startIcon={<AddToPhotosIcon />}>
+				Sign In
 			</Button>
 
 			<DarkModeBTN />
