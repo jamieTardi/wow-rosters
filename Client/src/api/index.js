@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/raids';
+const url = 'https://wow-rosters.herokuapp.com/raids';
 const rosterUrl = 'http://localhost:5000/roster';
 
 export let deleteRes = null;

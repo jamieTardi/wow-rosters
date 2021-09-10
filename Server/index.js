@@ -2,11 +2,13 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 import raidsRoutes from './routes/raids.js';
 import rosterRoutes from './routes/roster.js';
 
 const app = express();
+dotenv.config();
 
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
@@ -14,10 +16,13 @@ app.use(cors());
 app.use('/raids', raidsRoutes);
 app.use('/roster', rosterRoutes);
 
-const CONNECTION_URL =
-	'mongodb+srv://JamieTardi:Cheesedog69@cluster0.eh9tx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+app.get('/', (req, res) => {
+	res.send('Hello apis');
+});
 
-const PORT = process.env.PORT || 5000;
+const CONNECTION_URL = process.env.CONNECTION_URL;
+
+const PORT = process.env.PORT;
 
 mongoose
 	.connect(CONNECTION_URL, {
