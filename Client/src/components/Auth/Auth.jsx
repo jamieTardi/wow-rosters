@@ -16,16 +16,37 @@ import Input from './Input';
 import Icon from './Icon';
 import { useDispatch } from 'react-redux';
 import { AUTH } from '../../constants/actionTypes';
+import { signin, signup } from '../../actions/auth';
+
+const initialState = {
+	firstName: '',
+	lastName: '',
+	email: '',
+	password: '',
+	confirmPassword: '',
+};
 
 const Auth = () => {
 	const history = useHistory();
 	const classes = useStyles();
 	const [isSignUp, setIsSignUp] = useState(false);
 	const [showPassword, setShowpassword] = useState(false);
+	const [formData, setFormData] = useState(initialState);
 	const dispatch = useDispatch();
 
-	const handleSubmit = () => {};
-	const handleChange = () => {};
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (isSignUp) {
+			dispatch(signup(formData, history));
+		} else {
+			dispatch(signin(formData, history));
+		}
+	};
+
+	// handle multiple inputs form the name
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
 	const handleShowPassword = () => {
 		setShowpassword((prev) => !prev);
 	};
@@ -55,7 +76,11 @@ const Auth = () => {
 					<LockOutlineIcon />
 				</Avatar>
 				<Typography variant='h5'>{isSignUp ? 'Sign Up' : 'Sign In'}</Typography>
-				<form className={classes.form} onSubmit={handleSubmit}>
+				<form
+					className={classes.form}
+					onSubmit={(e) => {
+						handleSubmit(e);
+					}}>
 					<Grid spacing={3}>
 						{isSignUp && (
 							<>
@@ -93,7 +118,11 @@ const Auth = () => {
 							xs={12}
 						/>
 						{isSignUp && (
-							<Input name='confirmPassword' label='Repeat password' />
+							<Input
+								name='confirmPassword'
+								label='Repeat password'
+								handleChange={handleChange}
+							/>
 						)}
 					</Grid>
 

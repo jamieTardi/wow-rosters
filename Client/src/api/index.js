@@ -7,8 +7,8 @@ export let deleteRes = null;
 
 export const fetchRaids = () => axios.get(url);
 
-export const createRaid = (newRaid) =>
-	axios.post(url, newRaid).then((res) => console.log(res));
+export const createRaid = (newRaid, setRaidCreateRes) =>
+	axios.post(url, newRaid).then((res) => setRaidCreateRes(res));
 
 export const updateRaid = (id, updatedRaid) => {
 	axios

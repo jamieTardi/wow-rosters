@@ -78,6 +78,7 @@ const RaidForm = () => {
 		date: '',
 		roster: [],
 	});
+	const [raidCreateRes, setRaidCreateRes] = useState('');
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const handleClose = () => dispatch({ type: 'HIDE_RAID_MODAL' });
@@ -87,7 +88,8 @@ const RaidForm = () => {
 	const handleSubmit = () => {
 		setIsLoading(true);
 
-		dispatch(createRaid(raidForm));
+		//send the function some state to update in the argument to get the res
+		dispatch(createRaid(raidForm, setRaidCreateRes));
 		setRaidForm({
 			title: '',
 			message: '',
