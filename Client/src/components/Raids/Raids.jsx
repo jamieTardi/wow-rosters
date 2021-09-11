@@ -40,7 +40,6 @@ const Raids = () => {
 											setExpandCard={setExpandCard}
 										/>
 									</div>
-									<Nav />
 								</div>
 							) : (
 								<div className='col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex justify-content-center align-items-center mb-5'>
@@ -57,7 +56,6 @@ const Raids = () => {
 					<div
 						style={{ height: '500px' }}
 						className='d-flex justify-content-center align-items-center flex-column'>
-						<Nav />
 						<h1>Currently there are no raids, let's create one!</h1>
 						<Image src={emptyImg} fluid style={{ height: '100%' }} />
 					</div>
