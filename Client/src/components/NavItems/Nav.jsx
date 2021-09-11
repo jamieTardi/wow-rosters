@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormControl, InputGroup } from 'react-bootstrap';
 import { CreateRaid } from './index';
 import plus from '../../images/plus.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Button } from '@material-ui/core';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import { useStyles } from '../Form/styles';
 import DarkModeBTN from '../UIcomponents/DarkModeBTN';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { LOGOUT } from '../../constants/actionTypes';
 
 const Nav = () => {
 	const classes = useStyles();
+	const history = useHistory();
+	const location = useLocation();
 	const dispatch = useDispatch();
-	const user = null;
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+	const handleLogout = () => {
+		dispatch({ type: LOGOUT });
+		history.push('/');
+		setUser(null);
+	};
+
+	useEffect(() => {
+		const token = user?.token;
+
+		setUser(JSON.parse(localStorage.getItem('profile')));
+	}, [location]);
 	return (
 		<div className='my-4 d-flex justify-content-between align-items-center my-4'>
 			<Button
@@ -44,7 +60,11 @@ const Nav = () => {
 					<Button
 						variant='contained'
 						className={classes.logout}
-						color='secondary'></Button>
+						startIcon={<ExitToAppIcon />}
+						color='secondary'
+						onClick={handleLogout}>
+						Logout
+					</Button>
 				</div>
 			) : (
 				<div>

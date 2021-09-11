@@ -8,6 +8,7 @@ import { currentRaid } from './currentRaid';
 import { deleteLoad } from './deleteLoad';
 import { assignments } from './assignments';
 import { darkMode } from './darkMode';
+import { auth } from './auth';
 
 const rootReducer = combineReducers({
 	raids,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
 	deleteLoad,
 	assignments,
 	darkMode,
+	auth,
 });
 
 export default rootReducer;
