@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
-const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
+const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 const rosterUrl = 'http://localhost:5000/roster';
 

@@ -43,6 +43,7 @@ export const signup = async (req, res) => {
 			email,
 			password: hashedPassword,
 			name: `${firstName} ${lastName}`,
+			isAdmin: email === 'jamietardi1@gmail.com' ? true : false,
 		});
 		// test arg is client secret
 		const token = jwt.sign({ email: result.email, id: result._id }, 'test', {
