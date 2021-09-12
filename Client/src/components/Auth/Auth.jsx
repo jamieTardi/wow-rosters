@@ -30,7 +30,7 @@ const Auth = () => {
 	const history = useHistory();
 	const classes = useStyles();
 	const [isSignUp, setIsSignUp] = useState(false);
-	const [showPassword, setShowpassword] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
 	const [formData, setFormData] = useState(initialState);
 	const dispatch = useDispatch();
 
@@ -48,11 +48,11 @@ const Auth = () => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 	const handleShowPassword = () => {
-		setShowpassword((prev) => !prev);
+		setShowPassword((prev) => !prev);
 	};
 	const switchMode = () => {
 		setIsSignUp((prev) => !prev);
-		handleShowPassword(false);
+		setShowPassword(false);
 	};
 
 	const googleSuccess = async (res) => {

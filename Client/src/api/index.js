@@ -1,25 +1,25 @@
 import axios from 'axios';
 
-const url = 'https://wow-rosters.herokuapp.com/raids';
+// const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
+const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
+
 const rosterUrl = 'http://localhost:5000/roster';
 
 export let deleteRes = null;
 
-export const fetchRaids = () => axios.get(url);
+export const fetchRaids = () => API.get('/raids');
 
 export const createRaid = (newRaid, setRaidCreateRes) =>
-	axios.post(url, newRaid).then((res) => setRaidCreateRes(res));
+	API.post('/raids', newRaid).then((res) => setRaidCreateRes(res));
 
 export const updateRaid = (id, updatedRaid) => {
-	axios
-		.patch(`${url}/${id}`, updatedRaid)
+	API.patch(`/raids/${id}`, updatedRaid)
 		.then(() => console.log('Updated raid'))
 		.catch((err) => console.log(err));
 };
 
 export const deleteRaid = (id) => {
-	axios
-		.delete(`${url}/${id}`)
+	API.delete(`/raids/${id}`)
 		.then((res) => {
 			const { data } = res;
 			return (deleteRes = data);
@@ -31,3 +31,8 @@ export const deleteRaid = (id) => {
 export const fetchRoster = () => axios.get(rosterUrl);
 
 export const createRoster = (newRoster) => axios.post(rosterUrl, newRoster);
+
+//sign in routes
+
+export const signIn = (formData) => API.post('/user/signin', formData);
+export const signUp = (formData) => API.post('/user/signup', formData);
