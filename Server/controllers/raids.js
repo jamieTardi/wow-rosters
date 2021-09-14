@@ -13,7 +13,11 @@ export const getRaids = async (req, res) => {
 export const createRaid = async (req, res) => {
 	const raid = req.body;
 
-	const newRaid = new RaidConfig(raid);
+	const newRaid = new RaidConfig({
+		...raid,
+		creator: req.userId,
+		createdAt: new Date().toISOString(),
+	});
 	try {
 		await newRaid.save();
 		res.status(201).json(raid);

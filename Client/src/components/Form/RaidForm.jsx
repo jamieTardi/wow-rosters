@@ -9,6 +9,7 @@ import RaidPageTwo from './RaidPageTwo';
 import RaidPageThree from './RaidPageThree';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Container from '@material-ui/core/Container';
+import { Paper } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -71,7 +72,6 @@ const RaidForm = () => {
 	const [raidForm, setRaidForm] = useState({
 		title: '',
 		message: '',
-		creator: '',
 		tactics: [],
 		selectedFile: [],
 		time: '',
@@ -84,16 +84,21 @@ const RaidForm = () => {
 	const handleClose = () => dispatch({ type: 'HIDE_RAID_MODAL' });
 
 	const steps = ['Initial Raid Set up', 'Roster Set up', 'Assignments'];
+	const user = JSON.parse(localStorage.getItem('profile'));
+
+	console.log(user.result.name);
 
 	const handleSubmit = () => {
 		setIsLoading(true);
 
 		//send the function some state to update in the argument to get the res
-		dispatch(createRaid(raidForm, setRaidCreateRes));
+		dispatch(
+			createRaid({ ...raidForm, creator: user.result.name }, setRaidCreateRes),
+		);
 		setRaidForm({
 			title: '',
 			message: '',
-			creator: '',
+
 			tactics: [],
 			selectedFile: [],
 			time: '',
@@ -105,6 +110,16 @@ const RaidForm = () => {
 			handleClose();
 		}, 2200);
 	};
+
+	if (!user?.result?.name) {
+		return (
+			<Paper className={classes.paper}>
+				<Typography variant='h6' align='center'>
+					Please sign in to create a raid
+				</Typography>
+			</Paper>
+		);
+	}
 
 	function simulateNetworkRequest() {
 		return new Promise((resolve) => setTimeout(resolve, 2000));

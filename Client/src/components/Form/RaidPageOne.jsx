@@ -48,7 +48,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 					/>
 				</Grid>
 
-				<Grid item xs={12} sm={6}>
+				{/* <Grid item xs={12} sm={6}>
 					<TextField
 						id='standard-basic'
 						label='Author'
@@ -61,7 +61,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 							setRaidForm({ ...raidForm, creator: e.target.value });
 						}}
 					/>
-				</Grid>
+				</Grid> */}
 
 				<Grid item xs={12} sm={6}>
 					<TextField
