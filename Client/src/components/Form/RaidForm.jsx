@@ -86,8 +86,6 @@ const RaidForm = () => {
 	const steps = ['Initial Raid Set up', 'Roster Set up', 'Assignments'];
 	const user = JSON.parse(localStorage.getItem('profile'));
 
-	console.log(user.result.name);
-
 	const handleSubmit = () => {
 		setIsLoading(true);
 

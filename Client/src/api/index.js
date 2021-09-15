@@ -46,3 +46,14 @@ export const createRoster = (newRoster) => axios.post(rosterUrl, newRoster);
 
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
+
+//Users
+
+export const fetchUsers = (setUserRes) =>
+	API.get('/user/users')
+		.then((res) => {
+			setUserRes(res.data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});

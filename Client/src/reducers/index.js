@@ -9,6 +9,7 @@ import { deleteLoad } from './deleteLoad';
 import { assignments } from './assignments';
 import { darkMode } from './darkMode';
 import { auth } from './auth';
+import { googleId } from './googleId';
 
 const rootReducer = combineReducers({
 	raids,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
 	assignments,
 	darkMode,
 	auth,
+	googleId,
 });
 
 export default rootReducer;

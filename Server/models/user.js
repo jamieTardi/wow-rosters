@@ -5,7 +5,11 @@ const userSchema = mongoose.Schema({
 	email: { type: String, required: true },
 	password: { type: String, required: true },
 	id: { type: String },
-	isAdmin: { type: Boolean },
+	role: {
+		type: String,
+		default: 'member',
+		enum: ['member', 'moderator', 'admin'],
+	},
 });
 
 export default mongoose.model('User', userSchema);

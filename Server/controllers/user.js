@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import user from '../models/user.js';
 import User from '../models/user.js';
 
 export const signin = async (req, res) => {
@@ -43,7 +44,6 @@ export const signup = async (req, res) => {
 			email,
 			password: hashedPassword,
 			name: `${firstName} ${lastName}`,
-			isAdmin: email === 'jamietardi1@gmail.com' ? true : false,
 		});
 		// test arg is client secret
 		const token = jwt.sign({ email: result.email, id: result._id }, 'test', {
@@ -52,7 +52,16 @@ export const signup = async (req, res) => {
 
 		res.status(200).json({ result: result, token });
 	} catch (err) {
-		res.status(500).json({ message: 'Something went wrong.' });
+		// res.status(500).json({ message: 'Something went wrong.' });
 		console.log(err);
+	}
+};
+
+export const getUsers = async (req, res) => {
+	try {
+		const userConfig = await user.find();
+		res.status(200).json(userConfig);
+	} catch (e) {
+		res.status(404).json({ message: e });
 	}
 };
