@@ -65,3 +65,22 @@ export const getUsers = async (req, res) => {
 		res.status(404).json({ message: e });
 	}
 };
+
+export const signUpGoogle = async (req, res) => {
+	const { name, email, id, password } = req.body;
+	try {
+		const existingUser = await User.findOne({ email });
+		if (existingUser)
+			return res.status(400).json({ message: 'User already exist' });
+		const hashedPassword = await bcrypt.hash(password, 12);
+		const result = await User.create({
+			email,
+			id,
+			name,
+			password: hashedPassword,
+		});
+		res.status(200).json({ result });
+	} catch (err) {
+		console.log(err);
+	}
+};

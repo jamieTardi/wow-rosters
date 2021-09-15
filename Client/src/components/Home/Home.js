@@ -3,7 +3,7 @@ import Raids from '../Raids/Raids';
 import RaidForm from '../Form/RaidForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { GOOGLE_LOGIN } from '../../constants/actionTypes';
-import { fetchUsers } from '../../api';
+import { fetchUsers, createGoogleUser } from '../../api';
 
 const Home = () => {
 	const [userRes, setUserRes] = useState(null);
@@ -24,10 +24,9 @@ const Home = () => {
 	useEffect(() => {
 		userRes?.forEach((user) => {
 			if (googleUser.email === user.email) {
-				console.log('user exists');
-			} else {
-				console.log('does not exist');
+				return console.log('exists');
 			}
+			createGoogleUser(googleUser);
 		});
 	}, [userRes]);
 
