@@ -10,6 +10,7 @@ import { assignments } from './assignments';
 import { darkMode } from './darkMode';
 import { auth } from './auth';
 import { googleId } from './googleId';
+import { currentUser } from './currentUser';
 
 const rootReducer = combineReducers({
 	raids,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
 	assignRaids,
 	raidModal,
 	currentId,
+	currentUser,
 	currentRaid,
 	deleteLoad,
 	assignments,

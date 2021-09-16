@@ -64,6 +64,9 @@ export const useStyles = makeStyles((theme) => ({
 			padding: theme.spacing(3),
 		},
 	},
+	drawer: {
+		width: '350px',
+	},
 	modal: {
 		display: 'flex',
 		alignItems: 'center',

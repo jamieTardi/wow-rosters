@@ -4,6 +4,7 @@ import RaidForm from '../Form/RaidForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { GOOGLE_LOGIN } from '../../constants/actionTypes';
 import { fetchUsers, createGoogleUser } from '../../api';
+import { CURRENT_USER } from '../../constants/actionTypes';
 
 const Home = () => {
 	const [userRes, setUserRes] = useState(null);
@@ -11,6 +12,7 @@ const Home = () => {
 	const googleUser = useSelector((state) => state.googleId);
 
 	useEffect(() => {
+		dispatch({ type: GOOGLE_LOGIN, payload: null });
 		fetchUsers(setUserRes);
 		if (localStorage.getItem('profile')) {
 			let newLogin = JSON.parse(localStorage.getItem('profile'));
@@ -22,12 +24,47 @@ const Home = () => {
 	}, []);
 
 	useEffect(() => {
-		userRes?.forEach((user) => {
-			if (googleUser.email === user.email) {
-				return console.log('exists');
-			}
-			createGoogleUser(googleUser);
-		});
+		if (localStorage.getItem('profile') !== null) {
+			dispatch({
+				type: CURRENT_USER,
+				payload: JSON.parse(localStorage.getItem('profile')).result,
+			});
+		} else {
+			dispatch({
+				type: CURRENT_USER,
+				payload: { name: 'Guest', email: 'Guest', role: 'Guest' },
+			});
+		}
+	}, []);
+
+	useEffect(() => {
+		if (googleUser) {
+			userRes?.forEach((user) => {
+				if (googleUser.email === user.email) {
+					return console.log('exists');
+				}
+
+				let updatedUser = {
+					name: googleUser.name,
+					email: googleUser.email,
+					id: googleUser.googleId,
+					password: googleUser.googleId,
+				};
+				createGoogleUser(updatedUser);
+				localStorage.setItem('current_user', JSON.stringify(updatedUser));
+				userRes.forEach((user) => {
+					if (
+						localStorage.getItem('profile') &&
+						googleUser.email === user.email
+					) {
+						dispatch({
+							type: CURRENT_USER,
+							payload: user,
+						});
+					}
+				});
+			});
+		}
 	}, [userRes]);
 
 	return (

@@ -59,14 +59,7 @@ export const fetchUsers = (setUserRes) =>
 		});
 
 export const createGoogleUser = (googleUser) => {
-	console.log(googleUser);
-	let updatedUser = {
-		name: googleUser.name,
-		email: googleUser.email,
-		id: googleUser.googleId,
-		password: googleUser.googleId,
-	};
-	API.post('/user/google-sign-up', updatedUser)
+	API.post('/user/google-sign-up', googleUser)
 		.then((res) => console.log(res))
 		.catch((err) => console.log(err));
 };
