@@ -32,7 +32,7 @@ const Raids = () => {
 					createdRaids.reverse().map((raid, i) => (
 						<>
 							{i === 0 ? (
-								<div className='col-12 mt-5'>
+								<div className='col-12 my-5'>
 									<div className='d-flex justify-content-center align-items-center w-100'>
 										<NewestRaid
 											raid={raid}

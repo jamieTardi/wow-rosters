@@ -15,6 +15,7 @@ import { currentUser } from '../../reducers/currentUser';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import wowImage from '../../images/world.svg';
 import {
 	IconButton,
 	Box,
@@ -64,56 +65,65 @@ const Nav = () => {
 
 	return (
 		<>
-			<Box sx={{ flexGrow: 1 }}>
+			<Box sx={{ flexGrow: 1 }} className='mt-3'>
 				<AppBar position='static'>
-					<Toolbar>
-						<IconButton
-							size='large'
-							edge='start'
-							color='inherit'
-							aria-label='menu'
-							aria-controls='basic-menu'
-							aria-haspopup='true'
-							aria-expanded={true}
-							onClick={() => {
-								toggleDrawer();
-							}}
-							sx={{ mr: 2 }}>
-							<MenuIcon />
-						</IconButton>
+					<Toolbar className='d-flex justify-content-between align-items-center'>
+						<div>
+							<IconButton
+								size='large'
+								edge='start'
+								color='inherit'
+								aria-label='menu'
+								aria-controls='basic-menu'
+								aria-haspopup='true'
+								aria-expanded={true}
+								onClick={() => {
+									toggleDrawer();
+								}}
+								sx={{ mr: 2 }}>
+								<MenuIcon />
+							</IconButton>
 
-						<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-							News
-						</Typography>
-
-						<DarkModeBTN />
-						{user ? (
-							<div className={classes.profile}>
-								<Avatar
-									className={classes.purple}
-									alt={user.result.name}
-									src={user.result.imageUrl}>
-									{user.result.name.charAt(0)}
-								</Avatar>
-								<Typography className={classes.className} variant='h6'>
-									{user.result.name}
-								</Typography>
-								<Button
-									variant='contained'
-									className={classes.logout}
-									startIcon={<ExitToAppIcon />}
-									color='secondary'
-									onClick={handleLogout}>
-									Logout
-								</Button>
+							<img
+								src={wowImage}
+								style={{ width: '30px', height: '30px' }}
+								alt='wow'
+							/>
+						</div>
+						<div className='d-flex align-items-center'>
+							<div className='me-5'>
+								<DarkModeBTN />
 							</div>
-						) : (
-							<div>
-								<Button component={Link} to='/auth'>
-									Sign in
-								</Button>{' '}
-							</div>
-						)}
+							{user ? (
+								<div className={classes.profile}>
+									<Button
+										variant='text'
+										className={classes.logout}
+										startIcon={
+											<Avatar
+												className={classes.purple}
+												alt={user.result.name}
+												src={user.result.imageUrl}>
+												{user.result.name.charAt(0)}
+											</Avatar>
+										}
+										color='secondary'
+										onClick={handleLogout}>
+										Logout
+									</Button>
+								</div>
+							) : (
+								<div>
+									<Button
+										component={Link}
+										to='/auth'
+										variant='text'
+										color='primary'>
+										Sign in
+									</Button>{' '}
+								</div>
+							)}
+						</div>
 					</Toolbar>
 				</AppBar>
 			</Box>
