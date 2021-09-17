@@ -11,11 +11,13 @@ import { darkMode } from './darkMode';
 import { auth } from './auth';
 import { googleId } from './googleId';
 import { currentUser } from './currentUser';
+import { createdRosters } from './createdRosters';
 
 const rootReducer = combineReducers({
 	raids,
 	roster,
 	assignRaids,
+	createdRosters,
 	raidModal,
 	currentId,
 	currentUser,

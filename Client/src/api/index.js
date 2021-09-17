@@ -38,7 +38,7 @@ export const deleteRaid = (id) => {
 		.catch((err) => console.log(err));
 };
 
-export const fetchRoster = () => axios.get(rosterUrl);
+export const fetchRoster = () => API.get('/roster');
 
 export const createRoster = (newRoster) => API.post('/roster', newRoster);
 

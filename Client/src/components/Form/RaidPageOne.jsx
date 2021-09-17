@@ -10,6 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	const [uploadedImg, setUploadedImg] = useState('');
+
 	const [startDate, setStartDate] = useState(new Date());
 	const classes = useStyles();
 	const handleImgUpload = (base64) => {
@@ -74,7 +75,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 						multiline
 						fullWidth
 						rows={8}
-						defaultValue='Enter any raid specific information here.'
+						defaultValue=''
 						onChange={(e) => {
 							setRaidForm({ ...raidForm, message: e.target.value });
 						}}

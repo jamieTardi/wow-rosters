@@ -15,8 +15,10 @@ export const createRoster = async (req, res) => {
 
 	const newRoster = new RosterConfig({
 		roster: roster,
+		title,
+		image,
 	});
-	console.log(newRoster);
+
 	try {
 		await newRoster.save();
 		res.status(201).json(roster);

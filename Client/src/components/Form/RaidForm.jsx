@@ -150,7 +150,7 @@ const RaidForm = () => {
 
 	return (
 		<Container maxWidth='sm'>
-			<Modal show={showRaid} onHide={handleClose} size='md'>
+			<Modal show={showRaid} onHide={handleClose} size='lg'>
 				<Modal.Header closeButton>
 					<Modal.Title>Create a new raid</Modal.Title>
 				</Modal.Header>

@@ -5,11 +5,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GOOGLE_LOGIN } from '../../constants/actionTypes';
 import { fetchUsers, createGoogleUser } from '../../api';
 import { CURRENT_USER } from '../../constants/actionTypes';
+import { getRoster } from '../../actions/roster';
 
 const Home = () => {
 	const [userRes, setUserRes] = useState(null);
 	const dispatch = useDispatch();
 	const googleUser = useSelector((state) => state.googleId);
+	const [roster, setRoster] = useState([]);
+
+	useEffect(() => {
+		dispatch(getRoster());
+	}, []);
 
 	useEffect(() => {
 		dispatch({ type: GOOGLE_LOGIN, payload: null });

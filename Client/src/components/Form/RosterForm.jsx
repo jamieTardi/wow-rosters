@@ -65,6 +65,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 	return (
 		<>
 			<Paper className='raid-form-container container mt-5'>
+				<FormControl></FormControl>
 				<FormControl
 					className='w-100'
 					onSubmit={(e) => {
