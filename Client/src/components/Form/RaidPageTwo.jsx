@@ -9,51 +9,53 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 
 	const handleAddRoster = (roster) => {
 		console.log('click');
-		setRaidForm({ ...raidForm, roster: roster });
+		setRaidForm({ ...raidForm, roster });
 	};
 	console.log(raidForm);
 	return (
 		<div>
 			{rosters.length > 0 ? (
-				<Paper>
-					<Typography variant='h5' gutterBottom>
+				<Paper className='container '>
+					<Typography variant='h5' gutterBottom className='pt-3'>
 						Select a roster from below
 					</Typography>
-					{rosters.map((roster, i) => (
-						<div className='mini-card'>
-							<Card style={{ width: '10rem' }}>
-								<Card.Img
-									variant='top'
-									src={
-										roster.image
-											? roster.image
-											: 'https://magazine.artstation.com/wp-content/uploads/2018/09/Illustration_GlennRane-1024x576.jpg'
-									}
-								/>
-								<Card.Body>
-									<Card.Title>Raid Roster {++i}</Card.Title>
-									<Card.Text>
-										Click the button below to view or assign raid {++i}
-									</Card.Text>
-									<Button
-										variant='contained'
-										color='default'
-										style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
-										View Roster
-									</Button>
-									<Button
-										variant='contained'
-										color='primary'
-										style={{ fontSize: '0.6rem' }}
-										onClick={() => {
-											handleAddRoster(roster);
-										}}>
-										Assign to Raid
-									</Button>
-								</Card.Body>
-							</Card>
-						</div>
-					))}
+					<div className='row'>
+						{rosters.map((roster, i) => (
+							<div className='mini-card col-6 col-md-4 mb-4'>
+								<Card style={{ width: '90%' }}>
+									<Card.Img
+										variant='top'
+										src={
+											roster.image
+												? roster.image
+												: 'https://magazine.artstation.com/wp-content/uploads/2018/09/Illustration_GlennRane-1024x576.jpg'
+										}
+									/>
+									<Card.Body>
+										<Card.Title>Raid Roster {++i}</Card.Title>
+										<Card.Text>
+											Click the button below to view or assign raid {++i}
+										</Card.Text>
+										<Button
+											variant='contained'
+											color='default'
+											style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
+											View Roster
+										</Button>
+										<Button
+											variant='contained'
+											color='primary'
+											style={{ fontSize: '0.6rem' }}
+											onClick={() => {
+												handleAddRoster(roster);
+											}}>
+											Assign to Raid
+										</Button>
+									</Card.Body>
+								</Card>
+							</div>
+						))}
+					</div>
 				</Paper>
 			) : (
 				<>

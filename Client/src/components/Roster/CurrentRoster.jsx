@@ -8,7 +8,7 @@ import EditPageTwo from '../EditPages/EditPageTwo';
 const CurrentRoster = () => {
 	const [hideModal, setHideModal] = useState(true);
 	const raid = useSelector((state) => state.currentRaid);
-	const roster = raid.roster;
+	const roster = raid.roster.roster;
 	return (
 		<div>
 			<div>
