@@ -13,7 +13,10 @@ export const getRoster = async (req, res) => {
 export const createRoster = async (req, res) => {
 	const roster = req.body;
 
-	const newRoster = new RosterConfig(roster);
+	const newRoster = new RosterConfig({
+		roster: roster,
+	});
+	console.log(newRoster);
 	try {
 		await newRoster.save();
 		res.status(201).json(roster);

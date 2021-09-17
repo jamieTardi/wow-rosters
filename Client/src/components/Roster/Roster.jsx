@@ -5,6 +5,7 @@ import { updateRaid } from '../../actions/raids';
 import SaveIcon from '@material-ui/icons/Save';
 import { Button } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
+import { createRoster } from '../../actions/roster';
 
 const Roster = ({
 	selectedRaid,
@@ -37,7 +38,8 @@ const Roster = ({
 	const handleUpdateRaid = () => {
 		setIsLoading(true);
 		setCompletedTxt(true);
-		setRaidForm({ ...raidForm, roster: assignedRoster });
+		// setRaidForm({ ...raidForm, roster: assignedRoster });
+		dispatch(createRoster(assignedRoster));
 		setTimeout(() => {
 			setIsLoading(false);
 			setCompletedTxt(false);
@@ -189,7 +191,7 @@ const Roster = ({
 						className={classes.button}
 						onClick={handleUpdateRaid}
 						startIcon={<SaveIcon />}>
-						Add this roster to the raid
+						Add Roster
 					</Button>
 				) : (
 					<Button

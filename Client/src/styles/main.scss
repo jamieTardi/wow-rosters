@@ -166,3 +166,40 @@ div {
 .nav-tabs {
 	border-bottom: 1px solid #3dd115 !important;
 }
+
+//Custom Date picker
+
+.react-datepicker__header {
+	background-color: #333 !important;
+}
+
+.react-datepicker__month-container {
+	background-color: #1f1f1f;
+}
+
+.react-datepicker-ignore-onclickoutside {
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #fff;
+	color: #fff !important;
+}
+
+.react-datepicker__input-container input {
+	background-color: transparent !important;
+	border: none;
+	border-bottom: 1px solid #fff;
+	color: #fff !important;
+	cursor: pointer;
+}
+
+//raidform roster
+
+.raid-form-container {
+	width: 50% !important;
+}
+
+@media (max-width: 768px) {
+	.raid-form-container {
+		width: 100% !important;
+	}
+}

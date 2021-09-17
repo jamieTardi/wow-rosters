@@ -4,14 +4,19 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { useStyles } from './styles';
+import DatePicker from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	const [uploadedImg, setUploadedImg] = useState('');
+	const [startDate, setStartDate] = useState(new Date());
 	const classes = useStyles();
 	const handleImgUpload = (base64) => {
 		setUploadedImg(base64);
 		setRaidForm({ ...raidForm, selectedFile: base64 });
 	};
+
 	return (
 		<div>
 			<Typography variant='h4' gutterBottom>
@@ -48,32 +53,12 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 					/>
 				</Grid>
 
-				{/* <Grid item xs={12} sm={6}>
-					<TextField
-						id='standard-basic'
-						label='Author'
-						InputLabelProps={{
-							style: { color: '#fff ' },
-						}}
-						className={classes.input}
-						fullWidth
-						onChange={(e) => {
-							setRaidForm({ ...raidForm, creator: e.target.value });
-						}}
-					/>
-				</Grid> */}
-
 				<Grid item xs={12} sm={6}>
-					<TextField
-						id='standard-basic'
-						label='Date'
-						InputLabelProps={{
-							style: { color: '#fff ' },
-						}}
-						className={classes.input}
-						fullWidth
-						onChange={(e) => {
-							setRaidForm({ ...raidForm, date: e.target.value });
+					<DatePicker
+						selected={startDate}
+						onChange={(date) => {
+							setStartDate(date);
+							setRaidForm({ ...raidForm, date });
 						}}
 					/>
 				</Grid>

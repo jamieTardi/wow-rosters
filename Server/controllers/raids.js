@@ -15,7 +15,6 @@ export const createRaid = async (req, res) => {
 
 	const newRaid = new RaidConfig({
 		...raid,
-		creator: req.userId,
 		createdAt: new Date().toISOString(),
 	});
 	try {

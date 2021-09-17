@@ -40,7 +40,7 @@ export const deleteRaid = (id) => {
 
 export const fetchRoster = () => axios.get(rosterUrl);
 
-export const createRoster = (newRoster) => axios.post(rosterUrl, newRoster);
+export const createRoster = (newRoster) => API.post('/roster', newRoster);
 
 //sign in routes
 

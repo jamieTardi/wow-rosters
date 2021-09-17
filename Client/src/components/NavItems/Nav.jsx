@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, InputGroup } from 'react-bootstrap';
-import { CreateRaid } from './index';
-import plus from '../../images/plus.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Button } from '@material-ui/core';
 
@@ -11,7 +8,6 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { LOGOUT } from '../../constants/actionTypes';
-import { currentUser } from '../../reducers/currentUser';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
@@ -35,8 +31,6 @@ import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import MenuIcon from '@material-ui/icons/Menu';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import BugReportIcon from '@material-ui/icons/BugReport';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 
 const Nav = () => {
 	const classes = useStyles();
@@ -45,7 +39,7 @@ const Nav = () => {
 	const dispatch = useDispatch();
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 	const selectedUser = useSelector((state) => state.currentUser);
-	const [openMenu, setOpenMenu] = useState('false');
+	const [openMenu, setOpenMenu] = useState(false);
 
 	const toggleDrawer = () => {
 		setOpenMenu((prev) => !prev);
@@ -55,6 +49,7 @@ const Nav = () => {
 		dispatch({ type: LOGOUT });
 		history.push('/');
 		setUser(null);
+		history.go(0);
 	};
 
 	useEffect(() => {
@@ -144,7 +139,7 @@ const Nav = () => {
 								</ListItemIcon>
 							</ListItem>
 
-							<ListItem>
+							<ListItem style={{ cursor: 'pointer' }}>
 								<ListItemIcon>
 									<SportsEsportsIcon />
 								</ListItemIcon>
@@ -153,7 +148,7 @@ const Nav = () => {
 						</List>
 						<List>
 							{selectedUser.role === 'admin' && (
-								<ListItem disablePadding>
+								<ListItem disablePadding style={{ cursor: 'pointer' }}>
 									<ListItemIcon>
 										<SupervisorAccountIcon />
 									</ListItemIcon>
@@ -167,10 +162,12 @@ const Nav = () => {
 										? false
 										: true
 								}
+								style={{ cursor: 'pointer' }}
 								disablePadding
 								onClick={() => {
 									dispatch({ type: 'SHOW_RAID_MODAL' });
 									dispatch({ type: 'CURRENT_ID', payload: null });
+									setOpenMenu(false);
 								}}>
 								<ListItemIcon>
 									<AddToPhotosIcon />
@@ -179,6 +176,7 @@ const Nav = () => {
 							</ListItem>
 							<ListItem
 								disablePadding
+								style={{ cursor: 'pointer' }}
 								disabled={
 									selectedUser.role === 'admin' ||
 									selectedUser.role === 'moderator'
@@ -192,6 +190,7 @@ const Nav = () => {
 							</ListItem>
 							<ListItem
 								disablePadding
+								style={{ cursor: 'pointer' }}
 								disabled={
 									selectedUser.role === 'admin' ||
 									selectedUser.role === 'moderator'
