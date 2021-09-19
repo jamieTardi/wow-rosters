@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Accordion } from 'react-bootstrap';
 import moment from 'moment';
 import Roster from '../Roster/Roster';
@@ -16,6 +16,27 @@ import TabbedMenu from '../Assignments/TabbedMenu';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	const [editModal, setEditModal] = useState(false);
+
+	const dateFormatter = () => {
+		let newYear = [];
+		let newMonth = [];
+		let newDay = [];
+
+		let newStr = selectedRaid.date.substring(0, 10);
+		let splitStr = newStr.split('');
+		splitStr.map((number, i) => {
+			if (i < 4) {
+				newYear.push(number);
+			} else if (i > 4 && i < 7) {
+				newMonth.push(number);
+			} else if (i > 7) {
+				newDay.push(number);
+			}
+		});
+		let newDate =
+			newDay.join('') + '-' + newMonth.join('') + '-' + newYear.join('');
+		return newDate;
+	};
 
 	return (
 		<>
@@ -46,6 +67,12 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 									startIcon={<EditIcon />}>
 									Edit
 								</Button>
+							</div>
+						</div>
+						<div className='row'>
+							<div className='col-6'>Raid Date: {dateFormatter()}</div>
+							<div className='col-6 text-end'>
+								Time of Raid: {selectedRaid.time}
 							</div>
 						</div>
 						<div>

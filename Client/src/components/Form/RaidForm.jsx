@@ -69,15 +69,18 @@ const RaidForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [pageNum, setPageNum] = useState(0);
 	const [activeStep, setActiveStep] = useState(0);
+	const [raidHour, setRaidHour] = useState('00');
+	const [raidMinute, setRaidMinute] = useState('00');
 	const [raidForm, setRaidForm] = useState({
 		title: '',
 		message: '',
 		tactics: [],
 		selectedFile: [],
-		time: '',
+		time: raidHour + ':' + raidMinute,
 		date: '',
 		roster: [],
 	});
+	console.log(raidForm);
 	const [raidCreateRes, setRaidCreateRes] = useState('');
 	const classes = useStyles();
 	const dispatch = useDispatch();
@@ -131,7 +134,16 @@ const RaidForm = () => {
 	function getStepContent(step) {
 		switch (step) {
 			case 0:
-				return <RaidPageOne setRaidForm={setRaidForm} raidForm={raidForm} />;
+				return (
+					<RaidPageOne
+						setRaidForm={setRaidForm}
+						raidForm={raidForm}
+						setRaidMinute={setRaidMinute}
+						setRaidHour={setRaidHour}
+						raidHour={raidHour}
+						raidMinute={raidMinute}
+					/>
+				);
 			case 1:
 				return <RaidPageTwo setRaidForm={setRaidForm} raidForm={raidForm} />;
 			case 2:

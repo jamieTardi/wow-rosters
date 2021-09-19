@@ -1,19 +1,33 @@
 import React, { useState } from 'react';
-import { Typography, TextField, Button, Grid } from '@material-ui/core';
+import {
+	Typography,
+	TextField,
+	Button,
+	Grid,
+	InputLabel,
+	Select,
+	MenuItem,
+} from '@material-ui/core';
 import { Modal } from 'react-bootstrap';
 import { useStyles } from '../Form/styles';
 import SaveIcon from '@material-ui/icons/Save';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateRaid } from '../../actions/raids';
 import FileBase from 'react-file-base64';
+import { minutes, hours } from '../../lib/time';
+import DatePicker from 'react-datepicker';
 
 const EditPageOne = ({ setEditModal }) => {
 	const dispatch = useDispatch();
+	const [raidHour, setRaidHour] = useState('00');
+	const [raidMinute, setRaidMinute] = useState('00');
 	const selectedRaid = useSelector((state) => state.currentRaid);
 	const [uploadedImg, setUploadedImg] = useState('');
 	const classes = useStyles();
 	const [show, setShow] = useState(true);
 	const [editRaid, setEditRaid] = useState(selectedRaid);
+	const [startDate, setStartDate] = useState(new Date());
+
 	const handleOpen = () => {
 		setShow(true);
 	};
@@ -74,19 +88,40 @@ const EditPageOne = ({ setEditModal }) => {
 						</Grid>
 
 						<Grid item xs={12} sm={6}>
-							<TextField
-								id='standard-basic'
-								fullWidth
-								InputLabelProps={{
-									style: { color: '#fff ' },
-								}}
-								className={classes.input}
-								label='Start Time'
-								defaultValue={selectedRaid.time}
+							<InputLabel
+								id='demo-simple-select-label'
+								className={classes.select}>
+								Select a Time
+							</InputLabel>
+
+							<Select
 								onChange={(e) => {
-									setEditRaid({ ...editRaid, time: e.target.value });
-								}}
-							/>
+									setRaidHour(e.target.value);
+									setEditRaid({
+										...editRaid,
+										time: raidHour + ':' + raidMinute,
+									});
+								}}>
+								{hours.map((hour) => (
+									<MenuItem value={hour} className='text-white'>
+										{hour}
+									</MenuItem>
+								))}
+							</Select>
+							<Select
+								onChange={(e) => {
+									setRaidMinute(e.target.value);
+									setEditRaid({
+										...editRaid,
+										time: raidHour + ':' + raidMinute,
+									});
+								}}>
+								{minutes.map((minute) => (
+									<MenuItem value={minute} className='text-white'>
+										{minute}
+									</MenuItem>
+								))}
+							</Select>
 						</Grid>
 
 						<Grid item xs={12} sm={6}>
@@ -106,17 +141,16 @@ const EditPageOne = ({ setEditModal }) => {
 						</Grid>
 
 						<Grid item xs={12} sm={6}>
-							<TextField
-								id='standard-basic'
-								label='Date'
-								InputLabelProps={{
-									style: { color: '#fff ' },
-								}}
-								className={classes.input}
-								fullWidth
-								defaultValue={selectedRaid.date}
-								onChange={(e) => {
-									setEditRaid({ ...editRaid, date: e.target.value });
+							<InputLabel
+								id='demo-simple-select-label'
+								className={classes.select}>
+								Select a Date
+							</InputLabel>
+							<DatePicker
+								selected={startDate}
+								onChange={(date) => {
+									setStartDate(date);
+									setEditRaid({ ...editRaid, date });
 								}}
 							/>
 						</Grid>

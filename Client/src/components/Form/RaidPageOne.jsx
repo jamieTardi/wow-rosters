@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FileBase from 'react-file-base64';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 import { useStyles } from './styles';
 import DatePicker from 'react-datepicker';
+import { minutes, hours } from '../../lib/time';
 
-import 'react-datepicker/dist/react-datepicker.css';
-
-const RaidPageOne = ({ raidForm, setRaidForm }) => {
+const RaidPageOne = ({
+	raidForm,
+	setRaidForm,
+	setRaidMinute,
+	setRaidHour,
+	raidHour,
+	raidMinute,
+}) => {
 	const [uploadedImg, setUploadedImg] = useState('');
 
 	const [startDate, setStartDate] = useState(new Date());
@@ -39,19 +48,33 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 					/>
 				</Grid>
 
-				<Grid item xs={12} sm={6}>
-					<TextField
-						id='standard-basic'
-						fullWidth
-						InputLabelProps={{
-							style: { color: '#fff ' },
-						}}
-						className={classes.input}
-						label='Start Time'
+				<Grid item xs={6} sm={3}>
+					<InputLabel id='demo-simple-select-label' className={classes.select}>
+						Select a Time
+					</InputLabel>
+
+					<Select
 						onChange={(e) => {
-							setRaidForm({ ...raidForm, time: e.target.value });
-						}}
-					/>
+							setRaidHour(e.target.value);
+							setRaidForm({ ...raidForm, time: raidHour + ':' + raidMinute });
+						}}>
+						{hours.map((hour) => (
+							<MenuItem value={hour} className='text-white'>
+								{hour}
+							</MenuItem>
+						))}
+					</Select>
+					<Select
+						onChange={(e) => {
+							setRaidMinute(e.target.value);
+							setRaidForm({ ...raidForm, time: raidHour + ':' + raidMinute });
+						}}>
+						{minutes.map((minute) => (
+							<MenuItem value={minute} className='text-white'>
+								{minute}
+							</MenuItem>
+						))}
+					</Select>
 				</Grid>
 
 				<Grid item xs={12} sm={6}>
