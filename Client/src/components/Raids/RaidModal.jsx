@@ -54,7 +54,9 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 
 					<Modal.Body>
 						<div className='row'>
-							<div className='col-6'>
+							<div
+								className='col-6'
+								style={{ color: 'rgba(255, 255, 255, 0.7) !important' }}>
 								Raid created {moment(selectedRaid.createdAt).fromNow()}
 							</div>
 							<div className='col-6 text-end'>

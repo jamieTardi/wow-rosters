@@ -42,7 +42,11 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 						/>
 
 						<CardContent>
-							<Typography variant='h5'>{raid.title}</Typography>
+							<Typography
+								variant='h5'
+								style={{ color: 'rgba(255, 255, 255, 0.7) !important' }}>
+								{raid.title}
+							</Typography>
 							<Typography variant='h5'>{raid.name}</Typography>
 							<Typography variant='body2' component='p' className='mb-2'>
 								<span
@@ -50,7 +54,9 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 									style={{ fontSize: '0.6rem !important' }}>
 									<AccessTimeIcon />
 								</span>
-								<span className='ms-1 grey-text-card '>
+								<span
+									className='ms-1  '
+									style={{ color: 'rgba(255, 255, 255, 0.7) !important' }}>
 									Raid created {moment(raid.createdAt).fromNow()}{' '}
 								</span>
 							</Typography>

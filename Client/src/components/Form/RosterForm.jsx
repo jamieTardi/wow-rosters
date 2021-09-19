@@ -26,6 +26,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 	const [show, setShow] = useState(true);
 	const [title, setTitle] = useState(false);
 	const [assignedRoster, setAssignedRoster] = useState([]);
+	const [addTitle, setAddTitle] = useState('');
 	const [showText, setShowText] = useState('');
 	const charClasses = [
 		'Warrior',
@@ -65,7 +66,23 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 	return (
 		<>
 			<Paper className='raid-form-container container mt-5'>
-				<FormControl></FormControl>
+				<FormControl>
+					<Grid item xs={5}>
+						<TextField
+							type='name'
+							fullWidth
+							value={addTitle}
+							className={classes.input}
+							InputLabelProps={{
+								style: { color: '#fff ' },
+							}}
+							label='Character Name'
+							onChange={(e) => {
+								setAddTitle(e.target.value);
+							}}
+						/>
+					</Grid>
+				</FormControl>
 				<FormControl
 					className='w-100'
 					onSubmit={(e) => {
@@ -178,6 +195,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 					raidForm={raidForm}
 					assignedRoster={assignedRoster}
 					setAssignedRoster={setAssignedRoster}
+					addTitle={addTitle}
 				/>
 			</div>
 		</>

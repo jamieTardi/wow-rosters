@@ -13,6 +13,7 @@ const Roster = ({
 	raidForm,
 	assignedRoster,
 	setAssignedRoster,
+	addTitle,
 }) => {
 	const [rosterAssigned, setRosterAssigned] = useState(true);
 	const dispatch = useDispatch();
@@ -21,6 +22,11 @@ const Roster = ({
 	const currentId = useSelector((state) => state.currentId);
 	const classes = useStyles();
 	const [completedTxt, setCompletedTxt] = useState(false);
+	let completeRoster = {
+		title: addTitle,
+		roster: assignedRoster,
+		image: '',
+	};
 
 	const handleRemoveRaider = (id) => {
 		dispatch({ type: 'REMOVE_RAIDER', payload: id });
@@ -39,7 +45,7 @@ const Roster = ({
 		setIsLoading(true);
 		setCompletedTxt(true);
 		// setRaidForm({ ...raidForm, roster: assignedRoster });
-		dispatch(createRoster(assignedRoster));
+		dispatch(createRoster(completeRoster));
 		setTimeout(() => {
 			setIsLoading(false);
 			setCompletedTxt(false);

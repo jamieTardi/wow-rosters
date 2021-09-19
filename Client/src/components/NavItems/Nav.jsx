@@ -79,11 +79,13 @@ const Nav = () => {
 								<MenuIcon />
 							</IconButton>
 
-							<img
-								src={wowImage}
-								style={{ width: '30px', height: '30px' }}
-								alt='wow'
-							/>
+							<Link to='/'>
+								<img
+									src={wowImage}
+									style={{ width: '30px', height: '30px' }}
+									alt='wow'
+								/>
+							</Link>
 						</div>
 						<div className='d-flex align-items-center'>
 							<div className='me-5'>
@@ -176,7 +178,12 @@ const Nav = () => {
 							</ListItem>
 							<ListItem
 								disablePadding
+								component={Link}
+								to='/roster-creation'
 								style={{ cursor: 'pointer' }}
+								onClick={() => {
+									setOpenMenu(false);
+								}}
 								disabled={
 									selectedUser.role === 'admin' ||
 									selectedUser.role === 'moderator'

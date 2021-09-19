@@ -14,9 +14,7 @@ export const createRoster = async (req, res) => {
 	const roster = req.body;
 
 	const newRoster = new RosterConfig({
-		roster: roster,
-		title,
-		image,
+		...roster,
 	});
 
 	try {
