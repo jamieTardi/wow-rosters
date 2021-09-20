@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Typography, Paper, Button } from '@material-ui/core';
 import ExpandCard from '../UIcomponents/ExpandCard';
 import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 	const rosters = useSelector((state) => state.createdRosters);
+	const [activeIndex, setActiveIndex] = useState(null);
 
-	const handleAddRoster = (roster) => {
-		console.log('click');
+	const handleAddRoster = (roster, i) => {
+		setActiveIndex(i);
 		setRaidForm({ ...raidForm, roster });
 	};
-	console.log(raidForm);
+
 	return (
 		<div>
 			{rosters.length > 0 ? (
@@ -21,7 +23,12 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 					</Typography>
 					<div className='row'>
 						{rosters.map((roster, i) => (
-							<div className='mini-card col-6 col-md-4 mb-4'>
+							<div
+								className={
+									activeIndex === i
+										? 'mini-card col-6 col-md-4 mb-4 selected-roster'
+										: 'mini-card col-6 col-md-4 mb-4'
+								}>
 								<Card style={{ width: '90%' }}>
 									<Card.Img
 										variant='top'
@@ -32,9 +39,9 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 										}
 									/>
 									<Card.Body>
-										<Card.Title>Raid Roster {++i}</Card.Title>
+										<Card.Title>{roster.title}</Card.Title>
 										<Card.Text>
-											Click the button below to view or assign raid {++i}
+											Click the button below to view or assign raid.
 										</Card.Text>
 										<Button
 											variant='contained'
@@ -47,7 +54,7 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 											color='primary'
 											style={{ fontSize: '0.6rem' }}
 											onClick={() => {
-												handleAddRoster(roster);
+												handleAddRoster(roster, i);
 											}}>
 											Assign to Raid
 										</Button>
@@ -62,7 +69,12 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 					<Typography variant='h4' className='my-3'>
 						Currently no rosters assigned, Lets create one!
 					</Typography>
-					<Button variant='contained' color='primary' className='mb-3 '>
+					<Button
+						variant='contained'
+						color='primary'
+						className='mb-3 '
+						component={Link}
+						to='/roster-creation'>
 						Lets create a Roster!
 					</Button>
 					<Typography variant='h5' className='my-3'>

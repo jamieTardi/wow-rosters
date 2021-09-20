@@ -6,6 +6,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import { Button } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
 import { createRoster } from '../../actions/roster';
+import { useHistory } from 'react-router-dom';
 
 const Roster = ({
 	selectedRaid,
@@ -22,6 +23,7 @@ const Roster = ({
 	const currentId = useSelector((state) => state.currentId);
 	const classes = useStyles();
 	const [completedTxt, setCompletedTxt] = useState(false);
+	const history = useHistory();
 	let completeRoster = {
 		title: addTitle,
 		roster: assignedRoster,
@@ -49,6 +51,7 @@ const Roster = ({
 		setTimeout(() => {
 			setIsLoading(false);
 			setCompletedTxt(false);
+			history.push('/');
 		}, 1300);
 	};
 

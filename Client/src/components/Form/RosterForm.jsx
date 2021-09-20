@@ -67,7 +67,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 		<>
 			<Paper className='raid-form-container container mt-5'>
 				<FormControl>
-					<Grid item xs={5}>
+					<Grid item xs={12}>
 						<TextField
 							type='name'
 							fullWidth
@@ -76,7 +76,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 							InputLabelProps={{
 								style: { color: '#fff ' },
 							}}
-							label='Character Name'
+							label='Name of the roster'
 							onChange={(e) => {
 								setAddTitle(e.target.value);
 							}}
@@ -95,13 +95,13 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 						onChange={(e) => {
 							setAddCharacter({ ...addCharacter, role: e.target.value });
 						}}>
-						<MenuItem value='Tank' className='text-black'>
+						<MenuItem value='Tank' className='text-white'>
 							Tank
 						</MenuItem>
-						<MenuItem value='DPS' className='text-black'>
+						<MenuItem value='DPS' className='text-white'>
 							DPS
 						</MenuItem>
-						<MenuItem value='Healer' className='text-black'>
+						<MenuItem value='Healer' className='text-white'>
 							Healer
 						</MenuItem>
 					</Select>
@@ -123,19 +123,6 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 							/>
 						</Grid>
 
-						{/* <TextField
-								type='name'
-								fullWidth
-								value={addCharacter.class}
-								className={classes.input}
-								InputLabelProps={{
-									style: { color: '#fff ' },
-								}}
-								label='Class'
-								onChange={(e) => {
-									setAddCharacter({ ...addCharacter, class: e.target.value });
-								}}
-							/> */}
 						<Grid item xs={5}>
 							<FormControl className='w-100'>
 								<InputLabel
@@ -150,7 +137,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 										setAddCharacter({ ...addCharacter, class: e.target.value });
 									}}>
 									{charClasses.map((char) => (
-										<MenuItem value={char} className='text-black'>
+										<MenuItem value={char} className='text-white'>
 											{char}
 										</MenuItem>
 									))}
