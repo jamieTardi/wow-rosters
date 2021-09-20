@@ -16,11 +16,11 @@ import { updateRaid } from '../../actions/raids';
 import FileBase from 'react-file-base64';
 import { minutes, hours } from '../../lib/time';
 import DatePicker from 'react-datepicker';
+import TimePicker from '../UIcomponents/TimePicker';
 
 const EditPageOne = ({ setEditModal }) => {
 	const dispatch = useDispatch();
-	const [raidHour, setRaidHour] = useState('00');
-	const [raidMinute, setRaidMinute] = useState('00');
+	const [raidTime, setRaidTime] = useState('20:30');
 	const selectedRaid = useSelector((state) => state.currentRaid);
 	const [uploadedImg, setUploadedImg] = useState('');
 	const classes = useStyles();
@@ -46,6 +46,8 @@ const EditPageOne = ({ setEditModal }) => {
 		setUploadedImg(base64);
 		setEditRaid({ ...editRaid, selectedFile: base64 });
 	};
+
+	console.log(editRaid);
 
 	return (
 		<div>
@@ -87,42 +89,7 @@ const EditPageOne = ({ setEditModal }) => {
 							/>
 						</Grid>
 
-						<Grid item xs={12} sm={6}>
-							<InputLabel
-								id='demo-simple-select-label'
-								className={classes.select}>
-								Select a Time
-							</InputLabel>
-
-							<Select
-								onChange={(e) => {
-									setRaidHour(e.target.value);
-									setEditRaid({
-										...editRaid,
-										time: raidHour + ':' + raidMinute,
-									});
-								}}>
-								{hours.map((hour) => (
-									<MenuItem value={hour} className='text-white'>
-										{hour}
-									</MenuItem>
-								))}
-							</Select>
-							<Select
-								onChange={(e) => {
-									setRaidMinute(e.target.value);
-									setEditRaid({
-										...editRaid,
-										time: raidHour + ':' + raidMinute,
-									});
-								}}>
-								{minutes.map((minute) => (
-									<MenuItem value={minute} className='text-white'>
-										{minute}
-									</MenuItem>
-								))}
-							</Select>
-						</Grid>
+						<TimePicker editRaid={editRaid} setEditRaid={setEditRaid} />
 
 						<Grid item xs={12} sm={6}>
 							<TextField

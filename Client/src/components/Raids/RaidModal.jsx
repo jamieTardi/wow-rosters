@@ -42,7 +42,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 		<>
 			<div>
 				<Modal show={expandCard} size='xl' onHide={() => setExpandCard(false)}>
-					<Modal.Header closeButton variant='white'>
+					<Modal.Header closeButton closeVariant='white'>
 						<Modal.Title>{selectedRaid.title}</Modal.Title>
 					</Modal.Header>
 

@@ -10,7 +10,7 @@ import RaidPageThree from './RaidPageThree';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Container from '@material-ui/core/Container';
 import { Paper } from '@material-ui/core';
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
 import {
 	Stepper,
@@ -162,10 +162,9 @@ const RaidForm = () => {
 
 	return (
 		<Container maxWidth='sm'>
-			<Modal show={showRaid} onHide={handleClose} size='lg'>
-				<Modal.Header closeButton>
-					<Modal.Title>Create a new raid</Modal.Title>
-				</Modal.Header>
+			<Paper className={classes.paper}>
+				<Typography variant='h3'>Create a new raid</Typography>
+
 				<Stepper activeStep={pageNum} className={classes.stepper}>
 					{steps.map((label) => (
 						<Step className={classes.stepLabel} key={label}>
@@ -173,7 +172,7 @@ const RaidForm = () => {
 						</Step>
 					))}
 				</Stepper>
-				<Modal.Body>
+				<div>
 					<form
 						className={classes.root}
 						onSubmit={(e) => {
@@ -228,8 +227,8 @@ const RaidForm = () => {
 							</>
 						)}
 					</form>
-				</Modal.Body>
-			</Modal>
+				</div>
+			</Paper>
 		</Container>
 	);
 };

@@ -169,6 +169,13 @@ div {
 
 //Custom Date picker
 
+.react-time-picker__inputGroup input {
+	color: #fff;
+}
+
+.MuiFormControl-marginNormal {
+	margin-top: 12px !important;
+}
 .react-datepicker__header {
 	background-color: #333 !important;
 }

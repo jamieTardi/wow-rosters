@@ -11,6 +11,7 @@ import { LOGOUT } from '../../constants/actionTypes';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import HomeIcon from '@material-ui/icons/Home';
 import wowImage from '../../images/world.svg';
 import {
 	IconButton,
@@ -149,6 +150,19 @@ const Nav = () => {
 							</ListItem>
 						</List>
 						<List>
+							<ListItem
+								disablePadding
+								style={{ cursor: 'pointer' }}
+								component={Link}
+								to='/'
+								onClick={() => {
+									setOpenMenu(false);
+								}}>
+								<ListItemIcon>
+									<HomeIcon />
+								</ListItemIcon>
+								<ListItemText primary='Home' />
+							</ListItem>
 							{selectedUser.role === 'admin' && (
 								<ListItem disablePadding style={{ cursor: 'pointer' }}>
 									<ListItemIcon>
@@ -166,8 +180,10 @@ const Nav = () => {
 								}
 								style={{ cursor: 'pointer' }}
 								disablePadding
+								component={Link}
+								to='/raid-creation'
 								onClick={() => {
-									dispatch({ type: 'SHOW_RAID_MODAL' });
+									// dispatch({ type: 'SHOW_RAID_MODAL' });
 									dispatch({ type: 'CURRENT_ID', payload: null });
 									setOpenMenu(false);
 								}}>

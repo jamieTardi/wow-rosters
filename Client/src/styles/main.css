@@ -675,6 +675,14 @@ div {
   border-bottom: 1px solid #3dd115 !important;
 }
 
+.react-time-picker__inputGroup input {
+  color: #fff;
+}
+
+.MuiFormControl-marginNormal {
+  margin-top: 12px !important;
+}
+
 .react-datepicker__header {
   background-color: #333 !important;
 }
