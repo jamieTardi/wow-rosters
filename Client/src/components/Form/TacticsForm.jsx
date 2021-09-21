@@ -13,6 +13,7 @@ import {
 	MenuItem,
 	TextField,
 	Button,
+	Paper,
 } from '@material-ui/core';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 
@@ -33,6 +34,16 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 		notes: '',
 		id: uuidv4(),
 	});
+
+	const targetMarkers = [
+		'Skull 💀',
+		'Cross ❌',
+		'Square 🟦',
+		'Circle 🟠',
+		'Diamond 🔷',
+		'Moon 🌙',
+		'Triangle 🔺',
+	];
 
 	const handleAddCharacter = () => {
 		setNewTactics({
@@ -60,151 +71,159 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 	};
 
 	return (
-		<div className='w-100'>
-			<form className='w-100'>
-				<Grid container spacing={3}>
-					<Grid item xs={12}>
-						<Typography variant='h4' gutterBottom>
-							Assignments for the Raid (optional)
-						</Typography>
-
-						<Typography variant='h6' gutterBottom>
-							Pick an image for this assignment (optional)
-						</Typography>
-						<div>
-							<img
-								style={{ width: '100%' }}
-								src={newTactics.image}
-								alt='raid pic'
-							/>
-						</div>
-					</Grid>
-
-					<div className='w-100 px-3'>
+		<div className='w-100 d-flex justify-content-center align-items-center'>
+			<Paper className='w-50 mt-4'>
+				<form className='p-4'>
+					<Grid container spacing={3}>
 						<Grid item xs={12}>
-							<FileBase
-								type='file'
-								multiple={false}
-								onDone={({ base64 }) =>
-									setNewTactics({ ...newTactics, image: base64 })
-								}
+							<Typography variant='h4' gutterBottom>
+								Assignments for the Raid
+							</Typography>
+
+							<Typography variant='h6' gutterBottom>
+								Pick an image for this assignment (optional)
+							</Typography>
+							<div>
+								<img
+									style={{ width: '100%' }}
+									src={newTactics.image}
+									alt='raid pic'
+								/>
+							</div>
+						</Grid>
+
+						<div className='w-100 px-3'>
+							<Grid item xs={12}>
+								<FileBase
+									type='file'
+									multiple={false}
+									onDone={({ base64 }) =>
+										setNewTactics({ ...newTactics, image: base64 })
+									}
+								/>
+							</Grid>
+
+							<div className=' my-3 '>
+								<Grid item xs={12} sm={6} className='mb-4'>
+									<TextField
+										type='name'
+										fullWidth
+										value={newTactics.title}
+										className={classes.input}
+										InputLabelProps={{
+											style: { color: '#fff ' },
+										}}
+										label='Title of the Assignment'
+										onChange={(e) => {
+											setNewTactics({ ...newTactics, title: e.target.value });
+										}}
+									/>
+								</Grid>
+								<Grid item xs={12}>
+									<InputLabel
+										id='demo-simple-select-label'
+										className={classes.select}>
+										Select a role
+									</InputLabel>
+									<Select
+										style={{ width: '100%' }}
+										onChange={(e) => {
+											setAddCharacter({
+												...addCharacter,
+												role: e.target.value,
+											});
+										}}>
+										<MenuItem value='Tank' className='text-black'>
+											Tank
+										</MenuItem>
+										<MenuItem value='DPS' className='text-black'>
+											DPS
+										</MenuItem>
+										<MenuItem value='Healer' className='text-black'>
+											Healer
+										</MenuItem>
+									</Select>
+								</Grid>
+							</div>
+						</div>
+
+						<Grid item xs={12} sm={6}>
+							<TextField
+								type='name'
+								fullWidth
+								value={addCharacter.name}
+								className={classes.input}
+								InputLabelProps={{
+									style: { color: '#fff ' },
+								}}
+								label='Character Name'
+								onChange={(e) => {
+									setAddCharacter({ ...addCharacter, name: e.target.value });
+								}}
 							/>
 						</Grid>
 
-						<div className=' my-3 '>
-							<Grid item xs={12} sm={6} className='mb-4'>
-								<TextField
-									type='name'
-									fullWidth
-									value={newTactics.title}
-									className={classes.input}
-									InputLabelProps={{
-										style: { color: '#fff ' },
-									}}
-									label='Title of the Assignment'
-									onChange={(e) => {
-										setNewTactics({ ...newTactics, title: e.target.value });
-									}}
-								/>
-							</Grid>
-							<Grid item xs={12}>
-								<InputLabel
-									id='demo-simple-select-label'
-									className={classes.select}>
-									Select a role
-								</InputLabel>
-								<Select
-									style={{ width: '100%' }}
-									onChange={(e) => {
-										setAddCharacter({
-											...addCharacter,
-											role: e.target.value,
-										});
-									}}>
-									<MenuItem value='Tank' className='text-black'>
-										Tank
+						<Grid item xs={12} sm={6}>
+							<InputLabel
+								id='demo-simple-select-label'
+								className={classes.select}>
+								Select a role
+							</InputLabel>
+							<Select
+								style={{ width: '100%' }}
+								onChange={(e) => {
+									setAddCharacter({
+										...addCharacter,
+										target: e.target.value,
+									});
+								}}>
+								{targetMarkers.map((target) => (
+									<MenuItem value={target} className='text-black'>
+										{target}
 									</MenuItem>
-									<MenuItem value='DPS' className='text-black'>
-										DPS
-									</MenuItem>
-									<MenuItem value='Healer' className='text-black'>
-										Healer
-									</MenuItem>
-								</Select>
-							</Grid>
-						</div>
+								))}
+							</Select>
+						</Grid>
+
+						<Grid item xs={12}>
+							<TextField
+								fullWidth
+								type='name'
+								value={addCharacter.notes}
+								className={classes.input}
+								multiline
+								rows={8}
+								InputLabelProps={{
+									style: { color: '#fff ' },
+								}}
+								label='Assignment Details'
+								onChange={(e) => {
+									setAddCharacter({ ...addCharacter, notes: e.target.value });
+								}}
+							/>
+						</Grid>
+					</Grid>
+					<div className='my-3'>
+						<Button
+							color='default'
+							startIcon={<AddToPhotosIcon />}
+							variant='contained'
+							type='button'
+							onClick={handleAddCharacter}>
+							Add Character to Assignment
+						</Button>
 					</div>
-
-					<Grid item xs={12} sm={6}>
-						<TextField
-							type='name'
-							fullWidth
-							value={addCharacter.name}
-							className={classes.input}
-							InputLabelProps={{
-								style: { color: '#fff ' },
-							}}
-							label='Character Name'
-							onChange={(e) => {
-								setAddCharacter({ ...addCharacter, name: e.target.value });
-							}}
-						/>
-					</Grid>
-
-					<Grid item xs={12} sm={6}>
-						<TextField
-							type='name'
-							fullWidth
-							value={addCharacter.target}
-							className={classes.input}
-							InputLabelProps={{
-								style: { color: '#fff ' },
-							}}
-							label='Target'
-							onChange={(e) => {
-								setAddCharacter({ ...addCharacter, target: e.target.value });
-							}}
-						/>
-					</Grid>
-
-					<Grid item xs={12}>
-						<TextField
-							fullWidth
-							type='name'
-							value={addCharacter.notes}
-							className={classes.input}
-							multiline
-							rows={8}
-							InputLabelProps={{
-								style: { color: '#fff ' },
-							}}
-							label='Assignment Details'
-							onChange={(e) => {
-								setAddCharacter({ ...addCharacter, notes: e.target.value });
-							}}
-						/>
-					</Grid>
-				</Grid>
-				<div className='my-3'>
+					<Assignments tactics={newTactics} />
 					<Button
-						color='default'
-						startIcon={<AddToPhotosIcon />}
+						color='primary'
 						variant='contained'
 						type='button'
-						onClick={handleAddCharacter}>
-						Add Character to Assignment
+						onClick={handleSubmit}>
+						Add this Assignment
 					</Button>
-				</div>
-				<Assignments tactics={newTactics} />
-				<Button
-					color='primary'
-					variant='contained'
-					type='button'
-					onClick={handleSubmit}>
-					Add this Assignment
-				</Button>
-			</form>
-			{completedTxt && <p>Assignment added, feel free to add another! 👍</p>}
+				</form>
+				{completedTxt && <p>Assignment added, feel free to add another! 👍</p>}
+			</Paper>
 		</div>
 	);
 };

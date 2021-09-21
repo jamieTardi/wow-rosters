@@ -76,7 +76,6 @@ const Home = () => {
 	return (
 		<div>
 			<Raids />
-			<RaidForm />
 		</div>
 	);
 };

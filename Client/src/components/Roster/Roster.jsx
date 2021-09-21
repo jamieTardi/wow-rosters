@@ -21,6 +21,7 @@ const Roster = ({
 	const addRoster = useSelector((state) => state.roster);
 	const [isLoading, setIsLoading] = useState(false);
 	const currentId = useSelector((state) => state.currentId);
+	const darkMode = useSelector((state) => state.darkMode);
 	const classes = useStyles();
 	const [completedTxt, setCompletedTxt] = useState(false);
 	const history = useHistory();
@@ -63,9 +64,9 @@ const Roster = ({
 		}
 	}, [assignedRoster]);
 	return (
-		<div className='mb-5'>
+		<div className='my-5 roster-table-container'>
 			<h2>Tanks</h2>
-			<Table striped bordered hover variant='dark'>
+			<Table striped bordered hover variant={darkMode && 'dark'}>
 				<thead>
 					<tr>
 						<th>Role</th>
@@ -105,7 +106,7 @@ const Roster = ({
 			</Table>
 
 			<h2>DPS</h2>
-			<Table striped bordered hover variant='dark'>
+			<Table striped bordered hover variant={darkMode && 'dark'}>
 				<thead>
 					<tr>
 						<th>Role</th>
@@ -145,7 +146,7 @@ const Roster = ({
 			</Table>
 
 			<h2>Healers</h2>
-			<Table striped bordered hover variant='dark'>
+			<Table striped bordered hover variant={darkMode && 'dark'}>
 				<thead>
 					<tr>
 						<th>Role</th>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 import Home from './components/Home/Home';
@@ -7,10 +7,21 @@ import { Switch, Route } from 'react-router-dom';
 import Auth from './components/Auth/Auth';
 import RosterHomePage from './components/Roster/RosterHomePage';
 import RaidForm from './components/Form/RaidForm';
+import TacticsForm from './components/Form/TacticsForm';
 const App = () => {
 	const isDark = useSelector((state) => state.darkMode);
+	const rootDiv = document.querySelector('html');
+	useEffect(() => {
+		if (isDark) {
+			rootDiv.classList.add('dark');
+			rootDiv.classList.remove('light');
+		} else {
+			rootDiv.classList.add('light');
+			rootDiv.classList.remove('dark');
+		}
+	}, [isDark]);
 	return (
-		<div className={isDark ? 'container dark' : 'container light'}>
+		<div className='container'>
 			<div>
 				<Nav />
 				<Switch>
@@ -18,6 +29,7 @@ const App = () => {
 					<Route path='/auth' exact component={Auth} />
 					<Route path='/roster-creation' exact component={RosterHomePage} />
 					<Route path='/raid-creation' exact component={RaidForm} />
+					<Route path='/assignments' exact component={TacticsForm} />
 				</Switch>
 			</div>
 		</div>

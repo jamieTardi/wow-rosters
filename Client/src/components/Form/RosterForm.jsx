@@ -175,7 +175,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 					<Typography>{showText}</Typography>
 				</FormControl>
 			</Paper>
-			<div>
+			<div className='d-flex justify-content-center align-items-center'>
 				<Roster
 					selectedRaid={selectedRaid}
 					setRaidForm={setRaidForm}

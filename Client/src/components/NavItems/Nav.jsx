@@ -183,7 +183,6 @@ const Nav = () => {
 								component={Link}
 								to='/raid-creation'
 								onClick={() => {
-									// dispatch({ type: 'SHOW_RAID_MODAL' });
 									dispatch({ type: 'CURRENT_ID', payload: null });
 									setOpenMenu(false);
 								}}>
@@ -213,6 +212,11 @@ const Nav = () => {
 							</ListItem>
 							<ListItem
 								disablePadding
+								component={Link}
+								to='/assignments'
+								onClick={() => {
+									setOpenMenu(false);
+								}}
 								style={{ cursor: 'pointer' }}
 								disabled={
 									selectedUser.role === 'admin' ||

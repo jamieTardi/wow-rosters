@@ -3,12 +3,10 @@ import FileBase from 'react-file-base64';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { useStyles } from './styles';
 import DatePicker from 'react-datepicker';
-import { minutes, hours } from '../../lib/time';
+import TimePicker from '../UIcomponents/TimePicker';
 
 const RaidPageOne = ({
 	raidForm,
@@ -48,36 +46,12 @@ const RaidPageOne = ({
 					/>
 				</Grid>
 
-				<Grid item xs={6} sm={3}>
-					<InputLabel id='demo-simple-select-label' className={classes.select}>
-						Select a Time
-					</InputLabel>
-
-					<Select
-						onChange={(e) => {
-							setRaidHour(e.target.value);
-							setRaidForm({ ...raidForm, time: raidHour + ':' + raidMinute });
-						}}>
-						{hours.map((hour) => (
-							<MenuItem value={hour} className='text-white'>
-								{hour}
-							</MenuItem>
-						))}
-					</Select>
-					<Select
-						onChange={(e) => {
-							setRaidMinute(e.target.value);
-							setRaidForm({ ...raidForm, time: raidHour + ':' + raidMinute });
-						}}>
-						{minutes.map((minute) => (
-							<MenuItem value={minute} className='text-white'>
-								{minute}
-							</MenuItem>
-						))}
-					</Select>
+				<Grid item xs={6} sm={6}>
+					<TimePicker editRaid={raidForm} setEditRaid={setRaidForm} />
 				</Grid>
 
 				<Grid item xs={12} sm={6}>
+					<InputLabel>Please select a date </InputLabel>
 					<DatePicker
 						selected={startDate}
 						onChange={(date) => {

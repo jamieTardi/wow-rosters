@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
 import { Table } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from 'react-redux';
 
 const Assignments = ({ tactics }) => {
+	const darkMode = useSelector((state) => state.darkMode);
 	return (
 		<div>
-			<Table striped bordered hover variant='dark'>
+			<Table striped bordered hover variant={darkMode && 'dark'}>
 				<thead>
 					<tr>
 						<th>Role</th>

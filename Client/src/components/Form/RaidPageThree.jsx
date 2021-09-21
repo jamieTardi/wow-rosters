@@ -9,13 +9,7 @@ const RaidPageThree = ({
 	raidForm,
 	setRaidForm,
 }) => {
-	const [numberOfTactics, setNumberOfTactics] = useState(0);
-
-	return (
-		<div>
-			<TacticsForm raidForm={raidForm} setRaidForm={setRaidForm} />
-		</div>
-	);
+	return <div></div>;
 };
 
 export default RaidPageThree;

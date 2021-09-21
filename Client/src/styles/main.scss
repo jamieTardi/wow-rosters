@@ -1,7 +1,20 @@
 @import './darkmode';
 @import './skeleton';
+@import './lightMode';
 
-body {
+.dark {
+	background: #1f1f1f !important;
+}
+
+.light {
+	background: #eef1f4;
+}
+
+.light #root {
+	background: #eef1f4;
+}
+
+.dark #root {
 	background: #1f1f1f !important;
 }
 
@@ -15,6 +28,18 @@ p,
 li,
 div {
 	color: white !important;
+}
+
+h1 .light,
+h2 .light,
+h3 .light,
+h4 .light,
+h5 .light,
+h6 .light,
+p .light,
+li .light,
+.light div {
+	color: black !important;
 }
 .makeStyles-button-15 {
 	margin-top: 0% !important;
@@ -142,6 +167,9 @@ div {
 	margin-top: 0% !important;
 }
 
+.MuiGrid-root .MuiFormControl-marginNormal {
+	margin-top: 0px !important;
+}
 .makeStyles-cardText-4,
 .grey-text-card {
 	color: rgba(255, 255, 255, 0.7) !important;
@@ -201,12 +229,19 @@ div {
 
 //raidform roster
 
+.roster-table-container {
+	width: 75% !important;
+}
+
 .raid-form-container {
 	width: 50% !important;
 }
 
 @media (max-width: 768px) {
 	.raid-form-container {
+		width: 100% !important;
+	}
+	.roster-table-container {
 		width: 100% !important;
 	}
 }

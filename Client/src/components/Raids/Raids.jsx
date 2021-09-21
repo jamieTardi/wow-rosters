@@ -29,29 +29,32 @@ const Raids = () => {
 						<Loading />
 					</div>
 				) : createdRaids ? (
-					createdRaids.reverse().map((raid, i) => (
-						<>
-							{i === 0 ? (
-								<div className='col-12 my-5'>
-									<div className='d-flex justify-content-center align-items-center w-100'>
+					createdRaids
+						.sort((a, b) => new Date(b.date) - new Date(a.date))
+						.map((raid, i) => (
+							<>
+								{console.log(raid.date)}
+								{i === 0 ? (
+									<div className='col-12 my-5'>
+										<div className='d-flex justify-content-center align-items-center w-100'>
+											<NewestRaid
+												raid={raid}
+												setSelectedRaid={setSelectedRaid}
+												setExpandCard={setExpandCard}
+											/>
+										</div>
+									</div>
+								) : (
+									<div className='col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex justify-content-center align-items-center mb-5'>
 										<NewestRaid
 											raid={raid}
 											setSelectedRaid={setSelectedRaid}
 											setExpandCard={setExpandCard}
 										/>
 									</div>
-								</div>
-							) : (
-								<div className='col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex justify-content-center align-items-center mb-5'>
-									<NewestRaid
-										raid={raid}
-										setSelectedRaid={setSelectedRaid}
-										setExpandCard={setExpandCard}
-									/>
-								</div>
-							)}
-						</>
-					))
+								)}
+							</>
+						))
 				) : (
 					<div
 						style={{ height: '500px' }}
