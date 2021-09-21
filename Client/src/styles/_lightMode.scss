@@ -60,4 +60,20 @@
 	.MuiInputLabel-animated {
 		color: #9e9e9e !important;
 	}
+
+	.card-body,
+	.modal-header,
+	.accordion-button {
+		background-color: #eef1f4 !important;
+		&:hover {
+			background-color: #eef1f4 !important;
+		}
+	}
+	.modal-body,
+	.accordion-body {
+		background-color: #fff !important;
+	}
+	.modal-footer {
+		background-color: #fff !important;
+	}
 }

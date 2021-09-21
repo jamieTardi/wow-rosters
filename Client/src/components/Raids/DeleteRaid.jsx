@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { deleteRaid } from '../../actions/raids';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const DeleteRaid = ({ raid, deleteWarning, setDeleteWarning }) => {
-	const isLoading = useSelector((state) => state.deleteLoad);
+	const history = useHistory();
+
+	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
 	const handleClose = () => setDeleteWarning(false);
 
 	const handleDeleteRaid = () => {
-		dispatch(deleteRaid(raid._id));
+		setIsLoading(true);
+		dispatch(deleteRaid(raid._id, setIsLoading));
+		handleClose();
 	};
-
+	console.log(isLoading);
 	return (
 		<>
 			<Modal
@@ -29,10 +34,12 @@ const DeleteRaid = ({ raid, deleteWarning, setDeleteWarning }) => {
 					<Button variant='secondary' onClick={handleClose}>
 						Close
 					</Button>
-					<Button variant='danger' onClick={handleDeleteRaid}>
+					<Button
+						variant='danger'
+						onClick={handleDeleteRaid}
+						disabled={isLoading}>
 						Delete Raid
 					</Button>
-					{isLoading && <p>Loading the delete</p>}
 				</Modal.Footer>
 			</Modal>
 		</>

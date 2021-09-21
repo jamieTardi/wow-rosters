@@ -28,11 +28,10 @@ export const updateRaid = (id, updatedRaid) => {
 		.catch((err) => console.log(err));
 };
 
-export const deleteRaid = (id) => {
+export const deleteRaid = (id, setDeleteRaid) => {
 	API.delete(`/raids/${id}`)
 		.then((res) => {
-			const { data } = res;
-			return (deleteRes = data);
+			res && setDeleteRaid(false);
 		})
 
 		.catch((err) => console.log(err));
