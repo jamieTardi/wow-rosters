@@ -24,16 +24,17 @@ import { updateRaid } from '../../actions/raids';
 
 const EditPageTwo = ({ hideModal }) => {
 	const raid = useSelector((state) => state.currentRaid);
+	const currentRoster = useSelector((state) => state.currentRoster);
 
 	const dispatch = useDispatch();
-	const [newRoster, setNewRoster] = useState(raid.roster);
+	const [newRoster, setNewRoster] = useState(raid.roster.roster);
 	const [currentId, setCurrentId] = useState(0);
 	const [currentRaider, setCurrentRaider] = useState(null);
 	const classes = useStyles();
 	const [show, setShow] = useState(true);
 
 	const handleEditCharacter = (id) => {
-		raid.roster.map((raider) => {
+		raid.roster.roster.map((raider) => {
 			if (raider.id === id) {
 				setCurrentRaider(raider);
 			}
@@ -48,8 +49,9 @@ const EditPageTwo = ({ hideModal }) => {
 	};
 
 	const handleAppendRaider = () => {
-		setNewRoster([...raid.roster, currentRaider]);
+		setNewRoster([...raid.roster.roster, currentRaider]);
 
+		console.log(newRoster);
 		const updatedItems = newRoster.map((raider) =>
 			raider.id === currentRaider.id ? currentRaider : raider,
 		);
@@ -58,7 +60,17 @@ const EditPageTwo = ({ hideModal }) => {
 
 	const handleAppendRoster = () => {
 		const id = raid._id;
-		dispatch(updateRaid(id, { ...raid, roster: newRoster }));
+		dispatch(
+			updateRaid(id, {
+				...raid,
+				roster: {
+					id: raid.roster._id,
+					roster: newRoster,
+					title: raid.roster.title,
+					image: raid.roster.image,
+				},
+			}),
+		);
 	};
 
 	const handleAddNewRaider = () => {

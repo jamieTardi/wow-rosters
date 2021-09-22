@@ -4,14 +4,23 @@ import { Typography, Paper, Button } from '@material-ui/core';
 import ExpandCard from '../UIcomponents/ExpandCard';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import AssignRoster from '../Roster/AssignRoster';
+import { useDispatch } from 'react-redux';
+import { CURRENT_ROSTER, CLEAR_RAID } from '../../constants/actionTypes';
 
 const RaidPageTwo = ({ raidForm, setRaidForm }) => {
+	const dispatch = useDispatch();
 	const rosters = useSelector((state) => state.createdRosters);
 	const [activeIndex, setActiveIndex] = useState(null);
 
 	const handleAddRoster = (roster, i) => {
 		setActiveIndex(i);
 		setRaidForm({ ...raidForm, roster });
+	};
+
+	const handleViewRoster = (roster) => {
+		dispatch({ type: CURRENT_ROSTER, payload: roster });
+		dispatch({ type: CLEAR_RAID });
 	};
 
 	return (
@@ -26,8 +35,8 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 							<div
 								className={
 									activeIndex === i
-										? 'mini-card col-6 col-md-4 mb-4 selected-roster'
-										: 'mini-card col-6 col-md-4 mb-4'
+										? 'mini-card col-12 col-md-6 mb-3 selected-roster'
+										: 'mini-card col-12 col-md-6 mb-3'
 								}>
 								<Card style={{ width: '90%' }}>
 									<Card.Img
@@ -46,18 +55,35 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 										<Button
 											variant='contained'
 											color='default'
+											component={Link}
+											to='/current-roster'
+											onClick={() => {
+												handleViewRoster(roster);
+											}}
 											style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
 											View Roster
 										</Button>
-										<Button
-											variant='contained'
-											color='primary'
-											style={{ fontSize: '0.6rem' }}
-											onClick={() => {
-												handleAddRoster(roster, i);
-											}}>
-											Assign to Raid
-										</Button>
+
+										{activeIndex === i ? (
+											<Button
+												variant='contained'
+												color='primary'
+												disabled
+												className='disabled-button'
+												style={{ fontSize: '0.6rem' }}>
+												Current Selected Roster
+											</Button>
+										) : (
+											<Button
+												variant='contained'
+												color='primary'
+												style={{ fontSize: '0.6rem' }}
+												onClick={() => {
+													handleAddRoster(roster, i);
+												}}>
+												Assign to Raid
+											</Button>
+										)}
 									</Card.Body>
 								</Card>
 							</div>

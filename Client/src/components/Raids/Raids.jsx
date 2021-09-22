@@ -33,7 +33,6 @@ const Raids = () => {
 						.sort((a, b) => new Date(b.date) - new Date(a.date))
 						.map((raid, i) => (
 							<>
-								{console.log(raid.date)}
 								{i === 0 ? (
 									<div className='col-12 my-5'>
 										<div className='d-flex justify-content-center align-items-center w-100'>

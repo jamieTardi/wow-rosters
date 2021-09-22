@@ -12,12 +12,14 @@ import { auth } from './auth';
 import { googleId } from './googleId';
 import { currentUser } from './currentUser';
 import { createdRosters } from './createdRosters';
+import { currentRoster } from './currentRoster';
 
 const rootReducer = combineReducers({
 	raids,
 	roster,
 	assignRaids,
 	createdRosters,
+	currentRoster,
 	raidModal,
 	currentId,
 	currentUser,

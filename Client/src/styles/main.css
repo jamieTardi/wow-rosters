@@ -825,6 +825,14 @@ li .light,
   width: 50% !important;
 }
 
+.selected-roster {
+  opacity: 0.5;
+}
+
+.disabled-button.MuiButton-contained.Mui-disabled {
+  color: white;
+}
+
 @media (max-width: 768px) {
   .raid-form-container {
     width: 100% !important;

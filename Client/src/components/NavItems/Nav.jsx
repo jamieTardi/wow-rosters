@@ -13,6 +13,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import HomeIcon from '@material-ui/icons/Home';
 import wowImage from '../../images/world.svg';
+import FaceIcon from '@material-ui/icons/Face';
 import {
 	IconButton,
 	Box,
@@ -228,6 +229,22 @@ const Nav = () => {
 									<AssignmentIndIcon />
 								</ListItemIcon>
 								<ListItemText primary='Create an Assignment' />
+							</ListItem>
+						</List>
+						<Divider />
+						<List>
+							<ListItem
+								disablePadding
+								component={Link}
+								to='/assignments'
+								onClick={() => {
+									setOpenMenu(false);
+								}}
+								style={{ cursor: 'pointer' }}>
+								<ListItemIcon>
+									<FaceIcon />
+								</ListItemIcon>
+								<ListItemText primary='View Rosters' />
 							</ListItem>
 						</List>
 						<Divider />
