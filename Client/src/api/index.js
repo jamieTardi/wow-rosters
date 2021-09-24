@@ -37,9 +37,26 @@ export const deleteRaid = (id, setDeleteRaid) => {
 		.catch((err) => console.log(err));
 };
 
+//Roster routes
+
 export const fetchRoster = () => API.get('/roster');
 
 export const createRoster = (newRoster) => API.post('/roster', newRoster);
+
+export const updateRoster = (id, updatedRaid) => {
+	API.patch(`/roster/${id}`, updatedRaid)
+		.then(() => console.log('Updated roster'))
+		.catch((err) => console.log(err));
+};
+
+//Assignments
+
+export const fetchAssignments = () => API.get('/create-assignment');
+
+export const createAssignment = (newAssignment) => {
+	console.log(newAssignment);
+	API.post('/create-assignment', newAssignment);
+};
 
 //sign in routes
 

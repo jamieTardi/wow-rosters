@@ -553,8 +553,12 @@ footer a {
   color: #9e9e9e;
 }
 
-.light .mini-card .card-body {
-  background-color: #fff !important;
+.light .card-body {
+  background: #eef1f4 !important;
+}
+
+.light .MuiSvgIcon-root {
+  fill: black;
 }
 
 .light .MuiInputLabel-animated {
@@ -622,6 +626,10 @@ li .light,
   color: black !important;
 }
 
+.card {
+  border: none !important;
+}
+
 .makeStyles-button-15 {
   margin-top: 0% !important;
   margin-left: 0% !important;
@@ -647,13 +655,12 @@ li .light,
   background-color: #333 !important;
 }
 
-.offcanvas {
-  background-color: #4d4d4d !important;
+.accordion-button {
+  background: #1f1f1f !important;
 }
 
-.card {
-  border: 1px solid #3dd115 !important;
-  background-color: inherit !important;
+.offcanvas {
+  background-color: #4d4d4d !important;
 }
 
 .newest-title {
@@ -663,7 +670,7 @@ li .light,
 .card-body,
 .modal-header,
 .accordion-button {
-  background-color: #1f1f1f !important;
+  background-color: #1f1f1f;
   color: white !important;
 }
 
@@ -709,6 +716,14 @@ li .light,
 .modal-body,
 .accordion-body {
   background-color: #333 !important;
+}
+
+.MuiFormLabel-root {
+  color: #fff !important;
+}
+
+.MuiIconButton-root {
+  color: #fff !important;
 }
 
 .modal-content img {

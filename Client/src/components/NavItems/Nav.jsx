@@ -236,7 +236,7 @@ const Nav = () => {
 							<ListItem
 								disablePadding
 								component={Link}
-								to='/assignments'
+								to='/view-rosters'
 								onClick={() => {
 									setOpenMenu(false);
 								}}

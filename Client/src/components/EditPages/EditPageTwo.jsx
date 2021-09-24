@@ -22,19 +22,19 @@ import { classicNameResolver } from 'typescript';
 import { useDispatch } from 'react-redux';
 import { updateRaid } from '../../actions/raids';
 
-const EditPageTwo = ({ hideModal }) => {
+const EditPageTwo = ({ hideModal, show, setShow }) => {
 	const raid = useSelector((state) => state.currentRaid);
+
 	const currentRoster = useSelector((state) => state.currentRoster);
 
 	const dispatch = useDispatch();
-	const [newRoster, setNewRoster] = useState(raid.roster.roster);
+	const [newRoster, setNewRoster] = useState(currentRoster.roster);
 	const [currentId, setCurrentId] = useState(0);
 	const [currentRaider, setCurrentRaider] = useState(null);
 	const classes = useStyles();
-	const [show, setShow] = useState(true);
 
 	const handleEditCharacter = (id) => {
-		raid.roster.roster.map((raider) => {
+		currentRoster.roster.map((raider) => {
 			if (raider.id === id) {
 				setCurrentRaider(raider);
 			}
@@ -49,9 +49,8 @@ const EditPageTwo = ({ hideModal }) => {
 	};
 
 	const handleAppendRaider = () => {
-		setNewRoster([...raid.roster.roster, currentRaider]);
+		setNewRoster([...currentRoster.roster, currentRaider]);
 
-		console.log(newRoster);
 		const updatedItems = newRoster.map((raider) =>
 			raider.id === currentRaider.id ? currentRaider : raider,
 		);
@@ -60,17 +59,7 @@ const EditPageTwo = ({ hideModal }) => {
 
 	const handleAppendRoster = () => {
 		const id = raid._id;
-		dispatch(
-			updateRaid(id, {
-				...raid,
-				roster: {
-					id: raid.roster._id,
-					roster: newRoster,
-					title: raid.roster.title,
-					image: raid.roster.image,
-				},
-			}),
-		);
+		dispatch();
 	};
 
 	const handleAddNewRaider = () => {

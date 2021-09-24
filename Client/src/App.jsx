@@ -9,6 +9,7 @@ import RosterHomePage from './components/Roster/RosterHomePage';
 import RaidForm from './components/Form/RaidForm';
 import TacticsForm from './components/Form/TacticsForm';
 import AssignRoster from './components/Roster/AssignRoster';
+import ViewRosters from './components/Roster/ViewRosters';
 const App = () => {
 	const isDark = useSelector((state) => state.darkMode);
 	const rootDiv = document.querySelector('html');
@@ -32,6 +33,7 @@ const App = () => {
 					<Route path='/raid-creation' exact component={RaidForm} />
 					<Route path='/assignments' exact component={TacticsForm} />
 					<Route path='/current-roster' exact component={AssignRoster} />
+					<Route path='/view-rosters' exact component={ViewRosters} />
 				</Switch>
 			</div>
 		</div>

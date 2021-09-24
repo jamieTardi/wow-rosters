@@ -16,6 +16,7 @@ import {
 	Paper,
 } from '@material-ui/core';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+import { createAssignment } from '../../actions/assignments';
 
 const TacticsForm = ({ raidForm, setRaidForm }) => {
 	const classes = useStyles();
@@ -62,7 +63,8 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 
 	const handleSubmit = () => {
 		dispatch({ type: 'ADD_ASSIGNMENT', payload: newTactics });
-		raidForm.tactics.push(newTactics);
+		dispatch(createAssignment(newTactics));
+		// raidForm.tactics.push(newTactics);
 		setNewTactics({ image: '', assignedRaiders: [], id: uuidv4() });
 		setCompletedTxt(true);
 		setTimeout(() => {

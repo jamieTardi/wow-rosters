@@ -80,7 +80,7 @@ const RaidForm = () => {
 		date: '',
 		roster: [],
 	});
-	console.log(raidForm);
+
 	const [raidCreateRes, setRaidCreateRes] = useState('');
 	const classes = useStyles();
 	const dispatch = useDispatch();
