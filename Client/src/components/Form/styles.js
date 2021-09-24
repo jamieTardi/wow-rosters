@@ -100,6 +100,17 @@ export const useStyles = makeStyles((theme) => ({
 		color: '#fff',
 		fontWeight: 'bolder',
 	},
+	tableLight: {
+		background: '#EEF1F4',
+		color: 'black',
+	},
+	tableCellsLight: {
+		color: 'black',
+	},
+	tableHeadersLight: {
+		color: 'black',
+		fontWeight: 'bolder',
+	},
 	buttons: {
 		display: 'flex',
 		justifyContent: 'flex-end',

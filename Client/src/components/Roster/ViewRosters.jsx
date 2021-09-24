@@ -11,6 +11,7 @@ const ViewRosters = () => {
 	const dispatch = useDispatch();
 	const rosters = useSelector((state) => state.createdRosters);
 	const currentRoster = useSelector((state) => state.currentRoster);
+
 	const [show, setShow] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
@@ -35,7 +36,7 @@ const ViewRosters = () => {
 					<div className='row'>
 						{rosters.map((roster, i) => (
 							<div className='mini-card col-12 col-md-4 mb-3'>
-								<Card style={{ width: '90%' }}>
+								<Card style={{ width: '100%' }}>
 									<Card.Img
 										variant='top'
 										src={
@@ -63,6 +64,7 @@ const ViewRosters = () => {
 							</div>
 						))}
 					</div>
+					{showModal && <EditPageTwo show={show} setShow={setShow} />}
 				</Paper>
 			) : (
 				<div className='d-flex flex-column justify-content-center align-items-center'>
@@ -80,7 +82,6 @@ const ViewRosters = () => {
 					<img src={empty} alt='empty roster' style={{ width: '450px' }} />
 				</div>
 			)}
-			{showModal && <EditPageTwo show={show} setShow={setShow} />}
 		</div>
 	);
 };

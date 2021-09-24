@@ -20,11 +20,12 @@ export const createRoster = (roster) => async (dispatch) => {
 	}
 };
 
-export const updateRoster = (roster, id) => async (dispatch) => {
-	try {
-		const { data } = await api.updateRoster(id, roster);
-		dispatch({ type: UPDATE_ROSTER, payload: data });
-	} catch (err) {
-		console.log(err);
-	}
-};
+export const updateRoster =
+	(newRoster, id, setIsLoading) => async (dispatch) => {
+		try {
+			const { data } = await api.updateRoster(newRoster, id, setIsLoading);
+			dispatch({ type: UPDATE_ROSTER, payload: data });
+		} catch (err) {
+			console.log(err);
+		}
+	};

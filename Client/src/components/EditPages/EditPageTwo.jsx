@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { getRoster } from '../../actions/roster';
 import {
 	Typography,
 	TextField,
@@ -18,23 +19,34 @@ import {
 	MenuItem,
 } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
-import { classicNameResolver } from 'typescript';
 import { useDispatch } from 'react-redux';
-import { updateRaid } from '../../actions/raids';
+import { updateRoster } from '../../actions/roster';
+import { useHistory } from 'react-router-dom';
 
 const EditPageTwo = ({ hideModal, show, setShow }) => {
 	const raid = useSelector((state) => state.currentRaid);
-
+	const darkMode = useSelector((state) => state.darkMode);
 	const currentRoster = useSelector((state) => state.currentRoster);
-
 	const dispatch = useDispatch();
-	const [newRoster, setNewRoster] = useState(currentRoster.roster);
-	const [currentId, setCurrentId] = useState(0);
+	const [newRoster, setNewRoster] = useState(currentRoster);
+	const [isLoading, setIsLoading] = useState(false);
 	const [currentRaider, setCurrentRaider] = useState(null);
 	const classes = useStyles();
 
+	const charClasses = [
+		'Warrior',
+		'Shaman',
+		'Paladin',
+		'Rogue',
+		'Druid',
+		'Priest',
+		'Mage',
+		'Warlock',
+		'Hunter',
+	];
+
 	const handleEditCharacter = (id) => {
-		currentRoster.roster.map((raider) => {
+		newRoster.roster.map((raider) => {
 			if (raider.id === id) {
 				setCurrentRaider(raider);
 			}
@@ -42,29 +54,39 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 	};
 
 	const handleRemove = (id) => {
-		let filitered = newRoster.filter((raider) => {
+		let filitered = newRoster.roster.filter((raider) => {
 			return raider.id !== id;
 		});
-		setNewRoster(filitered);
+		setNewRoster({ ...newRoster, roster: filitered });
 	};
 
 	const handleAppendRaider = () => {
-		setNewRoster([...currentRoster.roster, currentRaider]);
+		setNewRoster({
+			...newRoster,
+			roster: [...newRoster.roster, currentRaider],
+		});
 
-		const updatedItems = newRoster.map((raider) =>
+		const updatedRaiders = newRoster.roster.map((raider) =>
 			raider.id === currentRaider.id ? currentRaider : raider,
 		);
-		setNewRoster(updatedItems);
+		setNewRoster({ ...newRoster, roster: updatedRaiders });
 	};
 
 	const handleAppendRoster = () => {
+		setIsLoading(true);
 		const id = raid._id;
-		dispatch();
+		dispatch(updateRoster(newRoster, id, setIsLoading));
+		dispatch(getRoster());
+		setShow((prev) => !prev);
 	};
 
 	const handleAddNewRaider = () => {
 		setNewRoster([...raid.roster, currentRaider]);
 	};
+
+	useEffect(() => {
+		setNewRoster(currentRoster);
+	}, [currentRoster]);
 
 	return (
 		<div>
@@ -72,6 +94,25 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 				<Paper className={classes.paperModal}>
 					<Grid container spacing={3}>
 						<Typography variant='h5'>Edit the current roster</Typography>
+
+						<Grid item xs={12}>
+							<TextField
+								type='name'
+								fullWidth
+								value={newRoster ? newRoster.title : ''}
+								className={classes.input}
+								InputLabelProps={{
+									style: { color: '#fff ' },
+								}}
+								label='Roster title'
+								onChange={(e) => {
+									setNewRoster({
+										...newRoster,
+										title: e.target.value,
+									});
+								}}
+							/>
+						</Grid>
 
 						<Grid item xs={12}>
 							<InputLabel
@@ -82,16 +123,17 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 							</InputLabel>
 
 							<Select
+								className='w-50'
 								onChange={(e) => {
 									setCurrentRaider({ ...currentRaider, role: e.target.value });
 								}}>
-								<MenuItem value='Tank' className='text-black'>
+								<MenuItem value='Tank' className='text-white'>
 									Tank
 								</MenuItem>
-								<MenuItem value='DPS' className='text-black'>
+								<MenuItem value='DPS' className='text-white'>
 									DPS
 								</MenuItem>
-								<MenuItem value='Healer' className='text-black'>
+								<MenuItem value='Healer' className='text-white'>
 									Healer
 								</MenuItem>
 							</Select>
@@ -114,19 +156,23 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 						</Grid>
 
 						<Grid item xs={5}>
-							<TextField
-								type='name'
-								fullWidth
-								value={currentRaider ? currentRaider.class : ''}
-								className={classes.input}
-								InputLabelProps={{
-									style: { color: '#fff ' },
-								}}
-								label='Class'
+							<InputLabel
+								id='character-select-label'
+								className={classes.select}>
+								Select a Class
+							</InputLabel>
+							<Select
+								label='Select a Character'
+								className='w-100'
 								onChange={(e) => {
 									setCurrentRaider({ ...currentRaider, class: e.target.value });
-								}}
-							/>
+								}}>
+								{charClasses.map((char) => (
+									<MenuItem value={char} className='text-white'>
+										{char}
+									</MenuItem>
+								))}
+							</Select>
 						</Grid>
 
 						<Grid item xs={5}>
@@ -163,47 +209,114 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 						</Grid>
 
 						<TableContainer component={Paper}>
-							<Table className={classes.table} aria-label='simple table'>
+							<Table
+								className={darkMode ? classes.table : classes.tableLight}
+								aria-label='simple table'>
 								<TableHead>
 									<TableRow>
-										<TableCell className={classes.tableHeaders}>Name</TableCell>
-										<TableCell className={classes.tableHeaders} align='right'>
+										<TableCell
+											className={
+												darkMode
+													? classes.tableHeaders
+													: classes.tableHeadersLight
+											}>
+											Name
+										</TableCell>
+										<TableCell
+											className={
+												darkMode
+													? classes.tableHeaders
+													: classes.tableHeadersLight
+											}
+											align='right'>
 											Class
 										</TableCell>
-										<TableCell className={classes.tableHeaders} align='right'>
+										<TableCell
+											className={
+												darkMode
+													? classes.tableHeaders
+													: classes.tableHeadersLight
+											}
+											align='right'>
 											Role
 										</TableCell>
-										<TableCell className={classes.tableHeaders} align='right'>
+										<TableCell
+											className={
+												darkMode
+													? classes.tableHeaders
+													: classes.tableHeadersLight
+											}
+											align='right'>
 											Notes
 										</TableCell>
-										<TableCell className={classes.tableHeaders} align='right'>
+										<TableCell
+											className={
+												darkMode
+													? classes.tableHeaders
+													: classes.tableHeadersLight
+											}
+											align='right'>
 											Remove
 										</TableCell>
-										<TableCell className={classes.tableHeaders} align='right'>
+										<TableCell
+											className={
+												darkMode
+													? classes.tableHeaders
+													: classes.tableHeadersLight
+											}
+											align='right'>
 											Edit
 										</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{newRoster.map((raider) => (
+									{newRoster.roster.map((raider) => (
 										<TableRow key={raider.id}>
 											<TableCell
-												className={classes.tableCells}
+												className={
+													darkMode
+														? classes.tableCells
+														: classes.tableCellsLight
+												}
 												component='th'
 												scope='row'>
 												{raider.name}
 											</TableCell>
 
-											<TableCell className={classes.tableCells} align='right'>
+											<TableCell
+												className={
+													darkMode
+														? classes.tableCells
+														: classes.tableCellsLight
+												}
+												align='right'>
 												{raider.class}
 											</TableCell>
-											<TableCell className={classes.tableCells} align='right'>
+											<TableCell
+												className={
+													darkMode
+														? classes.tableCells
+														: classes.tableCellsLight
+												}
+												align='right'>
 												{raider.role}
 											</TableCell>
-											<TableCell className={classes.tableCells} align='right'>
+											<TableCell
+												className={
+													darkMode
+														? classes.tableCells
+														: classes.tableCellsLight
+												}
+												align='right'>
 												{raider.notes}
 											</TableCell>
-											<TableCell className={classes.tableCells} align='right'>
+											<TableCell
+												className={
+													darkMode
+														? classes.tableCells
+														: classes.tableCellsLight
+												}
+												align='right'>
 												<Button
 													variant='contained'
 													color='secondary'
@@ -233,7 +346,8 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 							<Button
 								variant='contained'
 								color='primary'
-								onClick={handleAppendRoster}>
+								onClick={handleAppendRoster}
+								disabled={isLoading}>
 								Ammend Roster
 							</Button>
 						</Grid>

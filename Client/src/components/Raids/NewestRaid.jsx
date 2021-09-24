@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import defaultImg from '../../images/sscImage.jpg';
 import DeleteRaid from './DeleteRaid';
 import { useStyles } from '../Form/styles';

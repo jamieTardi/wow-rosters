@@ -13,8 +13,6 @@ API.interceptors.request.use((req) => {
 	return req;
 });
 
-const rosterUrl = 'http://localhost:5000/roster';
-
 export let deleteRes = null;
 
 export const fetchRaids = () => API.get('/raids');
@@ -43,9 +41,9 @@ export const fetchRoster = () => API.get('/roster');
 
 export const createRoster = (newRoster) => API.post('/roster', newRoster);
 
-export const updateRoster = (id, updatedRaid) => {
-	API.patch(`/roster/${id}`, updatedRaid)
-		.then(() => console.log('Updated roster'))
+export const updateRoster = (newRoster, id, setIsLoading) => {
+	API.patch(`/roster/${id}`, newRoster)
+		.then(() => setIsLoading(false))
 		.catch((err) => console.log(err));
 };
 
@@ -54,7 +52,6 @@ export const updateRoster = (id, updatedRaid) => {
 export const fetchAssignments = () => API.get('/create-assignment');
 
 export const createAssignment = (newAssignment) => {
-	console.log(newAssignment);
 	API.post('/create-assignment', newAssignment);
 };
 

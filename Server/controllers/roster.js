@@ -26,16 +26,18 @@ export const createRoster = async (req, res) => {
 };
 
 export const updateRoster = async (req, res) => {
-	const { id: _id } = req.params;
+	const id = req.body._id;
+
 	const roster = req.body;
-	if (!mongoose.Types.ObjectId.isValid(_id)) {
+
+	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(404).send('No Roster with that id');
 	}
 
-	const updatedRoster = await RosterConfig.findByIdAndUpdate(
-		_id,
-		{ ...roster, _id },
-		{ new: true },
-	);
+	const updatedRoster = await RosterConfig.findByIdAndUpdate(id, {
+		...roster,
+		id,
+	});
+
 	res.json(updatedRoster);
 };

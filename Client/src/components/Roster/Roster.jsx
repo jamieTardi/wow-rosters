@@ -162,7 +162,7 @@ const Roster = ({
 							<>
 								{character.role === 'Healer' && (
 									<>
-										<td>❤️‍🩹</td>
+										<td>❤️</td>
 
 										<td>{character.name}</td>
 										<td>{character.class}</td>
