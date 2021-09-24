@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@material-ui/core';
-import TacticsForm from './TacticsForm';
-import CreateIcon from '@material-ui/icons/Create';
+import ViewAssignments from '../Assignments/ViewAssignments';
+import { FETCH_ASSIGNMENTS } from '../../constants/actionTypes';
 
-const RaidPageThree = ({
-	isLoading,
-	handleSubmitSucess,
-	raidForm,
-	setRaidForm,
-}) => {
-	return <div></div>;
+const RaidPageThree = () => {
+	return (
+		<div>
+			<ViewAssignments />
+			something
+		</div>
+	);
 };
 
 export default RaidPageThree;

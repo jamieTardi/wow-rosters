@@ -1,10 +1,10 @@
 import * as api from '../api/index';
-import axios from 'axios';
+import { FETCH_ASSIGNMENTS, ADD_ASSIGNMENT } from '../constants/actionTypes';
 
-export const getAssignment = () => async (dispatch) => {
+export const getAssignments = () => async (dispatch) => {
 	try {
 		const { data } = await api.fetchAssignments();
-		// dispatch({ type: 'FETCH_ROSTER', payload: data });
+		dispatch({ type: FETCH_ASSIGNMENTS, payload: data });
 	} catch (err) {
 		console.log(err);
 	}
@@ -13,8 +13,7 @@ export const getAssignment = () => async (dispatch) => {
 export const createAssignment = (assignment) => async (dispatch) => {
 	try {
 		const { data } = await api.createAssignment(assignment);
-		console.log(data);
-		dispatch({ type: 'ADD_ASSIGNMENT', payload: data });
+		dispatch({ type: ADD_ASSIGNMENT, payload: data });
 	} catch (err) {
 		console.log(err);
 	}

@@ -19,7 +19,7 @@ export const createAssignment = async (req, res) => {
 
 	try {
 		await newAssignment.save();
-		res.status(201).json(assignment);
+		res.status(201).json(newAssignment);
 	} catch (err) {
 		res.status(409).json({ message: err });
 	}
