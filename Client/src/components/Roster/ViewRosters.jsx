@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
 import { Paper, Typography, Button } from '@material-ui/core';
@@ -10,15 +10,23 @@ import EditPageTwo from '../EditPages/EditPageTwo';
 const ViewRosters = () => {
 	const dispatch = useDispatch();
 	const rosters = useSelector((state) => state.createdRosters);
+	const currentRoster = useSelector((state) => state.currentRoster);
 	const [show, setShow] = useState(false);
+	const [showModal, setShowModal] = useState(false);
 
 	const handleViewRoster = (roster) => {
 		setShow((prev) => !prev);
 		dispatch({ type: CURRENT_ROSTER, payload: roster });
 	};
 
+	useEffect(() => {
+		if (currentRoster !== null) {
+			setShowModal(true);
+		}
+	}, [currentRoster]);
+
 	return (
-		<div className='mt-5'>
+		<div className='my-5'>
 			{rosters.length > 0 ? (
 				<Paper className='container '>
 					<Typography variant='h5' gutterBottom className='pt-3'>
@@ -72,7 +80,7 @@ const ViewRosters = () => {
 					<img src={empty} alt='empty roster' style={{ width: '450px' }} />
 				</div>
 			)}
-			<EditPageTwo show={show} setShow={setShow} />
+			{showModal && <EditPageTwo show={show} setShow={setShow} />}
 		</div>
 	);
 };
