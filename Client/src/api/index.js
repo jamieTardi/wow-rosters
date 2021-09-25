@@ -55,6 +55,12 @@ export const createAssignment = (newAssignment) => {
 	API.post('/create-assignment', newAssignment);
 };
 
+export const updateAssignments = (assignment, id) => {
+	API.patch(`/create-assignment/${id}`, assignment)
+		.then(() => console.log('update assingment'))
+		.catch((err) => console.log(err));
+};
+
 //sign in routes
 
 export const signIn = (formData) => API.post('/user/signin', formData);

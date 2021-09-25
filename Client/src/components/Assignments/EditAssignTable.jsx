@@ -23,6 +23,7 @@ const EditAssignTable = ({
 	setCurrentRaider,
 	newTactics,
 	addCharacter,
+	updatedAssign,
 }) => {
 	const classes = useStyles();
 
@@ -38,12 +39,6 @@ const EditAssignTable = ({
 		});
 	};
 
-	const handleAmmendRaider = () => {
-		const updatedRaiders = raiders.map((raider) =>
-			raider.id === currentRaider.id ? currentRaider : raider,
-		);
-	};
-
 	return (
 		<div>
 			<TableContainer component={Paper}>
@@ -52,7 +47,7 @@ const EditAssignTable = ({
 						<TableRow>
 							<TableCell className={classes.tableHeaders}>Name</TableCell>
 							<TableCell className={classes.tableHeaders} align='right'>
-								Class
+								Target
 							</TableCell>
 							<TableCell className={classes.tableHeaders} align='right'>
 								Role
@@ -69,7 +64,7 @@ const EditAssignTable = ({
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{addCharacter.map((raider) => (
+						{updatedAssign?.assignedRaiders.map((raider) => (
 							<TableRow key={raider.id}>
 								<TableCell
 									className={classes.tableCells}
@@ -79,7 +74,7 @@ const EditAssignTable = ({
 								</TableCell>
 
 								<TableCell className={classes.tableCells} align='right'>
-									{raider.class}
+									{raider.target}
 								</TableCell>
 								<TableCell className={classes.tableCells} align='right'>
 									{raider.role}

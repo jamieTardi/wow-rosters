@@ -16,6 +16,7 @@ import TabbedMenu from '../Assignments/TabbedMenu';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	const [editModal, setEditModal] = useState(false);
+	const darkMode = useSelector((state) => state.darkMode);
 
 	const dateFormatter = () => {
 		let newYear = [];
@@ -42,7 +43,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 		<>
 			<div>
 				<Modal show={expandCard} size='xl' onHide={() => setExpandCard(false)}>
-					<Modal.Header closeButton closeVariant='white'>
+					<Modal.Header closeButton closeVariant={darkMode ? 'white' : 'dark'}>
 						<Modal.Title>{selectedRaid.title}</Modal.Title>
 						<Button
 							variant='outlined'
@@ -59,10 +60,12 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 						c
 						style={{
 							backgroundImage: `url(${selectedRaid.selectedFile[0]})`,
+							backgroundColor: darkMode ? '#333333' : '#fff',
 							width: '100%',
 							height: '350px',
 							backgroundPosition: 'center',
-							backgroundSize: 'cover',
+							backgroundSize: 'contain',
+							backgroundRepeat: 'no-repeat',
 						}}></div>
 					<Modal.Body>
 						<div className='row'>

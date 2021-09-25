@@ -17,7 +17,6 @@ import EditAssignTable from '../Assignments/EditAssignTable';
 import { useSelector } from 'react-redux';
 
 const EditAssignments = ({ show, setShow }) => {
-	const raid = useSelector((state) => state.currentRaid);
 	const assignment = useSelector((state) => state.currentAssignment);
 	const allAssignments = useSelector((state) => state.assignments);
 	const [newTactics, setNewTactics] = useState({
@@ -31,7 +30,8 @@ const EditAssignments = ({ show, setShow }) => {
 	const [addCharacter, setAddCharacter] = useState(raiders);
 	const [currentRaider, setCurrentRaider] = useState(null);
 	const [updatedAssign, setUpdatedAssign] = useState(assignment);
-	const [newRaid, setNewRaid] = useState(raid);
+	const [newAssingments, setNewAssignments] = useState(null);
+
 	const classes = useStyles();
 	const handleClose = () => setShow(false);
 
@@ -39,16 +39,20 @@ const EditAssignments = ({ show, setShow }) => {
 		const updatedRaiders = raiders.map((raider) =>
 			raider.id === currentRaider.id ? currentRaider : raider,
 		);
-		setAddCharacter(updatedRaiders);
-		setUpdatedAssign({ ...updatedAssign, assignedRaiders: addCharacter });
+
+		setUpdatedAssign({ ...assignment, assignedRaiders: updatedRaiders });
 	};
 
 	const handleSubmit = () => {
-		const updatedRaidAssigns = raid.tactics.map((assignments) =>
-			assignments.id === addCharacter.id ? addCharacter : assignment,
+		// find the first index of the assignment and then remove it.
+		const unique = allAssignments.findIndex(
+			(item) => item._id === updatedAssign._id,
 		);
-		console.log(updatedRaidAssigns);
-		setNewRaid({ ...raid, tactics: [...raid.tactics, updatedAssign] });
+		allAssignments.splice(unique, 1);
+
+		//push the new assignment in
+
+		setNewAssignments([...allAssignments, updatedAssign]);
 	};
 
 	return (
@@ -217,12 +221,14 @@ const EditAssignments = ({ show, setShow }) => {
 									handleAppendCharacter={handleAppendCharacter}
 									newTactics={newTactics}
 									addCharacter={addCharacter}
+									updatedAssign={updatedAssign}
 								/>
 							</div>
 
 							<Button
 								color='primary'
 								variant='contained'
+								className='mt-3'
 								type='button'
 								onClick={handleSubmit}>
 								Add this Assignment
@@ -230,14 +236,6 @@ const EditAssignments = ({ show, setShow }) => {
 						</form>
 					</div>
 				</Modal.Body>
-				<Modal.Footer>
-					<Button color='secondary' variant='contained' onClick={handleClose}>
-						Close
-					</Button>
-					<Button color='primary' variant='contained'>
-						Understood
-					</Button>
-				</Modal.Footer>
 			</Modal>
 		</div>
 	);
