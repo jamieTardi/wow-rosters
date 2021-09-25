@@ -703,6 +703,15 @@ li .light,
   text-align: center;
 }
 
+.modal-body-container {
+  position: relative;
+}
+
+.modal-body-container .edit {
+  position: absolute;
+  top: 0%;
+}
+
 .card-title {
   margin: 0 !important;
   padding: 2% 0%;

@@ -6,7 +6,6 @@ const RaidPageThree = () => {
 	return (
 		<div>
 			<ViewAssignments />
-			something
 		</div>
 	);
 };

@@ -16,8 +16,10 @@ import {
 import EditAssignTable from '../Assignments/EditAssignTable';
 import { useSelector } from 'react-redux';
 
-const EditAssignments = ({ show, setShow, assignment }) => {
+const EditAssignments = ({ show, setShow }) => {
 	const raid = useSelector((state) => state.currentRaid);
+	const assignment = useSelector((state) => state.currentAssignment);
+	const allAssignments = useSelector((state) => state.assignments);
 	const [newTactics, setNewTactics] = useState({
 		title: assignment.title,
 		image: assignment.image,

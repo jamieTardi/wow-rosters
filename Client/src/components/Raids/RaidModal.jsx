@@ -44,14 +44,26 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 				<Modal show={expandCard} size='xl' onHide={() => setExpandCard(false)}>
 					<Modal.Header closeButton closeVariant='white'>
 						<Modal.Title>{selectedRaid.title}</Modal.Title>
+						<Button
+							variant='outlined'
+							color='primary'
+							className='edit ms-4'
+							onClick={() => {
+								setEditModal((prev) => !prev);
+							}}
+							startIcon={<EditIcon />}>
+							Edit
+						</Button>
 					</Modal.Header>
-
-					<img
-						src={selectedRaid.selectedFile[0]}
-						alt='raid-image'
-						style={{ height: '350px', objectFit: 'contain' }}
-					/>
-
+					<div
+						c
+						style={{
+							backgroundImage: `url(${selectedRaid.selectedFile[0]})`,
+							width: '100%',
+							height: '350px',
+							backgroundPosition: 'center',
+							backgroundSize: 'cover',
+						}}></div>
 					<Modal.Body>
 						<div className='row'>
 							<div
@@ -59,17 +71,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 								style={{ color: 'rgba(255, 255, 255, 0.7) !important' }}>
 								Raid created {moment(selectedRaid.createdAt).fromNow()}
 							</div>
-							<div className='col-6 text-end'>
-								<Button
-									variant='outlined'
-									color='primary'
-									onClick={() => {
-										setEditModal((prev) => !prev);
-									}}
-									startIcon={<EditIcon />}>
-									Edit
-								</Button>
-							</div>
+							<div className='col-6 text-end'></div>
 						</div>
 						<div className='row'>
 							<div className='col-6'>Raid Date: {dateFormatter()}</div>
@@ -77,8 +79,13 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 								Time of Raid: {selectedRaid.time}
 							</div>
 						</div>
-						<div>
-							<span className='me-4'>Created by {selectedRaid.creator}</span>
+						<div className='d-flex justify-content-end'>
+							<span className='mt-3'>
+								Created by{' '}
+								<span style={{ color: ' rgba(255, 255, 255, 0.7) !important' }}>
+									{selectedRaid.creator}
+								</span>
+							</span>
 						</div>
 						<div>
 							<h3>Raid Information</h3>

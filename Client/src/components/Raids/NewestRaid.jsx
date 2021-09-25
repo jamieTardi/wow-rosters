@@ -48,6 +48,7 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 								{raid.title}
 							</Typography>
 							<Typography variant='h5'>{raid.name}</Typography>
+
 							<Typography variant='body2' component='p' className='mb-2'>
 								<span
 									className='clock-icon-span'

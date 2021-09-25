@@ -5,11 +5,18 @@ import { Card } from 'react-bootstrap';
 import { Paper, Typography, Button } from '@material-ui/core';
 import empty from '../../images/empty.svg';
 import { Link } from 'react-router-dom';
+import EditAssignments from '../EditPages/EditAssignments';
+import { CURRENT_ASSIGNMENT } from '../../constants/actionTypes';
 
 const ViewAssignments = () => {
 	const dispatch = useDispatch();
 	const [show, setShow] = useState(false);
 	const assignments = useSelector((state) => state.assignments);
+
+	const handleViewAssignment = (assign) => {
+		dispatch({ type: CURRENT_ASSIGNMENT, payload: assign });
+		setShow((prev) => !prev);
+	};
 
 	useEffect(() => {
 		dispatch(getAssignments());
@@ -42,7 +49,7 @@ const ViewAssignments = () => {
 											variant='contained'
 											color='default'
 											onClick={() => {
-												// handleViewRoster(roster);
+												handleViewAssignment(assign);
 											}}
 											style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
 											View Assignment
@@ -52,7 +59,7 @@ const ViewAssignments = () => {
 							</div>
 						))}
 					</div>
-					{/* {showModal && <EditPageTwo show={show} setShow={setShow} />} */}
+					{show && <EditAssignments show={show} setShow={setShow} />}
 				</Paper>
 			) : (
 				<div className='d-flex flex-column justify-content-center align-items-center'>

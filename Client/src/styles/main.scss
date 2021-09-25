@@ -111,6 +111,14 @@ li .light,
 	}
 }
 
+.modal-body-container {
+	position: relative;
+	.edit {
+		position: absolute;
+		top: 0%;
+	}
+}
+
 .card-title {
 	margin: 0 !important;
 	padding: 2% 0%;
