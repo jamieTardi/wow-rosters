@@ -14,6 +14,7 @@ import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import HomeIcon from '@material-ui/icons/Home';
 import wowImage from '../../images/world.svg';
 import FaceIcon from '@material-ui/icons/Face';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import {
 	IconButton,
 	Box,
@@ -244,7 +245,20 @@ const Nav = () => {
 								<ListItemIcon>
 									<FaceIcon />
 								</ListItemIcon>
-								<ListItemText primary='View Rosters' />
+								<ListItemText primary='View/Edit Rosters' />
+							</ListItem>
+							<ListItem
+								disablePadding
+								component={Link}
+								to='/view-assignments'
+								onClick={() => {
+									setOpenMenu(false);
+								}}
+								style={{ cursor: 'pointer' }}>
+								<ListItemIcon>
+									<AssignmentTurnedInIcon />
+								</ListItemIcon>
+								<ListItemText primary='View/Edit Assignments' />
 							</ListItem>
 						</List>
 						<Divider />

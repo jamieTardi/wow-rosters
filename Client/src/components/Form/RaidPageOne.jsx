@@ -37,6 +37,7 @@ const RaidPageOne = ({
 						className={classes.input}
 						fullWidth
 						label='Name Of the Raid'
+						value={raidForm.title}
 						InputLabelProps={{
 							style: { color: '#fff ' },
 						}}

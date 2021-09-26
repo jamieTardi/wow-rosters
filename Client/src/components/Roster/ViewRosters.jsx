@@ -57,7 +57,7 @@ const ViewRosters = () => {
 												handleViewRoster(roster);
 											}}
 											style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
-											View Roster
+											View/Edit Roster
 										</Button>
 									</Card.Body>
 								</Card>

@@ -4,18 +4,24 @@ import { getAssignments } from '../../actions/assignments';
 import { Card } from 'react-bootstrap';
 import { Paper, Typography, Button } from '@material-ui/core';
 import empty from '../../images/empty.svg';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import EditAssignments from '../EditPages/EditAssignments';
 import { CURRENT_ASSIGNMENT } from '../../constants/actionTypes';
 
-const ViewAssignments = () => {
+const ViewAssignments = ({ raidForm, setRaidForm }) => {
+	const location = useLocation();
 	const dispatch = useDispatch();
 	const [show, setShow] = useState(false);
 	const assignments = useSelector((state) => state.assignments);
+	console.log(location);
 
 	const handleViewAssignment = (assign) => {
 		dispatch({ type: CURRENT_ASSIGNMENT, payload: assign });
 		setShow((prev) => !prev);
+	};
+
+	const handleAddAssignment = (assign) => {
+		setRaidForm({ ...raidForm, tactics: [raidForm.tactics, assign] });
 	};
 
 	useEffect(() => {
@@ -26,7 +32,7 @@ const ViewAssignments = () => {
 			{assignments.length > 0 ? (
 				<Paper className='container '>
 					<Typography variant='h5' gutterBottom className='pt-3'>
-						Select a roster from below
+						Select a assignment from below
 					</Typography>
 					<div className='row'>
 						{assignments.map((assign, i) => (
@@ -54,6 +60,15 @@ const ViewAssignments = () => {
 											style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
 											View Assignment
 										</Button>
+										{!location.pathname === '/view-assignments' && (
+											<Button
+												variant='contained'
+												color='primary'
+												style={{ fontSize: '0.6rem', marginBottom: '15%' }}
+												onClick={() => handleAddAssignment(assign)}>
+												Add this assignment
+											</Button>
+										)}
 									</Card.Body>
 								</Card>
 							</div>
@@ -64,7 +79,8 @@ const ViewAssignments = () => {
 			) : (
 				<div className='d-flex flex-column justify-content-center align-items-center'>
 					<Typography variant='h4' className='my-3'>
-						Currently no assignments, Lets create one!
+						Currently no assignments, Lets create one! In a rush? just create
+						the raid!
 					</Typography>
 					<Button
 						variant='contained'

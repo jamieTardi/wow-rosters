@@ -4,8 +4,10 @@ import { useSelector } from 'react-redux';
 import { Button } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import EditPageTwo from '../EditPages/EditPageTwo';
+import { useHistory } from 'react-router-dom';
 
 const CurrentRoster = () => {
+	const history = useHistory();
 	const [hideModal, setHideModal] = useState(true);
 	const raid = useSelector((state) => state.currentRaid);
 	const currentRoster = useSelector((state) => state.currentRoster);
@@ -102,15 +104,6 @@ const CurrentRoster = () => {
 							))}
 					</tbody>
 				</Table>
-				<Button
-					variant='contained'
-					onClick={() => {
-						setHideModal((prev) => !prev);
-					}}
-					startIcon={<EditIcon />}
-					color='primary'>
-					Edit Roster
-				</Button>
 			</div>
 			{!hideModal && (
 				<EditPageTwo setHideModal={setHideModal} hideModal={hideModal} />

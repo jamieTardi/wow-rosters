@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Typography, Paper, Button } from '@material-ui/core';
 import ExpandCard from '../UIcomponents/ExpandCard';
-import { Card } from 'react-bootstrap';
+import { Card, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AssignRoster from '../Roster/AssignRoster';
 import { useDispatch } from 'react-redux';
 import { CURRENT_ROSTER, CLEAR_RAID } from '../../constants/actionTypes';
+import ViewRosters from '../Roster/ViewRosters';
+import CurrentRoster from '../Roster/CurrentRoster';
 
 const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 	const dispatch = useDispatch();
+	const [show, setShow] = useState(false);
 	const rosters = useSelector((state) => state.createdRosters);
 	const [activeIndex, setActiveIndex] = useState(null);
 
@@ -21,7 +24,11 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 	const handleViewRoster = (roster) => {
 		dispatch({ type: CURRENT_ROSTER, payload: roster });
 		dispatch({ type: CLEAR_RAID });
+		handleShow();
 	};
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 
 	return (
 		<div>
@@ -55,8 +62,6 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 										<Button
 											variant='contained'
 											color='default'
-											component={Link}
-											to='/current-roster'
 											onClick={() => {
 												handleViewRoster(roster);
 											}}
@@ -109,6 +114,19 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 					</Typography>
 				</>
 			)}
+			<Modal show={show} onHide={handleClose}>
+				<Modal.Header closeButton closeVariant='white'>
+					<Modal.Title>Current Roster</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<CurrentRoster />
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant='contained' color='secondary' onClick={handleClose}>
+						Close
+					</Button>
+				</Modal.Footer>
+			</Modal>
 		</div>
 	);
 };
