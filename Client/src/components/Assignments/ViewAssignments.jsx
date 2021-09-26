@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAssignments } from '../../actions/assignments';
+import { deleteAssignment, getAssignments } from '../../actions/assignments';
 import { Card } from 'react-bootstrap';
 import { Paper, Typography, Button } from '@material-ui/core';
 import empty from '../../images/empty.svg';
@@ -12,8 +12,8 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 	const location = useLocation();
 	const dispatch = useDispatch();
 	const [show, setShow] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const assignments = useSelector((state) => state.assignments);
-	console.log(location);
 
 	const handleViewAssignment = (assign) => {
 		dispatch({ type: CURRENT_ASSIGNMENT, payload: assign });
@@ -24,9 +24,20 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 		setRaidForm({ ...raidForm, tactics: [raidForm.tactics, assign] });
 	};
 
+	const handleDeleteAssignment = (assign) => {
+		const id = assign._id;
+		setIsLoading(true);
+		dispatch(deleteAssignment(id, setIsLoading));
+	};
+
 	useEffect(() => {
 		dispatch(getAssignments());
 	}, []);
+
+	useEffect(() => {
+		dispatch(getAssignments());
+	}, [assignments]);
+
 	return (
 		<div className='my-5'>
 			{assignments.length > 0 ? (
@@ -51,24 +62,37 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 										<Card.Text>
 											Click the button below to view this assignment.
 										</Card.Text>
-										<Button
-											variant='contained'
-											color='default'
-											onClick={() => {
-												handleViewAssignment(assign);
-											}}
-											style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
-											View Assignment
-										</Button>
-										{!location.pathname === '/view-assignments' && (
+										<div className='d-flex flex-md-column justify-content-between flex-xl-row'>
 											<Button
 												variant='contained'
-												color='primary'
-												style={{ fontSize: '0.6rem', marginBottom: '15%' }}
-												onClick={() => handleAddAssignment(assign)}>
-												Add this assignment
+												color='default'
+												onClick={() => {
+													handleViewAssignment(assign);
+												}}
+												style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
+												View Assignment
 											</Button>
-										)}
+
+											{!location.pathname === '/view-assignments' && (
+												<>
+													<Button
+														variant='contained'
+														color='primary'
+														style={{ fontSize: '0.6rem', marginBottom: '15%' }}
+														onClick={() => handleAddAssignment(assign)}>
+														Add this assignment
+													</Button>
+												</>
+											)}
+											<Button
+												variant='contained'
+												color='secondary'
+												disabled={isLoading}
+												style={{ fontSize: '0.6rem', marginBottom: '15%' }}
+												onClick={() => handleDeleteAssignment(assign)}>
+												Delete Assignment
+											</Button>
+										</div>
 									</Card.Body>
 								</Card>
 							</div>

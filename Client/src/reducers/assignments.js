@@ -4,7 +4,7 @@ import {
 	FETCH_ASSIGNMENTS,
 } from '../constants/actionTypes';
 
-export const assignments = (state = [], action) => {
+export const assignments = (state = null, action) => {
 	switch (action.type) {
 		case ADD_ASSIGNMENT:
 			return [...state, action.payload];

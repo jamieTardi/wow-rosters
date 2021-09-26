@@ -55,9 +55,17 @@ export const createAssignment = (newAssignment) => {
 	API.post('/create-assignment', newAssignment);
 };
 
-export const updateAssignments = (assignment, id) => {
+export const updateAssignments = (assignment, id, isLoading) => {
 	API.patch(`/create-assignment/${id}`, assignment)
-		.then(() => console.log('update assingment'))
+		.then(() => isLoading(false))
+		.catch((err) => console.log(err));
+};
+
+export const deleteAssignment = (id, isLoading) => {
+	API.delete(`/create-assignment/${id}`)
+		.then(() => {
+			isLoading(false);
+		})
 		.catch((err) => console.log(err));
 };
 

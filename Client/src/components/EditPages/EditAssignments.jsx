@@ -14,7 +14,8 @@ import {
 	Button,
 } from '@material-ui/core';
 import EditAssignTable from '../Assignments/EditAssignTable';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateAssignments, getAssignments } from '../../actions/assignments';
 
 const EditAssignments = ({ show, setShow }) => {
 	const assignment = useSelector((state) => state.currentAssignment);
@@ -23,7 +24,7 @@ const EditAssignments = ({ show, setShow }) => {
 		title: assignment.title,
 		image: assignment.image,
 		assignedRaiders: assignment.assignedRaiders,
-		id: assignment.id,
+		_id: assignment._id,
 	});
 
 	const raiders = assignment.assignedRaiders;
@@ -31,7 +32,8 @@ const EditAssignments = ({ show, setShow }) => {
 	const [currentRaider, setCurrentRaider] = useState(null);
 	const [updatedAssign, setUpdatedAssign] = useState(assignment);
 	const [newAssingments, setNewAssignments] = useState(null);
-
+	const [isLoading, setIsLoading] = useState(false);
+	const dispatch = useDispatch();
 	const classes = useStyles();
 	const handleClose = () => setShow(false);
 
@@ -40,19 +42,15 @@ const EditAssignments = ({ show, setShow }) => {
 			raider.id === currentRaider.id ? currentRaider : raider,
 		);
 
-		setUpdatedAssign({ ...assignment, assignedRaiders: updatedRaiders });
+		setUpdatedAssign({ ...newTactics, assignedRaiders: updatedRaiders });
 	};
 
 	const handleSubmit = () => {
-		// find the first index of the assignment and then remove it.
-		const unique = allAssignments.findIndex(
-			(item) => item._id === updatedAssign._id,
-		);
-		allAssignments.splice(unique, 1);
-
-		//push the new assignment in
-
-		setNewAssignments([...allAssignments, updatedAssign]);
+		setIsLoading(true);
+		dispatch(updateAssignments(newTactics, newTactics._id, setIsLoading));
+		if (!isLoading) {
+			setShow(false);
+		}
 	};
 
 	return (
@@ -94,11 +92,16 @@ const EditAssignments = ({ show, setShow }) => {
 										Pick an image for this assignment (optional)
 									</Typography>
 									<div>
-										<img
-											style={{ width: '100%' }}
-											src={newTactics.image}
-											alt='raid pic'
-										/>
+										<a download={newTactics.title} href={newTactics.image}>
+											<img
+												style={{ width: '100%' }}
+												src={newTactics.image}
+												alt='raid pic'
+											/>
+										</a>
+										<Typography variant='p' gutterBottom>
+											Click on the above image to download 📁
+										</Typography>
 									</div>
 								</Grid>
 
@@ -229,9 +232,10 @@ const EditAssignments = ({ show, setShow }) => {
 								color='primary'
 								variant='contained'
 								className='mt-3'
+								disabled={isLoading}
 								type='button'
 								onClick={handleSubmit}>
-								Add this Assignment
+								Append this Assignment
 							</Button>
 						</form>
 					</div>

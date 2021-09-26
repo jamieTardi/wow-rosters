@@ -15,6 +15,6 @@ const raidSchema = mongoose.Schema({
 	roster: Object,
 });
 
-const RaidConfig = mongoose.model('PostMessage', raidSchema);
+const RaidConfig = mongoose.model('CreatedRaids', raidSchema);
 
 export default RaidConfig;
