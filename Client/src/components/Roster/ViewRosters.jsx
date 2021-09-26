@@ -20,6 +20,8 @@ const ViewRosters = () => {
 		dispatch({ type: CURRENT_ROSTER, payload: roster });
 	};
 
+	const handleDeleteRoster = (roster) => {};
+
 	useEffect(() => {
 		if (currentRoster !== null) {
 			setShowModal(true);
@@ -50,15 +52,26 @@ const ViewRosters = () => {
 										<Card.Text>
 											Click the button below to view this roster.
 										</Card.Text>
-										<Button
-											variant='contained'
-											color='default'
-											onClick={() => {
-												handleViewRoster(roster);
-											}}
-											style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
-											View/Edit Roster
-										</Button>
+										<div className='d-flex flex-md-column justify-content-between flex-xl-row'>
+											<Button
+												variant='contained'
+												color='default'
+												onClick={() => {
+													handleViewRoster(roster);
+												}}
+												style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
+												View/Edit Roster
+											</Button>
+											<Button
+												variant='contained'
+												color='secondary'
+												onClick={() => {
+													handleDeleteRoster(roster);
+												}}
+												style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
+												Delete Roster
+											</Button>
+										</div>
 									</Card.Body>
 								</Card>
 							</div>

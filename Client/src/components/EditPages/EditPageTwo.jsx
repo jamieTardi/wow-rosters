@@ -124,6 +124,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 
 							<Select
 								className='w-50'
+								value={currentRaider ? currentRaider.role : ''}
 								onChange={(e) => {
 									setCurrentRaider({ ...currentRaider, role: e.target.value });
 								}}>
@@ -163,6 +164,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 							</InputLabel>
 							<Select
 								label='Select a Character'
+								value={currentRaider ? currentRaider.class : ''}
 								className='w-100'
 								onChange={(e) => {
 									setCurrentRaider({ ...currentRaider, class: e.target.value });
