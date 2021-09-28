@@ -8,6 +8,8 @@ import { useStyles } from './styles';
 import DatePicker from 'react-datepicker';
 import TimePicker from '../UIcomponents/TimePicker';
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const RaidPageOne = ({
 	raidForm,
@@ -19,6 +21,7 @@ const RaidPageOne = ({
 }) => {
 	const [uploadedImg, setUploadedImg] = useState('');
 	const [file, setFile] = useState('');
+	const [image, setImage] = useState('');
 	const [startDate, setStartDate] = useState(new Date());
 	const classes = useStyles();
 	const handleImgUpload = (base64) => {
@@ -27,11 +30,27 @@ const RaidPageOne = ({
 	};
 
 	const send = (e) => {
+		e.preventDefault();
 		const data = new FormData();
 		data.append('file', file);
 
 		axios
 			.post('http://localhost:5000/uploads', data)
+			.then((res) =>
+				setRaidForm({
+					...raidForm,
+					selectedFile: `http://localhost:5000/images/${res.data}`,
+				}),
+			)
+			.catch((err) => console.log(err));
+		setRaidForm({ ...raidForm, selectedFile: image });
+	};
+
+	const deleteFile = (e) => {
+		e.preventDefault();
+		let img = 'image9105.jpg';
+		axios
+			.delete('http://localhost:5000/uploads', { data: { image: img } })
 			.then((res) => console.log(res))
 			.catch((err) => console.log(err));
 	};
@@ -91,21 +110,8 @@ const RaidPageOne = ({
 					/>
 				</Grid>
 			</Grid>
-			{/* <Grid item xs={12}>
-				<Typography variant='h6' gutterBottom className='mt-4'>
-					Please add a raid image to upload
-				</Typography>
-				<img src={uploadedImg} alt='raid image' style={{ width: '100%' }} />
-			</Grid>
 
-			<Grid item xs={12}>
-				<FileBase
-					type='file'
-					multiple={false}
-					onDone={({ base64 }) => handleImgUpload(base64)}
-				/>
-			</Grid> */}
-			<label>Image upload</label>
+			<InputLabel className='my-3'>Upload an Image for the Raid</InputLabel>
 			<input
 				type='file'
 				id='file'
@@ -115,7 +121,25 @@ const RaidPageOne = ({
 					setFile(file);
 				}}
 			/>
-			<button onClick={send}>send</button>
+			<div className='mt-3 d-flex flex-column '>
+				<Button
+					variant='contained'
+					color='success'
+					className='my-2 w-50'
+					onClick={send}
+					startIcon={<CloudUploadIcon />}>
+					Upload Photo
+				</Button>
+				{raidForm.selectedFile.length !== 0 && (
+					<img
+						src={raidForm.selectedFile}
+						alt='raid image'
+						style={{ width: '100%' }}
+					/>
+				)}
+
+				<Button onClick={deleteFile}>Delete</Button>
+			</div>
 		</div>
 	);
 };

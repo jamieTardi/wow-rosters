@@ -21,18 +21,19 @@ const Raids = () => {
 		dispatch(getRaids());
 	}, []);
 
-	useEffect(() => {
-		dispatch(getRaids());
-	}, [createdRaids]);
-
 	return (
 		<div>
 			<div className='row'>
 				{createdRaids.length === 0 ? (
 					<div className='mt-5'>
-						<Loading />
+						<div
+							style={{ height: '500px' }}
+							className='d-flex justify-content-center align-items-center flex-column'>
+							<h1>Currently there are no raids, let's create one!</h1>
+							<Image src={emptyImg} fluid style={{ height: '100%' }} />
+						</div>
 					</div>
-				) : createdRaids ? (
+				) : (
 					createdRaids
 						.sort((a, b) => new Date(b.date) - new Date(a.date))
 						.map((raid, i) => (
@@ -58,13 +59,6 @@ const Raids = () => {
 								)}
 							</>
 						))
-				) : (
-					<div
-						style={{ height: '500px' }}
-						className='d-flex justify-content-center align-items-center flex-column'>
-						<h1>Currently there are no raids, let's create one!</h1>
-						<Image src={emptyImg} fluid style={{ height: '100%' }} />
-					</div>
 				)}
 			</div>
 

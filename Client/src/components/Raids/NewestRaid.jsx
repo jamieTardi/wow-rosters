@@ -33,8 +33,6 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 	};
 	const classes = useStyles();
 
-	const randomNumber = 1;
-
 	return (
 		<div style={{ position: 'relative' }}>
 			<Card className={classes.card}>
@@ -43,7 +41,11 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 						<CardMedia
 							variant='top'
 							className={classes.media}
-							image={wowImage1}
+							image={
+								raid.selectedFile[0] !== undefined
+									? raid.selectedFile[0]
+									: 'https://i.pinimg.com/originals/0a/59/dc/0a59dcabe5f9a52e5a0e3d8a05db9572.jpg'
+							}
 							title='Newest Raid'
 						/>
 
