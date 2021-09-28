@@ -59,7 +59,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 					<div
 						c
 						style={{
-							backgroundImage: `url(${selectedRaid.selectedFile[0]})`,
+							backgroundImage: `url(https://cdn.mos.cms.futurecdn.net/AHf4sCNUSGjbFimU9BvGXU.jpg)`,
 							backgroundColor: darkMode ? '#333333' : '#fff',
 							width: '100%',
 							height: '350px',

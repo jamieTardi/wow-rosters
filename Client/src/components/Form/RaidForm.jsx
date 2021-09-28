@@ -12,6 +12,7 @@ import Container from '@material-ui/core/Container';
 import { Paper } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 import {
 	Stepper,
 	Step,
@@ -65,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 const RaidForm = () => {
 	const showRaid = useSelector((state) => state.raidModal);
-
+	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(false);
 	const [pageNum, setPageNum] = useState(0);
 	const [activeStep, setActiveStep] = useState(0);
@@ -92,9 +93,8 @@ const RaidForm = () => {
 	const handleSubmit = () => {
 		setIsLoading(true);
 
-		//send the function some state to update in the argument to get the res
 		dispatch(
-			createRaid({ ...raidForm, creator: user.result.name }, setRaidCreateRes),
+			createRaid({ ...raidForm, creator: user.result.name }, setIsLoading),
 		);
 		setRaidForm({
 			title: '',
@@ -106,10 +106,9 @@ const RaidForm = () => {
 			date: '',
 			roster: [],
 		});
-		setTimeout(() => {
-			setIsLoading(false);
-			handleClose();
-		}, 2200);
+		if (!isLoading) {
+			history.push('/');
+		}
 	};
 
 	if (!user?.result?.name) {

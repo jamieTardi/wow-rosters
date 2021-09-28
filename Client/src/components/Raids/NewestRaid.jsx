@@ -13,6 +13,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import wowImage1 from '../../images/wow-images/hyjal(1).jpg';
+import wowImage2 from '../../images/wow-images/jaina(1).jpg';
+import wowImage3 from '../../images/wow-images/img3.jpg';
+import wowImage4 from '../../images/wow-images/warcraftArt(1).jpg';
+import wowImage5 from '../../images/wow-images/img5.jpg';
 
 const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 	const dispatch = useDispatch();
@@ -27,6 +32,9 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 		setDeleteWarning(true);
 	};
 	const classes = useStyles();
+
+	const randomNumber = 1;
+
 	return (
 		<div style={{ position: 'relative' }}>
 			<Card className={classes.card}>
@@ -35,9 +43,7 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 						<CardMedia
 							variant='top'
 							className={classes.media}
-							image={
-								raid.selectedFile[0] !== '' ? raid.selectedFile[0] : defaultImg
-							}
+							image={wowImage1}
 							title='Newest Raid'
 						/>
 

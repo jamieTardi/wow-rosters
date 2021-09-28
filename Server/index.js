@@ -8,6 +8,7 @@ import raidsRoutes from './routes/raids.js';
 import rosterRoutes from './routes/roster.js';
 import userRoutes from './routes/users.js';
 import assignmentRoutes from './routes/assignment.js';
+import imageRoutes from './routes/images.js';
 
 const app = express();
 dotenv.config();
@@ -19,6 +20,7 @@ app.use('/raids', raidsRoutes);
 app.use('/roster', rosterRoutes);
 app.use('/user', userRoutes);
 app.use('/create-assignment', assignmentRoutes);
+app.use('/uploads', imageRoutes);
 
 app.get('/', (req, res) => {
 	res.send('Hello apis');

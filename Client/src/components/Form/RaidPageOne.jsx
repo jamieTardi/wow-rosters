@@ -7,6 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { useStyles } from './styles';
 import DatePicker from 'react-datepicker';
 import TimePicker from '../UIcomponents/TimePicker';
+import axios from 'axios';
 
 const RaidPageOne = ({
 	raidForm,
@@ -17,12 +18,22 @@ const RaidPageOne = ({
 	raidMinute,
 }) => {
 	const [uploadedImg, setUploadedImg] = useState('');
-
+	const [file, setFile] = useState('');
 	const [startDate, setStartDate] = useState(new Date());
 	const classes = useStyles();
 	const handleImgUpload = (base64) => {
 		setUploadedImg(base64);
 		setRaidForm({ ...raidForm, selectedFile: base64 });
+	};
+
+	const send = (e) => {
+		const data = new FormData();
+		data.append('file', file);
+
+		axios
+			.post('http://localhost:5000/uploads', data)
+			.then((res) => console.log(res))
+			.catch((err) => console.log(err));
 	};
 
 	return (
@@ -80,7 +91,7 @@ const RaidPageOne = ({
 					/>
 				</Grid>
 			</Grid>
-			<Grid item xs={12}>
+			{/* <Grid item xs={12}>
 				<Typography variant='h6' gutterBottom className='mt-4'>
 					Please add a raid image to upload
 				</Typography>
@@ -93,7 +104,18 @@ const RaidPageOne = ({
 					multiple={false}
 					onDone={({ base64 }) => handleImgUpload(base64)}
 				/>
-			</Grid>
+			</Grid> */}
+			<label>Image upload</label>
+			<input
+				type='file'
+				id='file'
+				accept='.jpg'
+				onChange={(e) => {
+					const file = e.target.files[0];
+					setFile(file);
+				}}
+			/>
+			<button onClick={send}>send</button>
 		</div>
 	);
 };

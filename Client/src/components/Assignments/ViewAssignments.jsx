@@ -21,7 +21,7 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 	};
 
 	const handleAddAssignment = (assign) => {
-		setRaidForm({ ...raidForm, tactics: [raidForm.tactics, assign] });
+		setRaidForm({ ...raidForm, tactics: [...raidForm.tactics, assign] });
 	};
 
 	const handleDeleteAssignment = (assign) => {
@@ -73,7 +73,7 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 												View Assignment
 											</Button>
 
-											{!location.pathname === '/view-assignments' && (
+											{location.pathname === '/raid-creation' && (
 												<>
 													<Button
 														variant='contained'

@@ -21,6 +21,10 @@ const Raids = () => {
 		dispatch(getRaids());
 	}, []);
 
+	useEffect(() => {
+		dispatch(getRaids());
+	}, [createdRaids]);
+
 	return (
 		<div>
 			<div className='row'>
