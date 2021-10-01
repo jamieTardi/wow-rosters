@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { imageURL } from '../constants/general';
 
 // const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
 const API = axios.create({ baseURL: 'http://localhost:5000' });
@@ -88,5 +89,37 @@ export const fetchUsers = (setUserRes) =>
 export const createGoogleUser = (googleUser) => {
 	API.post('/user/google-sign-up', googleUser)
 		.then((res) => console.log(res))
+		.catch((err) => console.log(err));
+};
+
+//Image handling
+
+export const deleteImage = (img) => {
+	API.delete(`/uploads`, { data: { image: img } })
+		.then((res) => console.log(res))
+		.catch((err) => console.log(err));
+};
+
+export const createImage = (data, setRaidForm, raidForm) => {
+	axios
+		.post(`${imageURL}/uploads`, data)
+		.then((res) =>
+			setRaidForm({
+				...raidForm,
+				selectedFile: `${imageURL}/images/${res.data}`,
+			}),
+		)
+		.catch((err) => console.log(err));
+};
+
+export const createImageAssign = (data, setNewTactics, newTactics) => {
+	axios
+		.post(`${imageURL}/uploads`, data)
+		.then((res) =>
+			setNewTactics({
+				...newTactics,
+				image: `${imageURL}/images/${res.data}`,
+			}),
+		)
 		.catch((err) => console.log(err));
 };

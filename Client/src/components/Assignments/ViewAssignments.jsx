@@ -47,7 +47,7 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 					</Typography>
 					<div className='row'>
 						{assignments.map((assign, i) => (
-							<div className='mini-card col-12 col-md-4 mb-3'>
+							<div className='mini-card col-12 col-md-6 mb-3'>
 								<Card style={{ width: '100%' }}>
 									<Card.Img
 										variant='top'
@@ -62,7 +62,7 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 										<Card.Text>
 											Click the button below to view this assignment.
 										</Card.Text>
-										<div className='d-flex flex-md-column justify-content-between flex-xl-row'>
+										<div className='d-flex flex-md-column justify-content-between '>
 											<Button
 												variant='contained'
 												color='default'

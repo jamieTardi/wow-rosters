@@ -24,7 +24,7 @@ const Raids = () => {
 	return (
 		<div>
 			<div className='row'>
-				{createdRaids.length === 0 ? (
+				{createdRaids !== null && createdRaids.length === 0 ? (
 					<div className='mt-5'>
 						<div
 							style={{ height: '500px' }}
@@ -33,6 +33,8 @@ const Raids = () => {
 							<Image src={emptyImg} fluid style={{ height: '100%' }} />
 						</div>
 					</div>
+				) : createdRaids === null ? (
+					<Loading />
 				) : (
 					createdRaids
 						.sort((a, b) => new Date(b.date) - new Date(a.date))

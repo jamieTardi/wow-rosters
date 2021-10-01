@@ -1,4 +1,4 @@
-export const raids = (state = [], action) => {
+export const raids = (state = null, action) => {
 	switch (action.type) {
 		case 'FETCH_ALL':
 			return action.payload;
@@ -11,7 +11,7 @@ export const raids = (state = [], action) => {
 		case 'DELETE_RAID':
 			return state.filter((raid) => raid._id !== action.payload);
 		case 'CLEAR_RAIDS':
-			return [];
+			return null;
 		default:
 			return state;
 	}

@@ -3,6 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { deleteRaid } from '../../actions/raids';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { deleteImage } from '../../api';
 
 const DeleteRaid = ({ raid, deleteWarning, setDeleteWarning }) => {
 	const history = useHistory();
@@ -12,11 +13,18 @@ const DeleteRaid = ({ raid, deleteWarning, setDeleteWarning }) => {
 	const handleClose = () => setDeleteWarning(false);
 
 	const handleDeleteRaid = () => {
+		let img = raid.selectedFile[0]?.substring(
+			raid.selectedFile[0].lastIndexOf('/') + 1,
+			raid.selectedFile[0].length,
+		);
 		setIsLoading(true);
 		dispatch(deleteRaid(raid._id, setIsLoading));
+		if (raid.selectedFile.length !== 0) {
+			deleteImage(img);
+		}
 		handleClose();
 	};
-	console.log(isLoading);
+
 	return (
 		<>
 			<Modal

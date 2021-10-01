@@ -13,6 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import EditPageOne from '../EditPages/EditPageOne';
 import MoreHorizSharpIcon from '@material-ui/icons/MoreHorizSharp';
 import TabbedMenu from '../Assignments/TabbedMenu';
+import { imageURL } from '../../constants/general';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	const [editModal, setEditModal] = useState(false);
@@ -39,6 +40,8 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 		return newDate;
 	};
 
+	console.log(`${selectedRaid.selectedFile}`);
+
 	return (
 		<>
 			<div>
@@ -57,9 +60,8 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 						</Button>
 					</Modal.Header>
 					<div
-						c
 						style={{
-							backgroundImage: `url(https://cdn.mos.cms.futurecdn.net/AHf4sCNUSGjbFimU9BvGXU.jpg)`,
+							backgroundImage: `url(${selectedRaid.selectedFile})`,
 							backgroundColor: darkMode ? '#333333' : '#fff',
 							width: '100%',
 							height: '350px',

@@ -17,14 +17,18 @@ import {
 } from '@material-ui/core';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import { createAssignment } from '../../actions/assignments';
+import { createImageAssign } from '../../api';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const TacticsForm = ({ raidForm, setRaidForm }) => {
 	const classes = useStyles();
 	const [completedTxt, setCompletedTxt] = useState(false);
 	const dispatch = useDispatch();
+	const [file, setFile] = useState('');
+
 	const [newTactics, setNewTactics] = useState({
 		title: '',
-		image: '',
+		selectedFile: '',
 		assignedRaiders: [],
 		id: uuidv4(),
 	});
@@ -35,6 +39,13 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 		notes: '',
 		id: uuidv4(),
 	});
+
+	const send = async (e) => {
+		e.preventDefault();
+		const data = new FormData();
+		data.append('file', file);
+		createImageAssign(data, setNewTactics, newTactics);
+	};
 
 	const targetMarkers = [
 		'Skull 💀',
@@ -65,7 +76,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 		dispatch({ type: 'ADD_ASSIGNMENT', payload: newTactics });
 		dispatch(createAssignment(newTactics));
 		// raidForm.tactics.push(newTactics);
-		setNewTactics({ image: '', assignedRaiders: [], id: uuidv4() });
+		setNewTactics({ selectedFile: '', assignedRaiders: [], id: uuidv4() });
 		setCompletedTxt(true);
 		setTimeout(() => {
 			setCompletedTxt(false);
@@ -96,13 +107,41 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 
 						<div className='w-100 px-3'>
 							<Grid item xs={12}>
-								<FileBase
+								{/* <FileBase
 									type='file'
 									multiple={false}
 									onDone={({ base64 }) =>
 										setNewTactics({ ...newTactics, image: base64 })
 									}
-								/>
+								/> */}
+								<div className='mt-3 d-flex flex-column'>
+									<input
+										type='file'
+										id='file'
+										accept='.jpg'
+										onChange={(e) => {
+											const file = e.target.files[0];
+											setFile(file);
+										}}
+									/>
+									<Button
+										variant='contained'
+										color='success'
+										className='my-2 w-50'
+										onClick={send}
+										startIcon={<CloudUploadIcon />}>
+										Upload Photo
+									</Button>
+									{newTactics.selectedFile !== '' ? (
+										<img
+											src={newTactics.selectedFile}
+											alt='raid image'
+											style={{ width: '100%' }}
+										/>
+									) : (
+										''
+									)}
+								</div>
 							</Grid>
 
 							<div className=' my-3 '>
