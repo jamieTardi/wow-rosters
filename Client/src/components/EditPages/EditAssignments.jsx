@@ -16,6 +16,8 @@ import {
 import EditAssignTable from '../Assignments/EditAssignTable';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateAssignments, getAssignments } from '../../actions/assignments';
+import { createImageAssign, deleteImage } from '../../api';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const EditAssignments = ({ show, setShow }) => {
 	const assignment = useSelector((state) => state.currentAssignment);
@@ -31,6 +33,8 @@ const EditAssignments = ({ show, setShow }) => {
 	const [addCharacter, setAddCharacter] = useState(raiders);
 	const [currentRaider, setCurrentRaider] = useState(null);
 	const [updatedAssign, setUpdatedAssign] = useState(assignment);
+	const isDark = useSelector((state) => state.darkMode);
+	const [file, setFile] = useState('');
 	const [newAssingments, setNewAssignments] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
@@ -53,6 +57,20 @@ const EditAssignments = ({ show, setShow }) => {
 		}
 	};
 
+	const send = (e) => {
+		e.preventDefault();
+		const data = new FormData();
+		data.append('file', file);
+		let img = newTactics.image?.substring(
+			newTactics.image.lastIndexOf('/') + 1,
+			newTactics.image.length,
+		);
+		if (newTactics.image !== '') {
+			deleteImage(img);
+		}
+		createImageAssign(data, setNewTactics, newTactics);
+	};
+
 	return (
 		<div>
 			<Modal
@@ -61,8 +79,8 @@ const EditAssignments = ({ show, setShow }) => {
 				backdrop='static'
 				size='lg'
 				keyboard={false}>
-				<Modal.Header closeButton>
-					<Modal.Title>Modal title</Modal.Title>
+				<Modal.Header closeButton closeVariant={isDark && 'white'}>
+					<Modal.Title>Assignments</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<div className='w-100'>
@@ -88,9 +106,6 @@ const EditAssignments = ({ show, setShow }) => {
 										/>
 									</Grid>
 
-									<Typography variant='h6' gutterBottom>
-										Pick an image for this assignment (optional)
-									</Typography>
 									<div>
 										<a download={newTactics.title} href={newTactics.image}>
 											<img
@@ -107,13 +122,32 @@ const EditAssignments = ({ show, setShow }) => {
 
 								<div className='w-100 px-3'>
 									<Grid item xs={12}>
-										<FileBase
+										{/* <FileBase
 											type='file'
 											multiple={false}
 											onDone={({ base64 }) =>
 												setNewTactics({ ...newTactics, image: base64 })
 											}
-										/>
+										/> */}
+										<div className='mt-3 d-flex flex-column'>
+											<input
+												type='file'
+												id='file'
+												accept='.jpg'
+												onChange={(e) => {
+													const file = e.target.files[0];
+													setFile(file);
+												}}
+											/>
+											<Button
+												variant='contained'
+												color='success'
+												className='my-2 w-50'
+												onClick={send}
+												startIcon={<CloudUploadIcon />}>
+												Upload Photo
+											</Button>
+										</div>
 									</Grid>
 
 									<div className=' my-3 '>

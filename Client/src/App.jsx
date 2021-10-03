@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Home from './components/Home/Home';
 import { Nav } from './components';
 import { Switch, Route } from 'react-router-dom';
@@ -11,8 +11,11 @@ import TacticsForm from './components/Form/TacticsForm';
 import AssignRoster from './components/Roster/AssignRoster';
 import ViewRosters from './components/Roster/ViewRosters';
 import ViewAssignments from './components/Assignments/ViewAssignments';
+import { IS_MOBILE_CHANGE } from './constants/actionTypes';
 const App = () => {
+	const dispatch = useDispatch();
 	const isDark = useSelector((state) => state.darkMode);
+	const mobileSize = useSelector((state) => state.isMobile);
 	const rootDiv = document.querySelector('html');
 	useEffect(() => {
 		if (isDark) {
@@ -23,6 +26,19 @@ const App = () => {
 			rootDiv.classList.remove('dark');
 		}
 	}, [isDark]);
+
+	useEffect(() => {
+		window.addEventListener(
+			'resize',
+			() => {
+				const mobilesize = window.innerWidth < 968;
+				if (mobilesize !== mobileSize) {
+					dispatch({ type: IS_MOBILE_CHANGE });
+				}
+			},
+			false,
+		);
+	}, [mobileSize]);
 	return (
 		<div className='container'>
 			<div>

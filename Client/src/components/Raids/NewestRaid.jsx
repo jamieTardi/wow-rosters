@@ -13,11 +13,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import wowImage1 from '../../images/wow-images/hyjal(1).jpg';
-import wowImage2 from '../../images/wow-images/jaina(1).jpg';
-import wowImage3 from '../../images/wow-images/img3.jpg';
-import wowImage4 from '../../images/wow-images/warcraftArt(1).jpg';
-import wowImage5 from '../../images/wow-images/img5.jpg';
 
 const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 	const dispatch = useDispatch();
@@ -76,7 +71,7 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 									style: { color: 'rgba(255, 255, 255, 0.7) !important ' },
 								}}
 								className={classes.cardText}>
-								{raid.message}
+								{raid.message.substring(0, 150) + '...'}
 							</Typography>
 						</CardContent>
 					</div>

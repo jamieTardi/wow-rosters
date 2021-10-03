@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import Assignments from '../Assignments/Assignments';
 import { v4 as uuidv4 } from 'uuid';
-import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { useStyles } from './styles';
 import {
@@ -19,12 +18,14 @@ import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import { createAssignment } from '../../actions/assignments';
 import { createImageAssign } from '../../api';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { Link } from 'react-router-dom';
 
 const TacticsForm = ({ raidForm, setRaidForm }) => {
 	const classes = useStyles();
 	const [completedTxt, setCompletedTxt] = useState(false);
 	const dispatch = useDispatch();
 	const [file, setFile] = useState('');
+	const mobileSize = useSelector((state) => state.isMobile);
 
 	const [newTactics, setNewTactics] = useState({
 		title: '',
@@ -55,6 +56,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 		'Diamond 🔷',
 		'Moon 🌙',
 		'Triangle 🔺',
+		'Other...',
 	];
 
 	const handleAddCharacter = () => {
@@ -75,8 +77,12 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 	const handleSubmit = () => {
 		dispatch({ type: 'ADD_ASSIGNMENT', payload: newTactics });
 		dispatch(createAssignment(newTactics));
-		// raidForm.tactics.push(newTactics);
-		setNewTactics({ selectedFile: '', assignedRaiders: [], id: uuidv4() });
+		setNewTactics({
+			title: '',
+			selectedFile: '',
+			assignedRaiders: [],
+			id: uuidv4(),
+		});
 		setCompletedTxt(true);
 		setTimeout(() => {
 			setCompletedTxt(false);
@@ -85,7 +91,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 
 	return (
 		<div className='w-100 d-flex justify-content-center align-items-center'>
-			<Paper className='w-50 mt-4'>
+			<Paper className={mobileSize ? 'w-100 mt-4' : 'w-50 mt-4'}>
 				<form className='p-4'>
 					<Grid container spacing={3}>
 						<Grid item xs={12}>
@@ -107,13 +113,6 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 
 						<div className='w-100 px-3'>
 							<Grid item xs={12}>
-								{/* <FileBase
-									type='file'
-									multiple={false}
-									onDone={({ base64 }) =>
-										setNewTactics({ ...newTactics, image: base64 })
-									}
-								/> */}
 								<div className='mt-3 d-flex flex-column'>
 									<input
 										type='file'
@@ -150,6 +149,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 										type='name'
 										fullWidth
 										value={newTactics.title}
+										defaultValue=''
 										className={classes.input}
 										InputLabelProps={{
 											style: { color: '#fff ' },
@@ -174,15 +174,9 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 												role: e.target.value,
 											});
 										}}>
-										<MenuItem value='Tank' className='text-black'>
-											Tank
-										</MenuItem>
-										<MenuItem value='DPS' className='text-black'>
-											DPS
-										</MenuItem>
-										<MenuItem value='Healer' className='text-black'>
-											Healer
-										</MenuItem>
+										<MenuItem value='Tank'>Tank</MenuItem>
+										<MenuItem value='DPS'>DPS</MenuItem>
+										<MenuItem value='Healer'>Healer</MenuItem>
 									</Select>
 								</Grid>
 							</div>
@@ -208,7 +202,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 							<InputLabel
 								id='demo-simple-select-label'
 								className={classes.select}>
-								Select a role
+								Select a Target
 							</InputLabel>
 							<Select
 								style={{ width: '100%' }}
@@ -219,9 +213,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 									});
 								}}>
 								{targetMarkers.map((target) => (
-									<MenuItem value={target} className='text-black'>
-										{target}
-									</MenuItem>
+									<MenuItem value={target}>{target}</MenuItem>
 								))}
 							</Select>
 						</Grid>
@@ -255,13 +247,24 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 						</Button>
 					</div>
 					<Assignments tactics={newTactics} />
-					<Button
-						color='primary'
-						variant='contained'
-						type='button'
-						onClick={handleSubmit}>
-						Add this Assignment
-					</Button>
+
+					<div className='d-flex justify-content-around'>
+						<Button
+							color='default'
+							variant='contained'
+							type='button'
+							component={Link}
+							to={'/'}>
+							Back to Homepage
+						</Button>
+						<Button
+							color='primary'
+							variant='contained'
+							type='button'
+							onClick={handleSubmit}>
+							Add this Assignment
+						</Button>
+					</div>
 				</form>
 				{completedTxt && <p>Assignment added, feel free to add another! 👍</p>}
 			</Paper>

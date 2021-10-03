@@ -14,6 +14,7 @@ import EditPageOne from '../EditPages/EditPageOne';
 import MoreHorizSharpIcon from '@material-ui/icons/MoreHorizSharp';
 import TabbedMenu from '../Assignments/TabbedMenu';
 import { imageURL } from '../../constants/general';
+import CurrentGroup from '../Groups/CurrentGroup';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	const [editModal, setEditModal] = useState(false);
@@ -40,8 +41,6 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 		return newDate;
 	};
 
-	console.log(`${selectedRaid.selectedFile}`);
-
 	return (
 		<>
 			<div>
@@ -54,9 +53,8 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 							className='edit ms-4'
 							onClick={() => {
 								setEditModal((prev) => !prev);
-							}}
-							startIcon={<EditIcon />}>
-							Edit
+							}}>
+							<EditIcon />
 						</Button>
 					</Modal.Header>
 					<div
@@ -74,27 +72,32 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 							<div
 								className='col-6'
 								style={{ color: 'rgba(255, 255, 255, 0.7) !important' }}>
-								Raid created {moment(selectedRaid.createdAt).fromNow()}
+								Raid created:{' '}
+								<span className='raid-message'>
+									{moment(selectedRaid.createdAt).fromNow()}
+								</span>
 							</div>
-							<div className='col-6 text-end'></div>
+							<div className='col-6 text-end'>
+								<span>
+									<span>Created by: </span>
+									<span className='raid-message'>{selectedRaid.creator}</span>
+								</span>
+							</div>
 						</div>
 						<div className='row'>
-							<div className='col-6'>Raid Date: {dateFormatter()}</div>
+							<div className='col-6'>
+								Raid Date:{' '}
+								<span className='raid-message'>{dateFormatter()}</span>
+							</div>
 							<div className='col-6 text-end'>
-								Time of Raid: {selectedRaid.time}
+								Time of Raid:{' '}
+								<span className='raid-message'>{selectedRaid.time}</span>
 							</div>
 						</div>
-						<div className='d-flex justify-content-end'>
-							<span className='mt-3'>
-								Created by{' '}
-								<span style={{ color: ' rgba(255, 255, 255, 0.7) !important' }}>
-									{selectedRaid.creator}
-								</span>
-							</span>
-						</div>
+
 						<div>
-							<h3>Raid Information</h3>
-							<p>{selectedRaid.message}</p>
+							<h3 className='my-3'>Raid Information</h3>
+							<p className='raid-message'>{selectedRaid.message}</p>
 						</div>
 						<div>
 							<div className='my-3'></div>
@@ -111,6 +114,12 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 									<Accordion.Header>Raid Assignments</Accordion.Header>
 									<Accordion.Body>
 										<TabbedMenu />
+									</Accordion.Body>
+								</Accordion.Item>
+								<Accordion.Item eventKey='2'>
+									<Accordion.Header>Group Make-up</Accordion.Header>
+									<Accordion.Body>
+										<CurrentGroup />
 									</Accordion.Body>
 								</Accordion.Item>
 							</Accordion>

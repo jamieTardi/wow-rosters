@@ -565,6 +565,10 @@ footer a {
   color: #9e9e9e !important;
 }
 
+.light .raid-message {
+  color: black !important;
+}
+
 .light .card-body,
 .light .modal-header,
 .light .accordion-button {
@@ -667,6 +671,10 @@ li .light,
   background-color: #3dd115;
 }
 
+.raid-message {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
 .card-body,
 .modal-header,
 .accordion-button {
@@ -710,6 +718,17 @@ li .light,
 .modal-body-container .edit {
   position: absolute;
   top: 0%;
+}
+
+.modal-header .MuiButton-outlinedPrimary {
+  border-color: white;
+  color: white;
+  padding: 5px 5px;
+}
+
+.modal-header .MuiButton-outlinedPrimary:hover {
+  border-color: white;
+  color: white;
 }
 
 .card-title {

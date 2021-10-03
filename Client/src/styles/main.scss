@@ -80,6 +80,10 @@ li .light,
 	background-color: #3dd115;
 }
 
+.raid-message {
+	color: rgba(255, 255, 255, 0.7) !important;
+}
+
 .card-body,
 .modal-header,
 .accordion-button {
@@ -116,6 +120,18 @@ li .light,
 	.edit {
 		position: absolute;
 		top: 0%;
+	}
+}
+
+.modal-header {
+	.MuiButton-outlinedPrimary {
+		border-color: white;
+		color: white;
+		padding: 5px 5px;
+	}
+	.MuiButton-outlinedPrimary:hover {
+		border-color: white;
+		color: white;
 	}
 }
 

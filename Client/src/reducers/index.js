@@ -15,6 +15,7 @@ import { createdRosters } from './createdRosters';
 import { currentRoster } from './currentRoster';
 import { currentAssignment } from './currentAssignment';
 import { isLoading } from './isLoading';
+import { isMobile } from './isMobile';
 
 const rootReducer = combineReducers({
 	raids,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
 	deleteLoad,
 	assignments,
 	isLoading,
+	isMobile,
 	darkMode,
 	auth,
 	googleId,
