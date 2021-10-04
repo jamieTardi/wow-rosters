@@ -9,6 +9,7 @@ import {
 	Select,
 } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
+import GroupTable from './GroupTable';
 
 const CurrentGroup = () => {
 	const classes = useStyles();
@@ -16,6 +17,12 @@ const CurrentGroup = () => {
 	const [groupTable, setGroupTable] = useState(null);
 	const raiders = raid.roster.roster;
 	const groupNumber = [1, 2, 3, 4, 5, 6, 7, 8];
+
+	const handleNumberOfColumns = (num) => {
+		setGroupTable(num);
+	};
+
+	
 
 	return (
 		<div>
@@ -33,7 +40,11 @@ const CurrentGroup = () => {
 							</InputLabel>
 							<Select>
 								{groupNumber.map((group) => (
-									<MenuItem value={group}>{group}</MenuItem>
+									<MenuItem
+										value={group}
+										onClick={() => handleNumberOfColumns(group)}>
+										{group}
+									</MenuItem>
 								))}
 							</Select>
 						</FormControl>
@@ -56,6 +67,8 @@ const CurrentGroup = () => {
 					</FormControl>
 				)}
 			</Paper>
+
+			{groupTable && <GroupTable groupTable={groupTable} />}
 		</div>
 	);
 };
