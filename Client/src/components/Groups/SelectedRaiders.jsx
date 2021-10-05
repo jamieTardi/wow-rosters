@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 
 const SelectedRaiders = ({
@@ -10,7 +10,6 @@ const SelectedRaiders = ({
 		<div className='row'>
 			{selectedGroups.map((group, i) => (
 				<div className='col-2'>
-					{console.log(group)}
 					<Table striped bordered hover variant='dark'>
 						<thead>
 							<tr>
@@ -18,15 +17,11 @@ const SelectedRaiders = ({
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-							</tr>
-							<tr>
-								<td>2</td>
-							</tr>
-							<tr>
-								<td>3</td>
-							</tr>
+							{group.raider.map((raider) => (
+								<tr>
+									<td>{raider.name}</td>
+								</tr>
+							))}
 						</tbody>
 					</Table>
 				</div>

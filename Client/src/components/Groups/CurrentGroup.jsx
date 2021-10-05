@@ -22,8 +22,6 @@ const CurrentGroup = () => {
 		setGroupTable(num);
 	};
 
-	
-
 	return (
 		<div>
 			<Paper>
@@ -49,22 +47,6 @@ const CurrentGroup = () => {
 							</Select>
 						</FormControl>
 					</>
-				)}
-				{groupTable && (
-					<FormControl className='w-100'>
-						<InputLabel
-							id='demo-simple-select-label'
-							className={classes.select}>
-							Select a Raider
-						</InputLabel>
-						<Select>
-							{raiders.map((raider) => (
-								<>
-									<MenuItem value={raider.name}>{raider.name}</MenuItem>
-								</>
-							))}
-						</Select>
-					</FormControl>
 				)}
 			</Paper>
 
