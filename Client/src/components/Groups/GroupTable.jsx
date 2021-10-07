@@ -49,41 +49,28 @@ const GroupTable = ({ groupTable }) => {
 		});
 	};
 
-	console.log(selectedGroups);
-
 	return (
-		<div>
-			{numberOfColumns.length === 0 && (
-				<FormControl className='w-50'>
-					<InputLabel>Select the number of columns</InputLabel>
+		<div className='row w-100'>
+			<div className='col-6'>
+				<FormControl className='w-75'>
+					<InputLabel>Raider Name</InputLabel>
 					<Select>
-						{numberOfColumns.map((item) => (
-							<MenuItem value={item} key={item}>
-								{++item}
+						{raiders.map((raider) => (
+							<MenuItem
+								value={raider.name}
+								key={raider._id}
+								onClick={() => {
+									setAddCharacter({ ...addCharacter, name: raider.name });
+								}}>
+								{raider.name}
 							</MenuItem>
 						))}
 					</Select>
 				</FormControl>
-			)}
-
-			<FormControl className='w-50'>
-				<InputLabel>Select the raider to add</InputLabel>
-				<Select>
-					{raiders.map((raider) => (
-						<MenuItem
-							value={raider.name}
-							key={raider._id}
-							onClick={() => {
-								setAddCharacter({ ...addCharacter, name: raider.name });
-							}}>
-							{raider.name}
-						</MenuItem>
-					))}
-				</Select>
-			</FormControl>
-			<div>
-				<FormControl className='w-50'>
-					<InputLabel>Select the group to add the raider too</InputLabel>
+			</div>
+			<div className='col-6'>
+				<FormControl className='w-75 col-6'>
+					<InputLabel>Raider Group</InputLabel>
 					<Select>
 						{selectedGroups.map((item) => (
 							<MenuItem
@@ -97,6 +84,8 @@ const GroupTable = ({ groupTable }) => {
 						))}
 					</Select>
 				</FormControl>
+			</div>
+			<div>
 				<Button
 					variant='contained'
 					color='primary'

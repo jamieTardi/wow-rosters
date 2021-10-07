@@ -47,8 +47,6 @@ const EditPageOne = ({ setEditModal }) => {
 		setEditRaid({ ...editRaid, selectedFile: base64 });
 	};
 
-	console.log(editRaid);
-
 	return (
 		<div>
 			<Modal show={show} onHide={handleClose}>
