@@ -8,6 +8,7 @@ const raidSchema = mongoose.Schema({
 	selectedFile: [String],
 	date: String,
 	time: String,
+	group: [Object],
 	createdAt: {
 		type: Date,
 		default: new Date(),

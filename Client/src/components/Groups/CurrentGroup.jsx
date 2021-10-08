@@ -7,6 +7,9 @@ import {
 	InputLabel,
 	MenuItem,
 	Select,
+	FormGroup,
+	Checkbox,
+	FormControlLabel,
 } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
 import GroupTable from './GroupTable';
@@ -24,27 +27,30 @@ const CurrentGroup = () => {
 
 	return (
 		<div>
-			<Paper>
+			<Paper className='px-3 py-3'>
+				<Typography variant='h5' className='mb-3 pt-2'>
+					The final group make up for the raid.
+				</Typography>
 				{!groupTable && (
 					<>
 						<Typography>
 							Please select the number of tables of 5 required
 						</Typography>
-						<FormControl className='w-50'>
-							<InputLabel
-								id='demo-simple-select-label'
-								className={classes.select}>
-								Number of groups
-							</InputLabel>
-							<Select>
+						<FormControl className='w-100'>
+							<FormGroup className='d-flex flex-row'>
 								{groupNumber.map((group) => (
-									<MenuItem
-										value={group}
-										onClick={() => handleNumberOfColumns(group)}>
-										{group}
-									</MenuItem>
+									<FormControlLabel
+										style={{ width: 'fit-content' }}
+										control={
+											<Checkbox
+												value={group}
+												onClick={() => handleNumberOfColumns(group)}
+											/>
+										}
+										label={group === 1 ? `${group} Column` : `${group} Columns`}
+									/>
 								))}
-							</Select>
+							</FormGroup>
 						</FormControl>
 					</>
 				)}

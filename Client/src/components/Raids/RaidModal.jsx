@@ -15,10 +15,12 @@ import MoreHorizSharpIcon from '@material-ui/icons/MoreHorizSharp';
 import TabbedMenu from '../Assignments/TabbedMenu';
 import { imageURL } from '../../constants/general';
 import CurrentGroup from '../Groups/CurrentGroup';
+import PopulatedGroup from '../Groups/PopulatedGroup';
 
 const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	const [editModal, setEditModal] = useState(false);
 	const darkMode = useSelector((state) => state.darkMode);
+	const user = useSelector((state) => state.currentUser);
 
 	const dateFormatter = () => {
 		let newYear = [];
@@ -40,6 +42,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 			newDay.join('') + '-' + newMonth.join('') + '-' + newYear.join('');
 		return newDate;
 	};
+	console.log(selectedRaid);
 
 	return (
 		<>
@@ -59,7 +62,10 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 					</Modal.Header>
 					<div
 						style={{
-							backgroundImage: `url(${selectedRaid.selectedFile})`,
+							backgroundImage:
+								selectedRaid.selectedFile[0] !== undefined
+									? `url(${selectedRaid.selectedFile})`
+									: 'url(https://images.blz-contentstack.com/v3/assets/blt3452e3b114fab0cd/blt7e63e962dfb8236b/5dbb292e5b809038b2505c21/Bastion_Postcard.jpg?auto=webp&quality=75)',
 							backgroundColor: darkMode ? '#333333' : '#fff',
 							width: '100%',
 							height: '350px',
@@ -119,7 +125,11 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 								<Accordion.Item eventKey='2'>
 									<Accordion.Header>Group Make-up</Accordion.Header>
 									<Accordion.Body>
-										<CurrentGroup />
+										{user.role === 'admin' ? (
+											<CurrentGroup />
+										) : (
+											<PopulatedGroup />
+										)}
 									</Accordion.Body>
 								</Accordion.Item>
 							</Accordion>

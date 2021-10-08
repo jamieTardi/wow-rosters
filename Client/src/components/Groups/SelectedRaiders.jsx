@@ -3,12 +3,17 @@ import { Table } from 'react-bootstrap';
 import { Button } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateRaid } from '../../actions/raids';
 
 const SelectedRaiders = ({
 	numberOfColumns,
 	selectedGroups,
 	setSelectedGroups,
 }) => {
+	const dispatch = useDispatch();
+	const currentRaid = useSelector((state) => state.currentRaid);
+	const [amendedRaid, setAmendedRaid] = useState(currentRaid);
 	const handleRemoveRaider = (raider, group) => {
 		let items = selectedGroups.map((group) => {
 			return {
@@ -21,9 +26,10 @@ const SelectedRaiders = ({
 		setSelectedGroups(items);
 	};
 
-	console.log(selectedGroups);
-
-	const handleSubmit = () => {};
+	const handleSubmit = () => {
+		setAmendedRaid({ ...amendedRaid, group: selectedGroups });
+		dispatch(updateRaid(amendedRaid._id, amendedRaid));
+	};
 	return (
 		<>
 			<div className='row'>
@@ -38,13 +44,16 @@ const SelectedRaiders = ({
 							<tbody>
 								{group.raider.map((raider) => (
 									<tr>
-										<td>
-											{raider.name}{' '}
-											<DeleteForeverIcon
-												onClick={() => {
-													handleRemoveRaider(raider, group);
-												}}
-											/>
+										<td className='d-flex justify-content-between'>
+											<span>{raider.name}</span>
+											<span>
+												<DeleteForeverIcon
+													style={{ cursor: 'pointer' }}
+													onClick={() => {
+														handleRemoveRaider(raider, group);
+													}}
+												/>
+											</span>
 										</td>
 									</tr>
 								))}

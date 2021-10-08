@@ -23,13 +23,13 @@ const EditAssignments = ({ show, setShow }) => {
 	const assignment = useSelector((state) => state.currentAssignment);
 	const allAssignments = useSelector((state) => state.assignments);
 	const [newTactics, setNewTactics] = useState({
-		title: assignment.title,
-		image: assignment.image,
-		assignedRaiders: assignment.assignedRaiders,
-		_id: assignment._id,
+		title: assignment?.title,
+		image: assignment?.image,
+		assignedRaiders: assignment?.assignedRaiders,
+		_id: assignment?._id,
 	});
 
-	const raiders = assignment.assignedRaiders;
+	const raiders = assignment?.assignedRaiders;
 	const [addCharacter, setAddCharacter] = useState(raiders);
 	const [currentRaider, setCurrentRaider] = useState(null);
 	const [updatedAssign, setUpdatedAssign] = useState(assignment);
