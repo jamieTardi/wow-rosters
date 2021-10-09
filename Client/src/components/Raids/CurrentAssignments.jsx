@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import { Image, Table, Modal } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
-import TabbedMenu from '../Assignments/TabbedMenu';
 import { useSelector } from 'react-redux';
 import { Button } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import EditAssignments from '../EditPages/EditAssignments';
-import { Prev } from 'react-bootstrap/esm/PageItem';
 
 const CurrentAssignments = ({ assignment }) => {
 	const raid = useSelector((state) => state.currentRaid);
 	const user = useSelector((state) => state.currentUser);
 	const isDark = useSelector((state) => state.darkMode);
-	const assignments = raid.tactics;
 	const [show, setShow] = useState(false);
 
 	const handleEditAssignment = () => {

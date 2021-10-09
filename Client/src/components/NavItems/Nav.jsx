@@ -34,6 +34,7 @@ import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import MenuIcon from '@material-ui/icons/Menu';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import BugReportIcon from '@material-ui/icons/BugReport';
+import AddMod from '../Auth/AddMod';
 
 const Nav = () => {
 	const classes = useStyles();
@@ -43,6 +44,7 @@ const Nav = () => {
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 	const selectedUser = useSelector((state) => state.currentUser);
 	const [openMenu, setOpenMenu] = useState(false);
+	const [show, setShow] = useState(false);
 
 	const toggleDrawer = () => {
 		setOpenMenu((prev) => !prev);
@@ -53,6 +55,11 @@ const Nav = () => {
 		history.push('/');
 		setUser(null);
 		history.go(0);
+	};
+
+	const handleAddMod = () => {
+		setOpenMenu(false);
+		setShow(true);
 	};
 
 	useEffect(() => {
@@ -166,7 +173,10 @@ const Nav = () => {
 								<ListItemText primary='Home' />
 							</ListItem>
 							{selectedUser.role === 'admin' && (
-								<ListItem disablePadding style={{ cursor: 'pointer' }}>
+								<ListItem
+									disablePadding
+									style={{ cursor: 'pointer' }}
+									onClick={handleAddMod}>
 									<ListItemIcon>
 										<SupervisorAccountIcon />
 									</ListItemIcon>
@@ -300,6 +310,8 @@ const Nav = () => {
 					</Paper>
 				</Drawer>
 			</div>
+			{/* Moderator modal */}
+			<AddMod show={show} setShow={setShow} />
 		</>
 	);
 };
