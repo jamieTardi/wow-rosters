@@ -86,7 +86,8 @@ export const signUpGoogle = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-	const { _id: id, email, role } = req.body;
+	const { _id: id, email, role, name } = req.body;
+	const body = req.body;
 	try {
 		const existingUser = await User.findOne({ email });
 		if (existingUser) {
@@ -95,8 +96,11 @@ export const updateUser = async (req, res) => {
 					.status(404)
 					.json({ message: 'This user is an admin they cannot be altered.' });
 			} else {
-				console.log(User);
-				const updateUser = User.findByIdAndUpdate({});
+				const updateUser = await User.findByIdAndUpdate(id, {
+					...body,
+					role: 'admin',
+				});
+				res.json(updateUser);
 			}
 		} else {
 			res.status(404).json({ message: 'There was no user found.' });
@@ -104,6 +108,4 @@ export const updateUser = async (req, res) => {
 	} catch (err) {
 		console.log(err);
 	}
-
-	console.log(id);
 };
