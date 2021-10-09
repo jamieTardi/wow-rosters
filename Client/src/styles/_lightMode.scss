@@ -68,9 +68,14 @@
 		color: black !important;
 	}
 
+	.nav-item button {
+		color: black !important;
+	}
+
 	.card-body,
 	.modal-header,
 	.accordion-button {
+		color: black !important;
 		background-color: #eef1f4 !important;
 		&:hover {
 			background-color: #eef1f4 !important;

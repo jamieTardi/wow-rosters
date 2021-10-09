@@ -21,6 +21,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	const [editModal, setEditModal] = useState(false);
 	const darkMode = useSelector((state) => state.darkMode);
 	const user = useSelector((state) => state.currentUser);
+	const currentRaid = useSelector((state) => state.currentRaid);
 
 	const dateFormatter = () => {
 		let newYear = [];
@@ -126,10 +127,15 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 								<Accordion.Item eventKey='2'>
 									<Accordion.Header>Group Make-up</Accordion.Header>
 									<Accordion.Body>
-										{user.role === 'admin' ? (
+										{user.role === 'admin' || user.role === 'moderator' ? (
 											<CurrentGroup />
-										) : (
+										) : currentRaid.group.length !== 0 ? (
 											<PopulatedGroup />
+										) : (
+											<p>
+												Currently the groups have not been assigned... please
+												contact an officer for more info
+											</p>
 										)}
 									</Accordion.Body>
 								</Accordion.Item>

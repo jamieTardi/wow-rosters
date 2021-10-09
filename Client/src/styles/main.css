@@ -569,9 +569,14 @@ footer a {
   color: black !important;
 }
 
+.light .nav-item button {
+  color: black !important;
+}
+
 .light .card-body,
 .light .modal-header,
 .light .accordion-button {
+  color: black !important;
   background-color: #eef1f4 !important;
 }
 

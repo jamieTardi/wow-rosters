@@ -7,7 +7,7 @@ const Assignments = ({ tactics }) => {
 	const darkMode = useSelector((state) => state.darkMode);
 	return (
 		<div>
-			<Table striped bordered hover variant={darkMode && 'dark'}>
+			<Table striped bordered hover variant={darkMode ? 'dark' : ''}>
 				<thead>
 					<tr>
 						<th>Role</th>

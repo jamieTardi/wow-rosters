@@ -11,6 +11,7 @@ import { Prev } from 'react-bootstrap/esm/PageItem';
 const CurrentAssignments = ({ assignment }) => {
 	const raid = useSelector((state) => state.currentRaid);
 	const user = useSelector((state) => state.currentUser);
+	const isDark = useSelector((state) => state.darkMode);
 	const assignments = raid.tactics;
 	const [show, setShow] = useState(false);
 
@@ -25,7 +26,12 @@ const CurrentAssignments = ({ assignment }) => {
 			<div key={assignment.id}>
 				<Image src={assignment.image} fluid className='mb-3' />
 				<h3>Assigment Table </h3>
-				<Table striped bordered hover variant='dark' className='mt-4'>
+				<Table
+					striped
+					bordered
+					hover
+					variant={isDark && 'dark'}
+					className='mt-4'>
 					<thead>
 						<tr>
 							<th>Role</th>

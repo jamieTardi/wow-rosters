@@ -11,12 +11,13 @@ const CurrentRoster = () => {
 	const [hideModal, setHideModal] = useState(true);
 	const raid = useSelector((state) => state.currentRaid);
 	const currentRoster = useSelector((state) => state.currentRoster);
+	const isDark = useSelector((state) => state.darkMode);
 	const roster = raid ? raid.roster.roster : currentRoster.roster;
 	return (
 		<div>
 			<div>
 				<h2>Tanks</h2>
-				<Table striped bordered hover variant='dark'>
+				<Table striped bordered hover variant={isDark ? 'dark' : ''}>
 					<thead>
 						<tr>
 							<th>Role</th>
@@ -46,7 +47,7 @@ const CurrentRoster = () => {
 				</Table>
 
 				<h2>DPS</h2>
-				<Table striped bordered hover variant='dark'>
+				<Table striped bordered hover variant={isDark ? 'dark' : ''}>
 					<thead>
 						<tr>
 							<th>Role</th>
@@ -76,7 +77,7 @@ const CurrentRoster = () => {
 				</Table>
 
 				<h2>Healers</h2>
-				<Table striped bordered hover variant='dark'>
+				<Table striped bordered hover variant={isDark ? 'dark' : ''}>
 					<thead>
 						<tr>
 							<th>Role</th>

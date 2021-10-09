@@ -22,6 +22,7 @@ const TabbedMenu = () => {
 	return (
 		<div>
 			<Tabs
+				variant='pills'
 				activeKey={key}
 				transition={false}
 				onSelect={(k) => setKey(k)}
