@@ -92,6 +92,21 @@ export const createGoogleUser = (googleUser) => {
 		.catch((err) => console.log(err));
 };
 
+export const updateUser = (id, userData) => {
+	API.patch(`/user/users/${id}`, userData)
+		.then((res) => console.log(res))
+		.catch((err) => console.log(err));
+};
+
+export const getAllUsers = (setAllUsers) => {
+	API.get('/user/users')
+		.then((res) => {
+			const { data } = res;
+			setAllUsers(data);
+		})
+		.catch((err) => console.log(err));
+};
+
 //Image handling
 
 export const deleteImage = (img) => {

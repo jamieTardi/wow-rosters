@@ -84,3 +84,26 @@ export const signUpGoogle = async (req, res) => {
 		console.log(err);
 	}
 };
+
+export const updateUser = async (req, res) => {
+	const { _id: id, email, role } = req.body;
+	try {
+		const existingUser = await User.findOne({ email });
+		if (existingUser) {
+			if (role === 'admin') {
+				res
+					.status(404)
+					.json({ message: 'This user is an admin they cannot be altered.' });
+			} else {
+				console.log(User);
+				const updateUser = User.findByIdAndUpdate({});
+			}
+		} else {
+			res.status(404).json({ message: 'There was no user found.' });
+		}
+	} catch (err) {
+		console.log(err);
+	}
+
+	console.log(id);
+};
