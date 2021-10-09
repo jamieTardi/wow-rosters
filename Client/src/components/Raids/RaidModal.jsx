@@ -42,7 +42,6 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 			newDay.join('') + '-' + newMonth.join('') + '-' + newYear.join('');
 		return newDate;
 	};
-	console.log(selectedRaid);
 
 	return (
 		<>
@@ -50,15 +49,17 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 				<Modal show={expandCard} size='xl' onHide={() => setExpandCard(false)}>
 					<Modal.Header closeButton closeVariant={darkMode ? 'white' : 'dark'}>
 						<Modal.Title>{selectedRaid.title}</Modal.Title>
-						<Button
-							variant='outlined'
-							color='primary'
-							className='edit ms-4'
-							onClick={() => {
-								setEditModal((prev) => !prev);
-							}}>
-							<EditIcon />
-						</Button>
+						{(user.role === 'admin' || user.role === 'moderator') && (
+							<Button
+								variant='outlined'
+								color='primary'
+								className='edit ms-4'
+								onClick={() => {
+									setEditModal((prev) => !prev);
+								}}>
+								<EditIcon />
+							</Button>
+						)}
 					</Modal.Header>
 					<div
 						style={{

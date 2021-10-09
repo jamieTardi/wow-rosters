@@ -16,6 +16,7 @@ import {
 	MenuItem,
 } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
+import { useSelector } from 'react-redux';
 
 const EditAssignTable = ({
 	assignment,
@@ -26,7 +27,7 @@ const EditAssignTable = ({
 	updatedAssign,
 }) => {
 	const classes = useStyles();
-
+	const user = useSelector((state) => state.currentUser);
 	const raiders = newTactics.assignedRaiders;
 
 	const handleRemove = () => {};
@@ -55,12 +56,16 @@ const EditAssignTable = ({
 							<TableCell className={classes.tableHeaders} align='right'>
 								Notes
 							</TableCell>
-							<TableCell className={classes.tableHeaders} align='right'>
-								Remove
-							</TableCell>
-							<TableCell className={classes.tableHeaders} align='right'>
-								Edit
-							</TableCell>
+							{(user.role === 'admin' || user.role === 'moderator') && (
+								<>
+									<TableCell className={classes.tableHeaders} align='right'>
+										Remove
+									</TableCell>
+									<TableCell className={classes.tableHeaders} align='right'>
+										Edit
+									</TableCell>
+								</>
+							)}
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -82,26 +87,30 @@ const EditAssignTable = ({
 								<TableCell className={classes.tableCells} align='right'>
 									{raider.notes}
 								</TableCell>
-								<TableCell className={classes.tableCells} align='right'>
-									<Button
-										variant='contained'
-										color='secondary'
-										onClick={() => {
-											handleRemove(raider.id);
-										}}>
-										Remove
-									</Button>
-								</TableCell>
-								<TableCell className={classes.tableCells} align='right'>
-									<Button
-										variant='contained'
-										color='default'
-										onClick={() => {
-											handleEditCharacter(raider.id);
-										}}>
-										Edit
-									</Button>
-								</TableCell>
+								{(user.role === 'admin' || user.role === 'moderator') && (
+									<>
+										<TableCell className={classes.tableCells} align='right'>
+											<Button
+												variant='contained'
+												color='secondary'
+												onClick={() => {
+													handleRemove(raider.id);
+												}}>
+												Remove
+											</Button>
+										</TableCell>
+										<TableCell className={classes.tableCells} align='right'>
+											<Button
+												variant='contained'
+												color='default'
+												onClick={() => {
+													handleEditCharacter(raider.id);
+												}}>
+												Edit
+											</Button>
+										</TableCell>
+									</>
+								)}
 							</TableRow>
 						))}
 					</TableBody>

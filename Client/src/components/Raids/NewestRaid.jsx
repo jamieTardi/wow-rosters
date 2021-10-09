@@ -17,6 +17,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 	const dispatch = useDispatch();
 	const [deleteWarning, setDeleteWarning] = useState(false);
+	const user = useSelector((state) => state.currentUser);
 
 	const handleShowRaid = (raid) => {
 		dispatch({ type: 'CURRENT_RAID', payload: raid });
@@ -85,9 +86,14 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 								}}>
 								Show Raid Details
 							</Button>
-							<Button size='small' color='secondary' onClick={handleDeleteRaid}>
-								Delete this Raid
-							</Button>
+							{(user.role === 'admin' || user.role === 'moderator') && (
+								<Button
+									size='small'
+									color='secondary'
+									onClick={handleDeleteRaid}>
+									Delete this Raid
+								</Button>
+							)}
 						</CardActions>
 					</div>
 				</div>

@@ -27,6 +27,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 	const raid = useSelector((state) => state.currentRaid);
 	const darkMode = useSelector((state) => state.darkMode);
 	const currentRoster = useSelector((state) => state.currentRoster);
+	const user = useSelector((state) => state.currentUser);
 	const dispatch = useDispatch();
 	const [newRoster, setNewRoster] = useState(currentRoster);
 	const [isLoading, setIsLoading] = useState(false);
@@ -93,123 +94,141 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 			<Modal show={show} size='lg'>
 				<Paper className={classes.paperModal}>
 					<Grid container spacing={3}>
-						<Typography variant='h5'>Edit the current roster</Typography>
+						{(user.role === 'admin' || user.role === 'moderator') && (
+							<>
+								<Typography variant='h5'>Edit the current roster</Typography>
 
-						<Grid item xs={12}>
-							<TextField
-								type='name'
-								fullWidth
-								value={newRoster ? newRoster.title : ''}
-								className={classes.input}
-								InputLabelProps={{
-									style: { color: '#fff ' },
-								}}
-								label='Roster title'
-								onChange={(e) => {
-									setNewRoster({
-										...newRoster,
-										title: e.target.value,
-									});
-								}}
-							/>
-						</Grid>
+								<Grid item xs={12}>
+									<TextField
+										type='name'
+										fullWidth
+										value={newRoster ? newRoster.title : ''}
+										className={classes.input}
+										InputLabelProps={{
+											style: { color: '#fff ' },
+										}}
+										label='Roster title'
+										onChange={(e) => {
+											setNewRoster({
+												...newRoster,
+												title: e.target.value,
+											});
+										}}
+									/>
+								</Grid>
 
-						<Grid item xs={12}>
-							<InputLabel
-								id='demo-simple-select-label'
-								className={classes.select}
-								value={currentRaider ? currentRaider.role : ''}>
-								Select a role
-							</InputLabel>
+								<Grid item xs={12}>
+									<InputLabel
+										id='demo-simple-select-label'
+										className={classes.select}
+										value={currentRaider ? currentRaider.role : ''}>
+										Select a role
+									</InputLabel>
 
-							<Select
-								className='w-50'
-								value={currentRaider ? currentRaider.role : ''}
-								onChange={(e) => {
-									setCurrentRaider({ ...currentRaider, role: e.target.value });
-								}}>
-								<MenuItem value='Tank' className='text-white'>
-									Tank
-								</MenuItem>
-								<MenuItem value='DPS' className='text-white'>
-									DPS
-								</MenuItem>
-								<MenuItem value='Healer' className='text-white'>
-									Healer
-								</MenuItem>
-							</Select>
-						</Grid>
+									<Select
+										className='w-50'
+										value={currentRaider ? currentRaider.role : ''}
+										onChange={(e) => {
+											setCurrentRaider({
+												...currentRaider,
+												role: e.target.value,
+											});
+										}}>
+										<MenuItem value='Tank' className='text-white'>
+											Tank
+										</MenuItem>
+										<MenuItem value='DPS' className='text-white'>
+											DPS
+										</MenuItem>
+										<MenuItem value='Healer' className='text-white'>
+											Healer
+										</MenuItem>
+									</Select>
+								</Grid>
 
-						<Grid item xs={5}>
-							<TextField
-								type='name'
-								fullWidth
-								value={currentRaider ? currentRaider.name : ''}
-								className={classes.input}
-								InputLabelProps={{
-									style: { color: '#fff ' },
-								}}
-								label='Character Name'
-								onChange={(e) => {
-									setCurrentRaider({ ...currentRaider, name: e.target.value });
-								}}
-							/>
-						</Grid>
+								<Grid item xs={5}>
+									<TextField
+										type='name'
+										fullWidth
+										value={currentRaider ? currentRaider.name : ''}
+										className={classes.input}
+										InputLabelProps={{
+											style: { color: '#fff ' },
+										}}
+										label='Character Name'
+										onChange={(e) => {
+											setCurrentRaider({
+												...currentRaider,
+												name: e.target.value,
+											});
+										}}
+									/>
+								</Grid>
 
-						<Grid item xs={5}>
-							<InputLabel
-								id='character-select-label'
-								className={classes.select}>
-								Select a Class
-							</InputLabel>
-							<Select
-								label='Select a Character'
-								value={currentRaider ? currentRaider.class : ''}
-								className='w-100'
-								onChange={(e) => {
-									setCurrentRaider({ ...currentRaider, class: e.target.value });
-								}}>
-								{charClasses.map((char) => (
-									<MenuItem value={char} className='text-white'>
-										{char}
-									</MenuItem>
-								))}
-							</Select>
-						</Grid>
+								<Grid item xs={5}>
+									<InputLabel
+										id='character-select-label'
+										className={classes.select}>
+										Select a Class
+									</InputLabel>
+									<Select
+										label='Select a Character'
+										value={currentRaider ? currentRaider.class : ''}
+										className='w-100'
+										onChange={(e) => {
+											setCurrentRaider({
+												...currentRaider,
+												class: e.target.value,
+											});
+										}}>
+										{charClasses.map((char) => (
+											<MenuItem value={char} className='text-white'>
+												{char}
+											</MenuItem>
+										))}
+									</Select>
+								</Grid>
 
-						<Grid item xs={5}>
-							<TextField
-								type='name'
-								fullWidth
-								value={currentRaider ? currentRaider.notes : ''}
-								className={classes.input}
-								InputLabelProps={{
-									style: { color: '#fff ' },
-								}}
-								label='Notes'
-								onChange={(e) => {
-									setCurrentRaider({ ...currentRaider, notes: e.target.value });
-								}}
-							/>
-						</Grid>
+								<Grid item xs={5}>
+									<TextField
+										type='name'
+										fullWidth
+										value={currentRaider ? currentRaider.notes : ''}
+										className={classes.input}
+										InputLabelProps={{
+											style: { color: '#fff ' },
+										}}
+										label='Notes'
+										onChange={(e) => {
+											setCurrentRaider({
+												...currentRaider,
+												notes: e.target.value,
+											});
+										}}
+									/>
+								</Grid>
 
-						<Grid item xs={8}>
-							<Button
-								variant='contained'
-								color='primary'
-								onClick={handleAppendRaider}>
-								Append Assignee
-							</Button>
-						</Grid>
-						<Grid item xs={4}>
-							<Button
-								variant='contained'
-								color='default'
-								onClick={handleAddNewRaider}>
-								Add New Raider
-							</Button>
-						</Grid>
-
+								<Grid item xs={8}>
+									<Button
+										variant='contained'
+										color='primary'
+										onClick={handleAppendRaider}>
+										Append Assignee
+									</Button>
+								</Grid>
+								<Grid item xs={4}>
+									<Button
+										variant='contained'
+										color='default'
+										onClick={handleAddNewRaider}>
+										Add New Raider
+									</Button>
+								</Grid>
+							</>
+						)}
+						<Typography variant='h5' className='py-3'>
+							Roster Table
+						</Typography>
 						<TableContainer component={Paper}>
 							<Table
 								className={darkMode ? classes.table : classes.tableLight}
@@ -251,24 +270,28 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 											align='right'>
 											Notes
 										</TableCell>
-										<TableCell
-											className={
-												darkMode
-													? classes.tableHeaders
-													: classes.tableHeadersLight
-											}
-											align='right'>
-											Remove
-										</TableCell>
-										<TableCell
-											className={
-												darkMode
-													? classes.tableHeaders
-													: classes.tableHeadersLight
-											}
-											align='right'>
-											Edit
-										</TableCell>
+										{(user.role === 'admin' || user.role === 'moderator') && (
+											<>
+												<TableCell
+													className={
+														darkMode
+															? classes.tableHeaders
+															: classes.tableHeadersLight
+													}
+													align='right'>
+													Remove
+												</TableCell>
+												<TableCell
+													className={
+														darkMode
+															? classes.tableHeaders
+															: classes.tableHeadersLight
+													}
+													align='right'>
+													Edit
+												</TableCell>
+											</>
+										)}
 									</TableRow>
 								</TableHead>
 								<TableBody>
@@ -312,47 +335,55 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 												align='right'>
 												{raider.notes}
 											</TableCell>
-											<TableCell
-												className={
-													darkMode
-														? classes.tableCells
-														: classes.tableCellsLight
-												}
-												align='right'>
-												<Button
-													variant='contained'
-													color='secondary'
-													onClick={() => {
-														handleRemove(raider.id);
-													}}>
-													Remove
-												</Button>
-											</TableCell>
-											<TableCell className={classes.tableCells} align='right'>
-												<Button
-													variant='contained'
-													color='default'
-													onClick={() => {
-														handleEditCharacter(raider.id);
-													}}>
-													Edit
-												</Button>
-											</TableCell>
+											{(user.role === 'admin' || user.role === 'moderator') && (
+												<>
+													<TableCell
+														className={
+															darkMode
+																? classes.tableCells
+																: classes.tableCellsLight
+														}
+														align='right'>
+														<Button
+															variant='contained'
+															color='secondary'
+															onClick={() => {
+																handleRemove(raider.id);
+															}}>
+															Remove
+														</Button>
+													</TableCell>
+													<TableCell
+														className={classes.tableCells}
+														align='right'>
+														<Button
+															variant='contained'
+															color='default'
+															onClick={() => {
+																handleEditCharacter(raider.id);
+															}}>
+															Edit
+														</Button>
+													</TableCell>
+												</>
+											)}
 										</TableRow>
 									))}
 								</TableBody>
 							</Table>
 						</TableContainer>
 
-						<Grid item xs={6}>
-							<Button
-								variant='contained'
-								color='primary'
-								onClick={handleAppendRoster}
-								disabled={isLoading}>
-								Ammend Roster
-							</Button>
-						</Grid>
+						{(user.role === 'admin' || user.role === 'moderator') && (
+							<Grid item xs={6}>
+								<Button
+									variant='contained'
+									color='primary'
+									onClick={handleAppendRoster}
+									disabled={isLoading}>
+									Ammend Roster
+								</Button>
+							</Grid>
+						)}
 						<Grid item xs={6}>
 							<Button
 								variant='contained'

@@ -27,8 +27,9 @@ const SelectedRaiders = ({
 	};
 
 	const handleSubmit = () => {
-		setAmendedRaid({ ...amendedRaid, group: selectedGroups });
-		dispatch(updateRaid(amendedRaid._id, amendedRaid));
+		dispatch(
+			updateRaid(currentRaid._id, { ...currentRaid, group: selectedGroups }),
+		);
 	};
 	return (
 		<>

@@ -17,6 +17,7 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const assignments = useSelector((state) => state.assignments);
 	const currentUrl = location.pathname;
+	const user = useSelector((state) => state.currentUser);
 	const [selectedAssignment, setSelectedAssignment] = useState(null);
 	const [activeAssignments, setActiveAssignments] = useState([]);
 
@@ -125,7 +126,8 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 													</Button>
 												</>
 											)}
-											{currentUrl !== '/raid-creation' ? (
+											{currentUrl !== '/raid-creation' &&
+											(user.role === 'admin' || user.role === 'moderator') ? (
 												<Button
 													variant='contained'
 													color='secondary'
@@ -134,7 +136,7 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 													onClick={() => handleDeleteAssignment(assign)}>
 													Delete Assignment
 												</Button>
-											) : (
+											) : user.role === 'admin' || user.role === 'moderator' ? (
 												<Button
 													variant='contained'
 													color='secondary'
@@ -143,6 +145,8 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 													onClick={() => handleRemoveAssignment(assign, i)}>
 													Remove Assignment
 												</Button>
+											) : (
+												''
 											)}
 										</div>
 									</Card.Body>

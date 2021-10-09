@@ -22,6 +22,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 const EditAssignments = ({ show, setShow }) => {
 	const assignment = useSelector((state) => state.currentAssignment);
 	const allAssignments = useSelector((state) => state.assignments);
+	const user = useSelector((state) => state.currentUser);
 	const [newTactics, setNewTactics] = useState({
 		title: assignment?.title,
 		image: assignment?.image,
@@ -85,171 +86,169 @@ const EditAssignments = ({ show, setShow }) => {
 				<Modal.Body>
 					<div className='w-100'>
 						<form className='w-100'>
-							<Grid container spacing={3}>
-								<Grid item xs={12}>
-									<Typography variant='h4' gutterBottom>
-										Edit Assignments for the Raid
-									</Typography>
-									<Grid item xs={12} sm={6}>
-										<TextField
-											type='name'
-											fullWidth
-											value={newTactics.title}
-											className={classes.input}
-											InputLabelProps={{
-												style: { color: '#fff ' },
-											}}
-											label='Title of the Assignment'
-											onChange={(e) => {
-												setNewTactics({ ...newTactics, title: e.target.value });
-											}}
-										/>
-									</Grid>
-
-									<div>
-										<a download={newTactics.title} href={newTactics.image}>
-											<img
-												style={{ width: '100%' }}
-												src={newTactics.image}
-												alt='raid pic'
-											/>
-										</a>
-										<Typography variant='p' gutterBottom>
-											Click on the above image to download 📁
-										</Typography>
-									</div>
-								</Grid>
-
-								<div className='w-100 px-3'>
-									<Grid item xs={12}>
-										{/* <FileBase
-											type='file'
-											multiple={false}
-											onDone={({ base64 }) =>
-												setNewTactics({ ...newTactics, image: base64 })
-											}
-										/> */}
-										<div className='mt-3 d-flex flex-column'>
-											<input
-												type='file'
-												id='file'
-												accept='.jpg'
-												onChange={(e) => {
-													const file = e.target.files[0];
-													setFile(file);
-												}}
-											/>
-											<Button
-												variant='contained'
-												color='success'
-												className='my-2 w-50'
-												onClick={send}
-												startIcon={<CloudUploadIcon />}>
-												Upload Photo
-											</Button>
-										</div>
-									</Grid>
-
-									<div className=' my-3 '>
+							{(user.role === 'admin' || user.role === 'moderator') && (
+								<>
+									<Grid container spacing={3}>
 										<Grid item xs={12}>
-											<InputLabel
-												id='demo-simple-select-label'
-												className={classes.select}>
-												Select a role
-											</InputLabel>
-											<Select
-												style={{ width: '100%' }}
-												value={currentRaider ? currentRaider.role : ''}
+											<Typography variant='h4' gutterBottom>
+												Edit Assignments for the Raid
+											</Typography>
+											<Grid item xs={12} sm={6}>
+												<TextField
+													type='name'
+													fullWidth
+													value={newTactics.title}
+													className={classes.input}
+													InputLabelProps={{
+														style: { color: '#fff ' },
+													}}
+													label='Title of the Assignment'
+													onChange={(e) => {
+														setNewTactics({
+															...newTactics,
+															title: e.target.value,
+														});
+													}}
+												/>
+											</Grid>
+										</Grid>
+
+										<div className='w-100 px-3'>
+											<Grid item xs={12}>
+												<div className='mt-3 d-flex flex-column'>
+													<input
+														type='file'
+														id='file'
+														accept='.jpg'
+														onChange={(e) => {
+															const file = e.target.files[0];
+															setFile(file);
+														}}
+													/>
+													<Button
+														variant='contained'
+														color='success'
+														className='my-2 w-50'
+														onClick={send}
+														startIcon={<CloudUploadIcon />}>
+														Upload Photo
+													</Button>
+												</div>
+											</Grid>
+
+											<div className=' my-3 '>
+												<Grid item xs={12}>
+													<InputLabel
+														id='demo-simple-select-label'
+														className={classes.select}>
+														Select a role
+													</InputLabel>
+													<Select
+														style={{ width: '100%' }}
+														value={currentRaider ? currentRaider.role : ''}
+														onChange={(e) => {
+															setCurrentRaider({
+																...currentRaider,
+																role: e.target.value,
+															});
+														}}>
+														<MenuItem value='Tank' className='text-black'>
+															Tank
+														</MenuItem>
+														<MenuItem value='DPS' className='text-black'>
+															DPS
+														</MenuItem>
+														<MenuItem value='Healer' className='text-black'>
+															Healer
+														</MenuItem>
+													</Select>
+												</Grid>
+											</div>
+										</div>
+
+										<Grid item xs={12} sm={6}>
+											<TextField
+												type='name'
+												fullWidth
+												value={currentRaider ? currentRaider.name : ''}
+												className={classes.input}
+												InputLabelProps={{
+													style: { color: '#fff ' },
+												}}
+												label='Character Name'
 												onChange={(e) => {
 													setCurrentRaider({
 														...currentRaider,
-														role: e.target.value,
+														name: e.target.value,
 													});
-												}}>
-												<MenuItem value='Tank' className='text-black'>
-													Tank
-												</MenuItem>
-												<MenuItem value='DPS' className='text-black'>
-													DPS
-												</MenuItem>
-												<MenuItem value='Healer' className='text-black'>
-													Healer
-												</MenuItem>
-											</Select>
+												}}
+											/>
 										</Grid>
+
+										<Grid item xs={12} sm={6}>
+											<TextField
+												type='name'
+												fullWidth
+												value={currentRaider ? currentRaider.target : ''}
+												className={classes.input}
+												InputLabelProps={{
+													style: { color: '#fff ' },
+												}}
+												label='Target'
+												onChange={(e) => {
+													setCurrentRaider({
+														...currentRaider,
+														target: e.target.value,
+													});
+												}}
+											/>
+										</Grid>
+
+										<Grid item xs={12}>
+											<TextField
+												fullWidth
+												type='name'
+												value={currentRaider ? currentRaider.notes : ''}
+												className={classes.input}
+												multiline
+												rows={8}
+												InputLabelProps={{
+													style: { color: '#fff ' },
+												}}
+												label='Assignment Details'
+												onChange={(e) => {
+													setCurrentRaider({
+														...currentRaider,
+														notes: e.target.value,
+													});
+												}}
+											/>
+										</Grid>
+									</Grid>
+									<div className='my-3'>
+										<Button
+											color='default'
+											startIcon={<AddToPhotosIcon />}
+											variant='contained'
+											type='button'
+											onClick={handleAppendCharacter}>
+											Append Raider
+										</Button>
 									</div>
-								</div>
-
-								<Grid item xs={12} sm={6}>
-									<TextField
-										type='name'
-										fullWidth
-										value={currentRaider ? currentRaider.name : ''}
-										className={classes.input}
-										InputLabelProps={{
-											style: { color: '#fff ' },
-										}}
-										label='Character Name'
-										onChange={(e) => {
-											setCurrentRaider({
-												...currentRaider,
-												name: e.target.value,
-											});
-										}}
+								</>
+							)}
+							<div>
+								<a download={newTactics.title} href={newTactics.image}>
+									<img
+										style={{ width: '100%' }}
+										src={newTactics.image}
+										alt='raid pic'
 									/>
-								</Grid>
-
-								<Grid item xs={12} sm={6}>
-									<TextField
-										type='name'
-										fullWidth
-										value={currentRaider ? currentRaider.target : ''}
-										className={classes.input}
-										InputLabelProps={{
-											style: { color: '#fff ' },
-										}}
-										label='Target'
-										onChange={(e) => {
-											setCurrentRaider({
-												...currentRaider,
-												target: e.target.value,
-											});
-										}}
-									/>
-								</Grid>
-
-								<Grid item xs={12}>
-									<TextField
-										fullWidth
-										type='name'
-										value={currentRaider ? currentRaider.notes : ''}
-										className={classes.input}
-										multiline
-										rows={8}
-										InputLabelProps={{
-											style: { color: '#fff ' },
-										}}
-										label='Assignment Details'
-										onChange={(e) => {
-											setCurrentRaider({
-												...currentRaider,
-												notes: e.target.value,
-											});
-										}}
-									/>
-								</Grid>
-							</Grid>
-							<div className='my-3'>
-								<Button
-									color='default'
-									startIcon={<AddToPhotosIcon />}
-									variant='contained'
-									type='button'
-									onClick={handleAppendCharacter}>
-									Append Raider
-								</Button>
+								</a>
+								<Typography variant='p' gutterBottom>
+									Click on the above image to download 📁
+								</Typography>
 							</div>
-
 							<div>
 								<EditAssignTable
 									assignment={assignment}
@@ -261,15 +260,24 @@ const EditAssignments = ({ show, setShow }) => {
 									updatedAssign={updatedAssign}
 								/>
 							</div>
-
+							{(user.role === 'admin' || user.role === 'moderator') && (
+								<Button
+									color='primary'
+									variant='contained'
+									className='mt-3'
+									disabled={isLoading}
+									type='button'
+									onClick={handleSubmit}>
+									Append this Assignment
+								</Button>
+							)}
 							<Button
-								color='primary'
+								color='secondary'
 								variant='contained'
 								className='mt-3'
-								disabled={isLoading}
 								type='button'
-								onClick={handleSubmit}>
-								Append this Assignment
+								onClick={handleClose}>
+								Close
 							</Button>
 						</form>
 					</div>

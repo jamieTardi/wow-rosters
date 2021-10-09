@@ -11,7 +11,7 @@ const ViewRosters = () => {
 	const dispatch = useDispatch();
 	const rosters = useSelector((state) => state.createdRosters);
 	const currentRoster = useSelector((state) => state.currentRoster);
-
+	const user = useSelector((state) => state.currentUser);
 	const [show, setShow] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
@@ -62,15 +62,17 @@ const ViewRosters = () => {
 												style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
 												View/Edit Roster
 											</Button>
-											<Button
-												variant='contained'
-												color='secondary'
-												onClick={() => {
-													handleDeleteRoster(roster);
-												}}
-												style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
-												Delete Roster
-											</Button>
+											{(user.role === 'admin' || user.role === 'moderator') && (
+												<Button
+													variant='contained'
+													color='secondary'
+													onClick={() => {
+														handleDeleteRoster(roster);
+													}}
+													style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
+													Delete Roster
+												</Button>
+											)}
 										</div>
 									</Card.Body>
 								</Card>

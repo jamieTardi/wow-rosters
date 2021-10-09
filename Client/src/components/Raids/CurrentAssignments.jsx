@@ -10,6 +10,7 @@ import { Prev } from 'react-bootstrap/esm/PageItem';
 
 const CurrentAssignments = ({ assignment }) => {
 	const raid = useSelector((state) => state.currentRaid);
+	const user = useSelector((state) => state.currentUser);
 	const assignments = raid.tactics;
 	const [show, setShow] = useState(false);
 
@@ -45,14 +46,22 @@ const CurrentAssignments = ({ assignment }) => {
 					</tbody>
 				</Table>
 			</div>
-			<Button
-				variant='contained'
-				color='default'
-				onClick={handleEditAssignment}
-				startIcon={<EditIcon />}>
-				Edit Assignment
-			</Button>
-			<EditAssignments assignment={assignment} show={show} setShow={setShow} />
+			{(user.role === 'admin' || user.role === 'moderator') && (
+				<>
+					<Button
+						variant='contained'
+						color='default'
+						onClick={handleEditAssignment}
+						startIcon={<EditIcon />}>
+						Edit Assignment
+					</Button>
+					<EditAssignments
+						assignment={assignment}
+						show={show}
+						setShow={setShow}
+					/>
+				</>
+			)}
 		</div>
 	);
 };
