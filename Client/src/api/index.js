@@ -21,9 +21,11 @@ export const fetchRaids = () => API.get('/raids');
 export const createRaid = (newRaid, isLoading) =>
 	API.post('/raids', newRaid).then(() => isLoading(false));
 
-export const updateRaid = (id, updatedRaid) => {
+export const updateRaid = (id, updatedRaid, setServerResponse) => {
 	API.patch(`/raids/${id}`, updatedRaid)
-		.then(() => console.log('Updated raid'))
+		.then((res) => {
+			setServerResponse(res);
+		})
 		.catch((err) => console.log(err));
 };
 

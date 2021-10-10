@@ -19,9 +19,9 @@ export const createRaid = (raid, isLoading) => async (dispatch) => {
 	}
 };
 
-export const updateRaid = (id, raid) => async (dispatch) => {
+export const updateRaid = (id, raid, setServerRes) => async (dispatch) => {
 	try {
-		const { data } = await api.updateRaid(id, raid);
+		const { data } = await api.updateRaid(id, raid, setServerRes);
 
 		dispatch({ type: 'UPDATE_RAID', payload: data });
 	} catch (err) {

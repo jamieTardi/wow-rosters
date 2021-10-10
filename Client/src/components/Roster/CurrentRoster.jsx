@@ -1,111 +1,155 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
 import EditPageTwo from '../EditPages/EditPageTwo';
-import { useHistory } from 'react-router-dom';
+import NoRoster from './NoRoster';
+import { updateRaid } from '../../actions/raids';
+import LoadingSpinner from '../UIcomponents/LoadingSpinner';
 
 const CurrentRoster = () => {
-	const history = useHistory();
+	const [serverResponse, setServerResponse] = useState(null);
 	const [hideModal, setHideModal] = useState(true);
-	const raid = useSelector((state) => state.currentRaid);
+	const [raid, setRaid] = useState(useSelector((state) => state.currentRaid));
 	const currentRoster = useSelector((state) => state.currentRoster);
+	const user = useSelector((state) => state.currentUser);
 	const isDark = useSelector((state) => state.darkMode);
 	const roster = raid ? raid.roster.roster : currentRoster.roster;
+	const [thisRaid, setThisRaid] = useState(raid);
+	const dispatch = useDispatch();
+
+	const handleRemoveRoster = () => {
+		dispatch(
+			updateRaid(raid._id, { ...raid, roster: new Array() }, setServerResponse),
+		);
+	};
+
+	console.log(serverResponse);
+
+	useEffect(() => {
+		if (serverResponse !== null) {
+			setThisRaid(serverResponse.data);
+			setRaid(serverResponse.data);
+			setServerResponse(null);
+		}
+	}, [serverResponse]);
+
+	console.log(thisRaid);
+
 	return (
 		<div>
-			<div>
-				<h2>Tanks</h2>
-				<Table striped bordered hover variant={isDark ? 'dark' : ''}>
-					<thead>
-						<tr>
-							<th>Role</th>
-							<th>Character Name</th>
-							<th>Class</th>
-							<th>Notes</th>
-						</tr>
-					</thead>
-					<tbody>
-						{roster &&
-							roster.map((character) => (
+			{!serverResponse ? (
+				thisRaid.roster.length !== 0 ? (
+					<div>
+						<h2>Tanks</h2>
+						<Table striped bordered hover variant={isDark ? 'dark' : ''}>
+							<thead>
 								<tr>
-									<>
-										{character.role === 'Tank' && (
-											<>
-												<td>🛡️</td>
-
-												<td>{character.name}</td>
-												<td>{character.class}</td>
-												<td>{character.notes}</td>
-											</>
-										)}
-									</>
+									<th>Role</th>
+									<th>Character Name</th>
+									<th>Class</th>
+									<th>Notes</th>
 								</tr>
-							))}
-					</tbody>
-				</Table>
+							</thead>
+							<tbody>
+								{roster &&
+									roster.map((character) => (
+										<tr>
+											<>
+												{character.role === 'Tank' && (
+													<>
+														<td>🛡️</td>
 
-				<h2>DPS</h2>
-				<Table striped bordered hover variant={isDark ? 'dark' : ''}>
-					<thead>
-						<tr>
-							<th>Role</th>
-							<th>Character Name</th>
-							<th>Class</th>
-							<th>Notes</th>
-						</tr>
-					</thead>
-					<tbody>
-						{roster &&
-							roster.map((character) => (
+														<td>{character.name}</td>
+														<td>{character.class}</td>
+														<td>{character.notes}</td>
+													</>
+												)}
+											</>
+										</tr>
+									))}
+							</tbody>
+						</Table>
+
+						<h2>DPS</h2>
+						<Table striped bordered hover variant={isDark ? 'dark' : ''}>
+							<thead>
 								<tr>
-									<>
-										{character.role === 'DPS' && (
-											<>
-												<td>⚔️</td>
-
-												<td>{character.name}</td>
-												<td>{character.class}</td>
-												<td>{character.notes}</td>
-											</>
-										)}
-									</>
+									<th>Role</th>
+									<th>Character Name</th>
+									<th>Class</th>
+									<th>Notes</th>
 								</tr>
-							))}
-					</tbody>
-				</Table>
+							</thead>
+							<tbody>
+								{roster &&
+									roster.map((character) => (
+										<tr>
+											<>
+												{character.role === 'DPS' && (
+													<>
+														<td>⚔️</td>
 
-				<h2>Healers</h2>
-				<Table striped bordered hover variant={isDark ? 'dark' : ''}>
-					<thead>
-						<tr>
-							<th>Role</th>
-							<th>Character Name</th>
-							<th>Class</th>
-							<th>Notes</th>
-						</tr>
-					</thead>
-					<tbody>
-						{roster &&
-							roster.map((character) => (
+														<td>{character.name}</td>
+														<td>{character.class}</td>
+														<td>{character.notes}</td>
+													</>
+												)}
+											</>
+										</tr>
+									))}
+							</tbody>
+						</Table>
+
+						<h2>Healers</h2>
+						<Table striped bordered hover variant={isDark ? 'dark' : ''}>
+							<thead>
 								<tr>
-									<>
-										{character.role === 'Healer' && (
-											<>
-												<td>❤️</td>
-
-												<td>{character.name}</td>
-												<td>{character.class}</td>
-												<td>{character.notes}</td>
-											</>
-										)}
-									</>
+									<th>Role</th>
+									<th>Character Name</th>
+									<th>Class</th>
+									<th>Notes</th>
 								</tr>
-							))}
-					</tbody>
-				</Table>
-			</div>
+							</thead>
+							<tbody>
+								{roster &&
+									roster.map((character) => (
+										<tr>
+											<>
+												{character.role === 'Healer' && (
+													<>
+														<td>❤️</td>
+
+														<td>{character.name}</td>
+														<td>{character.class}</td>
+														<td>{character.notes}</td>
+													</>
+												)}
+											</>
+										</tr>
+									))}
+							</tbody>
+						</Table>
+						{(user.role === 'admin' || user.role === 'moderator') && (
+							<Button
+								variant='contained'
+								color='secondary'
+								disabled={serverResponse}
+								onClick={handleRemoveRoster}>
+								Remove roster
+							</Button>
+						)}
+					</div>
+				) : (
+					<NoRoster
+						serverResponse={serverResponse}
+						setServerResponse={setServerResponse}
+						setThisRaid={setThisRaid}
+					/>
+				)
+			) : (
+				<LoadingSpinner />
+			)}
 			{!hideModal && (
 				<EditPageTwo setHideModal={setHideModal} hideModal={hideModal} />
 			)}

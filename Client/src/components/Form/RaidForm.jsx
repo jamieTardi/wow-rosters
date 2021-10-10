@@ -99,7 +99,7 @@ const RaidForm = () => {
 		setRaidForm({
 			title: '',
 			message: '',
-
+			group: [],
 			tactics: [],
 			selectedFile: [],
 			time: '',
