@@ -23,12 +23,11 @@ export const signup = (formData, history) => async (dispatch) => {
 	}
 };
 
-export const updateuser = (id, userData) => async (dispatch) => {
+export const updateuser = (id, userData, setServerMsg) => async (dispatch) => {
 	try {
-		const { data } = await api.updateUser(id, userData);
+		const { data } = await api.updateUser(id, userData, setServerMsg);
 		dispatch({ type: AUTH, data });
 	} catch (err) {
 		console.log(err);
 	}
 };
-

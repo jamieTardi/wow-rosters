@@ -92,10 +92,12 @@ export const createGoogleUser = (googleUser) => {
 		.catch((err) => console.log(err));
 };
 
-export const updateUser = (id, userData) => {
+export const updateUser = (id, userData, setServerMsg) => {
 	API.patch(`/user/users/${id}`, userData)
-		.then((res) => console.log(res))
-		.catch((err) => console.log(err));
+		.then((res) => {
+			setServerMsg(res);
+		})
+		.catch((err) => setServerMsg(err.response));
 };
 
 export const getAllUsers = (setAllUsers) => {

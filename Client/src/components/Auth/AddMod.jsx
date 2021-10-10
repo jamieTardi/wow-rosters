@@ -14,6 +14,7 @@ const AddMod = ({ show, setShow }) => {
 	const [newEmailConfirm, setNewEmailConfirm] = useState('');
 	const [isSameEmail, setIsSameEmail] = useState(false);
 	const [newMod, setNewMod] = useState(null);
+	const [serverMsg, setServerMsg] = useState(null);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -28,7 +29,7 @@ const AddMod = ({ show, setShow }) => {
 
 	const handleCreateMod = () => {
 		if (newMod) {
-			dispatch(updateuser(newMod._id, newMod));
+			dispatch(updateuser(newMod._id, newMod, setServerMsg));
 		} else {
 			alert('There is currently no moderator, please try again.');
 		}
@@ -50,10 +51,11 @@ const AddMod = ({ show, setShow }) => {
 		}
 	}, [newEmailConfirm]);
 
-	console.log(newMod);
+	console.log(serverMsg);
 
 	useEffect(() => {
 		getAllUsers(setAllUsers);
+		setServerMsg(null);
 	}, []);
 
 	return (
@@ -85,7 +87,9 @@ const AddMod = ({ show, setShow }) => {
 					}}
 				/>
 
-				<p>{isSameEmail ? 'Emails match' : 'Emails do not match'}</p>
+				<p className='my-3'>
+					{isSameEmail ? 'Emails match' : 'Emails do not match'}
+				</p>
 
 				{newMod && (
 					<p>
@@ -93,18 +97,29 @@ const AddMod = ({ show, setShow }) => {
 						upgrade them to moderator rank please click Add Moderator button.
 					</p>
 				)}
+
+				{serverMsg !== null && serverMsg.status === 403 ? (
+					<p style={{ color: 'red !important' }}>{serverMsg.data.message}</p>
+				) : (
+					serverMsg !== null &&
+					serverMsg.status === 200 && (
+						<p>{serverMsg.data.name} has been made an moderator.</p>
+					)
+				)}
 			</Modal.Body>
 			<Modal.Footer>
-				<Button color='secondary' variant='contained' onClick={handleClose}>
-					Close
-				</Button>
-				<Button
-					color='primary'
-					variant='contained'
-					onClick={handleCreateMod}
-					disabled={!isSameEmail}>
-					Add Moderator
-				</Button>
+				<div className='d-flex justify-content-between w-100'>
+					<Button color='secondary' variant='contained' onClick={handleClose}>
+						Close
+					</Button>
+					<Button
+						color='primary'
+						variant='contained'
+						onClick={handleCreateMod}
+						disabled={!isSameEmail}>
+						Add Moderator
+					</Button>
+				</div>
 			</Modal.Footer>
 		</Modal>
 	);

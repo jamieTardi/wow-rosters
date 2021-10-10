@@ -92,15 +92,15 @@ export const updateUser = async (req, res) => {
 		const existingUser = await User.findOne({ email });
 		if (existingUser) {
 			if (role === 'admin') {
-				res
-					.status(404)
-					.json({ message: 'This user is an admin they cannot be altered.' });
+				res.status(403).json({
+					message: 'This user is an admin they cannot be altered.',
+				});
 			} else {
 				const updateUser = await User.findByIdAndUpdate(id, {
 					...body,
-					role: 'admin',
+					role: 'moderator',
 				});
-				res.json(updateUser);
+				res.status(200).json(updateUser);
 			}
 		} else {
 			res.status(404).json({ message: 'There was no user found.' });
