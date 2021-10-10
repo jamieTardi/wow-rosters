@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
 import GroupTable from './GroupTable';
+import PopulatedGroup from './PopulatedGroup';
 
 const CurrentGroup = () => {
 	const classes = useStyles();
@@ -53,6 +54,15 @@ const CurrentGroup = () => {
 							</FormGroup>
 						</FormControl>
 					</>
+				)}
+				{raid.group.length !== 0 && (
+					<div>
+						<h5>The current set group is below.</h5>
+						<p>
+							This group is read only and is only here for reference purposes.
+						</p>
+						<PopulatedGroup />
+					</div>
 				)}
 			</Paper>
 

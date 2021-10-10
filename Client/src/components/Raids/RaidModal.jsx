@@ -134,7 +134,12 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 										{user.role === 'admin' || user.role === 'moderator' ? (
 											<CurrentGroup />
 										) : currentRaid.group.length !== 0 ? (
-											<PopulatedGroup />
+											<>
+												<h4 className='mb-4'>
+													Final group make up for the raid
+												</h4>
+												<PopulatedGroup />
+											</>
 										) : (
 											<p>
 												Currently the groups have not been assigned... please

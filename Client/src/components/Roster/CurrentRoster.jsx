@@ -24,8 +24,6 @@ const CurrentRoster = () => {
 		);
 	};
 
-	console.log(serverResponse);
-
 	useEffect(() => {
 		if (serverResponse !== null) {
 			setThisRaid(serverResponse.data);
@@ -33,8 +31,6 @@ const CurrentRoster = () => {
 			setServerResponse(null);
 		}
 	}, [serverResponse]);
-
-	console.log(thisRaid);
 
 	return (
 		<div>
