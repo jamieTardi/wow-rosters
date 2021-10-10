@@ -573,6 +573,15 @@ footer a {
   color: black !important;
 }
 
+.light .makeStyles-paperModal-9 {
+  background: #fff;
+}
+
+.light .modal-content img {
+  background: #fff;
+  background-color: #fff;
+}
+
 .light .card-body,
 .light .modal-header,
 .light .accordion-button {

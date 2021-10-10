@@ -22,6 +22,7 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 	const darkMode = useSelector((state) => state.darkMode);
 	const user = useSelector((state) => state.currentUser);
 	const currentRaid = useSelector((state) => state.currentRaid);
+	const [raid, setRaid] = useState(currentRaid);
 
 	const dateFormatter = () => {
 		let newYear = [];
@@ -44,6 +45,10 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 		return newDate;
 	};
 
+	useEffect(() => {
+		setRaid(selectedRaid);
+	}, [selectedRaid]);
+
 	return (
 		<>
 			<div>
@@ -65,8 +70,8 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 					<div
 						style={{
 							backgroundImage:
-								selectedRaid.selectedFile[0] !== undefined
-									? `url(${selectedRaid.selectedFile})`
+								raid.selectedFile[0] !== undefined
+									? `url(${raid.selectedFile})`
 									: 'url(https://images.blz-contentstack.com/v3/assets/blt3452e3b114fab0cd/blt7e63e962dfb8236b/5dbb292e5b809038b2505c21/Bastion_Postcard.jpg?auto=webp&quality=75)',
 							backgroundColor: darkMode ? '#333333' : '#fff',
 							width: '100%',
@@ -82,13 +87,13 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 								style={{ color: 'rgba(255, 255, 255, 0.7) !important' }}>
 								Raid created:{' '}
 								<span className='raid-message'>
-									{moment(selectedRaid.createdAt).fromNow()}
+									{moment(raid.createdAt).fromNow()}
 								</span>
 							</div>
 							<div className='col-6 text-end'>
 								<span>
 									<span>Created by: </span>
-									<span className='raid-message'>{selectedRaid.creator}</span>
+									<span className='raid-message'>{raid.creator}</span>
 								</span>
 							</div>
 						</div>
@@ -98,14 +103,13 @@ const RaidModal = ({ expandCard, setExpandCard, selectedRaid }) => {
 								<span className='raid-message'>{dateFormatter()}</span>
 							</div>
 							<div className='col-6 text-end'>
-								Time of Raid:{' '}
-								<span className='raid-message'>{selectedRaid.time}</span>
+								Time of Raid: <span className='raid-message'>{raid.time}</span>
 							</div>
 						</div>
 
 						<div>
 							<h3 className='my-3'>Raid Information</h3>
-							<p className='raid-message'>{selectedRaid.message}</p>
+							<p className='raid-message'>{raid.message}</p>
 						</div>
 						<div>
 							<div className='my-3'></div>
