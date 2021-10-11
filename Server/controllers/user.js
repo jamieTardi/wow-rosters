@@ -86,7 +86,7 @@ export const signUpGoogle = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-	const { _id: id, email, role, name } = req.body;
+	const { _id: id, email, role } = req.body;
 	const body = req.body;
 	try {
 		const existingUser = await User.findOne({ email });

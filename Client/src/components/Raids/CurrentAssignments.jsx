@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, Table, Modal } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import EditAssignments from '../EditPages/EditAssignments';
+import { CURRENT_ASSIGNMENT } from '../../constants/actionTypes';
 
 const CurrentAssignments = ({ assignment }) => {
+	const dispatch = useDispatch();
 	const raid = useSelector((state) => state.currentRaid);
 	const user = useSelector((state) => state.currentUser);
 	const isDark = useSelector((state) => state.darkMode);
@@ -15,6 +17,12 @@ const CurrentAssignments = ({ assignment }) => {
 	const handleEditAssignment = () => {
 		setShow((Prev) => !Prev);
 	};
+
+	useEffect(() => {
+		dispatch({ type: CURRENT_ASSIGNMENT, payload: assignment });
+	}, [assignment]);
+
+	console.log(assignment);
 
 	return (
 		<div>

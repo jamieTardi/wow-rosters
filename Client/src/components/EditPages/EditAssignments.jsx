@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useStyles } from '../Form/styles';
 import FileBase from 'react-file-base64';
@@ -18,21 +18,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateAssignments, getAssignments } from '../../actions/assignments';
 import { createImageAssign, deleteImage } from '../../api';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { v4 as uuidv4 } from 'uuid';
 
 const EditAssignments = ({ show, setShow }) => {
 	const assignment = useSelector((state) => state.currentAssignment);
 	const allAssignments = useSelector((state) => state.assignments);
 	const user = useSelector((state) => state.currentUser);
-	const [newTactics, setNewTactics] = useState({
-		title: assignment?.title,
-		image: assignment?.image,
-		assignedRaiders: assignment?.assignedRaiders,
-		_id: assignment?._id,
-	});
+	const [newTactics, setNewTactics] = useState(assignment);
 
 	const raiders = assignment?.assignedRaiders;
 	const [addCharacter, setAddCharacter] = useState(raiders);
-	const [currentRaider, setCurrentRaider] = useState(null);
+	const [currentRaider, setCurrentRaider] = useState({
+		name: '',
+		id: uuidv4(),
+		role: '',
+		notes: '',
+		target: '',
+	});
 	const [updatedAssign, setUpdatedAssign] = useState(assignment);
 	const isDark = useSelector((state) => state.darkMode);
 	const [file, setFile] = useState('');
@@ -52,11 +54,31 @@ const EditAssignments = ({ show, setShow }) => {
 
 	const handleSubmit = () => {
 		setIsLoading(true);
-		dispatch(updateAssignments(newTactics, newTactics._id, setIsLoading));
+		dispatch(updateAssignments(updatedAssign, updatedAssign._id, setIsLoading));
 		if (!isLoading) {
 			setShow(false);
 		}
 	};
+
+	const handleAddCharacter = () => {
+		let newRaider = [...updatedAssign.assignedRaiders, currentRaider];
+		setUpdatedAssign({ ...updatedAssign, assignedRaiders: newRaider });
+	};
+
+	useEffect(() => {
+		setUpdatedAssign(assignment);
+	}, [assignment]);
+
+	const targetMarkers = [
+		'Skull 💀',
+		'Cross ❌',
+		'Square 🟦',
+		'Circle 🟠',
+		'Diamond 🔷',
+		'Moon 🌙',
+		'Triangle 🔺',
+		'Other...',
+	];
 
 	const send = (e) => {
 		e.preventDefault();
@@ -84,6 +106,18 @@ const EditAssignments = ({ show, setShow }) => {
 					<Modal.Title>Assignments</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
+					<div>
+						<a download={newTactics.title} href={newTactics.image}>
+							<img
+								style={{ width: '100%' }}
+								src={newTactics.image}
+								alt='raid pic'
+							/>
+						</a>
+						<Typography variant='p' gutterBottom>
+							Click on the above image to download 📁
+						</Typography>
+					</div>
 					<div className='w-100'>
 						<form className='w-100'>
 							{(user.role === 'admin' || user.role === 'moderator') && (
@@ -186,22 +220,23 @@ const EditAssignments = ({ show, setShow }) => {
 										</Grid>
 
 										<Grid item xs={12} sm={6}>
-											<TextField
-												type='name'
-												fullWidth
-												value={currentRaider ? currentRaider.target : ''}
-												className={classes.input}
-												InputLabelProps={{
-													style: { color: '#fff ' },
-												}}
-												label='Target'
+											<InputLabel
+												id='demo-simple-select-label'
+												className={classes.select}>
+												Select a Target
+											</InputLabel>
+											<Select
+												style={{ width: '100%' }}
 												onChange={(e) => {
 													setCurrentRaider({
 														...currentRaider,
 														target: e.target.value,
 													});
-												}}
-											/>
+												}}>
+												{targetMarkers.map((target) => (
+													<MenuItem value={target}>{target}</MenuItem>
+												))}
+											</Select>
 										</Grid>
 
 										<Grid item xs={12}>
@@ -229,26 +264,25 @@ const EditAssignments = ({ show, setShow }) => {
 										<Button
 											color='default'
 											startIcon={<AddToPhotosIcon />}
+											className='me-4'
 											variant='contained'
 											type='button'
 											onClick={handleAppendCharacter}>
 											Append Raider
 										</Button>
+
+										<Button
+											color='primary'
+											startIcon={<AddToPhotosIcon />}
+											variant='contained'
+											type='button'
+											onClick={handleAddCharacter}>
+											Add New Raider
+										</Button>
 									</div>
 								</>
 							)}
-							<div>
-								<a download={newTactics.title} href={newTactics.image}>
-									<img
-										style={{ width: '100%' }}
-										src={newTactics.image}
-										alt='raid pic'
-									/>
-								</a>
-								<Typography variant='p' gutterBottom>
-									Click on the above image to download 📁
-								</Typography>
-							</div>
+
 							<div>
 								<EditAssignTable
 									assignment={assignment}
@@ -258,13 +292,14 @@ const EditAssignments = ({ show, setShow }) => {
 									newTactics={newTactics}
 									addCharacter={addCharacter}
 									updatedAssign={updatedAssign}
+									setUpdatedAssign={setUpdatedAssign}
 								/>
 							</div>
 							{(user.role === 'admin' || user.role === 'moderator') && (
 								<Button
 									color='primary'
 									variant='contained'
-									className='mt-3'
+									className='mt-3 me-5'
 									disabled={isLoading}
 									type='button'
 									onClick={handleSubmit}>

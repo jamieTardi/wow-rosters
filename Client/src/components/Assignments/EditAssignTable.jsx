@@ -25,12 +25,23 @@ const EditAssignTable = ({
 	newTactics,
 	addCharacter,
 	updatedAssign,
+	setNewTactics,
+	setUpdatedAssign,
 }) => {
 	const classes = useStyles();
 	const user = useSelector((state) => state.currentUser);
 	const raiders = newTactics.assignedRaiders;
 
-	const handleRemove = () => {};
+	//Set the redux as well to update the component....
+
+	const handleRemove = (id) => {
+		setUpdatedAssign({
+			...updatedAssign,
+			assignedRaiders: updatedAssign.assignedRaiders.filter((raider) => {
+				return raider.id !== id;
+			}),
+		});
+	};
 
 	const handleEditCharacter = (id) => {
 		raiders.map((raider) => {

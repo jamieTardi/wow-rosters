@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
 import { Tab, Tabs } from 'react-bootstrap';
-import PhoneIcon from '@material-ui/icons/Phone';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
-import HelpIcon from '@material-ui/icons/Help';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import ThumbDown from '@material-ui/icons/ThumbDown';
-import ThumbUp from '@material-ui/icons/ThumbUp';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CurrentAssignments from '../Raids/CurrentAssignments';
+import { CURRENT_ASSIGNMENT } from '../../constants/actionTypes';
 
 const TabbedMenu = () => {
+	const dispatch = useDispatch();
 	const [key, setKey] = useState('');
 	const raid = useSelector((state) => state.currentRaid);
 	const assignments = raid.tactics;
+
+	const handleAddAssign = (assignment) => {
+		dispatch({ type: CURRENT_ASSIGNMENT, payload: assignment });
+		setKey(assignment.title);
+	};
 	return (
 		<div>
 			<Tabs
@@ -33,7 +28,7 @@ const TabbedMenu = () => {
 						eventKey={assignment.title}
 						title={assignment.title}
 						onClick={() => {
-							setKey(assignment.title);
+							handleAddAssign(assignment);
 						}}>
 						<CurrentAssignments assignment={assignment} />
 					</Tab>

@@ -37,8 +37,6 @@ const ViewAssignments = ({ raidForm, setRaidForm }) => {
 	const handleRemoveAssignment = (assign, i) => {
 		const id = assign._id;
 		let filitered = selectedAssignment.filter((assignment) => {
-			console.log(assignment);
-			console.log(assign);
 			return assignment._id !== id;
 		});
 		setSelectedAssignment(filitered);

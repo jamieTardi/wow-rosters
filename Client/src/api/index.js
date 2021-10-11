@@ -60,7 +60,9 @@ export const createAssignment = (newAssignment) => {
 
 export const updateAssignments = (assignment, id, isLoading) => {
 	API.patch(`/create-assignment/${id}`, assignment)
-		.then(() => isLoading(false))
+		.then((res) => {
+			console.log(res);
+		})
 		.catch((err) => console.log(err));
 };
 
