@@ -6,8 +6,10 @@ import EditPageTwo from '../EditPages/EditPageTwo';
 import NoRoster from './NoRoster';
 import { updateRaid } from '../../actions/raids';
 import LoadingSpinner from '../UIcomponents/LoadingSpinner';
+import { useHistory } from 'react-router';
 
 const CurrentRoster = () => {
+	const history = useHistory();
 	const [serverResponse, setServerResponse] = useState(null);
 	const [hideModal, setHideModal] = useState(true);
 	const [raid, setRaid] = useState(useSelector((state) => state.currentRaid));
@@ -20,8 +22,13 @@ const CurrentRoster = () => {
 
 	const handleRemoveRoster = () => {
 		dispatch(
-			updateRaid(raid._id, { ...raid, roster: new Array() }, setServerResponse),
+			updateRaid(
+				raid._id,
+				{ ...raid, roster: new Array(), group: [] },
+				setServerResponse,
+			),
 		);
+		history.go(0);
 	};
 
 	useEffect(() => {
@@ -34,8 +41,8 @@ const CurrentRoster = () => {
 
 	return (
 		<div>
-			{!serverResponse ? (
-				thisRaid.roster.length !== 0 ? (
+			{!serverResponse && currentRoster ? (
+				currentRoster.roster.length !== 0 ? (
 					<div>
 						<h2>Tanks</h2>
 						<Table striped bordered hover variant={isDark ? 'dark' : ''}>

@@ -11,8 +11,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateRaid } from '../../actions/raids';
 import LoadingSpinner from '../UIcomponents/LoadingSpinner';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const NoRoster = ({ serverResponse, setServerResponse, setThisRaid }) => {
+	const history = useHistory();
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const [rosterVal, setRosterVal] = useState(null);
@@ -24,6 +26,7 @@ const NoRoster = ({ serverResponse, setServerResponse, setThisRaid }) => {
 		dispatch(
 			updateRaid(raid._id, { ...raid, roster: rosterVal }, setServerResponse),
 		);
+		history.go(0);
 	};
 	useEffect(() => {
 		setRosterVal(null);
