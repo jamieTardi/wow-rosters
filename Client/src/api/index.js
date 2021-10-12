@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { imageURL } from '../constants/general';
+import { imageURL, imageURLLive } from '../constants/general';
 
 const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
 // const API = axios.create({ baseURL: 'http://localhost:5000' });
@@ -124,7 +124,7 @@ export const createImage = (data, setRaidForm, raidForm) => {
 		.then((res) =>
 			setRaidForm({
 				...raidForm,
-				selectedFile: `${imageURL}/images/${res.data}`,
+				selectedFile: `${imageURLLive}/images/${res.data}`,
 			}),
 		)
 		.catch((err) => console.log(err));
@@ -135,7 +135,7 @@ export const createImageAssign = (data, setNewTactics, newTactics) => {
 		.then((res) =>
 			setNewTactics({
 				...newTactics,
-				image: `${API}/images/${res.data}`,
+				image: `${imageURLLive}/images/${res.data}`,
 			}),
 		)
 		.catch((err) => console.log(err));
