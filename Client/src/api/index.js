@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { imageURL } from '../constants/general';
 
-// const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
+// const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 API.interceptors.request.use((req) => {
 	if (localStorage.getItem('profile')) {
@@ -120,8 +120,7 @@ export const deleteImage = (img) => {
 };
 
 export const createImage = (data, setRaidForm, raidForm) => {
-	axios
-		.post(`${imageURL}/uploads`, data)
+	API.post(`/uploads`, data)
 		.then((res) =>
 			setRaidForm({
 				...raidForm,
@@ -132,12 +131,11 @@ export const createImage = (data, setRaidForm, raidForm) => {
 };
 
 export const createImageAssign = (data, setNewTactics, newTactics) => {
-	axios
-		.post(`${imageURL}/uploads`, data)
+	API.post(`/uploads`, data)
 		.then((res) =>
 			setNewTactics({
 				...newTactics,
-				image: `${imageURL}/images/${res.data}`,
+				image: `${API}/images/${res.data}`,
 			}),
 		)
 		.catch((err) => console.log(err));
