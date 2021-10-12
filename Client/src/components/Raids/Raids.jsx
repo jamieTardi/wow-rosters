@@ -62,15 +62,14 @@ const Raids = () => {
 							</>
 						))
 				)}
+				{selectedRaid && (
+					<RaidModal
+						expandCard={expandCard}
+						raid={selectedRaid}
+						setExpandCard={setExpandCard}
+					/>
+				)}
 			</div>
-
-			{selectedRaid && (
-				<RaidModal
-					expandCard={expandCard}
-					selectedRaid={selectedRaid}
-					setExpandCard={setExpandCard}
-				/>
-			)}
 		</div>
 	);
 };

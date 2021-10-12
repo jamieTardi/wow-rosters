@@ -21,12 +21,10 @@ export const fetchRaids = () => API.get('/raids');
 export const createRaid = (newRaid, isLoading) =>
 	API.post('/raids', newRaid).then(() => isLoading(false));
 
-export const updateRaid = (id, updatedRaid, setServerResponse) => {
-	API.patch(`/raids/${id}`, updatedRaid)
-		.then((res) => {
-			setServerResponse(res);
-		})
-		.catch((err) => console.log(err));
+export const updateRaid = (id, updatedRaid, dispatch) => {
+	API.patch(`/raids/${id}`, updatedRaid).then((res) =>
+		dispatch({ type: 'UPDATE_RAID', payload: res.data }),
+	);
 };
 
 export const deleteRaid = (id, setDeleteRaid) => {

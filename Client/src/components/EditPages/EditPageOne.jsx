@@ -13,12 +13,11 @@ import { useStyles } from '../Form/styles';
 import SaveIcon from '@material-ui/icons/Save';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateRaid } from '../../actions/raids';
-import FileBase from 'react-file-base64';
-import { minutes, hours } from '../../lib/time';
 import DatePicker from 'react-datepicker';
 import TimePicker from '../UIcomponents/TimePicker';
 import { imageTrim } from '../../lib/trimImage';
 import { deleteImage, createImage } from '../../api';
+import { UPDATE_CURRENT_RAID } from '../../constants/actionTypes';
 
 const EditPageOne = ({ setEditModal }) => {
 	const dispatch = useDispatch();
@@ -41,6 +40,7 @@ const EditPageOne = ({ setEditModal }) => {
 
 	const handleUpdateSelectedRaid = () => {
 		dispatch(updateRaid(editRaid._id, editRaid));
+		dispatch({ type: UPDATE_CURRENT_RAID, payload: editRaid });
 		setShow(false);
 		setEditModal((prev) => !prev);
 	};
@@ -50,6 +50,8 @@ const EditPageOne = ({ setEditModal }) => {
 		data.append('file', file);
 		createImage(data, setEditRaid, editRaid);
 	};
+
+	console.log(selectedRaid);
 
 	return (
 		<div>

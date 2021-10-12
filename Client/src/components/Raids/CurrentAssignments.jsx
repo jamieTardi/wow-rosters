@@ -3,26 +3,39 @@ import { Image, Table, Modal } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
+import { DeleteForever, AddCircle } from '@material-ui/icons';
 import EditAssignments from '../EditPages/EditAssignments';
 import { CURRENT_ASSIGNMENT } from '../../constants/actionTypes';
+import { updateRaid } from '../../actions/raids';
+import { useHistory } from 'react-router-dom';
+import AssignmentSelector from '../Assignments/AssignmentSelector';
 
-const CurrentAssignments = ({ assignment }) => {
+const CurrentAssignments = ({ assignment, setRaid }) => {
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const raid = useSelector((state) => state.currentRaid);
 	const user = useSelector((state) => state.currentUser);
 	const isDark = useSelector((state) => state.darkMode);
-	const [show, setShow] = useState(false);
+	const [serverRes, setServerRes] = useState(null);
 
-	const handleEditAssignment = () => {
-		setShow((Prev) => !Prev);
+	const handleDeleteAssignment = () => {
+		let filitered = raid.tactics.filter((assign) => {
+			return assign._id !== assignment._id;
+		});
+		dispatch(
+			updateRaid(raid._id, { ...raid, tactics: filitered }, setServerRes),
+		);
+		setRaid({ ...raid, tactics: filitered });
+		if (serverRes !== null) {
+			setTimeout(() => {
+				history.go(0);
+			}, 1500);
+		}
 	};
 
 	useEffect(() => {
 		dispatch({ type: CURRENT_ASSIGNMENT, payload: assignment });
 	}, [assignment]);
-
-	console.log(assignment);
 
 	return (
 		<div>
@@ -58,20 +71,19 @@ const CurrentAssignments = ({ assignment }) => {
 				</Table>
 			</div>
 			{(user.role === 'admin' || user.role === 'moderator') && (
-				<>
+				<div className='d-flex justify-content-start align-items-center'>
 					<Button
 						variant='contained'
-						color='default'
-						onClick={handleEditAssignment}
-						startIcon={<EditIcon />}>
-						Edit Assignment
+						color='secondary'
+						className='me-4'
+						onClick={handleDeleteAssignment}
+						startIcon={<DeleteForever />}>
+						Delete Assignment
 					</Button>
-					<EditAssignments
-						assignment={assignment}
-						show={show}
-						setShow={setShow}
-					/>
-				</>
+				</div>
+			)}
+			{serverRes !== null && (
+				<p>This assignment is being deleted from the current raid...</p>
 			)}
 		</div>
 	);
