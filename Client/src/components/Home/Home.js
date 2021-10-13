@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Raids from '../Raids/Raids';
 import RaidForm from '../Form/RaidForm';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,9 @@ const Home = () => {
 	const [userRes, setUserRes] = useState(null);
 	const dispatch = useDispatch();
 	const googleUser = useSelector((state) => state.googleId);
+	const currentUser = useSelector((state) => state.currentUser);
 	const [roster, setRoster] = useState([]);
+	const isInitialMount = useRef(true);
 
 	useEffect(() => {
 		dispatch(getRoster());
@@ -44,32 +46,40 @@ const Home = () => {
 	}, []);
 
 	useEffect(() => {
-		if (googleUser) {
-			userRes?.forEach((user) => {
-				if (googleUser.email === user.email) {
-					return console.log('exists');
-				}
-
+		if (isInitialMount.current) {
+			isInitialMount.current = false;
+		} else {
+			if (googleUser) {
 				let updatedUser = {
 					name: googleUser.name,
 					email: googleUser.email,
 					id: googleUser.googleId,
 					password: googleUser.googleId,
+					role: 'member',
 				};
-				createGoogleUser(updatedUser);
-				localStorage.setItem('current_user', JSON.stringify(updatedUser));
-				userRes.forEach((user) => {
-					if (
-						localStorage.getItem('profile') &&
-						googleUser.email === user.email
-					) {
-						dispatch({
-							type: CURRENT_USER,
-							payload: user,
-						});
-					}
+				dispatch({
+					type: CURRENT_USER,
+					payload: updatedUser,
 				});
-			});
+				createGoogleUser(updatedUser);
+				// userRes?.forEach((user) => {
+				// 	if (googleUser.email === user.email) {
+				// 		return console.log('exists');
+				// 	}
+
+				// 	createGoogleUser(updatedUser);
+				// 	localStorage.setItem('current_user', JSON.stringify(updatedUser));
+				// 	// userRes.forEach((user) => {
+				// 	// 	if (
+				// 	// 		localStorage.getItem('profile') &&
+				// 	// 		googleUser.email === user.email
+				// 	// 	) {
+
+				// 	// 	}
+				// 	// });
+
+				// });
+			}
 		}
 	}, [userRes]);
 
