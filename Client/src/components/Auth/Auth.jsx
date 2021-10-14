@@ -95,7 +95,6 @@ const Auth = () => {
 									name='lastName'
 									label='Last Name'
 									handleChange={handleChange}
-									autoFocus
 									half
 								/>
 							</>
@@ -105,7 +104,6 @@ const Auth = () => {
 							label='Email address'
 							handleChange={handleChange}
 							type='email'
-							autoFocus
 							xs={12}
 						/>
 						<Input
@@ -114,7 +112,6 @@ const Auth = () => {
 							handleChange={handleChange}
 							type={showPassword ? 'text' : 'password'}
 							handleShowPassword={handleShowPassword}
-							autoFocus
 							xs={12}
 						/>
 						{isSignUp && (

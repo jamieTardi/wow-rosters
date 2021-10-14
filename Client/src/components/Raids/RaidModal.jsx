@@ -128,17 +128,17 @@ const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 									<Accordion.Body>
 										<TabbedMenu />
 										<div className='d-flex justify-content-end flex-column align-items-end'>
-											<Button
-												variant='contained'
-												color='primary'
-												startIcon={<AddCircle />}
-												className='w-25'
-												disabled={addAssign}
-												onClick={() => {
-													setAddAssign((prev) => !prev);
-												}}>
-												Add new assignment
-											</Button>
+											{(user.role === 'admin' || user.role === 'moderator') && (
+												<Button
+													variant='contained'
+													color='default'
+													disabled={addAssign}
+													onClick={() => {
+														setAddAssign((prev) => !prev);
+													}}>
+													<AddCircle />
+												</Button>
+											)}
 											{addAssign && <AssignmentSelector />}
 										</div>
 									</Accordion.Body>

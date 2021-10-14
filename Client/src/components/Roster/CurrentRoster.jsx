@@ -41,8 +41,8 @@ const CurrentRoster = () => {
 
 	return (
 		<div>
-			{!serverResponse && currentRoster ? (
-				currentRoster.roster.length !== 0 ? (
+			{raid || currentRoster ? (
+				roster ? (
 					<div>
 						<h2>Tanks</h2>
 						<Table striped bordered hover variant={isDark ? 'dark' : ''}>
