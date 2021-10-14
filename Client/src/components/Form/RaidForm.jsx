@@ -93,9 +93,7 @@ const RaidForm = () => {
 	const handleSubmit = () => {
 		setIsLoading(true);
 
-		dispatch(
-			createRaid({ ...raidForm, creator: user.result.name }, setIsLoading),
-		);
+		dispatch(createRaid({ ...raidForm, creator: user.result.name }));
 		setRaidForm({
 			title: '',
 			message: '',
@@ -106,9 +104,7 @@ const RaidForm = () => {
 			date: '',
 			roster: [],
 		});
-		if (!isLoading) {
-			history.push('/');
-		}
+		history.push('/');
 	};
 
 	if (!user?.result?.name) {

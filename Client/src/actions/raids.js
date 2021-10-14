@@ -10,9 +10,9 @@ export const getRaids = () => async (dispatch) => {
 	}
 };
 
-export const createRaid = (raid, isLoading) => async (dispatch) => {
+export const createRaid = (raid) => async (dispatch) => {
 	try {
-		const { data } = await api.createRaid(raid, isLoading);
+		const { data } = await api.createRaid(raid);
 		dispatch({ type: 'CREATE', payload: data });
 	} catch (err) {
 		console.log(err);

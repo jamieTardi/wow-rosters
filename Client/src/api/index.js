@@ -1,3 +1,4 @@
+import { ImportContactsOutlined } from '@material-ui/icons';
 import axios from 'axios';
 import { imageURL, imageURLLive } from '../constants/general';
 
@@ -19,10 +20,7 @@ export let deleteRes = null;
 export const fetchRaids = () => API.get('/raids');
 
 export const createRaid = (newRaid, isLoading, dispatch) =>
-	API.post('/raids', newRaid)
-		.then(() => isLoading(false))
-		.then((res) => dispatch({ type: 'CREATE', payload: res.APIdata }))
-		.catch((err) => console.log(err));
+	API.post('/raids', newRaid);
 
 export const updateRaid = (id, updatedRaid, dispatch) => {
 	API.patch(`/raids/${id}`, updatedRaid).then((res) =>
