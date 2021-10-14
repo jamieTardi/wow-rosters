@@ -18,8 +18,11 @@ export let deleteRes = null;
 
 export const fetchRaids = () => API.get('/raids');
 
-export const createRaid = (newRaid, isLoading) =>
-	API.post('/raids', newRaid).then(() => isLoading(false));
+export const createRaid = (newRaid, isLoading, dispatch) =>
+	API.post('/raids', newRaid)
+		.then(() => isLoading(false))
+		.then((res) => dispatch({ type: 'CREATE', payload: res.APIdata }))
+		.catch((err) => console.log(err));
 
 export const updateRaid = (id, updatedRaid, dispatch) => {
 	API.patch(`/raids/${id}`, updatedRaid).then((res) =>
