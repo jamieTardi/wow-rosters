@@ -50,7 +50,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 					/>
 				</Grid>
 
-				<Grid item xs={6} sm={6}>
+				<Grid item xs={12} sm={6}>
 					<TimePicker editRaid={raidForm} setEditRaid={setRaidForm} />
 				</Grid>
 

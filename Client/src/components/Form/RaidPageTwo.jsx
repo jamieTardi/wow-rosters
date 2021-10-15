@@ -59,36 +59,38 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 										<Card.Text>
 											Click the button below to view or assign raid.
 										</Card.Text>
-										<Button
-											variant='contained'
-											color='default'
-											onClick={() => {
-												handleViewRoster(roster);
-											}}
-											style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
-											View Roster
-										</Button>
-
-										{activeIndex === i ? (
+										<div className='d-flex d-md-block flex-column'>
 											<Button
 												variant='contained'
-												color='primary'
-												disabled
-												className='disabled-button'
-												style={{ fontSize: '0.6rem' }}>
-												Current Selected Roster
-											</Button>
-										) : (
-											<Button
-												variant='contained'
-												color='primary'
-												style={{ fontSize: '0.6rem' }}
+												color='default'
 												onClick={() => {
-													handleAddRoster(roster, i);
-												}}>
-												Assign to Raid
+													handleViewRoster(roster);
+												}}
+												style={{ fontSize: '0.6rem', marginBottom: '15%' }}>
+												View Roster
 											</Button>
-										)}
+
+											{activeIndex === i ? (
+												<Button
+													variant='contained'
+													color='primary'
+													disabled
+													className='disabled-button'
+													style={{ fontSize: '0.6rem' }}>
+													Current Selected Roster
+												</Button>
+											) : (
+												<Button
+													variant='contained'
+													color='primary'
+													style={{ fontSize: '0.6rem' }}
+													onClick={() => {
+														handleAddRoster(roster, i);
+													}}>
+													Assign to Raid
+												</Button>
+											)}
+										</div>
 									</Card.Body>
 								</Card>
 							</div>

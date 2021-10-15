@@ -51,7 +51,10 @@ const AddMod = ({ show, setShow }) => {
 		}
 	}, [newEmailConfirm]);
 
-	console.log(serverMsg);
+	useEffect(() => {
+		setNewMod(null);
+		setIsSameEmail(null);
+	}, [show]);
 
 	useEffect(() => {
 		getAllUsers(setAllUsers);

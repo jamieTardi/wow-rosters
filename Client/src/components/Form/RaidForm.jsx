@@ -87,7 +87,7 @@ const RaidForm = () => {
 	const dispatch = useDispatch();
 	const handleClose = () => dispatch({ type: 'HIDE_RAID_MODAL' });
 
-	const steps = ['Initial Raid Set up', 'Roster Set up', 'Assignments'];
+	const steps = ['Raid Details', 'Roster', 'Assignments'];
 	const user = JSON.parse(localStorage.getItem('profile'));
 
 	const handleSubmit = () => {
