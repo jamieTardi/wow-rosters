@@ -1,39 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import FileBase from 'react-file-base64';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStyles } from './styles';
 import DatePicker from 'react-datepicker';
 import TimePicker from '../UIcomponents/TimePicker';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { imageURL } from '../../constants/general';
-import { createImage } from '../../api';
 
 const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	const [file, setFile] = useState('');
 	const [image, setImage] = useState('');
 	const [startDate, setStartDate] = useState(new Date());
 	const [imageResponse, setImageResponse] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const classes = useStyles();
+	const imageURL = 'http://localhost:5000/';
+	// const imageURL = 'https://wow-rosters.herokuapp.com';
 
 	//Send the image to the server
 	const send = async (e) => {
+		setIsLoading(true);
 		e.preventDefault();
-		const data = new FormData();
-		data.append('file', file);
-		createImage(data, setRaidForm, raidForm);
+		axios
+			.put(imageResponse, file)
+			.then((res) => setImage(res.config.url.split('?')[0]))
+			.then(() => setIsLoading(false))
+			.catch((err) => console.log(err));
 	};
 
 	useEffect(() => {
-		axios
-			.get('http://localhost:5000/s3Url')
-			.then((res) => setImageResponse(res.data.url));
+		if (image) {
+			setRaidForm({
+				...raidForm,
+				selectedFile: [image],
+			});
+		}
+	}, [image]);
+
+	useEffect(() => {
+		axios.get(`${imageURL}s3Url`).then((res) => setImageResponse(res.data.url));
 	}, []);
-	console.log(imageResponse);
 
 	return (
 		<div>
@@ -106,16 +116,15 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 					variant='contained'
 					color='success'
 					className='my-2 w-50'
+					disabled={isLoading}
 					onClick={send}
-					startIcon={<CloudUploadIcon />}>
-					Upload Photo
+					startIcon={
+						isLoading ? <CircularProgress size={20} /> : <CloudUploadIcon />
+					}>
+					{isLoading ? 'Uploading' : 'Upload Photo'}
 				</Button>
-				{raidForm.selectedFile.length !== 0 && (
-					<img
-						src={raidForm.selectedFile}
-						alt='raid image'
-						style={{ width: '100%' }}
-					/>
+				{image && (
+					<img src={image} alt='raid image' style={{ width: '100%' }} />
 				)}
 			</div>
 		</div>
