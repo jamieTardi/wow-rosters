@@ -10,6 +10,7 @@ import userRoutes from './routes/users.js';
 import assignmentRoutes from './routes/assignment.js';
 import imageRoutes from './routes/images.js';
 import { fileURLToPath } from 'url';
+import { generateUploadURL } from './middleware/images.js';
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
@@ -29,8 +30,10 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.get('/', (req, res) => {
 	res.send('Hello apis');
 });
-
-// test
+app.get('/s3Url', async (req, res) => {
+	const url = await generateUploadURL();
+	res.send({ url });
+});
 
 const CONNECTION_URL = process.env.CONNECTION_URL;
 

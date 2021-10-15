@@ -17,7 +17,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	const [file, setFile] = useState('');
 	const [image, setImage] = useState('');
 	const [startDate, setStartDate] = useState(new Date());
-	const [imageResponse, setImageResponse] = useState({});
+	const [imageResponse, setImageResponse] = useState(null);
 	const classes = useStyles();
 
 	//Send the image to the server
@@ -27,6 +27,13 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 		data.append('file', file);
 		createImage(data, setRaidForm, raidForm);
 	};
+
+	useEffect(() => {
+		axios
+			.get('http://localhost:5000/s3Url')
+			.then((res) => setImageResponse(res.data.url));
+	}, []);
+	console.log(imageResponse);
 
 	return (
 		<div>
