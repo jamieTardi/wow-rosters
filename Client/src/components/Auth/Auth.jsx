@@ -17,6 +17,7 @@ import Icon from './Icon';
 import { useDispatch, useSelector } from 'react-redux';
 import { AUTH, CLEAR_ERROR } from '../../constants/actionTypes';
 import { signin, signup } from '../../actions/auth';
+import validator from 'validator';
 
 const initialState = {
 	firstName: '',
@@ -34,6 +35,7 @@ const Auth = () => {
 	const [invalidInput, setInvalidInput] = useState({
 		firstName: false,
 		lastName: false,
+		email: false,
 	});
 	const [formData, setFormData] = useState(initialState);
 	const dispatch = useDispatch();
@@ -51,19 +53,29 @@ const Auth = () => {
 
 	// handle multiple inputs form the name
 	const handleChange = (e) => {
+		let name = e.target.name;
+		let email = e.target.value;
+
+		if (name === 'email') {
+			if (!validator.isEmail(email)) {
+				setInvalidInput({ ...invalidInput, email: true });
+			} else {
+				setInvalidInput({ ...invalidInput, email: false });
+			}
+		}
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
 	useEffect(() => {
 		if (formData.firstName !== '' || formData.lastName !== '') {
 			let regex = /[ `!@#$£%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-			setInvalidInput({ firstName: false, lastName: false });
+			setInvalidInput({ ...invalidInput, firstName: false, lastName: false });
 			if (regex.test(formData.firstName)) {
 				setInvalidInput({ ...invalidInput, firstName: true });
 			} else if (regex.test(formData.lastName)) {
 				setInvalidInput({ ...invalidInput, lastName: true });
 			} else {
-				setInvalidInput({ firstName: false, lastName: false });
+				setInvalidInput({ ...invalidInput, firstName: false, lastName: false });
 			}
 		}
 	}, [formData]);
@@ -143,10 +155,16 @@ const Auth = () => {
 						<Input
 							name='email'
 							label='Email address'
+							autoFocus={!isSignUp}
 							handleChange={handleChange}
 							type='email'
 							xs={12}
 						/>
+						{invalidInput.email && (
+							<p className='text-danger mt-2' style={{ fontSize: '0.8rem' }}>
+								This email is invalid, please enter another.
+							</p>
+						)}
 						<Input
 							name='password'
 							label='Password'
@@ -160,13 +178,19 @@ const Auth = () => {
 								name='confirmPassword'
 								label='Repeat password'
 								handleChange={handleChange}
+								type={showPassword ? 'text' : 'password'}
+								handleShowPassword={handleShowPassword}
 							/>
 						)}
 					</Grid>
 					{newError && <p className='mt-2 mb-0 text-danger'>{newError}</p>}
 					<Button
 						type='submit'
-						disabled={invalidInput.firstName || invalidInput.lastName}
+						disabled={
+							invalidInput.firstName ||
+							invalidInput.lastName ||
+							invalidInput.email
+						}
 						fullWidth
 						variant='contained'
 						color='primary'
@@ -196,7 +220,7 @@ const Auth = () => {
 							<Button onClick={switchMode} variant='contained' color='default'>
 								{isSignUp
 									? 'Already have an account? Sign In'
-									: 'Dont have an account? Sign Up'}
+									: "Don't have an account? Sign Up"}
 							</Button>
 						</Grid>
 					</Grid>
