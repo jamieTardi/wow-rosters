@@ -184,67 +184,73 @@ const Nav = () => {
 									<ListItemText primary='Add a Moderator' />
 								</ListItem>
 							)}
-							<ListItem
-								disabled={
-									selectedUser.role === 'admin' ||
-									selectedUser.role === 'moderator'
-										? false
-										: true
-								}
-								style={{ cursor: 'pointer' }}
-								className={classes.listItem}
-								disablePadding
-								component={Link}
-								to='/raid-creation'
-								onClick={() => {
-									dispatch({ type: 'CURRENT_ID', payload: null });
-									setOpenMenu(false);
-								}}>
-								<ListItemIcon>
-									<AddToPhotosIcon />
-								</ListItemIcon>
-								<ListItemText primary='Create a Raid' />
-							</ListItem>
-							<ListItem
-								disablePadding
-								component={Link}
-								to='/roster-creation'
-								className={classes.listItem}
-								style={{ cursor: 'pointer' }}
-								onClick={() => {
-									setOpenMenu(false);
-								}}
-								disabled={
-									selectedUser.role === 'admin' ||
-									selectedUser.role === 'moderator'
-										? false
-										: true
-								}>
-								<ListItemIcon>
-									<ExtensionIcon />
-								</ListItemIcon>
-								<ListItemText primary='Create a Roster' />
-							</ListItem>
-							<ListItem
-								disablePadding
-								component={Link}
-								className={classes.listItem}
-								to='/assignments'
-								onClick={() => {
-									setOpenMenu(false);
-								}}
-								style={{ cursor: 'pointer' }}
-								disabled={
-									selectedUser.role === 'admin' ||
-									selectedUser.role === 'moderator'
-										? false
-										: true
-								}>
-								<ListItemIcon>
-									<AssignmentIndIcon />
-								</ListItemIcon>
-								<ListItemText primary='Create an Assignment' />
-							</ListItem>
+
+							{(selectedUser.role === 'admin' ||
+								selectedUser.role === 'moderator') && (
+								<>
+									<ListItem
+										disabled={
+											selectedUser.role === 'admin' ||
+											selectedUser.role === 'moderator'
+												? false
+												: true
+										}
+										style={{ cursor: 'pointer' }}
+										className={classes.listItem}
+										disablePadding
+										component={Link}
+										to='/raid-creation'
+										onClick={() => {
+											dispatch({ type: 'CURRENT_ID', payload: null });
+											setOpenMenu(false);
+										}}>
+										<ListItemIcon>
+											<AddToPhotosIcon />
+										</ListItemIcon>
+										<ListItemText primary='Create a Raid' />
+									</ListItem>
+									<ListItem
+										disablePadding
+										component={Link}
+										to='/roster-creation'
+										className={classes.listItem}
+										style={{ cursor: 'pointer' }}
+										onClick={() => {
+											setOpenMenu(false);
+										}}
+										disabled={
+											selectedUser.role === 'admin' ||
+											selectedUser.role === 'moderator'
+												? false
+												: true
+										}>
+										<ListItemIcon>
+											<ExtensionIcon />
+										</ListItemIcon>
+										<ListItemText primary='Create a Roster' />
+									</ListItem>
+									<ListItem
+										disablePadding
+										component={Link}
+										className={classes.listItem}
+										to='/assignments'
+										onClick={() => {
+											setOpenMenu(false);
+										}}
+										style={{ cursor: 'pointer' }}
+										disabled={
+											selectedUser.role === 'admin' ||
+											selectedUser.role === 'moderator'
+												? false
+												: true
+										}>
+										<ListItemIcon>
+											<AssignmentIndIcon />
+										</ListItemIcon>
+										<ListItemText primary='Create an Assignment' />
+									</ListItem>
+								</>
+							)}
 						</List>
 						<Divider />
 						<List>

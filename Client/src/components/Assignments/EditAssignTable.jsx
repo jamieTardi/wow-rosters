@@ -30,6 +30,7 @@ const EditAssignTable = ({
 }) => {
 	const classes = useStyles();
 	const user = useSelector((state) => state.currentUser);
+	const darkMode = useSelector((state) => state.darkMode);
 	const raiders = newTactics.assignedRaiders;
 
 	//Set the redux as well to update the component....
@@ -57,22 +58,34 @@ const EditAssignTable = ({
 				<Table className={classes.table} aria-label='simple table'>
 					<TableHead>
 						<TableRow>
-							<TableCell className={classes.tableHeaders}>Name</TableCell>
-							<TableCell className={classes.tableHeaders} align='right'>
+							<TableCell className={darkMode ? 'text-white' : 'text-dark'}>
+								Name
+							</TableCell>
+							<TableCell
+								className={darkMode ? 'text-white' : 'text-dark'}
+								align='right'>
 								Target
 							</TableCell>
-							<TableCell className={classes.tableHeaders} align='right'>
+							<TableCell
+								className={darkMode ? 'text-white' : 'text-dark'}
+								align='right'>
 								Role
 							</TableCell>
-							<TableCell className={classes.tableHeaders} align='right'>
+							<TableCell
+								className={darkMode ? 'text-white' : 'text-dark'}
+								align='right'>
 								Notes
 							</TableCell>
 							{(user.role === 'admin' || user.role === 'moderator') && (
 								<>
-									<TableCell className={classes.tableHeaders} align='right'>
+									<TableCell
+										className={darkMode ? 'text-white' : 'text-dark'}
+										align='right'>
 										Remove
 									</TableCell>
-									<TableCell className={classes.tableHeaders} align='right'>
+									<TableCell
+										className={darkMode ? 'text-white' : 'text-dark'}
+										align='right'>
 										Edit
 									</TableCell>
 								</>
@@ -83,24 +96,32 @@ const EditAssignTable = ({
 						{updatedAssign?.assignedRaiders.map((raider) => (
 							<TableRow key={raider.id}>
 								<TableCell
-									className={classes.tableCells}
+									className={darkMode ? 'text-white' : 'text-dark'}
 									component='th'
 									scope='row'>
 									{raider.name}
 								</TableCell>
 
-								<TableCell className={classes.tableCells} align='right'>
+								<TableCell
+									className={darkMode ? 'text-white' : 'text-dark'}
+									align='right'>
 									{raider.target}
 								</TableCell>
-								<TableCell className={classes.tableCells} align='right'>
+								<TableCell
+									className={darkMode ? 'text-white' : 'text-dark'}
+									align='right'>
 									{raider.role}
 								</TableCell>
-								<TableCell className={classes.tableCells} align='right'>
+								<TableCell
+									className={darkMode ? 'text-white' : 'text-dark'}
+									align='right'>
 									{raider.notes}
 								</TableCell>
 								{(user.role === 'admin' || user.role === 'moderator') && (
 									<>
-										<TableCell className={classes.tableCells} align='right'>
+										<TableCell
+											className={darkMode ? 'text-white' : 'text-dark'}
+											align='right'>
 											<Button
 												variant='contained'
 												color='secondary'
@@ -110,7 +131,9 @@ const EditAssignTable = ({
 												Remove
 											</Button>
 										</TableCell>
-										<TableCell className={classes.tableCells} align='right'>
+										<TableCell
+											className={darkMode ? 'text-white' : 'text-dark'}
+											align='right'>
 											<Button
 												variant='contained'
 												color='default'

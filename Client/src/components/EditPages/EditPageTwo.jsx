@@ -237,35 +237,27 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 									<TableRow>
 										<TableCell
 											className={
-												darkMode
-													? classes.tableHeaders
-													: classes.tableHeadersLight
+												darkMode ? 'text-white' : classes.tableHeadersLight
 											}>
 											Name
 										</TableCell>
 										<TableCell
 											className={
-												darkMode
-													? classes.tableHeaders
-													: classes.tableHeadersLight
+												darkMode ? 'text-white' : classes.tableHeadersLight
 											}
 											align='right'>
 											Class
 										</TableCell>
 										<TableCell
 											className={
-												darkMode
-													? classes.tableHeaders
-													: classes.tableHeadersLight
+												darkMode ? 'text-white' : classes.tableHeadersLight
 											}
 											align='right'>
 											Role
 										</TableCell>
 										<TableCell
 											className={
-												darkMode
-													? classes.tableHeaders
-													: classes.tableHeadersLight
+												darkMode ? 'text-white' : classes.tableHeadersLight
 											}
 											align='right'>
 											Notes
@@ -274,18 +266,14 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 											<>
 												<TableCell
 													className={
-														darkMode
-															? classes.tableHeaders
-															: classes.tableHeadersLight
+														darkMode ? 'text-white' : classes.tableHeadersLight
 													}
 													align='right'>
 													Remove
 												</TableCell>
 												<TableCell
 													className={
-														darkMode
-															? classes.tableHeaders
-															: classes.tableHeadersLight
+														darkMode ? 'text-white' : classes.tableHeadersLight
 													}
 													align='right'>
 													Edit
@@ -299,9 +287,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 										<TableRow key={raider.id}>
 											<TableCell
 												className={
-													darkMode
-														? classes.tableCells
-														: classes.tableCellsLight
+													darkMode ? 'text-white' : classes.tableCellsLight
 												}
 												component='th'
 												scope='row'>
@@ -310,27 +296,21 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 
 											<TableCell
 												className={
-													darkMode
-														? classes.tableCells
-														: classes.tableCellsLight
+													darkMode ? 'text-white' : classes.tableCellsLight
 												}
 												align='right'>
 												{raider.class}
 											</TableCell>
 											<TableCell
 												className={
-													darkMode
-														? classes.tableCells
-														: classes.tableCellsLight
+													darkMode ? 'text-white' : classes.tableCellsLight
 												}
 												align='right'>
 												{raider.role}
 											</TableCell>
 											<TableCell
 												className={
-													darkMode
-														? classes.tableCells
-														: classes.tableCellsLight
+													darkMode ? 'text-white' : classes.tableCellsLight
 												}
 												align='right'>
 												{raider.notes}
@@ -339,9 +319,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 												<>
 													<TableCell
 														className={
-															darkMode
-																? classes.tableCells
-																: classes.tableCellsLight
+															darkMode ? 'text-white' : classes.tableCellsLight
 														}
 														align='right'>
 														<Button

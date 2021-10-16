@@ -582,6 +582,14 @@ footer a {
   background-color: #fff;
 }
 
+.light .makeStyles-table-12 {
+  background: #eef1f4;
+}
+
+.light .jss12 {
+  background: #eef1f4;
+}
+
 .light .card-body,
 .light .modal-header,
 .light .accordion-button {
