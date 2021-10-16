@@ -1,5 +1,6 @@
 import * as api from '../api/index';
 import axios from 'axios';
+import { IS_NOT_LOADING } from '../constants/actionTypes';
 
 export const getRaids = () => async (dispatch) => {
 	try {
@@ -21,7 +22,7 @@ export const createRaid = (raid) => async (dispatch) => {
 
 export const updateRaid = (id, raid) => async (dispatch) => {
 	try {
-		await api.updateRaid(id, raid, dispatch);
+		api.updateRaid(id, raid, dispatch);
 	} catch (err) {
 		console.log(err);
 	}

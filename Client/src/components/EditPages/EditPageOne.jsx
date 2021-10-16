@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
 	Typography,
 	TextField,
@@ -10,25 +11,33 @@ import {
 } from '@material-ui/core';
 import { Modal } from 'react-bootstrap';
 import { useStyles } from '../Form/styles';
-import SaveIcon from '@material-ui/icons/Save';
+import { BurstMode, Save } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateRaid } from '../../actions/raids';
 import DatePicker from 'react-datepicker';
 import TimePicker from '../UIcomponents/TimePicker';
-import { imageTrim } from '../../lib/trimImage';
-import { deleteImage, createImage } from '../../api';
-import { UPDATE_CURRENT_RAID } from '../../constants/actionTypes';
+import { imageURL } from '../../constants/general';
+import {
+	IS_LOADING,
+	UPDATE_CURRENT_RAID,
+	IS_NOT_LOADING,
+} from '../../constants/actionTypes';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const EditPageOne = ({ setEditModal }) => {
 	const dispatch = useDispatch();
 	const [raidTime, setRaidTime] = useState('20:30');
 	const selectedRaid = useSelector((state) => state.currentRaid);
+	const serverResponse = useSelector((state) => state.isLoading);
 	const [uploadedImg, setUploadedImg] = useState('');
 	const classes = useStyles();
 	const [show, setShow] = useState(true);
 	const [editRaid, setEditRaid] = useState(selectedRaid);
 	const [startDate, setStartDate] = useState(new Date());
 	const [file, setFile] = useState('');
+	const [imageResponse, setImageResponse] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [image, setImage] = useState('');
 
 	const handleOpen = () => {
 		setShow(true);
@@ -39,19 +48,40 @@ const EditPageOne = ({ setEditModal }) => {
 	};
 
 	const handleUpdateSelectedRaid = () => {
+		dispatch({ type: IS_LOADING });
 		dispatch(updateRaid(editRaid._id, editRaid));
 		dispatch({ type: UPDATE_CURRENT_RAID, payload: editRaid });
-		setShow(false);
-		setEditModal((prev) => !prev);
+		if (!serverResponse) {
+			setShow(false);
+			setEditModal((prev) => !prev);
+		}
 	};
 
-	const handleImgUpload = () => {
-		const data = new FormData();
-		data.append('file', file);
-		createImage(data, setEditRaid, editRaid);
+	const send = async (e) => {
+		setIsLoading(true);
+		e.preventDefault();
+		axios
+			.put(imageResponse, file)
+			.then((res) => setImage(res.config.url.split('?')[0]))
+			.then(() => setIsLoading(false))
+			.catch((err) => console.log(err));
 	};
+
+	useEffect(() => {
+		if (image) {
+			setEditRaid({
+				...editRaid,
+				selectedFile: [image],
+			});
+		}
+	}, [image]);
 
 	console.log(selectedRaid);
+	console.log(serverResponse);
+
+	useEffect(() => {
+		axios.get(`${imageURL}s3Url`).then((res) => setImageResponse(res.data.url));
+	}, []);
 
 	return (
 		<div>
@@ -75,10 +105,6 @@ const EditPageOne = ({ setEditModal }) => {
 								onChange={(e) => {
 									const file = e.target.files[0];
 									setFile(file);
-									let img = imageTrim(editRaid.selectedFile[0]);
-									if (editRaid.selectedFile.length !== 0) {
-										deleteImage(img);
-									}
 								}}
 							/>
 						</Grid>
@@ -87,7 +113,11 @@ const EditPageOne = ({ setEditModal }) => {
 							<Button
 								color='default'
 								variant='contained'
-								onClick={handleImgUpload}>
+								onClick={send}
+								disabled={isLoading}
+								startIcon={
+									isLoading ? <CircularProgress size={20} /> : <BurstMode />
+								}>
 								Replace Image
 							</Button>
 						</Grid>
@@ -165,11 +195,14 @@ const EditPageOne = ({ setEditModal }) => {
 							<Button
 								variant='contained'
 								color='primary'
+								disabled={serverResponse}
 								onClick={() => {
 									handleUpdateSelectedRaid();
 								}}
-								startIcon={<SaveIcon />}>
-								Ammend
+								startIcon={
+									serverResponse ? <CircularProgress size={20} /> : <Save />
+								}>
+								{serverResponse ? 'Updating...' : 'Ammend'}
 							</Button>
 						</Grid>
 						<Grid item xs={6}>

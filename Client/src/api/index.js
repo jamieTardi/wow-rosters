@@ -1,6 +1,7 @@
 import { ImportContactsOutlined } from '@material-ui/icons';
 import axios from 'axios';
 import { imageURL } from '../constants/general';
+import { IS_NOT_LOADING } from '../constants/actionTypes';
 
 const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
 // const API = axios.create({ baseURL: 'http://localhost:5000' });
@@ -23,9 +24,10 @@ export const createRaid = (newRaid, isLoading, dispatch) =>
 	API.post('/raids', newRaid);
 
 export const updateRaid = (id, updatedRaid, dispatch) => {
-	API.patch(`/raids/${id}`, updatedRaid).then((res) =>
-		dispatch({ type: 'UPDATE_RAID', payload: res.data }),
-	);
+	API.patch(`/raids/${id}`, updatedRaid)
+		.then((res) => dispatch({ type: 'UPDATE_RAID', payload: res.data }))
+		.then(() => dispatch({ type: IS_NOT_LOADING }))
+		.catch((err) => console.log(err));
 };
 
 export const deleteRaid = (id, setDeleteRaid) => {
