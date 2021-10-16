@@ -3,6 +3,7 @@ import { TextField, Grid, InputAdornment, IconButton } from '@material-ui/core';
 import { VisibilityAction } from 'framer-motion';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { useStyles } from '../Form/styles';
 
 const Input = ({
 	half,
@@ -13,6 +14,7 @@ const Input = ({
 	type,
 	handleShowPassword,
 }) => {
+	const classes = useStyles();
 	return (
 		<div>
 			<Grid item xs={12} sm={half ? 6 : 12}>
@@ -23,6 +25,7 @@ const Input = ({
 					fullWidth
 					label={label}
 					autoFocus={autoFocus}
+					className={classes.input}
 					type={type}
 					InputProps={
 						name === 'password'

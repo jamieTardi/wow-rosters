@@ -31,8 +31,10 @@ const Auth = () => {
 	const classes = useStyles();
 	const [isSignUp, setIsSignUp] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
+	const [invalidInput, setInvalidInput] = useState(false);
 	const [formData, setFormData] = useState(initialState);
 	const dispatch = useDispatch();
+	const inputNames = ['firstName', 'lastName'];
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -45,8 +47,19 @@ const Auth = () => {
 
 	// handle multiple inputs form the name
 	const handleChange = (e) => {
+		let targetName = e.target.name;
+		let regex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+		let inputs = e.target.value;
+		setInvalidInput(false);
+		inputNames.forEach((items) => {
+			if (items === targetName)
+				if (regex.test(inputs)) {
+					setInvalidInput(true);
+				}
+		});
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
+
 	const handleShowPassword = () => {
 		setShowPassword((prev) => !prev);
 	};
@@ -88,15 +101,25 @@ const Auth = () => {
 									name='firstName'
 									label='First Name'
 									handleChange={handleChange}
+									className={classes.input}
 									autoFocus
 									half
 								/>
+								{invalidInput && (
+									<p className='mt-2 mb-0 text-danger'>This input is invalid</p>
+								)}
 								<Input
 									name='lastName'
 									label='Last Name'
 									handleChange={handleChange}
+									className={classes.input}
 									half
 								/>
+								{invalidInput && (
+									<p style={{ color: 'red !important' }}>
+										This input is invalid
+									</p>
+								)}
 							</>
 						)}
 						<Input
@@ -125,6 +148,7 @@ const Auth = () => {
 
 					<Button
 						type='submit'
+						disabled={invalidInput}
 						fullWidth
 						variant='contained'
 						color='primary'

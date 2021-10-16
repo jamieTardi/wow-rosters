@@ -129,6 +129,12 @@ export const useStyles = makeStyles((theme) => ({
 			color: '#fff',
 		},
 	},
+	listItem: {
+		background: 'inherit',
+		'&:hover': {
+			background: '#999',
+		},
+	},
 	input: {
 		color: '#3dd115',
 

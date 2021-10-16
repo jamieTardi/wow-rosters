@@ -21,6 +21,7 @@ import {
 	Typography,
 	CircularProgress,
 } from '@material-ui/core';
+import { IS_LOADING } from '../../constants/actionTypes';
 
 const useStyles = makeStyles((theme) => ({
 	appBar: {
@@ -65,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RaidForm = () => {
-	const showRaid = useSelector((state) => state.raidModal);
+	const serverResponse = useSelector((state) => state.isLoading);
 	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(false);
 	const [pageNum, setPageNum] = useState(0);
@@ -81,17 +82,14 @@ const RaidForm = () => {
 		date: '',
 		roster: [],
 	});
-
-	const [raidCreateRes, setRaidCreateRes] = useState('');
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	const handleClose = () => dispatch({ type: 'HIDE_RAID_MODAL' });
-
 	const steps = ['Raid Details', 'Roster', 'Assignments'];
 	const user = JSON.parse(localStorage.getItem('profile'));
 
 	const handleSubmit = () => {
 		setIsLoading(true);
+		dispatch({ type: IS_LOADING });
 
 		dispatch(createRaid({ ...raidForm, creator: user.result.name }));
 		setRaidForm({
@@ -104,7 +102,9 @@ const RaidForm = () => {
 			date: '',
 			roster: [],
 		});
-		history.push('/');
+		if (!serverResponse) {
+			history.push('/');
+		}
 	};
 
 	if (!user?.result?.name) {
@@ -196,16 +196,16 @@ const RaidForm = () => {
 											variant='contained'
 											color='primary'
 											startIcon={
-												!isLoading ? (
+												!serverResponse ? (
 													<CloudUploadIcon />
 												) : (
-													<CircularProgress size='1rem' />
+													<CircularProgress size={20} />
 												)
 											}
 											className={classes.button}
-											disabled={isLoading}
+											disabled={serverResponse}
 											onClick={handleSubmit}>
-											Create Raid
+											{serverResponse ? 'Creating...' : 'Create Raid'}
 										</Button>
 									) : (
 										<Button

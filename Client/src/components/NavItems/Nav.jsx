@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Button } from '@material-ui/core';
-
 import { useStyles } from '../Form/styles';
 import DarkModeBTN from '../UIcomponents/DarkModeBTN';
 import { Link, useHistory, useLocation } from 'react-router-dom';
@@ -162,6 +161,7 @@ const Nav = () => {
 							<ListItem
 								disablePadding
 								style={{ cursor: 'pointer' }}
+								className={classes.listItem}
 								component={Link}
 								to='/'
 								onClick={() => {
@@ -176,6 +176,7 @@ const Nav = () => {
 								<ListItem
 									disablePadding
 									style={{ cursor: 'pointer' }}
+									className={classes.listItem}
 									onClick={handleAddMod}>
 									<ListItemIcon>
 										<SupervisorAccountIcon />
@@ -191,6 +192,7 @@ const Nav = () => {
 										: true
 								}
 								style={{ cursor: 'pointer' }}
+								className={classes.listItem}
 								disablePadding
 								component={Link}
 								to='/raid-creation'
@@ -207,6 +209,7 @@ const Nav = () => {
 								disablePadding
 								component={Link}
 								to='/roster-creation'
+								className={classes.listItem}
 								style={{ cursor: 'pointer' }}
 								onClick={() => {
 									setOpenMenu(false);
@@ -225,6 +228,7 @@ const Nav = () => {
 							<ListItem
 								disablePadding
 								component={Link}
+								className={classes.listItem}
 								to='/assignments'
 								onClick={() => {
 									setOpenMenu(false);
@@ -246,6 +250,7 @@ const Nav = () => {
 						<List>
 							<ListItem
 								disablePadding
+								className={classes.listItem}
 								component={Link}
 								to='/view-rosters'
 								onClick={() => {
@@ -259,6 +264,7 @@ const Nav = () => {
 							</ListItem>
 							<ListItem
 								disablePadding
+								className={classes.listItem}
 								component={Link}
 								to='/view-assignments'
 								onClick={() => {
@@ -275,6 +281,7 @@ const Nav = () => {
 						<List>
 							<ListItem
 								disablePadding
+								className={classes.listItem}
 								style={{ cursor: 'pointer' }}
 								onClick={() => {
 									setOpenMenu(false);
@@ -288,7 +295,7 @@ const Nav = () => {
 								href='https://github.com/jamieTardi/wow-rosters'
 								target='_blank'
 								style={{ cursor: 'pointer', textDecoration: 'none' }}>
-								<ListItem disablePadding>
+								<ListItem disablePadding className={classes.listItem}>
 									<ListItemIcon>
 										<GitHubIcon />
 									</ListItemIcon>
@@ -299,7 +306,7 @@ const Nav = () => {
 								href='https://github.com/jamieTardi/wow-rosters/issues'
 								target='_blank'
 								style={{ cursor: 'pointer', textDecoration: 'none' }}>
-								<ListItem disablePadding>
+								<ListItem disablePadding className={classes.listItem}>
 									<ListItemIcon>
 										<BugReportIcon />
 									</ListItemIcon>

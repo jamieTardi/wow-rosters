@@ -1,5 +1,4 @@
 import * as api from '../api/index';
-import axios from 'axios';
 import { IS_NOT_LOADING } from '../constants/actionTypes';
 
 export const getRaids = () => async (dispatch) => {
@@ -15,6 +14,7 @@ export const createRaid = (raid) => async (dispatch) => {
 	try {
 		const { data } = await api.createRaid(raid);
 		dispatch({ type: 'CREATE', payload: data });
+		data !== undefined && dispatch({ type: IS_NOT_LOADING });
 	} catch (err) {
 		console.log(err);
 	}
