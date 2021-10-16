@@ -7,7 +7,7 @@ export const signin = (formData, history) => async (dispatch) => {
 		dispatch({ type: AUTH, data });
 		history.push('/');
 	} catch (err) {
-		console.log(err);
+		dispatch({ type: NEW_ERROR, payload: err.response.data.message });
 	}
 };
 
