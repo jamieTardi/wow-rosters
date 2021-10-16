@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import {
 	Avatar,
@@ -31,7 +31,10 @@ const Auth = () => {
 	const classes = useStyles();
 	const [isSignUp, setIsSignUp] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
-	const [invalidInput, setInvalidInput] = useState(false);
+	const [invalidInput, setInvalidInput] = useState({
+		firstName: false,
+		lastName: false,
+	});
 	const [formData, setFormData] = useState(initialState);
 	const dispatch = useDispatch();
 	const inputNames = ['firstName', 'lastName'];
@@ -47,18 +50,22 @@ const Auth = () => {
 
 	// handle multiple inputs form the name
 	const handleChange = (e) => {
-		let targetName = e.target.name;
-		let regex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-		let inputs = e.target.value;
-		setInvalidInput(false);
-		inputNames.forEach((items) => {
-			if (items === targetName)
-				if (regex.test(inputs)) {
-					setInvalidInput(true);
-				}
-		});
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
+
+	useEffect(() => {
+		if (formData.firstName !== '' || formData.lastName !== '') {
+			let regex = /[ `!@#$£%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+			setInvalidInput({ firstName: false, lastName: false });
+			if (regex.test(formData.firstName)) {
+				setInvalidInput({ ...invalidInput, firstName: true });
+			} else if (regex.test(formData.lastName)) {
+				setInvalidInput({ ...invalidInput, lastName: true });
+			} else {
+				setInvalidInput({ firstName: false, lastName: false });
+			}
+		}
+	}, [formData]);
 
 	const handleShowPassword = () => {
 		setShowPassword((prev) => !prev);
@@ -105,8 +112,12 @@ const Auth = () => {
 									autoFocus
 									half
 								/>
-								{invalidInput && (
-									<p className='mt-2 mb-0 text-danger'>This input is invalid</p>
+								{invalidInput.firstName && (
+									<p
+										style={{ fontSize: '0.8rem' }}
+										className='mt-2 mb-0 text-danger'>
+										This first name is invalid
+									</p>
 								)}
 								<Input
 									name='lastName'
@@ -115,9 +126,11 @@ const Auth = () => {
 									className={classes.input}
 									half
 								/>
-								{invalidInput && (
-									<p style={{ color: 'red !important' }}>
-										This input is invalid
+								{invalidInput.lastName && (
+									<p
+										className='mt-2 mb-0 text-danger'
+										style={{ fontSize: '0.8rem' }}>
+										This last name is invalid
 									</p>
 								)}
 							</>
@@ -148,7 +161,7 @@ const Auth = () => {
 
 					<Button
 						type='submit'
-						disabled={invalidInput}
+						disabled={invalidInput.firstName || invalidInput.lastName}
 						fullWidth
 						variant='contained'
 						color='primary'
