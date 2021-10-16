@@ -91,7 +91,7 @@ const EditAssignments = ({ show, setShow }) => {
 		if (newTactics.image !== '') {
 			deleteImage(img);
 		}
-		createImageAssign(data, setNewTactics, newTactics);
+		// createImageAssign(data, setNewTactics, newTactics);
 	};
 
 	return (

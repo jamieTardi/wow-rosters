@@ -1,6 +1,6 @@
 import { ImportContactsOutlined } from '@material-ui/icons';
 import axios from 'axios';
-import { imageURL, imageURLLive } from '../constants/general';
+import { imageURL } from '../constants/general';
 
 const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
 // const API = axios.create({ baseURL: 'http://localhost:5000' });
@@ -53,9 +53,8 @@ export const updateRoster = (newRoster, id, setIsLoading) => {
 
 export const fetchAssignments = () => API.get('/create-assignment');
 
-export const createAssignment = (newAssignment) => {
+export const createAssignment = (newAssignment) =>
 	API.post('/create-assignment', newAssignment);
-};
 
 export const updateAssignments = (assignment, id, isLoading) => {
 	API.patch(`/create-assignment/${id}`, assignment)
@@ -125,18 +124,7 @@ export const createImage = (data, setRaidForm, raidForm) => {
 		.then((res) =>
 			setRaidForm({
 				...raidForm,
-				selectedFile: `${imageURLLive}/images/${res.data}`,
-			}),
-		)
-		.catch((err) => console.log(err));
-};
-
-export const createImageAssign = (data, setNewTactics, newTactics) => {
-	API.post(`/uploads`, data)
-		.then((res) =>
-			setNewTactics({
-				...newTactics,
-				image: `${imageURLLive}/images/${res.data}`,
+				selectedFile: `${imageURL}/images/${res.data}`,
 			}),
 		)
 		.catch((err) => console.log(err));

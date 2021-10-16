@@ -50,7 +50,6 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 		setAddCharacter({
 			...addCharacter,
 			name: '',
-			class: '',
 			notes: '',
 			id: uuidv4(),
 		});

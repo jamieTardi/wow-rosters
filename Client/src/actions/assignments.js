@@ -4,6 +4,7 @@ import {
 	FETCH_ASSIGNMENTS,
 	ADD_ASSIGNMENT,
 	UPDATE_ASSIGNMENTS,
+	IS_NOT_LOADING,
 } from '../constants/actionTypes';
 
 export const getAssignments = () => async (dispatch) => {
@@ -19,6 +20,7 @@ export const createAssignment = (assignment) => async (dispatch) => {
 	try {
 		const { data } = await api.createAssignment(assignment);
 		dispatch({ type: ADD_ASSIGNMENT, payload: data });
+		data !== undefined && dispatch({ type: IS_NOT_LOADING });
 	} catch (err) {
 		console.log(err);
 	}

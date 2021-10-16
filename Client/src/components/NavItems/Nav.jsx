@@ -98,7 +98,7 @@ const Nav = () => {
 							</Link>
 						</div>
 						<div className='d-flex align-items-center'>
-							<div className='me-5'>
+							<div className='me-5 mt-2'>
 								<DarkModeBTN />
 							</div>
 							{user ? (
@@ -136,7 +136,7 @@ const Nav = () => {
 			</Box>
 
 			<div>
-				<Drawer openSecondary={true} open={openMenu}>
+				<Drawer open={openMenu}>
 					<AppBar title='Tasks' />
 					<Paper className={classes.drawer}>
 						<List>

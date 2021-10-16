@@ -10,6 +10,7 @@ import TimePicker from '../UIcomponents/TimePicker';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { imageURL } from '../../constants/general';
 
 const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	const [file, setFile] = useState('');
@@ -18,8 +19,6 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	const [imageResponse, setImageResponse] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const classes = useStyles();
-	const imageURL = 'http://localhost:5000/';
-	// const imageURL = 'https://wow-rosters.herokuapp.com';
 
 	//Send the image to the server
 	const send = async (e) => {

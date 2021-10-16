@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import Assignments from '../Assignments/Assignments';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,16 +15,23 @@ import {
 } from '@material-ui/core';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import { createAssignment } from '../../actions/assignments';
-import { createImageAssign } from '../../api';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { imageURL } from '../../constants/general';
+import { IS_LOADING } from '../../constants/actionTypes';
 
 const TacticsForm = ({ raidForm, setRaidForm }) => {
 	const classes = useStyles();
+	const [imageResponse, setImageResponse] = useState(null);
+	const [image, setImage] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const [completedTxt, setCompletedTxt] = useState(false);
 	const dispatch = useDispatch();
 	const [file, setFile] = useState('');
 	const mobileSize = useSelector((state) => state.isMobile);
+	const serverLoading = useSelector((state) => state.isLoading);
 
 	const [newTactics, setNewTactics] = useState({
 		title: '',
@@ -43,10 +49,22 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 
 	const send = async (e) => {
 		e.preventDefault();
-		const data = new FormData();
-		data.append('file', file);
-		createImageAssign(data, setNewTactics, newTactics);
+		setIsLoading(true);
+		axios
+			.put(imageResponse, file)
+			.then((res) => setImage(res.config.url.split('?')[0]))
+			.then(() => setIsLoading(false))
+			.catch((err) => console.log(err));
 	};
+
+	useEffect(() => {
+		if (image) {
+			setNewTactics({
+				...newTactics,
+				image,
+			});
+		}
+	}, [image]);
 
 	const targetMarkers = [
 		'Skull 💀',
@@ -68,13 +86,13 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 		setAddCharacter({
 			...addCharacter,
 			name: '',
-			target: '',
 			notes: '',
 			id: uuidv4(),
 		});
 	};
 
 	const handleSubmit = () => {
+		dispatch({ type: IS_LOADING });
 		dispatch({ type: 'ADD_ASSIGNMENT', payload: newTactics });
 		dispatch(createAssignment(newTactics));
 		setNewTactics({
@@ -83,11 +101,18 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 			assignedRaiders: [],
 			id: uuidv4(),
 		});
+		setImage(null);
 		setCompletedTxt(true);
 		setTimeout(() => {
 			setCompletedTxt(false);
 		}, 2000);
 	};
+
+	useEffect(() => {
+		axios.get(`${imageURL}s3Url`).then((res) => setImageResponse(res.data.url));
+	}, []);
+
+	//upload photo disable
 
 	return (
 		<div className='w-100 d-flex justify-content-center align-items-center'>
@@ -103,11 +128,9 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 								Pick an image for this assignment (optional)
 							</Typography>
 							<div>
-								<img
-									style={{ width: '100%' }}
-									src={newTactics.image}
-									alt='raid pic'
-								/>
+								{image && (
+									<img style={{ width: '100%' }} src={image} alt='raid pic' />
+								)}
 							</div>
 						</Grid>
 
@@ -127,8 +150,15 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 										variant='contained'
 										color='success'
 										className='my-2 w-50'
+										disabled={isLoading || !image}
 										onClick={send}
-										startIcon={<CloudUploadIcon />}>
+										startIcon={
+											isLoading ? (
+												<CircularProgress size={20} />
+											) : (
+												<CloudUploadIcon />
+											)
+										}>
 										Upload Photo
 									</Button>
 									{newTactics.selectedFile !== '' ? (
@@ -206,6 +236,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 							</InputLabel>
 							<Select
 								style={{ width: '100%' }}
+								value={addCharacter.target}
 								onChange={(e) => {
 									setAddCharacter({
 										...addCharacter,
@@ -241,12 +272,13 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 							color='default'
 							startIcon={<AddToPhotosIcon />}
 							variant='contained'
+							disabled={addCharacter.name === ''}
 							type='button'
 							onClick={handleAddCharacter}>
 							Add Character to Assignment
 						</Button>
 					</div>
-					<Assignments tactics={newTactics} />
+					<Assignments tactics={newTactics} setNewTactics={setNewTactics} />
 
 					<div className='d-flex justify-content-around'>
 						<Button
@@ -255,12 +287,16 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 							type='button'
 							component={Link}
 							to={'/'}>
-							Back to Homepage
+							Back
 						</Button>
 						<Button
 							color='primary'
 							variant='contained'
 							type='button'
+							disabled={
+								serverLoading || newTactics.assignedRaiders.length === 0
+							}
+							startIcon={serverLoading && <CircularProgress size={20} />}
 							onClick={handleSubmit}>
 							Add this Assignment
 						</Button>

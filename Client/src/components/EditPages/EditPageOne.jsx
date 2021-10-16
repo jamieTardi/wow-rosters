@@ -91,7 +91,7 @@ const EditPageOne = ({ setEditModal }) => {
 								Replace Image
 							</Button>
 						</Grid>
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12}>
 							<TextField
 								id='standard-basic'
 								className={classes.input}
@@ -106,10 +106,14 @@ const EditPageOne = ({ setEditModal }) => {
 								}}
 							/>
 						</Grid>
-
-						<TimePicker editRaid={editRaid} setEditRaid={setEditRaid} />
-
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12}>
+							<TimePicker
+								editRaid={editRaid}
+								setEditRaid={setEditRaid}
+								className={classes.input}
+							/>
+						</Grid>
+						<Grid item xs={12}>
 							<TextField
 								id='standard-basic'
 								label='Author'
@@ -125,7 +129,7 @@ const EditPageOne = ({ setEditModal }) => {
 							/>
 						</Grid>
 
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12}>
 							<InputLabel
 								id='demo-simple-select-label'
 								className={classes.select}>
@@ -165,7 +169,7 @@ const EditPageOne = ({ setEditModal }) => {
 									handleUpdateSelectedRaid();
 								}}
 								startIcon={<SaveIcon />}>
-								Ammend Raid
+								Ammend
 							</Button>
 						</Grid>
 						<Grid item xs={6}>

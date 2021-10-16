@@ -1,6 +1,6 @@
 import 'date-fns';
 import React, { useState } from 'react';
-import Grid from '@material-ui/core/Grid';
+import { useStyles } from '../Form/styles';
 import DateFnsUtils from '@date-io/date-fns';
 import {
 	MuiPickersUtilsProvider,
@@ -9,9 +9,9 @@ import {
 } from '@material-ui/pickers';
 
 export default function MaterialUIPickers({ editRaid, setEditRaid }) {
-	// The first commit of Material-UI
+	const classes = useStyles();
 	const [selectedDate, setSelectedDate] = useState(
-		new Date('2014-08-18T21:11:54'),
+		new Date('2021-08-18T20:30:00'),
 	);
 
 	const handleDateChange = (date) => {
@@ -29,6 +29,7 @@ export default function MaterialUIPickers({ editRaid, setEditRaid }) {
 				id='time-picker'
 				label='Set a time for the raid'
 				value={selectedDate}
+				className={classes.input}
 				onChange={handleDateChange}
 				KeyboardButtonProps={{
 					'aria-label': 'change time',
