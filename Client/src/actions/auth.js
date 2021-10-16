@@ -1,5 +1,5 @@
 import * as api from '../api/index';
-import { AUTH } from '../constants/actionTypes';
+import { AUTH, NEW_ERROR } from '../constants/actionTypes';
 
 export const signin = (formData, history) => async (dispatch) => {
 	try {
@@ -19,7 +19,7 @@ export const signup = (formData, history) => async (dispatch) => {
 
 		history.push('/');
 	} catch (err) {
-		console.log(err);
+		dispatch({ type: NEW_ERROR, payload: err.response.data.message });
 	}
 };
 

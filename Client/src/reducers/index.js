@@ -16,6 +16,7 @@ import { currentRoster } from './currentRoster';
 import { currentAssignment } from './currentAssignment';
 import { isLoading } from './isLoading';
 import { isMobile } from './isMobile';
+import { errorMessage } from './errorMessage';
 
 const rootReducer = combineReducers({
 	raids,
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
 	darkMode,
 	auth,
 	googleId,
+	errorMessage,
 });
 
 export default rootReducer;

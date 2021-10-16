@@ -14,8 +14,8 @@ import { useHistory } from 'react-router-dom';
 import useStyles from './styles';
 import Input from './Input';
 import Icon from './Icon';
-import { useDispatch } from 'react-redux';
-import { AUTH } from '../../constants/actionTypes';
+import { useDispatch, useSelector } from 'react-redux';
+import { AUTH, CLEAR_ERROR } from '../../constants/actionTypes';
 import { signin, signup } from '../../actions/auth';
 
 const initialState = {
@@ -37,12 +37,13 @@ const Auth = () => {
 	});
 	const [formData, setFormData] = useState(initialState);
 	const dispatch = useDispatch();
-	const inputNames = ['firstName', 'lastName'];
+	const newError = useSelector((state) => state.errorMessage);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (isSignUp) {
 			dispatch(signup(formData, history));
+			dispatch({ type: CLEAR_ERROR });
 		} else {
 			dispatch(signin(formData, history));
 		}
@@ -85,6 +86,10 @@ const Auth = () => {
 			console.log(err);
 		}
 	};
+
+	useEffect(() => {
+		dispatch({ type: CLEAR_ERROR });
+	}, []);
 
 	const googleFailure = () => {
 		console.log('Google sign in failure');
@@ -158,7 +163,7 @@ const Auth = () => {
 							/>
 						)}
 					</Grid>
-
+					{newError && <p className='mt-2 mb-0 text-danger'>{newError}</p>}
 					<Button
 						type='submit'
 						disabled={invalidInput.firstName || invalidInput.lastName}
