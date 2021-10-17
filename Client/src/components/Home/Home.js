@@ -6,6 +6,7 @@ import { GOOGLE_LOGIN } from '../../constants/actionTypes';
 import { fetchUsers, createGoogleUser } from '../../api';
 import { CURRENT_USER } from '../../constants/actionTypes';
 import { getRoster } from '../../actions/roster';
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = () => {
 	const [userRes, setUserRes] = useState(null);
@@ -46,39 +47,46 @@ const Home = () => {
 	}, []);
 
 	useEffect(() => {
-		if (isInitialMount.current) {
-			isInitialMount.current = false;
-		} else {
-			if (googleUser) {
-				let updatedUser = {
-					name: googleUser.name,
-					email: googleUser.email,
-					id: googleUser.googleId,
-					password: googleUser.googleId,
-					role: 'member',
-				};
-				dispatch({
-					type: CURRENT_USER,
-					payload: updatedUser,
-				});
-				createGoogleUser(updatedUser);
-				// userRes?.forEach((user) => {
-				// 	if (googleUser.email === user.email) {
-				// 		return console.log('exists');
-				// 	}
+		if (googleUser) {
+			if (userRes) {
+				let isUser =
+					userRes?.filter((user) => user.email === googleUser.email).length > 0;
 
-				// 	createGoogleUser(updatedUser);
-				// 	localStorage.setItem('current_user', JSON.stringify(updatedUser));
-				// 	// userRes.forEach((user) => {
-				// 	// 	if (
-				// 	// 		localStorage.getItem('profile') &&
-				// 	// 		googleUser.email === user.email
-				// 	// 	) {
+				if (isUser) {
+					let filitered = userRes?.filter(
+						(user) => user.email === googleUser.email,
+					);
 
-				// 	// 	}
-				// 	// });
-
-				// });
+					let currentGoogleUser = {
+						name: filitered[0].name,
+						email: filitered[0].email,
+						id: filitered[0].id,
+						password: '',
+						role: filitered[0].role,
+					};
+					localStorage.setItem(
+						'current_user',
+						JSON.stringify(currentGoogleUser),
+					);
+					dispatch({
+						type: CURRENT_USER,
+						payload: currentGoogleUser,
+					});
+				} else {
+					let currentGoogleUser = {
+						name: googleUser.name,
+						email: googleUser.email,
+						id: uuidv4(),
+						password: '',
+						role: 'member',
+					};
+					localStorage.setItem('profile', JSON.stringify(currentGoogleUser));
+					dispatch({
+						type: CURRENT_USER,
+						payload: currentGoogleUser,
+					});
+					createGoogleUser(currentGoogleUser);
+				}
 			}
 		}
 	}, [userRes]);

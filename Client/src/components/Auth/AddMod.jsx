@@ -29,6 +29,15 @@ const AddMod = ({ show, setShow }) => {
 
 	const handleCreateMod = () => {
 		if (newMod) {
+			let user = JSON.parse(localStorage.getItem('profile')).result;
+			let currentGoogleUser = {
+				name: user.name,
+				email: user.email,
+				id: user.id,
+				password: '',
+				role: 'moderator',
+			};
+			localStorage.setItem('profile', JSON.stringify(currentGoogleUser));
 			dispatch(updateuser(newMod._id, newMod, setServerMsg));
 		} else {
 			alert('There is currently no moderator, please try again.');
