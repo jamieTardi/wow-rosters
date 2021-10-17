@@ -106,6 +106,6 @@ export const updateUser = async (req, res) => {
 			res.status(404).json({ message: 'There was no user found.' });
 		}
 	} catch (err) {
-		console.log(err);
+		res.status(404).json({ message: 'Something went wrong' });
 	}
 };

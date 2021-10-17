@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
 		enum: ['member', 'moderator', 'guildMaster', 'admin'],
 	},
 	guild: { type: String, default: 'guildless' },
+	character: { type: String, default: 'none' },
 });
 
 export default mongoose.model('User', userSchema);

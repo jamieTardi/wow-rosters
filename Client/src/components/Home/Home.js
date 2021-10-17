@@ -69,6 +69,7 @@ const Home = () => {
 						password: '',
 						role: filitered[0].role,
 						guild: filitered[0].guild,
+						character: filitered[0].character,
 					};
 					localStorage.setItem(
 						'current_user',
@@ -86,6 +87,7 @@ const Home = () => {
 						password: '',
 						role: 'member',
 						guild: 'guildless',
+						character: 'none',
 					};
 					localStorage.setItem('profile', JSON.stringify(currentGoogleUser));
 					dispatch({

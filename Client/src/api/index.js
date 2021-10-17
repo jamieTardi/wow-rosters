@@ -1,7 +1,7 @@
 import { ImportContactsOutlined } from '@material-ui/icons';
 import axios from 'axios';
 import { imageURL } from '../constants/general';
-import { IS_NOT_LOADING } from '../constants/actionTypes';
+import { IS_NOT_LOADING, AUTH } from '../constants/actionTypes';
 
 // const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
 const API = axios.create({ baseURL: 'http://localhost:5000' });
@@ -96,11 +96,13 @@ export const createGoogleUser = (googleUser) => {
 		.catch((err) => console.log(err));
 };
 
-export const updateUser = (id, userData, setServerMsg) => {
+export const updateUser = (id, userData, setServerMsg, dispatch) => {
 	API.patch(`/user/users/${id}`, userData)
+		.then((res) => dispatch({ type: AUTH, payload: res.data }))
 		.then((res) => {
 			setServerMsg(res);
 		})
+
 		.catch((err) => setServerMsg(err.response));
 };
 
@@ -134,7 +136,8 @@ export const createImage = (data, setRaidForm, raidForm) => {
 
 //Guilds
 
-export const createGuild = (guild, setUser) =>
+export const createGuild = (guild, setUser, setError) =>
 	API.post('/guilds', guild)
-		.then((res) => console.log(res))
-		.then(() => setUser(guild.members[0]));
+		.then((res) => console.log('err'))
+		.then(() => setUser(guild.members[0]))
+		.catch((err) => setError(err.response.data.message));

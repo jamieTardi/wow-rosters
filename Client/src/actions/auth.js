@@ -23,10 +23,9 @@ export const signup = (formData, history) => async (dispatch) => {
 	}
 };
 
-export const updateuser = (id, userData, setServerMsg) => async (dispatch) => {
+export const updateuser = (id, userData, setServerMsg) => (dispatch) => {
 	try {
-		const { data } = await api.updateUser(id, userData, setServerMsg);
-		dispatch({ type: AUTH, data });
+		api.updateUser(id, userData, setServerMsg, dispatch);
 	} catch (err) {
 		console.log(err);
 	}

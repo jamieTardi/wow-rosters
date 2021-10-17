@@ -7,16 +7,22 @@ import {
 	InputLabel,
 	Select,
 	MenuItem,
+	CircularProgress,
 } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { createGuild } from '../../api';
+import { Cloud } from '@material-ui/icons';
+import { updateuser } from '../../actions/auth';
 
 const AddGuild = ({ guildShow, setGuildShow }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const [allowSubmit, setAllowSubmit] = useState(false);
 	const [user, setUser] = useState(null);
+	const [error, setError] = useState(null);
+	const currentUser = useSelector((state) => state.currentUser);
+	const [serverMsg, setServerMsg] = useState(null);
 
 	const [newGuild, setNewGuild] = useState({
 		name: '',
@@ -32,11 +38,27 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 
 	const handleCreateGuild = (e) => {
 		e.preventDefault();
-		createGuild(newGuild, setUser);
+		createGuild(newGuild, setUser, setError);
 	};
+
 	const handleClose = () => {
 		setGuildShow(false);
 	};
+
+	useEffect(() => {
+		if (user) {
+			dispatch(
+				updateuser(
+					currentUser._id,
+					{ ...currentUser, character: user },
+					setServerMsg,
+				),
+			);
+		}
+		setUser(null);
+	}, [user]);
+
+	console.log(user);
 
 	useEffect(() => {
 		if (
@@ -47,11 +69,11 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 			newGuild.members !== []
 		) {
 			setAllowSubmit(true);
+			setError(null);
 		} else {
 			setAllowSubmit(false);
 		}
 	}, [newGuild]);
-
 	return (
 		<div>
 			<Modal show={guildShow} onHide={handleClose}>
@@ -173,9 +195,15 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 							variant='contained'
 							type='submit'
 							className='mt-3'
-							disabled={!allowSubmit}>
-							Create Guild
+							startIcon={user ? <CircularProgress size={20} /> : <Cloud />}
+							disabled={!allowSubmit || user}>
+							{user ? 'Uploading...' : 'Create Guild'}
 						</Button>
+						{error && (
+							<p className='text-danger' style={{ fontSize: '0.8rem' }}>
+								The server returned an Error message: {error}
+							</p>
+						)}
 					</form>
 				</Modal.Body>
 				<Modal.Footer>

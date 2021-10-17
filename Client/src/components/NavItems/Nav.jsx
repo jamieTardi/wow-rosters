@@ -192,6 +192,20 @@ const Nav = () => {
 									<ListItemText primary='Add a Moderator' />
 								</ListItem>
 							)}
+							{(selectedUser.role === 'admin' ||
+								selectedUser.role === 'guildMaster' ||
+								selectedUser.role === 'moderator') && (
+								<ListItem
+									disablePadding
+									style={{ cursor: 'pointer' }}
+									className={classes.listItem}
+									onClick={handleAddMod}>
+									<ListItemIcon>
+										<SupervisorAccountIcon />
+									</ListItemIcon>
+									<ListItemText primary='Add a Guild Member' />
+								</ListItem>
+							)}
 
 							{(selectedUser.guild === 'guildless' ||
 								selectedUser.role === 'admin') && (
