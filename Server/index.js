@@ -9,6 +9,7 @@ import rosterRoutes from './routes/roster.js';
 import userRoutes from './routes/users.js';
 import assignmentRoutes from './routes/assignment.js';
 import imageRoutes from './routes/images.js';
+import guildsRoutes from './routes/guilds.js';
 import { fileURLToPath } from 'url';
 import { generateUploadURL } from './middleware/images.js';
 const __filename = fileURLToPath(import.meta.url);
@@ -25,6 +26,7 @@ app.use('/roster', rosterRoutes);
 app.use('/user', userRoutes);
 app.use('/create-assignment', assignmentRoutes);
 app.use('/uploads', imageRoutes);
+app.use('/guilds', guildsRoutes);
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/', (req, res) => {

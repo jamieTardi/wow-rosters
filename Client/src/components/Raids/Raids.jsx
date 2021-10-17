@@ -14,6 +14,7 @@ const Raids = () => {
 	const [selectedRaid, setSelectedRaid] = useState(null);
 	const [expandCard, setExpandCard] = useState(false);
 	const createdRaids = useSelector((state) => state.raids);
+	const currentUser = useSelector((state) => state.currentUser);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -41,23 +42,31 @@ const Raids = () => {
 						.map((raid, i) => (
 							<>
 								{i === 0 ? (
-									<div className='col-12 my-5'>
-										<div className='d-flex justify-content-center align-items-center w-100'>
-											<NewestRaid
-												raid={raid}
-												setSelectedRaid={setSelectedRaid}
-												setExpandCard={setExpandCard}
-											/>
-										</div>
-									</div>
+									<>
+										{currentUser.guild === raid.guild && (
+											<div className='col-12 my-5'>
+												<div className='d-flex justify-content-center align-items-center w-100'>
+													<NewestRaid
+														raid={raid}
+														setSelectedRaid={setSelectedRaid}
+														setExpandCard={setExpandCard}
+													/>
+												</div>
+											</div>
+										)}
+									</>
 								) : (
-									<div className='col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex justify-content-center align-items-center mb-5'>
-										<NewestRaid
-											raid={raid}
-											setSelectedRaid={setSelectedRaid}
-											setExpandCard={setExpandCard}
-										/>
-									</div>
+									<>
+										{currentUser.guild === raid.guild && (
+											<div className='col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex justify-content-center align-items-center mb-5'>
+												<NewestRaid
+													raid={raid}
+													setSelectedRaid={setSelectedRaid}
+													setExpandCard={setExpandCard}
+												/>
+											</div>
+										)}
+									</>
 								)}
 							</>
 						))

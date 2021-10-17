@@ -8,8 +8,9 @@ const userSchema = mongoose.Schema({
 	role: {
 		type: String,
 		default: 'member',
-		enum: ['member', 'moderator', 'admin'],
+		enum: ['member', 'moderator', 'guildMaster', 'admin'],
 	},
+	guild: { type: String, default: 'guildless' },
 });
 
 export default mongoose.model('User', userSchema);

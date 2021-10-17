@@ -4,6 +4,7 @@ const rosterSchema = mongoose.Schema({
 	roster: [Object],
 	title: String,
 	image: String,
+	guild: String,
 });
 
 const RosterConfig = mongoose.model('PostRoster', rosterSchema);

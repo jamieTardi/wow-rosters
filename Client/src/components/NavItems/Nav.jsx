@@ -34,6 +34,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import AddMod from '../Auth/AddMod';
+import AddGuild from '../Guilds/AddGuild';
 
 const Nav = () => {
 	const classes = useStyles();
@@ -44,6 +45,7 @@ const Nav = () => {
 	const selectedUser = useSelector((state) => state.currentUser);
 	const [openMenu, setOpenMenu] = useState(false);
 	const [show, setShow] = useState(false);
+	const [guildShow, setGuildShow] = useState(false);
 
 	const toggleDrawer = () => {
 		setOpenMenu((prev) => !prev);
@@ -59,6 +61,11 @@ const Nav = () => {
 	const handleAddMod = () => {
 		setOpenMenu(false);
 		setShow(true);
+	};
+
+	const handleAddGuild = () => {
+		setOpenMenu(false);
+		setGuildShow(true);
 	};
 
 	useEffect(() => {
@@ -172,7 +179,8 @@ const Nav = () => {
 								</ListItemIcon>
 								<ListItemText primary='Home' />
 							</ListItem>
-							{selectedUser.role === 'admin' && (
+							{(selectedUser.role === 'admin' ||
+								selectedUser.role === 'guildMaster') && (
 								<ListItem
 									disablePadding
 									style={{ cursor: 'pointer' }}
@@ -182,6 +190,20 @@ const Nav = () => {
 										<SupervisorAccountIcon />
 									</ListItemIcon>
 									<ListItemText primary='Add a Moderator' />
+								</ListItem>
+							)}
+
+							{(selectedUser.guild === 'guildless' ||
+								selectedUser.role === 'admin') && (
+								<ListItem
+									disablePadding
+									style={{ cursor: 'pointer' }}
+									className={classes.listItem}
+									onClick={handleAddGuild}>
+									<ListItemIcon>
+										<SupervisorAccountIcon />
+									</ListItemIcon>
+									<ListItemText primary='Create a guild' />
 								</ListItem>
 							)}
 
@@ -325,6 +347,7 @@ const Nav = () => {
 			</div>
 			{/* Moderator modal */}
 			<AddMod show={show} setShow={setShow} />
+			<AddGuild guildShow={guildShow} setGuildShow={setGuildShow} />
 		</>
 	);
 };

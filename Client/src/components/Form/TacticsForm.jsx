@@ -20,12 +20,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { imageURL } from '../../constants/general';
-import { IS_LOADING } from '../../constants/actionTypes';
+import { IS_LOADING, IS_NOT_LOADING } from '../../constants/actionTypes';
 
 const TacticsForm = ({ raidForm, setRaidForm }) => {
 	const classes = useStyles();
 	const [imageResponse, setImageResponse] = useState(null);
 	const [image, setImage] = useState(null);
+	const currentUser = useSelector((state) => state.currentUser);
 	const [isLoading, setIsLoading] = useState(false);
 	const [completedTxt, setCompletedTxt] = useState(false);
 	const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 	const [newTactics, setNewTactics] = useState({
 		title: '',
 		selectedFile: '',
+		guild: currentUser.guild,
 		assignedRaiders: [],
 		id: uuidv4(),
 	});
@@ -98,6 +100,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 		setNewTactics({
 			title: '',
 			selectedFile: '',
+			guild: currentUser.guild,
 			assignedRaiders: [],
 			id: uuidv4(),
 		});
@@ -109,8 +112,11 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 	};
 
 	useEffect(() => {
+		dispatch({ type: IS_NOT_LOADING });
 		axios.get(`${imageURL}s3Url`).then((res) => setImageResponse(res.data.url));
 	}, []);
+
+	console.log(image);
 
 	//upload photo disable
 
@@ -150,7 +156,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 										variant='contained'
 										color='success'
 										className='my-2 w-50'
-										disabled={isLoading || !image}
+										disabled={isLoading || !file}
 										onClick={send}
 										startIcon={
 											isLoading ? (

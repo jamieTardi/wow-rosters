@@ -41,7 +41,12 @@ const Home = () => {
 		} else {
 			dispatch({
 				type: CURRENT_USER,
-				payload: { name: 'Guest', email: 'Guest', role: 'Guest' },
+				payload: {
+					name: 'Guest',
+					email: 'Guest',
+					role: 'Guest',
+					guild: 'Example',
+				},
 			});
 		}
 	}, []);
@@ -63,6 +68,7 @@ const Home = () => {
 						id: filitered[0].id,
 						password: '',
 						role: filitered[0].role,
+						guild: filitered[0].guild,
 					};
 					localStorage.setItem(
 						'current_user',
@@ -79,6 +85,7 @@ const Home = () => {
 						id: uuidv4(),
 						password: '',
 						role: 'member',
+						guild: 'guildless',
 					};
 					localStorage.setItem('profile', JSON.stringify(currentGoogleUser));
 					dispatch({

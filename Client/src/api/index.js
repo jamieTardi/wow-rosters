@@ -3,8 +3,8 @@ import axios from 'axios';
 import { imageURL } from '../constants/general';
 import { IS_NOT_LOADING } from '../constants/actionTypes';
 
-const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
-// const API = axios.create({ baseURL: 'http://localhost:5000' });
+// const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
+const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 API.interceptors.request.use((req) => {
 	if (localStorage.getItem('profile')) {
@@ -131,3 +131,10 @@ export const createImage = (data, setRaidForm, raidForm) => {
 		)
 		.catch((err) => console.log(err));
 };
+
+//Guilds
+
+export const createGuild = (guild, setUser) =>
+	API.post('/guilds', guild)
+		.then((res) => console.log(res))
+		.then(() => setUser(guild.members[0]));

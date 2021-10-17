@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 import FileBase from 'react-file-base64';
 import DatePicker from 'react-datepicker';
@@ -21,7 +21,7 @@ import {
 	Typography,
 	CircularProgress,
 } from '@material-ui/core';
-import { IS_LOADING } from '../../constants/actionTypes';
+import { IS_LOADING, IS_NOT_LOADING } from '../../constants/actionTypes';
 
 const useStyles = makeStyles((theme) => ({
 	appBar: {
@@ -73,11 +73,14 @@ const RaidForm = () => {
 	const [activeStep, setActiveStep] = useState(0);
 	const [raidHour, setRaidHour] = useState('00');
 	const [raidMinute, setRaidMinute] = useState('00');
+	const currentUser = useSelector((state) => state.currentUser);
 	const [raidForm, setRaidForm] = useState({
 		title: '',
 		message: '',
 		tactics: [],
 		selectedFile: [],
+		group: [],
+		guild: currentUser.guild,
 		time: raidHour + ':' + raidMinute,
 		date: '',
 		roster: [],
@@ -97,6 +100,7 @@ const RaidForm = () => {
 			message: '',
 			group: [],
 			tactics: [],
+			guild: currentUser.guild,
 			selectedFile: [],
 			time: '',
 			date: '',
@@ -106,7 +110,11 @@ const RaidForm = () => {
 			history.push('/');
 		}
 	};
+	useEffect(() => {
+		dispatch({ type: IS_NOT_LOADING });
+	}, []);
 
+	console.log(serverResponse);
 	if (!user?.result?.name) {
 		return (
 			<Paper className={classes.paper}>

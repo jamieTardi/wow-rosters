@@ -18,7 +18,7 @@ const Roster = ({
 }) => {
 	const [rosterAssigned, setRosterAssigned] = useState(true);
 	const dispatch = useDispatch();
-	const addRoster = useSelector((state) => state.roster);
+	const currentUser = useSelector((state) => state.currentUser);
 	const [isLoading, setIsLoading] = useState(false);
 	const currentId = useSelector((state) => state.currentId);
 	const darkMode = useSelector((state) => state.darkMode);
@@ -28,6 +28,7 @@ const Roster = ({
 	let completeRoster = {
 		title: addTitle,
 		roster: assignedRoster,
+		guild: currentUser.guild,
 		image: '',
 	};
 

@@ -7,6 +7,7 @@ const raidSchema = mongoose.Schema({
 	tactics: [Object],
 	selectedFile: [String],
 	date: String,
+	guild: String,
 	time: String,
 	group: [Object],
 	createdAt: {
