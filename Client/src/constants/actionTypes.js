@@ -18,3 +18,4 @@ export const IS_NOT_LOADING = 'IS_NOT_LOADING';
 export const IS_MOBILE_CHANGE = 'IS_MOBILE_CHANGE';
 export const NEW_ERROR = 'NEW_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const UPDATE_AUTH = 'UPDATE_AUTH';

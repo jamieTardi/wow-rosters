@@ -25,7 +25,10 @@ const Home = () => {
 		fetchUsers(setUserRes);
 		if (localStorage.getItem('profile')) {
 			let newLogin = JSON.parse(localStorage.getItem('profile'));
-			const googleId = newLogin.result.googleId;
+			const googleId =
+				newLogin.result !== undefined
+					? newLogin.result.googleId
+					: newLogin.googleId;
 			if (googleId) {
 				dispatch({ type: GOOGLE_LOGIN, payload: newLogin.result });
 			}
@@ -36,7 +39,10 @@ const Home = () => {
 		if (localStorage.getItem('profile') !== null) {
 			dispatch({
 				type: CURRENT_USER,
-				payload: JSON.parse(localStorage.getItem('profile')).result,
+				payload:
+					JSON.parse(localStorage.getItem('profile')).result !== undefined
+						? JSON.parse(localStorage.getItem('profile')).result
+						: JSON.parse(localStorage.getItem('profile')),
 			});
 		} else {
 			dispatch({

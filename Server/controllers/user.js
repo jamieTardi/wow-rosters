@@ -88,6 +88,7 @@ export const signUpGoogle = async (req, res) => {
 export const updateUser = async (req, res) => {
 	const { _id: id, email, role } = req.body;
 	const body = req.body;
+
 	try {
 		const existingUser = await User.findOne({ email });
 		if (existingUser) {
@@ -95,6 +96,17 @@ export const updateUser = async (req, res) => {
 				res.status(403).json({
 					message: 'This user is an admin they cannot be altered.',
 				});
+			} else if (role === 'guildMaster') {
+				const updateUser = await User.findByIdAndUpdate(
+					id,
+					{
+						...body,
+						id,
+					},
+					{ new: true },
+				);
+
+				res.status(200).json(updateUser);
 			} else {
 				const updateUser = await User.findByIdAndUpdate(id, {
 					...body,

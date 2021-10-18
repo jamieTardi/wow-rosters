@@ -98,6 +98,7 @@ export const createGoogleUser = (googleUser) => {
 
 export const updateUser = (id, userData, setServerMsg, dispatch) => {
 	API.patch(`/user/users/${id}`, userData)
+		.then((res) => console.log(res))
 		.then((res) => dispatch({ type: AUTH, payload: res.data }))
 		.then((res) => {
 			setServerMsg(res);
@@ -136,8 +137,10 @@ export const createImage = (data, setRaidForm, raidForm) => {
 
 //Guilds
 
-export const createGuild = (guild, setUser, setError) =>
+//look into this data being returned a bit weird.
+
+export const createGuild = (guild, setError, setResponse) =>
 	API.post('/guilds', guild)
-		.then((res) => console.log('err'))
-		.then(() => setUser(guild.members[0]))
+		.then((res) => console.log(res))
+		.then(() => setResponse(true))
 		.catch((err) => setError(err.response.data.message));

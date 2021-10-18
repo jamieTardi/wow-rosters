@@ -113,12 +113,21 @@ const Nav = () => {
 										variant='text'
 										className={classes.logout}
 										startIcon={
-											<Avatar
-												className={classes.purple}
-												alt={user.result.name}
-												src={user.result.imageUrl}>
-												{user.result.name.charAt(0)}
-											</Avatar>
+											user.result !== undefined ? (
+												<Avatar
+													className={classes.purple}
+													alt={user.result.name}
+													src={user.result.imageUrl}>
+													{user.result.name.charAt(0)}
+												</Avatar>
+											) : (
+												<Avatar
+													className={classes.purple}
+													alt={user.name}
+													src={user.imageUrl}>
+													{user.name.charAt(0)}
+												</Avatar>
+											)
 										}
 										color='secondary'
 										onClick={handleLogout}>

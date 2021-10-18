@@ -24,8 +24,11 @@ export const createGuild = async (req, res) => {
 
 	try {
 		if (!existingGuild) {
-			await guildConfig.create(guildDetails);
-			res.status(200).json(guildConfig);
+			const newGuild = new guildConfig({
+				...guildDetails,
+			});
+			await newGuild.save();
+			res.status(201).json(guildDetails);
 		} else {
 			return res.status(403).json({
 				message:

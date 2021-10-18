@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Modal } from 'react-bootstrap';
 import {
 	Button,
@@ -22,6 +22,7 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 	const [user, setUser] = useState(null);
 	const [error, setError] = useState(null);
 	const currentUser = useSelector((state) => state.currentUser);
+	const [response, setResponse] = useState(false);
 	const [serverMsg, setServerMsg] = useState(null);
 
 	const [newGuild, setNewGuild] = useState({
@@ -38,27 +39,29 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 
 	const handleCreateGuild = (e) => {
 		e.preventDefault();
-		createGuild(newGuild, setUser, setError);
+		createGuild(newGuild, setError, setResponse);
+		dispatch(
+			updateuser(
+				currentUser._id,
+				{
+					...currentUser,
+					role: 'guildMaster',
+					guild: newGuild.name,
+					character: newGuild.members[0],
+				},
+				setServerMsg,
+			),
+		);
 	};
-
 	const handleClose = () => {
 		setGuildShow(false);
 	};
 
 	useEffect(() => {
-		if (user) {
-			dispatch(
-				updateuser(
-					currentUser._id,
-					{ ...currentUser, character: user },
-					setServerMsg,
-				),
-			);
+		if (response) {
+			setResponse(null);
 		}
-		setUser(null);
-	}, [user]);
-
-	console.log(user);
+	}, [response]);
 
 	useEffect(() => {
 		if (
