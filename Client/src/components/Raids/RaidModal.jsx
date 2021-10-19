@@ -24,6 +24,7 @@ const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 	const darkMode = useSelector((state) => state.darkMode);
 	const user = useSelector((state) => state.currentUser);
 	const currentRaid = useSelector((state) => state.currentRaid);
+	const currentUser = useSelector((state) => state.currentUser);
 	const raids = useSelector((state) => state.raids);
 
 	const [addAssign, setAddAssign] = useState(false);
@@ -55,7 +56,9 @@ const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 				<Modal show={expandCard} size='xl' onHide={() => setExpandCard(false)}>
 					<Modal.Header closeButton closeVariant={darkMode ? 'white' : 'dark'}>
 						<Modal.Title>{currentRaid.title}</Modal.Title>
-						{(user.role === 'admin' || user.role === 'moderator') && (
+						{(user.role === 'admin' ||
+							user.role === 'moderator' ||
+							user.role === 'guildMaster') && (
 							<Button
 								variant='outlined'
 								color='primary'
@@ -93,11 +96,11 @@ const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 							<div className='col-6 text-end'>
 								<span>
 									<span>Created by: </span>
-									<span className='raid-message'>{currentRaid.creator}</span>
+									<span className='raid-message'>{currentUser.character}</span>
 								</span>
 							</div>
 						</div>
-						<div className='row'>
+						<div className='row mt-2'>
 							<div className='col-6'>
 								Raid Date:{' '}
 								<span className='raid-message'>{dateFormatter()}</span>
@@ -105,6 +108,14 @@ const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 							<div className='col-6 text-end'>
 								Time of Raid:{' '}
 								<span className='raid-message'>{currentRaid.time}</span>
+							</div>
+						</div>
+						<div className='row mt-2'>
+							<div className='col-6'>
+								Guild: <span className='raid-message'>{currentRaid.guild}</span>
+							</div>
+							<div className='col-6 text-end'>
+								Realm: <span className='raid-message'>{currentUser.guild}</span>
 							</div>
 						</div>
 

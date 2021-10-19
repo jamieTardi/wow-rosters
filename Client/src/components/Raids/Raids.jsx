@@ -25,6 +25,9 @@ const Raids = () => {
 	return (
 		<div>
 			<div className='row'>
+				<h4 className='my-4 raids-title'>
+					Current raids for {currentUser.guild}'s raid team
+				</h4>
 				{createdRaids !== null && createdRaids.length === 0 ? (
 					<div className='mt-5'>
 						<div
@@ -38,36 +41,20 @@ const Raids = () => {
 					<Loading />
 				) : (
 					createdRaids
-						.sort((a, b) => new Date(b.date) - new Date(a.date))
+						.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 						.map((raid, i) => (
 							<>
-								{i === 0 ? (
-									<>
-										{currentUser.guild === raid.guild && (
-											<div className='col-12 my-5'>
-												<div className='d-flex justify-content-center align-items-center w-100'>
-													<NewestRaid
-														raid={raid}
-														setSelectedRaid={setSelectedRaid}
-														setExpandCard={setExpandCard}
-													/>
-												</div>
-											</div>
-										)}
-									</>
-								) : (
-									<>
-										{currentUser.guild === raid.guild && (
-											<div className='col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex justify-content-center align-items-center mb-5'>
-												<NewestRaid
-													raid={raid}
-													setSelectedRaid={setSelectedRaid}
-													setExpandCard={setExpandCard}
-												/>
-											</div>
-										)}
-									</>
-								)}
+								<>
+									{currentUser.guild === raid.guild && (
+										<div className='mt-4 col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex justify-content-center align-items-center mb-5'>
+											<NewestRaid
+												raid={raid}
+												setSelectedRaid={setSelectedRaid}
+												setExpandCard={setExpandCard}
+											/>
+										</div>
+									)}
+								</>
 							</>
 						))
 				)}

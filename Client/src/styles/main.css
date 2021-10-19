@@ -172,8 +172,8 @@
   }
   90% {
     background-color: #f5daaa;
-    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
-            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
     -webkit-filter: blur(1px);
             filter: blur(1px);
   }
@@ -181,8 +181,8 @@
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
     background-color: #f5daaa;
-    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
-            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
     -webkit-filter: blur(1px);
             filter: blur(1px);
   }
@@ -207,8 +207,8 @@
   }
   90% {
     background-color: #f5daaa;
-    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
-            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
     -webkit-filter: blur(1px);
             filter: blur(1px);
   }
@@ -216,8 +216,8 @@
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
     background-color: #f5daaa;
-    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
-            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
     -webkit-filter: blur(1px);
             filter: blur(1px);
   }
@@ -234,8 +234,8 @@
   -webkit-filter: blur(1px);
           filter: blur(1px);
   background-color: #f5daaa;
-  -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
-          box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+  -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+          box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
   -webkit-transform-origin: 53px 10px;
           transform-origin: 53px 10px;
   -webkit-animation: moon 0.7s forwards ease;
@@ -315,7 +315,7 @@ footer {
 
 footer p {
   margin: 10px 0;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida  Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida  Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 footer .fa-heart {
@@ -695,6 +695,11 @@ li .light,
 
 .raid-message {
   color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.raids-title {
+  font-family: 'IM Fell English SC', serif;
+  text-align: center;
 }
 
 .card-body,
