@@ -71,7 +71,6 @@ const Home = () => {
 					let currentGoogleUser = {
 						name: filitered[0].name,
 						email: filitered[0].email,
-						id: filitered[0].id,
 						password: '',
 						role: filitered[0].role,
 						guild: filitered[0].guild,

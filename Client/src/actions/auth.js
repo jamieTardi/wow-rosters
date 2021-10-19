@@ -23,10 +23,11 @@ export const signup = (formData, history) => async (dispatch) => {
 	}
 };
 
-export const updateuser = (id, userData, setServerMsg) => (dispatch) => {
-	try {
-		api.updateUser(id, userData, setServerMsg, dispatch);
-	} catch (err) {
-		console.log(err);
-	}
-};
+export const updateuser =
+	(id, userData, setServerMsg, history) => (dispatch) => {
+		try {
+			api.updateUser(id, userData, setServerMsg, dispatch, history);
+		} catch (err) {
+			console.log(err);
+		}
+	};

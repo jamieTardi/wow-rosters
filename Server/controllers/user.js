@@ -68,6 +68,7 @@ export const getUsers = async (req, res) => {
 
 export const signUpGoogle = async (req, res) => {
 	const { name, email, id, password } = req.body;
+	console.log(req);
 	try {
 		const existingUser = await User.findOne({ email });
 		if (existingUser)
@@ -75,7 +76,6 @@ export const signUpGoogle = async (req, res) => {
 		const hashedPassword = await bcrypt.hash(password, 12);
 		const result = await User.create({
 			email,
-			id,
 			name,
 			password: hashedPassword,
 		});
@@ -97,16 +97,12 @@ export const updateUser = async (req, res) => {
 					message: 'This user is an admin they cannot be altered.',
 				});
 			} else if (role === 'guildMaster') {
-				const updateUser = await User.findByIdAndUpdate(
-					id,
-					{
-						...body,
-						id,
-					},
-					{ new: true },
-				);
-
-				res.status(200).json(updateUser);
+				//_id needed to update mongo me thinks
+				const updateguildUser = await User.findByIdAndUpdate(existingUser._id, {
+					...body,
+					role: 'guildMaster',
+				});
+				res.status(200).json(updateguildUser);
 			} else {
 				const updateUser = await User.findByIdAndUpdate(id, {
 					...body,

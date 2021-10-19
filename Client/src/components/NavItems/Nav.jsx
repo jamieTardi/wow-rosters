@@ -201,9 +201,7 @@ const Nav = () => {
 									<ListItemText primary='Add a Moderator' />
 								</ListItem>
 							)}
-							{(selectedUser.role === 'admin' ||
-								selectedUser.role === 'guildMaster' ||
-								selectedUser.role === 'moderator') && (
+							{selectedUser.guild !== 'guildless' && (
 								<ListItem
 									disablePadding
 									style={{ cursor: 'pointer' }}
@@ -212,7 +210,7 @@ const Nav = () => {
 									<ListItemIcon>
 										<SupervisorAccountIcon />
 									</ListItemIcon>
-									<ListItemText primary='Add a Guild Member' />
+									<ListItemText primary='Guild Dashboard' />
 								</ListItem>
 							)}
 
@@ -231,12 +229,14 @@ const Nav = () => {
 							)}
 
 							{(selectedUser.role === 'admin' ||
-								selectedUser.role === 'moderator') && (
+								selectedUser.role === 'moderator' ||
+								selectedUser.role === 'guildMaster') && (
 								<>
 									<ListItem
 										disabled={
 											selectedUser.role === 'admin' ||
-											selectedUser.role === 'moderator'
+											selectedUser.role === 'moderator' ||
+											selectedUser.role === 'guildMaster'
 												? false
 												: true
 										}
@@ -265,7 +265,8 @@ const Nav = () => {
 										}}
 										disabled={
 											selectedUser.role === 'admin' ||
-											selectedUser.role === 'moderator'
+											selectedUser.role === 'moderator' ||
+											selectedUser.role === 'guildMaster'
 												? false
 												: true
 										}>
@@ -285,7 +286,8 @@ const Nav = () => {
 										style={{ cursor: 'pointer' }}
 										disabled={
 											selectedUser.role === 'admin' ||
-											selectedUser.role === 'moderator'
+											selectedUser.role === 'moderator' ||
+											selectedUser.role === 'guildMaster'
 												? false
 												: true
 										}>

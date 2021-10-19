@@ -14,12 +14,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createGuild } from '../../api';
 import { Cloud } from '@material-ui/icons';
 import { updateuser } from '../../actions/auth';
+import { LOGOUT } from '../../constants/actionTypes';
+import { useHistory } from 'react-router-dom';
 
 const AddGuild = ({ guildShow, setGuildShow }) => {
 	const classes = useStyles();
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const [allowSubmit, setAllowSubmit] = useState(false);
 	const [user, setUser] = useState(null);
+	const [users, setUsers] = useState(null);
 	const [error, setError] = useState(null);
 	const currentUser = useSelector((state) => state.currentUser);
 	const [response, setResponse] = useState(false);
@@ -39,19 +43,7 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 
 	const handleCreateGuild = (e) => {
 		e.preventDefault();
-		createGuild(newGuild, setError, setResponse);
-		dispatch(
-			updateuser(
-				currentUser._id,
-				{
-					...currentUser,
-					role: 'guildMaster',
-					guild: newGuild.name,
-					character: newGuild.members[0],
-				},
-				setServerMsg,
-			),
-		);
+		createGuild(newGuild, setError, setResponse, dispatch);
 	};
 	const handleClose = () => {
 		setGuildShow(false);
@@ -59,10 +51,24 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 
 	useEffect(() => {
 		if (response) {
+			dispatch(
+				updateuser(
+					currentUser._id,
+					{
+						...currentUser,
+						role: 'guildMaster',
+						guild: newGuild.name,
+						character: newGuild.members[0],
+					},
+					setServerMsg,
+					history,
+				),
+			);
+
 			setResponse(null);
 		}
 	}, [response]);
-
+	console.log(response);
 	useEffect(() => {
 		if (
 			newGuild.name !== '' &&
