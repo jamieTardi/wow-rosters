@@ -141,7 +141,7 @@ const Nav = () => {
 										to='/auth'
 										variant='text'
 										color='primary'>
-										Sign in
+										Log in
 									</Button>{' '}
 								</div>
 							)}
@@ -206,7 +206,11 @@ const Nav = () => {
 									disablePadding
 									style={{ cursor: 'pointer' }}
 									className={classes.listItem}
-									onClick={handleAddMod}>
+									component={Link}
+									to={`/guild-dashboard/${selectedUser.guild}`}
+									onClick={() => {
+										setOpenMenu(false);
+									}}>
 									<ListItemIcon>
 										<SupervisorAccountIcon />
 									</ListItemIcon>

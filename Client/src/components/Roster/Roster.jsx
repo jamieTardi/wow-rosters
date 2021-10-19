@@ -35,7 +35,7 @@ const Roster = ({
 	const handleRemoveRaider = (id) => {
 		dispatch({ type: 'REMOVE_RAIDER', payload: id });
 		let filitered = assignedRoster.filter((raider) => {
-			return raider.id !== id;
+			return raider.id === id;
 		});
 		setAssignedRoster(filitered);
 	};

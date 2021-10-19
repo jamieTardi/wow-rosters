@@ -12,10 +12,12 @@ import AssignRoster from './components/Roster/AssignRoster';
 import ViewRosters from './components/Roster/ViewRosters';
 import ViewAssignments from './components/Assignments/ViewAssignments';
 import { IS_MOBILE_CHANGE } from './constants/actionTypes';
+import GuildDash from './components/Guilds/GuildDash';
 const App = () => {
 	const dispatch = useDispatch();
 	const isDark = useSelector((state) => state.darkMode);
 	const mobileSize = useSelector((state) => state.isMobile);
+	const currentUser = useSelector((state) => state.currentUser);
 	const rootDiv = document.querySelector('html');
 	useEffect(() => {
 		if (isDark) {
@@ -52,6 +54,11 @@ const App = () => {
 					<Route path='/current-roster' exact component={AssignRoster} />
 					<Route path='/view-rosters' exact component={ViewRosters} />
 					<Route path='/view-assignments' exact component={ViewAssignments} />
+					<Route
+						path={`/guild-dashboard/${currentUser.guild}`}
+						exact
+						component={GuildDash}
+					/>
 				</Switch>
 			</div>
 		</div>

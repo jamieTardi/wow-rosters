@@ -28,6 +28,33 @@ const Raids = () => {
 				<h4 className='my-4 raids-title'>
 					Current raids for {currentUser.guild}'s raid team
 				</h4>
+				{currentUser.role === 'Guest' && (
+					<>
+						<p>
+							Welcome to wow rosters, thank you for taking the time to use this
+							raid creation software for world of warcraft. If you are new and
+							want to get started sign up and create a guild, or take a look
+							around at some of the examples. If you have any feedback in
+							regards to application or wish to contribute please contact me via
+							GitHub. If you get a moment I would love a{' '}
+							<a
+								href='https://github.com/jamieTardi/wow-rosters'
+								target='_blank'
+								className='tags'
+								rel='noreferrer'>
+								GitHub
+							</a>{' '}
+							star.
+						</p>
+
+						<p>
+							If you have just created a guild and have arrived back at this
+							page please just log back in and you will arrive at your guild
+							raid page.
+						</p>
+						<p>Thanks very much Jamie</p>
+					</>
+				)}
 				{createdRaids !== null && createdRaids.length === 0 ? (
 					<div className='mt-5'>
 						<div
