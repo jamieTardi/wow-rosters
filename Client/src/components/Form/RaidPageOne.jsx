@@ -45,7 +45,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	}, []);
 
 	return (
-		<div>
+		<div className='pt-5'>
 			<Typography variant='h4' gutterBottom>
 				Main raid details
 			</Typography>

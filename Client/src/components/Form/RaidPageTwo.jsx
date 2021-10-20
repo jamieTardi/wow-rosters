@@ -15,7 +15,7 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 	const dispatch = useDispatch();
 	const [show, setShow] = useState(false);
 	const rosters = useSelector((state) => state.createdRosters);
-	const currentUser = useSelector((state) => state.currentRoster);
+	const currentUser = useSelector((state) => state.currentUser);
 	const [activeIndex, setActiveIndex] = useState(null);
 	const [guildRoster, setGuildRoster] = useState(null);
 
@@ -32,7 +32,7 @@ const RaidPageTwo = ({ raidForm, setRaidForm }) => {
 
 	useEffect(() => {
 		let filitered = rosters.filter((roster) => {
-			return roster.guild !== currentUser.guild;
+			return roster.guild === currentUser.guild;
 		});
 		setGuildRoster(filitered);
 	}, [rosters]);

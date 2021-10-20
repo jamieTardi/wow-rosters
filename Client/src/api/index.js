@@ -115,6 +115,12 @@ export const updateUser = (id, userData, setServerMsg, dispatch, history) => {
 		.catch((err) => setServerMsg(err.response));
 };
 
+export const updateMember = (id, member, setServerRes) => {
+	API.patch(`/user/users/${id}`, member)
+		.then((res) => setServerRes(null))
+		.catch((err) => console.log(err));
+};
+
 export const getAllUsers = (setAllUsers) => {
 	API.get('/user/users')
 		.then((res) => {
@@ -145,11 +151,11 @@ export const createImage = (data, setRaidForm, raidForm) => {
 
 //Guilds
 
-//look into this data being returned a bit weird.
-
 export const createGuild = (guild, setError, setResponse) =>
 	API.post('/guilds', guild)
 		.then((res) => console.log(res))
 		.then(() => setResponse(true))
 
 		.catch((err) => setError(err.response.data.message));
+
+export const fetchGuilds = () => API.get('/guilds');

@@ -54,6 +54,10 @@ export const useStyles = makeStyles((theme) => ({
 		height: '200px',
 		width: '100%',
 	},
+	title: {
+		textAlign: 'center',
+	},
+
 	paper: {
 		marginTop: theme.spacing(3),
 		marginBottom: theme.spacing(3),

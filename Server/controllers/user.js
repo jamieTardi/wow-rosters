@@ -97,16 +97,15 @@ export const updateUser = async (req, res) => {
 					message: 'This user is an admin they cannot be altered.',
 				});
 			} else if (role === 'guildMaster') {
-				//_id needed to update mongo me thinks
 				const updateguildUser = await User.findByIdAndUpdate(existingUser._id, {
 					...body,
-					role: 'guildMaster',
+					// role: 'guildMaster',
 				});
 				res.status(200).json(updateguildUser);
 			} else {
 				const updateUser = await User.findByIdAndUpdate(id, {
 					...body,
-					role: 'moderator',
+					// role: 'moderator',
 				});
 				res.status(200).json(updateUser);
 			}

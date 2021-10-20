@@ -52,7 +52,6 @@ const Raids = () => {
 							page please just log back in and you will arrive at your guild
 							raid page.
 						</p>
-						<p>Thanks very much Jamie</p>
 					</>
 				)}
 				{createdRaids !== null && createdRaids.length === 0 ? (

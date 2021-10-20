@@ -652,6 +652,10 @@ li .light,
   color: black !important;
 }
 
+.img-loading {
+  background: transparent url("../images/loading-gif.gif") no-repeat scroll center center;
+}
+
 .tags {
   color: #3dd115;
   text-decoration: none;

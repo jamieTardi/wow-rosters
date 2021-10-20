@@ -40,7 +40,7 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 							image={
 								raid.selectedFile[0] !== undefined
 									? raid.selectedFile[0]
-									: 'https://i.pinimg.com/originals/0a/59/dc/0a59dcabe5f9a52e5a0e3d8a05db9572.jpg'
+									: 'https://wow-rosters.herokuapp.com/images/image2998.jpg'
 							}
 							title='Newest Raid'
 						/>

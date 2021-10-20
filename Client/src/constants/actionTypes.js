@@ -19,3 +19,4 @@ export const IS_MOBILE_CHANGE = 'IS_MOBILE_CHANGE';
 export const NEW_ERROR = 'NEW_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const UPDATE_AUTH = 'UPDATE_AUTH';
+export const GET_GUILDS = 'GET_GUILDS';

@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import guildConfig from '../models/guildConfig.js';
 
 export const getGuilds = async (req, res) => {
