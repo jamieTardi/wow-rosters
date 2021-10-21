@@ -115,7 +115,7 @@ export const updateUser = (id, userData, setServerMsg, dispatch, history) => {
 		.catch((err) => setServerMsg(err.response));
 };
 
-export const updateMember = (id, member, setServerRes) => {
+export const updateMember = (id, member, setServerRes, userData) => {
 	API.patch(`/user/users/${id}`, member)
 		.then((res) => setServerRes(null))
 		.catch((err) => console.log(err));

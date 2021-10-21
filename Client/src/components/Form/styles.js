@@ -75,7 +75,7 @@ export const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		background: '#424242',
+		background: '#333333',
 	},
 	paperModal: {
 		backgroundColor: '#424242',

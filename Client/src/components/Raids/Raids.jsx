@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getRaids } from '../../actions/raids';
-import Raid from './Raid';
+import { useStyles } from '../Form/styles';
 import RaidModal from './RaidModal';
 import NewestRaid from './NewestRaid';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,8 +9,10 @@ import { Nav } from '../index';
 import emptyImg from '../../images/empty.svg';
 import { Image } from 'react-bootstrap';
 import Loading from '../UIcomponents/Loading';
+import { Paper } from '@mui/material';
 
 const Raids = () => {
+	const classes = useStyles();
 	const [selectedRaid, setSelectedRaid] = useState(null);
 	const [expandCard, setExpandCard] = useState(false);
 	const createdRaids = useSelector((state) => state.raids);
@@ -23,37 +25,39 @@ const Raids = () => {
 	}, []);
 
 	return (
-		<div>
+		<div className='container'>
 			<div className='row'>
-				<h4 className='my-4 raids-title'>
-					Current raids for {currentUser.guild}'s raid team
-				</h4>
-				{currentUser.role === 'Guest' && (
-					<>
-						<p>
-							Welcome to wow rosters, thank you for taking the time to use this
-							raid creation software for world of warcraft. If you are new and
-							want to get started sign up and create a guild, or take a look
-							around at some of the examples. If you have any feedback in
-							regards to application or wish to contribute please contact me via
-							GitHub. If you get a moment I would love a{' '}
-							<a
-								href='https://github.com/jamieTardi/wow-rosters'
-								target='_blank'
-								className='tags'
-								rel='noreferrer'>
-								GitHub
-							</a>{' '}
-							star.
-						</p>
+				<Paper className={classes.paper}>
+					<h4 className='my-4 raids-title'>
+						Current raids for {currentUser.guild}'s raid team
+					</h4>
+					{currentUser.role === 'Guest' && (
+						<>
+							<p>
+								Welcome to wow rosters, thank you for taking the time to use
+								this raid creation software for world of warcraft. If you are
+								new and want to get started sign up and create a guild, or take
+								a look around at some of the examples. If you have any feedback
+								in regards to application or wish to contribute please contact
+								me via GitHub. If you get a moment I would love a{' '}
+								<a
+									href='https://github.com/jamieTardi/wow-rosters'
+									target='_blank'
+									className='tags'
+									rel='noreferrer'>
+									GitHub
+								</a>{' '}
+								star.
+							</p>
 
-						<p>
-							If you have just created a guild and have arrived back at this
-							page please just log back in and you will arrive at your guild
-							raid page.
-						</p>
-					</>
-				)}
+							<p>
+								If you have just created a guild and have arrived back at this
+								page please just log back in and you will arrive at your guild
+								raid page.
+							</p>
+						</>
+					)}
+				</Paper>
 				{createdRaids !== null && createdRaids.length === 0 ? (
 					<div className='mt-5'>
 						<div

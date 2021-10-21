@@ -17,6 +17,7 @@ import CelebrationIcon from '@mui/icons-material/Celebration';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddMember from './AddMember';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
+import Information from './Information';
 
 const GuildDash = () => {
 	const dispatch = useDispatch();
@@ -25,9 +26,14 @@ const GuildDash = () => {
 	const guilds = useSelector((state) => state.guildData);
 	const darkMode = useSelector((state) => state.darkMode);
 	const [value, setValue] = useState(0);
+	const [tabInfo, setTabInfo] = useState({});
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
+	};
+
+	const handleTabInfo = () => {
+		setTabInfo({ modelName: 'Add Member', member: currentUser });
 	};
 
 	useEffect(() => {
@@ -73,7 +79,8 @@ const GuildDash = () => {
 							<Tab
 								value='4'
 								icon={<PersonPinIcon />}
-								label='My Character'
+								label='Information'
+								onClick={handleTabInfo}
 								style={darkMode ? { color: '#fff' } : { color: '#000' }}
 							/>
 							<Tab
@@ -85,11 +92,17 @@ const GuildDash = () => {
 						</Tabs>
 					</Box>
 					<TabPanel value='1' className='mt-4'>
-						<AddMember />
+						<AddMember setValue={setValue} />
 					</TabPanel>
 					<TabPanel value='2'>Item Two</TabPanel>
 					<TabPanel value='3'>Item Three</TabPanel>
-					<TabPanel value='4'>Item Three</TabPanel>
+					<TabPanel value='4'>
+						<Information
+							setValue={setValue}
+							tabInfo={tabInfo}
+							setTabInfo={setTabInfo}
+						/>
+					</TabPanel>
 
 					<TabPanel value='5'>Item Three</TabPanel>
 				</TabContext>

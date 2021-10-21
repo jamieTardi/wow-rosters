@@ -49,6 +49,58 @@ li .light,
 }
 //
 
+//Grid
+
+.grid-wrapper {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 10px;
+	grid-auto-rows: minmax(100px, auto);
+
+	.name {
+		grid-column: 1 / 2;
+		grid-row: 1;
+	}
+	.guild {
+		grid-column: 3 / 4;
+		grid-row: 1;
+	}
+	.leave {
+		grid-column: 3 / 4;
+		grid-row: 2;
+	}
+	.change-email {
+		grid-column: 1 / 2;
+		grid-row: 2;
+	}
+}
+
+@media (max-width: 900px) {
+	.grid-wrapper {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 10px;
+		grid-auto-rows: minmax(100px, auto);
+
+		.name {
+			grid-column: 1 / 4;
+			grid-row: 1;
+		}
+		.guild {
+			grid-column: 1 / 4;
+			grid-row: 2;
+		}
+		.leave {
+			grid-column: 1 / 4;
+			grid-row: 3;
+		}
+		.change-email {
+			grid-column: 1 / 4;
+			grid-row: 4;
+		}
+	}
+}
+
 .tags {
 	color: #3dd115;
 	text-decoration: none;
@@ -56,6 +108,10 @@ li .light,
 
 .card {
 	border: none !important;
+}
+
+.css-ay5wfy {
+	background-color: #292929 !important;
 }
 
 .makeStyles-button-15 {

@@ -11,7 +11,7 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers, updateMember } from '../../api';
 
-const AddMember = () => {
+const AddMember = ({ setValue }) => {
 	const dispatch = useDispatch();
 	const classes = useStyles();
 	const currentUser = useSelector((state) => state.currentUser);
@@ -39,7 +39,9 @@ const AddMember = () => {
 		);
 		setTimeout(() => {
 			setUpdateMsg(null);
-		}, 5000);
+			setNewMember('');
+			setValue(0);
+		}, 3000);
 	};
 
 	useEffect(() => {
@@ -54,8 +56,6 @@ const AddMember = () => {
 			}
 		}
 	}, [userEmail]);
-
-	console.log(newMember);
 
 	useEffect(() => {
 		getAllUsers(setUserRes);
