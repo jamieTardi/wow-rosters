@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Accordion } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import moment from 'moment';
 import Roster from '../Roster/Roster';
 import Assignment from '../Assignments/Assignments';
@@ -17,7 +17,11 @@ import TabbedMenu from '../Assignments/TabbedMenu';
 import AssignmentSelector from '../Assignments/AssignmentSelector';
 import CurrentGroup from '../Groups/CurrentGroup';
 import PopulatedGroup from '../Groups/PopulatedGroup';
-import { isConstructorDeclaration } from 'typescript';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 	const [editModal, setEditModal] = useState(false);
@@ -125,55 +129,72 @@ const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 						</div>
 						<div>
 							<div className='my-3'></div>
-							<Accordion variant='dark'>
-								<Accordion.Item eventKey='0'>
-									<Accordion.Header>
-										Click to see the weeks roster
-									</Accordion.Header>
-									<Accordion.Body>
-										<CurrentRoster />
-									</Accordion.Body>
-								</Accordion.Item>
-								<Accordion.Item eventKey='1'>
-									<Accordion.Header>Raid Assignments</Accordion.Header>
-									<Accordion.Body>
-										<TabbedMenu />
-										<div className='d-flex justify-content-end flex-column align-items-end'>
-											{(user.role === 'admin' || user.role === 'moderator') && (
-												<Button
-													variant='contained'
-													color='default'
-													disabled={addAssign}
-													onClick={() => {
-														setAddAssign((prev) => !prev);
-													}}>
-													<AddCircle />
-												</Button>
-											)}
-											{addAssign && <AssignmentSelector />}
-										</div>
-									</Accordion.Body>
-								</Accordion.Item>
-								<Accordion.Item eventKey='2'>
-									<Accordion.Header>Group Make-up</Accordion.Header>
-									<Accordion.Body>
-										{user.role === 'admin' || user.role === 'moderator' ? (
-											<CurrentGroup />
-										) : currentRaid.group.length !== 0 ? (
-											<>
-												<h4 className='mb-4'>
-													Final group make up for the raid
-												</h4>
-												<PopulatedGroup />
-											</>
-										) : (
-											<p>
-												Currently the groups have not been assigned... please
-												contact an officer for more info
-											</p>
+							<Accordion>
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									sx={{ width: '100%' }}
+									aria-controls='panel1a-content'
+									id='panel1a-header'>
+									<Typography>Roster for Raid</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<CurrentRoster />
+								</AccordionDetails>
+							</Accordion>
+
+							<Accordion>
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls='panel2a-content'
+									id='panel2a-header'>
+									<Typography>Raid Assignments</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<TabbedMenu />
+
+									<div className='d-flex justify-content-end flex-column align-items-end'>
+										{(user.role === 'admin' ||
+											user.role === 'moderator' ||
+											user.role === 'guildMaster') && (
+											<Button
+												variant='contained'
+												color='default'
+												disabled={addAssign}
+												onClick={() => {
+													setAddAssign((prev) => !prev);
+												}}>
+												<AddCircle />
+											</Button>
 										)}
-									</Accordion.Body>
-								</Accordion.Item>
+										{addAssign && <AssignmentSelector />}
+									</div>
+								</AccordionDetails>
+							</Accordion>
+
+							<Accordion>
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls='panel3a-content'
+									id='panel3a-header'>
+									<Typography>Group Make-up</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									{user.role === 'admin' ||
+									user.role === 'moderator' ||
+									user.role === 'guildMaster' ? (
+										<CurrentGroup />
+									) : currentRaid.group.length !== 0 ? (
+										<>
+											<h4 className='mb-4'>Final group make up for the raid</h4>
+											<PopulatedGroup />
+										</>
+									) : (
+										<p>
+											Currently the groups have not been assigned... please
+											contact an officer for more info
+										</p>
+									)}
+								</AccordionDetails>
 							</Accordion>
 						</div>
 					</Modal.Body>

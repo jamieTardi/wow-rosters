@@ -87,7 +87,7 @@ export const useStyles = makeStyles((theme) => ({
 	card: {
 		background: '#424242',
 
-		width: '345px',
+		width: '325px',
 		minHeight: '400px',
 	},
 	stepper: {

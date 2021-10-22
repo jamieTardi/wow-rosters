@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Tab, Tabs } from 'react-bootstrap';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import TabPanel from '@mui/lab/TabPanel';
+import TabList from '@mui/lab/TabList';
 import { useSelector, useDispatch } from 'react-redux';
 import CurrentAssignments from '../Raids/CurrentAssignments';
 import { CURRENT_ASSIGNMENT } from '../../constants/actionTypes';
+import TabContext from '@mui/lab/TabContext';
 
 const TabbedMenu = () => {
 	const dispatch = useDispatch();
@@ -11,43 +16,60 @@ const TabbedMenu = () => {
 	const [assignments, setAssignments] = useState(raid.tactics);
 	const currentAssign = useSelector((state) => state.currentAssign);
 	const [serverRes, setServerRes] = useState(null);
+	const [value, setValue] = useState(0);
 
-	const handleAddAssign = (assignment) => {
+	const handleAddAssign = (assignment, i) => {
+		handleChange(i);
 		dispatch({ type: CURRENT_ASSIGNMENT, payload: assignment });
 		setKey(assignment.title);
+	};
+
+	const handleChange = (newValue) => {
+		setValue(newValue);
 	};
 
 	useEffect(() => {
 		setAssignments(raid.tactics);
 	}, [raid.tactics.length]);
 
-	console.log(serverRes);
-
 	return (
 		<div>
-			<Tabs
-				variant='pills'
-				activeKey={key}
-				transition={false}
-				onSelect={(k) => setKey(k)}
-				id='noanim-tab-example'
-				className='mb-3'>
-				{assignments.map((assignment) => (
-					<Tab
-						eventKey={assignment.title}
-						title={assignment.title}
-						onClick={() => {
-							handleAddAssign(assignment);
-						}}>
-						<CurrentAssignments
-							assignment={assignment}
-							setRaid={setRaid}
-							serverRes={serverRes}
-							setServerRes={setServerRes}
-						/>
-					</Tab>
-				))}
-			</Tabs>
+			<Box sx={{ width: '100%', typography: 'body1' }}>
+				<TabContext value={value}>
+					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+						<TabList
+							onChange={handleChange}
+							value={value}
+							onChange={handleChange}
+							variant='scrollable'
+							scrollButtons='auto'
+							aria-label='scrollable auto tabs example'>
+							{assignments.map((assignment, i) => (
+								<div key={i}>
+									<Tab
+										eventKey={assignment.title}
+										label={assignment.title}
+										value={i}
+										onClick={() => {
+											handleAddAssign(assignment, i);
+										}}
+									/>
+								</div>
+							))}
+						</TabList>
+					</Box>
+					{assignments.map((assignment, i) => (
+						<TabPanel value={i} key={i}>
+							<CurrentAssignments
+								assignment={assignment}
+								setRaid={setRaid}
+								serverRes={serverRes}
+								setServerRes={setServerRes}
+							/>
+						</TabPanel>
+					))}
+				</TabContext>
+			</Box>
 		</div>
 	);
 };

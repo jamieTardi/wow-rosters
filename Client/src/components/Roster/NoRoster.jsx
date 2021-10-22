@@ -33,7 +33,9 @@ const NoRoster = ({ serverResponse, setServerResponse, setThisRaid }) => {
 	}, []);
 	return (
 		<>
-			{user.role === 'admin' || user.role === 'moderator' ? (
+			{user.role === 'admin' ||
+			user.role === 'moderator' ||
+			user.role === 'guildMaster' ? (
 				<div>
 					{!serverResponse ? (
 						<>

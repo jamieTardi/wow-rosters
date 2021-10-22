@@ -75,7 +75,8 @@ const ViewRosters = () => {
 														View/Edit Roster
 													</Button>
 													{(user.role === 'admin' ||
-														user.role === 'moderator') && (
+														user.role === 'moderator' ||
+														user.role === 'guildMaster') && (
 														<Button
 															variant='contained'
 															color='secondary'
