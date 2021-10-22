@@ -172,8 +172,8 @@
   }
   90% {
     background-color: #f5daaa;
-    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
-            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
     -webkit-filter: blur(1px);
             filter: blur(1px);
   }
@@ -181,8 +181,8 @@
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
     background-color: #f5daaa;
-    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
-            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
     -webkit-filter: blur(1px);
             filter: blur(1px);
   }
@@ -207,8 +207,8 @@
   }
   90% {
     background-color: #f5daaa;
-    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
-            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
     -webkit-filter: blur(1px);
             filter: blur(1px);
   }
@@ -216,8 +216,8 @@
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
     background-color: #f5daaa;
-    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
-            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+    -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+            box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
     -webkit-filter: blur(1px);
             filter: blur(1px);
   }
@@ -234,8 +234,8 @@
   -webkit-filter: blur(1px);
           filter: blur(1px);
   background-color: #f5daaa;
-  -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
-          box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+  -webkit-box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
+          box-shadow: 0px 0px 10px #f5deb4, 0px 0px 20px #f5deb4, 0px 0px 30px #f5deb4, inset 0px 0px 2px #efd3a3;
   -webkit-transform-origin: 53px 10px;
           transform-origin: 53px 10px;
   -webkit-animation: moon 0.7s forwards ease;
@@ -315,7 +315,7 @@ footer {
 
 footer p {
   margin: 10px 0;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida  Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida  Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 footer .fa-heart {
@@ -697,6 +697,22 @@ li .light,
   grid-row: 2;
 }
 
+.grid-wrapper .number-raiders {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1 / 2;
+  -ms-grid-row: 3;
+  grid-row: 3;
+}
+
+.grid-wrapper .faction {
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 1;
+  grid-column: 3 / 4;
+  -ms-grid-row: 3;
+  grid-row: 3;
+}
+
 @media (max-width: 900px) {
   .grid-wrapper {
     display: -ms-grid;
@@ -733,6 +749,20 @@ li .light,
     grid-column: 1 / 4;
     -ms-grid-row: 4;
     grid-row: 4;
+  }
+  .grid-wrapper .number-raiders {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 3;
+    grid-column: 1 / 4;
+    -ms-grid-row: 5;
+    grid-row: 5;
+  }
+  .grid-wrapper .faction {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 3;
+    grid-column: 1 / 4;
+    -ms-grid-row: 6;
+    grid-row: 6;
   }
 }
 
@@ -787,6 +817,10 @@ li .light,
 }
 
 .raid-message {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dull-white {
   color: rgba(255, 255, 255, 0.7) !important;
 }
 

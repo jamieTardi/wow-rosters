@@ -68,7 +68,7 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 			setResponse(null);
 		}
 	}, [response]);
-	console.log(response);
+
 	useEffect(() => {
 		if (
 			newGuild.name !== '' &&

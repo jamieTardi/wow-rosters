@@ -25,7 +25,7 @@ const GuildDash = () => {
 	const currentUser = useSelector((state) => state.currentUser);
 	const guilds = useSelector((state) => state.guildData);
 	const darkMode = useSelector((state) => state.darkMode);
-	const [value, setValue] = useState(0);
+	const [value, setValue] = useState(4);
 	const [tabInfo, setTabInfo] = useState({});
 
 	const handleChange = (event, newValue) => {

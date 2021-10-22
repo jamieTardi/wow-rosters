@@ -88,8 +88,7 @@ export const signUpGoogle = async (req, res) => {
 export const updateUser = async (req, res) => {
 	const { _id: id, email, role } = req.body;
 	const body = req.body;
-	console.log(body);
-	console.log(id);
+
 	try {
 		const existingUser = await User.findOne({ email });
 		if (existingUser) {
@@ -100,13 +99,11 @@ export const updateUser = async (req, res) => {
 			} else if (role === 'guildMaster') {
 				const updateguildUser = await User.findByIdAndUpdate(existingUser._id, {
 					...body,
-					// role: 'guildMaster',
 				});
 				res.status(200).json(updateguildUser);
 			} else {
 				const updateUser = await User.findByIdAndUpdate(id, {
 					...body,
-					// role: 'moderator',
 				});
 				res.status(200).json(updateUser);
 			}

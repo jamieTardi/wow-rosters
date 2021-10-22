@@ -1,4 +1,5 @@
 import guildConfig from '../models/guildConfig.js';
+import mongoose from 'mongoose';
 
 export const getGuilds = async (req, res) => {
 	try {
@@ -36,5 +37,21 @@ export const createGuild = async (req, res) => {
 		}
 	} catch (err) {
 		return res.status(404).json({ message: 'Something went wrong' });
+	}
+};
+
+export const updateGuild = async (req, res) => {
+	const guildId = req.body._id;
+	const guildDetails = req.body;
+	if (!mongoose.Types.ObjectId.isValid(guildId)) {
+		return res.status(404).send('No Guild with that id');
+	}
+	try {
+		const updateGuild = await guildConfig.findByIdAndUpdate(guildId, {
+			...guildDetails,
+		});
+		res.status(201).json(updateGuild);
+	} catch (err) {
+		res.status(400).json({ message: 'There was a problem with this request' });
 	}
 };

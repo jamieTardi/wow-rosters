@@ -1,4 +1,3 @@
-import { ImportContactsOutlined } from '@material-ui/icons';
 import axios from 'axios';
 import { imageURL } from '../constants/general';
 import {
@@ -118,6 +117,7 @@ export const updateUser = (id, userData, setServerMsg, dispatch, history) => {
 export const updateMember = (id, member, setServerRes, userData) => {
 	API.patch(`/user/users/${id}`, member)
 		.then((res) => setServerRes(null))
+		.then((res) => console.log(res))
 		.catch((err) => console.log(err));
 };
 
@@ -155,7 +155,12 @@ export const createGuild = (guild, setError, setResponse) =>
 	API.post('/guilds', guild)
 		.then((res) => console.log(res))
 		.then(() => setResponse(true))
-
 		.catch((err) => setError(err.response.data.message));
 
 export const fetchGuilds = () => API.get('/guilds');
+
+export const updateGuild = (id, guild, setGuidRes) => {
+	API.patch(`/guilds/${id}`, guild)
+		.then((res) => console.log(res))
+		.catch((res) => console.log(res));
+};

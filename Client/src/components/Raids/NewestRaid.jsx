@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,10 +13,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import loadingGif from '../../images/loading-gif.gif';
 
 const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 	const dispatch = useDispatch();
 	const [deleteWarning, setDeleteWarning] = useState(false);
+
 	const user = useSelector((state) => state.currentUser);
 
 	const handleShowRaid = (raid) => {
@@ -29,20 +31,47 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 	};
 	const classes = useStyles();
 
+	const AsyncImage = (props) => {
+		const [loadedSrc, setLoadedSrc] = useState(null);
+		const [imageLoad, setImageLoad] = useState(loadingGif);
+		useEffect(() => {
+			setLoadedSrc(null);
+			if (props.src) {
+				const handleLoad = () => {
+					setLoadedSrc(props.src);
+				};
+				const image = new Image();
+				image.addEventListener('load', handleLoad);
+				image.src = props.src;
+				return () => {
+					image.removeEventListener('load', handleLoad);
+				};
+			}
+		}, [props.src]);
+		if (loadedSrc === props.src) {
+			return (
+				<img
+					src={imageLoad !== loadingGif ? props.src : imageLoad}
+					style={{ objectFit: 'cover', height: '200px', width: '100%' }}
+					onLoad={() => setImageLoad(props.src)}
+				/>
+			);
+		}
+		return null;
+	};
+
 	return (
 		<div style={{ position: 'relative' }}>
 			<Card className={classes.card}>
 				<div>
 					<div>
-						<CardMedia
-							variant='top'
-							className={classes.media}
-							image={
+						<AsyncImage
+							src={
 								raid.selectedFile[0] !== undefined
 									? raid.selectedFile[0]
 									: 'https://wow-rosters.herokuapp.com/images/image2998.jpg'
 							}
-							title='Newest Raid'
+							style={{ minHeight: '200px', backgroundImage: loadingGif }}
 						/>
 
 						<CardContent>

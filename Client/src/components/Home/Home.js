@@ -7,18 +7,32 @@ import { fetchUsers, createGoogleUser } from '../../api';
 import { CURRENT_USER } from '../../constants/actionTypes';
 import { getRoster } from '../../actions/roster';
 import { v4 as uuidv4 } from 'uuid';
+import { CURRENT_GUILD } from '../../constants/actionTypes';
+import Guildless from '../../lib/Guildless';
 
 const Home = () => {
 	const [userRes, setUserRes] = useState(null);
 	const dispatch = useDispatch();
 	const googleUser = useSelector((state) => state.googleId);
 	const currentUser = useSelector((state) => state.currentUser);
+	const guilds = useSelector((state) => state.guildData);
 	const [roster, setRoster] = useState([]);
 	const isInitialMount = useRef(true);
 
 	useEffect(() => {
 		dispatch(getRoster());
 	}, []);
+
+	useEffect(() => {
+		if (guilds) {
+			let filitered = guilds.filter((guild) => {
+				return guild.name === currentUser.guild;
+			});
+			if (filitered !== undefined) {
+				dispatch({ type: CURRENT_GUILD, payload: filitered[0] });
+			}
+		}
+	}, [guilds]);
 
 	useEffect(() => {
 		dispatch({ type: GOOGLE_LOGIN, payload: null });
@@ -107,9 +121,7 @@ const Home = () => {
 	}, [userRes]);
 
 	return (
-		<div>
-			<Raids />
-		</div>
+		<div>{currentUser.guild === 'guildless' ? <Guildless /> : <Raids />}</div>
 	);
 };
 

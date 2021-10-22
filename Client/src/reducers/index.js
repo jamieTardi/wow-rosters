@@ -18,6 +18,7 @@ import { isLoading } from './isLoading';
 import { isMobile } from './isMobile';
 import { errorMessage } from './errorMessage';
 import { guildData } from './guildData';
+import { currentGuild } from './currentGuild';
 
 const rootReducer = combineReducers({
 	raids,
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
 	googleId,
 	errorMessage,
 	guildData,
+	currentGuild,
 });
 
 export default rootReducer;

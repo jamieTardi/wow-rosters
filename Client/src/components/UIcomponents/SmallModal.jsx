@@ -4,9 +4,10 @@ import Button from '@mui/material/Button';
 import { Typography, TextField } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import { useStyles } from '../Form/styles';
-import { updateMember } from '../../api';
+import { updateGuild, updateMember } from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
-import { CURRENT_USER } from '../../constants/actionTypes';
+import { CURRENT_USER, LOGOUT } from '../../constants/actionTypes';
+import { useHistory } from 'react-router-dom';
 
 const style = {
 	position: 'absolute',
@@ -22,8 +23,11 @@ const style = {
 };
 
 const SmallModal = ({ tabInfo, setOpen, open, setTabInfo }) => {
+	const history = useHistory();
 	const classes = useStyles();
 	const currentUser = useSelector((state) => state.currentUser);
+	const currentGuild = useSelector((state) => state.currentGuild);
+	const [errorTxt, setErrorTxt] = useState(null);
 
 	const handleClose = () => {
 		setOpen(false);
@@ -33,22 +37,54 @@ const SmallModal = ({ tabInfo, setOpen, open, setTabInfo }) => {
 	const [isLoading, setIsLoading] = useState(null);
 	const dispatch = useDispatch();
 
-	const handleModalInput = (e) => {
-		setNewName(e.target.value);
-	};
+	useEffect(() => {
+		if (tabInfo.modelName === 'Leave Guild') {
+			if (newName !== currentUser.guild) {
+				setErrorTxt('This guild does not match your current guild.');
+			} else {
+				setErrorTxt(null);
+			}
+		}
+	}, [newName]);
 
 	const handleSubmit = () => {
 		setIsLoading(true);
-		updateMember(
-			currentUser._id,
-			{ ...currentUser, character: newName },
-			setIsLoading,
-		);
-		dispatch({
-			type: CURRENT_USER,
-			payload: { ...currentUser, character: newName },
-		});
-		handleClose();
+		if (tabInfo.modelName !== 'Leave Guild') {
+			updateMember(
+				currentUser._id,
+				{ ...currentUser, character: newName },
+				setIsLoading,
+			);
+			dispatch({
+				type: CURRENT_USER,
+				payload: { ...currentUser, character: newName },
+			});
+			handleClose();
+		} else if (
+			tabInfo.modelName === 'Leave Guild' &&
+			currentUser.role !== 'guildMaster'
+		) {
+			updateMember(
+				currentUser._id,
+				{ ...currentUser, guild: 'guildless' },
+				setIsLoading,
+			);
+			let filitered = currentGuild.members.filter(
+				(member) => member !== currentUser.character,
+			);
+			updateGuild(currentGuild._id, { ...currentGuild, members: filitered });
+			dispatch({ type: LOGOUT });
+			history.push('/');
+
+			history.go(0);
+
+			handleClose();
+		} else {
+			setErrorTxt(
+				'An Error has happened. If it persists please contact us. If you are the Guild master you will have to either delete the guild or transfer membership.',
+			);
+		}
+		setIsLoading(false);
 	};
 
 	return (
@@ -64,6 +100,12 @@ const SmallModal = ({ tabInfo, setOpen, open, setTabInfo }) => {
 					<Typography id='modal-modal-title' variant='h6' component='h2'>
 						{tabInfo.modelName}
 					</Typography>
+					{tabInfo.modelName === 'Leave Guild' && (
+						<Typography id='modal-modal-title' variant='p' component='p'>
+							By clicking submit you will be leaving the guild,{' '}
+							{tabInfo.member.guild}.
+						</Typography>
+					)}
 					<TextField
 						id='standard-basic'
 						required
@@ -75,12 +117,15 @@ const SmallModal = ({ tabInfo, setOpen, open, setTabInfo }) => {
 								? 'Edit your character name'
 								: tabInfo.modelName === 'Change Email'
 								? 'Enter new email address'
+								: tabInfo.modelName === 'Leave Guild'
+								? 'Type in your current guild name here'
 								: ''
 						}
 						onChange={(e) => {
-							handleModalInput(e);
+							setNewName(e.target.value);
 						}}
 					/>
+					{errorTxt && <p>{errorTxt}</p>}
 					<Button
 						variant='contained'
 						color='primary'

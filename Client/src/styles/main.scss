@@ -73,6 +73,14 @@ li .light,
 		grid-column: 1 / 2;
 		grid-row: 2;
 	}
+	.number-raiders {
+		grid-column: 1 / 2;
+		grid-row: 3;
+	}
+	.faction {
+		grid-column: 3 / 4;
+		grid-row: 3;
+	}
 }
 
 @media (max-width: 900px) {
@@ -97,6 +105,14 @@ li .light,
 		.change-email {
 			grid-column: 1 / 4;
 			grid-row: 4;
+		}
+		.number-raiders {
+			grid-column: 1 / 4;
+			grid-row: 5;
+		}
+		.faction {
+			grid-column: 1 / 4;
+			grid-row: 6;
 		}
 	}
 }
@@ -149,6 +165,10 @@ li .light,
 }
 
 .raid-message {
+	color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dull-white {
 	color: rgba(255, 255, 255, 0.7) !important;
 }
 

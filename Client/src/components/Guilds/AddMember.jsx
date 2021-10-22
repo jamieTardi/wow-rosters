@@ -9,12 +9,16 @@ import React, { useState, useEffect } from 'react';
 import { useStyles } from '../Form/styles';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers, updateMember } from '../../api';
+import { getAllUsers, updateMember, updateGuild, fetchGuilds } from '../../api';
 
 const AddMember = ({ setValue }) => {
 	const dispatch = useDispatch();
 	const classes = useStyles();
+	//redux
 	const currentUser = useSelector((state) => state.currentUser);
+	const currentGuild = useSelector((state) => state.currentGuild);
+
+	//local state
 	const [userEmail, setUserEmail] = useState('');
 	const [userRes, setUserRes] = useState(null);
 	const [isUser, setIsUser] = useState(false);
@@ -37,6 +41,10 @@ const AddMember = ({ setValue }) => {
 			},
 			setServerRes,
 		);
+		updateGuild(currentGuild._id, {
+			...currentGuild,
+			members: [...currentGuild.members, toon],
+		});
 		setTimeout(() => {
 			setUpdateMsg(null);
 			setNewMember('');
@@ -59,6 +67,7 @@ const AddMember = ({ setValue }) => {
 
 	useEffect(() => {
 		getAllUsers(setUserRes);
+		fetchGuilds();
 	}, []);
 
 	return (
