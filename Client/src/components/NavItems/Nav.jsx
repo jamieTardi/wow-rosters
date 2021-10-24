@@ -375,7 +375,7 @@ const Nav = () => {
 				</Drawer>
 			</div>
 			{/* Moderator modal */}
-			<AddMod show={show} setShow={setShow} />
+
 			<AddGuild guildShow={guildShow} setGuildShow={setGuildShow} />
 		</>
 	);

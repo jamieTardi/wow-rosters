@@ -7,6 +7,7 @@ import empty from '../../images/empty-roster.svg';
 import { CURRENT_ROSTER } from '../../constants/actionTypes';
 import EditPageTwo from '../EditPages/EditPageTwo';
 import LoadingSpinner from '../UIcomponents/LoadingSpinner';
+import loadingGif from '../../images/loadingGif.gif';
 
 const ViewRosters = () => {
 	const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const ViewRosters = () => {
 	const [show, setShow] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [guildRoster, setGuildRoster] = useState(null);
+	const [loaded, setLoaded] = useState(false);
 
 	const handleViewRoster = (roster) => {
 		setShow((prev) => !prev);
@@ -54,10 +56,13 @@ const ViewRosters = () => {
 											<Card.Img
 												variant='top'
 												src={
-													roster.image
+													loaded
 														? roster.image
-														: 'https://magazine.artstation.com/wp-content/uploads/2018/09/Illustration_GlennRane-1024x576.jpg'
+															? roster.image
+															: 'https://wow-rosters.herokuapp.com/images/image2998.jpg'
+														: loadingGif
 												}
+												onLoad={() => setLoaded(true)}
 											/>
 											<Card.Body>
 												<Card.Title>{roster.title}</Card.Title>

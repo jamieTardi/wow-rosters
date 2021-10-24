@@ -4,7 +4,9 @@ import { Button, TextField } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
 import { updateuser } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
-import { getAllUsers } from '../../api';
+import { getAllUsers, updateMember } from '../../api';
+import { Grid } from '@mui/material';
+import { grid } from '@mui/system';
 
 const AddMod = ({ show, setShow }) => {
 	const dispatch = useDispatch();
@@ -15,6 +17,7 @@ const AddMod = ({ show, setShow }) => {
 	const [isSameEmail, setIsSameEmail] = useState(false);
 	const [newMod, setNewMod] = useState(null);
 	const [serverMsg, setServerMsg] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -28,7 +31,10 @@ const AddMod = ({ show, setShow }) => {
 	};
 
 	const handleCreateMod = () => {
-		if (newMod) {
+		if (
+			newMod &&
+			JSON.parse(localStorage.getItem('profile')).result !== undefined
+		) {
 			let user = JSON.parse(localStorage.getItem('profile')).result;
 			let currentGoogleUser = {
 				name: user.name,
@@ -38,7 +44,20 @@ const AddMod = ({ show, setShow }) => {
 				role: 'moderator',
 			};
 			localStorage.setItem('profile', JSON.stringify(currentGoogleUser));
-			dispatch(updateuser(newMod._id, newMod, setServerMsg));
+
+			updateMember(
+				newMod._id,
+				{ ...newMod, role: 'moderator' },
+				setIsLoading,
+				setServerMsg,
+			);
+		} else if (newMod) {
+			updateMember(
+				newMod._id,
+				{ ...newMod, role: 'moderator' },
+				setIsLoading,
+				setServerMsg,
+			);
 		} else {
 			alert('There is currently no moderator, please try again.');
 		}
@@ -71,56 +90,63 @@ const AddMod = ({ show, setShow }) => {
 	}, []);
 
 	return (
-		<Modal show={show} onHide={handleClose}>
-			<Modal.Body>
-				<TextField
-					id='standard-basic'
-					className={classes.input}
-					fullWidth
-					label='New moderators Email'
-					onChange={(e) => {
-						handleAddEmail(e);
-					}}
-					InputLabelProps={{
-						style: { color: '#fff ' },
-					}}
-				/>
+		<>
+			<Grid container spacing={3}>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						id='standard-basic'
+						className={classes.input}
+						fullWidth
+						label='New moderators Email'
+						onChange={(e) => {
+							handleAddEmail(e);
+						}}
+						InputLabelProps={{
+							style: { color: '#fff ' },
+						}}
+					/>
+				</Grid>
 
-				<TextField
-					id='standard-basic'
-					className={classes.input}
-					fullWidth
-					label='Confirm Email'
-					onChange={(e) => {
-						handleConfirmEmail(e);
-					}}
-					InputLabelProps={{
-						style: { color: '#fff ' },
-					}}
-				/>
-
-				<p className='my-3'>
-					{isSameEmail ? 'Emails match' : 'Emails do not match'}
-				</p>
-
-				{newMod && (
-					<p>
-						This user {newMod.name} is currently a {newMod.role}, if you wish to
-						upgrade them to moderator rank please click Add Moderator button.
+				<Grid item xs={12} sm={6}>
+					<TextField
+						id='standard-basic'
+						className={classes.input}
+						fullWidth
+						label='Confirm Email'
+						onChange={(e) => {
+							handleConfirmEmail(e);
+						}}
+						InputLabelProps={{
+							style: { color: '#fff ' },
+						}}
+					/>
+				</Grid>
+				<Grid item sm={12}>
+					<p className='my-3'>
+						{isSameEmail ? 'Emails match' : 'Emails do not match'}
 					</p>
-				)}
 
-				{serverMsg !== null && serverMsg.status === 403 ? (
-					<p style={{ color: 'red !important' }}>{serverMsg.data.message}</p>
-				) : (
-					serverMsg !== null &&
-					serverMsg.status === 200 && (
-						<p>{serverMsg.data.name} has been made an moderator.</p>
-					)
-				)}
-			</Modal.Body>
-			<Modal.Footer>
-				<div className='d-flex justify-content-between w-100'>
+					{newMod && (
+						<p>
+							This user {newMod.name} is currently a {newMod.role}, if you wish
+							to upgrade them to moderator rank please click Add Moderator
+							button.
+						</p>
+					)}
+
+					{serverMsg !== null &&
+					serverMsg.status === 403 &&
+					serverMsg !== undefined ? (
+						<p style={{ color: 'red !important' }}>{serverMsg.data.message}</p>
+					) : (
+						serverMsg !== null &&
+						serverMsg.status === 200 && (
+							<p>{serverMsg.data.name} has been made an moderator.</p>
+						)
+					)}
+				</Grid>
+
+				<div className='d-flex justify-content-around w-100'>
 					<Button color='secondary' variant='contained' onClick={handleClose}>
 						Close
 					</Button>
@@ -132,8 +158,8 @@ const AddMod = ({ show, setShow }) => {
 						Add Moderator
 					</Button>
 				</div>
-			</Modal.Footer>
-		</Modal>
+			</Grid>
+		</>
 	);
 };
 

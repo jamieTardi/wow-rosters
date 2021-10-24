@@ -102,8 +102,8 @@ export const createGoogleUser = (googleUser) => {
 
 export const updateUser = (id, userData, setServerMsg, dispatch, history) => {
 	API.patch(`/user/users/${id}`, userData)
-		.then((res) => dispatch({ type: CURRENT_USER, payload: res.data }))
 		.then((res) => console.log(res.data))
+		.then((res) => dispatch({ type: CURRENT_USER, payload: res.data }))
 		.then((res) => {
 			setServerMsg(res);
 		})
@@ -116,8 +116,10 @@ export const updateUser = (id, userData, setServerMsg, dispatch, history) => {
 
 export const updateMember = (id, member, setServerRes, userData) => {
 	API.patch(`/user/users/${id}`, member)
-		.then((res) => setServerRes(null))
 		.then((res) => console.log(res))
+		.then((res) => userData(res))
+		.then((res) => setServerRes(null))
+
 		.catch((err) => console.log(err));
 };
 

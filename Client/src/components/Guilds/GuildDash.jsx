@@ -18,6 +18,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddMember from './AddMember';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import Information from './Information';
+import AddMod from '../Auth/AddMod';
 
 const GuildDash = () => {
 	const dispatch = useDispatch();
@@ -95,7 +96,9 @@ const GuildDash = () => {
 						<AddMember setValue={setValue} />
 					</TabPanel>
 					<TabPanel value='2'>Item Two</TabPanel>
-					<TabPanel value='3'>Item Three</TabPanel>
+					<TabPanel value='3'>
+						<AddMod />
+					</TabPanel>
 					<TabPanel value='4'>
 						<Information
 							setValue={setValue}
