@@ -29,7 +29,9 @@ const Raids = () => {
 			<div className='row'>
 				<Paper className={classes.paper}>
 					<h4 className='my-4 raids-title'>
-						Current raids for {currentUser.guild}'s raid team
+						{currentUser.role === 'Guest'
+							? 'Welcome to WoW rosters software for building warcraft raid teams'
+							: `Current raids for ${currentUser.guild}'s raid team`}
 					</h4>
 					{currentUser.role === 'Guest' && (
 						<>

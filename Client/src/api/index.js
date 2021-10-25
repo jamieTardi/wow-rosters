@@ -116,10 +116,16 @@ export const updateUser = (id, userData, setServerMsg, dispatch, history) => {
 
 export const updateMember = (id, member, setServerRes, userData) => {
 	API.patch(`/user/users/${id}`, member)
-		.then((res) => console.log(res))
-		.then((res) => userData(res))
 		.then((res) => setServerRes(null))
+		.then((res) => userData(JSON.parse(res.config.data)))
+		.then((res) => userData(res.data))
 
+		.catch((err) => userData(err));
+};
+
+export const addMember = (id, member, setServerRes) => {
+	API.patch(`/user/users/${id}`, member)
+		.then((res) => setServerRes(null))
 		.catch((err) => console.log(err));
 };
 

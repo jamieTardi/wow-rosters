@@ -13,6 +13,7 @@ import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import HomeIcon from '@material-ui/icons/Home';
 import wowImage from '../../images/world.svg';
 import FaceIcon from '@material-ui/icons/Face';
+import BuildIcon from '@mui/icons-material/Build';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import {
 	IconButton,
@@ -35,6 +36,8 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import AddMod from '../Auth/AddMod';
 import AddGuild from '../Guilds/AddGuild';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
 
 const Nav = () => {
 	const classes = useStyles();
@@ -46,6 +49,8 @@ const Nav = () => {
 	const [openMenu, setOpenMenu] = useState(false);
 	const [show, setShow] = useState(false);
 	const [guildShow, setGuildShow] = useState(false);
+	const isMobile = useSelector((state) => state.isMobile);
+	const isDark = useSelector((state) => state.darkMode);
 
 	const toggleDrawer = () => {
 		setOpenMenu((prev) => !prev);
@@ -188,19 +193,9 @@ const Nav = () => {
 								</ListItemIcon>
 								<ListItemText primary='Home' />
 							</ListItem>
-							{(selectedUser.role === 'admin' ||
-								selectedUser.role === 'guildMaster') && (
-								<ListItem
-									disablePadding
-									style={{ cursor: 'pointer' }}
-									className={classes.listItem}
-									onClick={handleAddMod}>
-									<ListItemIcon>
-										<SupervisorAccountIcon />
-									</ListItemIcon>
-									<ListItemText primary='Add a Moderator' />
-								</ListItem>
-							)}
+						</List>
+						<Divider />
+						<List>
 							{selectedUser.guild !== 'guildless' && (
 								<ListItem
 									disablePadding
@@ -212,7 +207,7 @@ const Nav = () => {
 										setOpenMenu(false);
 									}}>
 									<ListItemIcon>
-										<SupervisorAccountIcon />
+										<BuildIcon />
 									</ListItemIcon>
 									<ListItemText primary='Guild Dashboard' />
 								</ListItem>

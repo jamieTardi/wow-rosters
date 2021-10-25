@@ -94,7 +94,9 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 			<Modal show={show} size='lg'>
 				<Paper className={classes.paperModal}>
 					<Grid container spacing={3}>
-						{(user.role === 'admin' || user.role === 'moderator') && (
+						{(user.role === 'admin' ||
+							user.role === 'moderator' ||
+							user.role === 'guildMaster') && (
 							<>
 								<Typography variant='h5'>Edit the current roster</Typography>
 
@@ -351,7 +353,9 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 							</Table>
 						</TableContainer>
 
-						{(user.role === 'admin' || user.role === 'moderator') && (
+						{(user.role === 'admin' ||
+							user.role === 'moderator' ||
+							user.role === 'guildMaster') && (
 							<Grid item xs={6}>
 								<Button
 									variant='contained'

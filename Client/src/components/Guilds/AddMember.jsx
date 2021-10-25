@@ -4,12 +4,14 @@ import {
 	Grid,
 	TextField,
 	Typography,
+	Paper,
 } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useStyles } from '../Form/styles';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers, updateMember, updateGuild, fetchGuilds } from '../../api';
+import { getAllUsers, updateGuild, fetchGuilds, addMember } from '../../api';
+import { CURRENT_GUILD } from '../../constants/actionTypes';
 
 const AddMember = ({ setValue }) => {
 	const dispatch = useDispatch();
@@ -17,6 +19,7 @@ const AddMember = ({ setValue }) => {
 	//redux
 	const currentUser = useSelector((state) => state.currentUser);
 	const currentGuild = useSelector((state) => state.currentGuild);
+	const guilds = useSelector((state) => state.guildData);
 
 	//local state
 	const [userEmail, setUserEmail] = useState('');
@@ -31,7 +34,7 @@ const AddMember = ({ setValue }) => {
 		e.preventDefault();
 		setServerRes(true);
 		setUpdateMsg(toon + ' has been added to the guild! 🎉');
-		updateMember(
+		addMember(
 			newMember._id,
 			{
 				...newMember,
@@ -70,64 +73,77 @@ const AddMember = ({ setValue }) => {
 		fetchGuilds();
 	}, []);
 
+	useEffect(() => {
+		if (guilds) {
+			let filitered = guilds.filter((guild) => {
+				return guild.name === currentUser.guild;
+			});
+			if (filitered !== undefined) {
+				dispatch({ type: CURRENT_GUILD, payload: filitered[0] });
+			}
+		}
+	}, [guilds]);
+
 	return (
 		<div className='d-flex justify-content-center'>
-			<form onSubmit={(e) => handleAddMember(e)}>
-				<Grid container spacing={3}>
-					<Grid sm={12} className='d-flex justify-content-center'>
-						<Typography variant='h5' gutterBottom>
-							Please fill in the form to add a member
-						</Typography>
-					</Grid>
+			<Paper className={classes.paperDashboard}>
+				<form onSubmit={(e) => handleAddMember(e)}>
+					<Grid container spacing={3}>
+						<Grid sm={12} className='d-flex justify-content-center'>
+							<Typography variant='h5' sx={{ marginTop: '3%' }} gutterBottom>
+								Please fill in the form to add a member
+							</Typography>
+						</Grid>
 
-					<Grid item sm={6} xs={12}>
-						<TextField
-							id='standard-basic'
-							className={classes.input}
-							variant='standard'
-							required
-							fullWidth
-							label='Raider Email Address'
-							onChange={(e) => setUserEmail(e.target.value)}
-						/>
-					</Grid>
-					<Grid item sm={6} xs={12}>
-						<TextField
-							id='standard-basic'
-							required
-							className={classes.input}
-							variant='standard'
-							fullWidth
-							label='Raider Character Name'
-							onChange={(e) => setToon(e.target.value)}
-						/>
-					</Grid>
+						<Grid item sm={6} xs={12}>
+							<TextField
+								id='standard-basic'
+								className={classes.input}
+								variant='standard'
+								required
+								fullWidth
+								label='Raider Email Address'
+								onChange={(e) => setUserEmail(e.target.value)}
+							/>
+						</Grid>
+						<Grid item sm={6} xs={12}>
+							<TextField
+								id='standard-basic'
+								required
+								className={classes.input}
+								variant='standard'
+								fullWidth
+								label='Raider Character Name'
+								onChange={(e) => setToon(e.target.value)}
+							/>
+						</Grid>
 
-					<Grid item xs={12}>
-						<Typography variant='p' color={'green'}>
-							{isUser && 'This user is an active member'}
-						</Typography>
-					</Grid>
+						<Grid item xs={12}>
+							<Typography variant='p' color={'green'}>
+								{isUser && 'This user is an active member'}
+							</Typography>
+						</Grid>
 
-					<Grid item sm={6} xs={12}>
-						<Button
-							variant='contained'
-							disabled={serverRes}
-							type='submit'
-							startIcon={
-								!serverRes ? (
-									<PersonAddAlt1Icon />
-								) : (
-									<CircularProgress size={20} />
-								)
-							}
-							color='primary'>
-							Add Raider
-						</Button>
+						<Grid item sm={6} xs={12}>
+							<Button
+								variant='contained'
+								disabled={serverRes}
+								type='submit'
+								startIcon={
+									!serverRes ? (
+										<PersonAddAlt1Icon />
+									) : (
+										<CircularProgress size={20} />
+									)
+								}
+								color='primary'>
+								Add Raider
+							</Button>
+						</Grid>
+						{updateMsg && <p>{updateMsg}</p>}
 					</Grid>
-					{updateMsg && <p>{updateMsg}</p>}
-				</Grid>
-			</form>
+				</form>
+			</Paper>
 		</div>
 	);
 };

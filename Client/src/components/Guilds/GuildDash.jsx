@@ -45,7 +45,7 @@ const GuildDash = () => {
 		<div>
 			<Paper className={classes.paper}>
 				<Typography variant='h4' className={classes.title}>
-					Guild Admin Dashboard for
+					Guild Admin Dashboard for {currentUser.guild}
 				</Typography>
 				<TabContext value={value}>
 					<Box sx={{ width: '100%' }}>
@@ -65,16 +65,11 @@ const GuildDash = () => {
 								label='Add Member'
 								style={darkMode ? { color: '#fff' } : { color: '#000' }}
 							/>
-							<Tab
-								value='2'
-								icon={<PersonRemoveAlt1Icon />}
-								label='Remove Member'
-								style={darkMode ? { color: '#fff' } : { color: '#000' }}
-							/>
+
 							<Tab
 								value='3'
 								icon={<CelebrationIcon />}
-								label='Promote Member'
+								label='Promote/Demote Member'
 								style={darkMode ? { color: '#fff' } : { color: '#000' }}
 							/>
 							<Tab
@@ -95,7 +90,7 @@ const GuildDash = () => {
 					<TabPanel value='1' className='mt-4'>
 						<AddMember setValue={setValue} />
 					</TabPanel>
-					<TabPanel value='2'>Item Two</TabPanel>
+
 					<TabPanel value='3'>
 						<AddMod />
 					</TabPanel>
