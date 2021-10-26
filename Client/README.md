@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# `WoW Rosters a World of Warcraft Raid creation tool`
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created by Jamie Tardi.
 
-## Available Scripts
+## `Getting Started`
 
-In the project directory, you can run:
+### Guild Masters
 
-### `npm start`
+If you are guild master and you are new please go to sign up > create an account > open the side menu > create a guild. Once you have done this follow the on screen steps to creating your guild.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Guild Members and officers
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+If you are a member or an officer of a guild please wait for your guild master (or raid leader) to create the guild. They will be assigned the rank of guild master and be able to add you into the guild, if you are a officer the guild master can also promote you to officer, they will require the email address you registered with.
 
-### `npm test`
+## `Account Creation`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+All members and officers will need to create an account. For ease of use there is a option to sign in with google or create a custom account.
 
-### `npm run build`
+## `Raid Creation`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Only users with the correct privileges can create raids, this is the guild master and any officers that they have promoted. The guild master or officer can create a raid by logging in > open menu > create raid. Anything that is created in the raid can be edited or deleted at a later date so do not worry if this is not finalised.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## `Roster Creation and Aiignments`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Only users with the correct privileges can create rosters, this is the guild master and any officers that they have promoted. The guild master or officer can create a roster by logging in > open menu > create roster. Anything that is created in the raid can be edited or deleted at a later date so do not worry if this is not finalised
 
-### `npm run eject`
+### Viewing rosters and assignments
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Any member of the guild can view rosters and assignments, only officers and guild masters can edit them.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## `Guild Dashboard`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This is useable by anyone of any rank. However only officers and guild masters can use the more advanced features.
+<br>
+<br>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# `Contributors`
 
-## Learn More
+I am happy to have anyone contribute to this project, even if you would like to refactor and test the code please make a note of what is required below.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## `Running the Project`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br>
 
-### Code Splitting
+### Front End
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+You will need to node installed to run the project. The front end is running on Create-react-app, this means that to install the front end please for the repo and then use cd client > npm install to install the dependencies. The UI is mainly built on material UI.
 
-### Analyzing the Bundle Size
+### Back End
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The back end is built on node and express, once forked you will need to enter cd server > npm install to install all of the dependencies including express which is a requirement.. The live project will have the ImageURL constant in the front end directed to the live server and the API end point will be on the live server also. These will need to be changed. The database which is MongoDB requires your own database to access, the project is using ENV files to hide the database String. The image hosting is from AWS please do not change this.
 
-### Making a Progressive Web App
+## `Pull Requests`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+To contribute you will need to make a pull request on GitHub. I will review pull requests and once I am happy with changes they will be accepted. Please do not be offended if it is not approved, I am happy to provide feedback.
 
-### Advanced Configuration
+## `Documentation`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+[React Documentation](https://reactjs.org/docs/getting-started.html)
 
-### Deployment
+[Node](https://nodejs.org/en/docs/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+[Material UI](https://mui.com/)
 
-### `npm run build` fails to minify
+[Express](https://expressjs.com/en/api.html)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Mongo](https://docs.mongodb.com/)
