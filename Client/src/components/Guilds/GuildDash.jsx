@@ -72,6 +72,14 @@ const GuildDash = () => {
 								label='Promote/Demote Member'
 								style={darkMode ? { color: '#fff' } : { color: '#000' }}
 							/>
+
+							<Tab
+								value='5'
+								icon={<DeleteForeverIcon />}
+								label='Delete Guild'
+								style={darkMode ? { color: '#fff' } : { color: '#000' }}
+							/>
+
 							<Tab
 								value='4'
 								icon={<PersonPinIcon />}
@@ -79,20 +87,23 @@ const GuildDash = () => {
 								onClick={handleTabInfo}
 								style={darkMode ? { color: '#fff' } : { color: '#000' }}
 							/>
-							<Tab
-								value='5'
-								icon={<DeleteForeverIcon />}
-								label='Delete Guild'
-								style={darkMode ? { color: '#fff' } : { color: '#000' }}
-							/>
 						</Tabs>
 					</Box>
 					<TabPanel value='1' className='mt-4'>
-						<AddMember setValue={setValue} />
+						{currentUser.role === 'guildMaster' ||
+						currentUser.role === 'moderator' ? (
+							<AddMember setValue={setValue} />
+						) : (
+							<p>Only officers can add members to the guild.</p>
+						)}
 					</TabPanel>
 
 					<TabPanel value='3'>
-						<AddMod />
+						{currentUser.role === 'guildMaster' ? (
+							<AddMod />
+						) : (
+							<p>Only guild masters can Promote and delete members</p>
+						)}
 					</TabPanel>
 					<TabPanel value='4'>
 						<Information
@@ -102,7 +113,13 @@ const GuildDash = () => {
 						/>
 					</TabPanel>
 
-					<TabPanel value='5'>Item Three</TabPanel>
+					<TabPanel value='5'>
+						{currentUser.role === 'guildMaster' ? (
+							'Under Construction'
+						) : (
+							<p>Only Guild masters can delete a guild</p>
+						)}
+					</TabPanel>
 				</TabContext>
 			</Paper>
 		</div>

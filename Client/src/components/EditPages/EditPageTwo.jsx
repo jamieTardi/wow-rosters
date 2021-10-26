@@ -98,8 +98,9 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 							user.role === 'moderator' ||
 							user.role === 'guildMaster') && (
 							<>
-								<Typography variant='h5'>Edit the current roster</Typography>
-
+								<Grid item xs={12}>
+									<Typography variant='h5'>Edit the current roster</Typography>
+								</Grid>
 								<Grid item xs={12}>
 									<TextField
 										type='name'
@@ -264,7 +265,9 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 											align='right'>
 											Notes
 										</TableCell>
-										{(user.role === 'admin' || user.role === 'moderator') && (
+										{(user.role === 'admin' ||
+											user.role === 'moderator' ||
+											user.role === 'guildMaster') && (
 											<>
 												<TableCell
 													className={
@@ -317,7 +320,9 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 												align='right'>
 												{raider.notes}
 											</TableCell>
-											{(user.role === 'admin' || user.role === 'moderator') && (
+											{(user.role === 'admin' ||
+												user.role === 'moderator' ||
+												user.role === 'guildMaster') && (
 												<>
 													<TableCell
 														className={

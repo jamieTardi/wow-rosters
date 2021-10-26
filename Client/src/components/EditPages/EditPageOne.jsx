@@ -45,7 +45,6 @@ const EditPageOne = ({ setEditModal }) => {
 
 		setEditRaid({ ...editRaid, date: newDate });
 	};
-	console.log(editRaid);
 
 	const handleClose = () => {
 		setShow(false);
