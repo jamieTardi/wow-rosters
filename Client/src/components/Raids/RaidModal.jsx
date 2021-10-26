@@ -33,27 +33,6 @@ const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 
 	const [addAssign, setAddAssign] = useState(false);
 
-	const dateFormatter = () => {
-		let newYear = [];
-		let newMonth = [];
-		let newDay = [];
-
-		let newStr = raid.date.substring(0, 10);
-		let splitStr = newStr.split('');
-		splitStr.map((number, i) => {
-			if (i < 4) {
-				newYear.push(number);
-			} else if (i > 4 && i < 7) {
-				newMonth.push(number);
-			} else if (i > 7) {
-				newDay.push(number);
-			}
-		});
-		let newDate =
-			newDay.join('') + '-' + newMonth.join('') + '-' + newYear.join('');
-		return newDate;
-	};
-
 	return (
 		<>
 			<div>
@@ -107,7 +86,7 @@ const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 						<div className='row mt-2'>
 							<div className='col-6'>
 								Raid Date:{' '}
-								<span className='raid-message'>{dateFormatter()}</span>
+								<span className='raid-message'>{currentRaid.date}</span>
 							</div>
 							<div className='col-6 text-end'>
 								Time of Raid:{' '}

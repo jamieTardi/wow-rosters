@@ -20,7 +20,6 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const classes = useStyles();
 
-	//Send the image to the server
 	const send = async (e) => {
 		setIsLoading(true);
 		e.preventDefault();
@@ -29,6 +28,12 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 			.then((res) => setImage(res.config.url.split('?')[0]))
 			.then(() => setIsLoading(false))
 			.catch((err) => console.log(err));
+	};
+
+	const dateFormat = (date) => {
+		let newDate = `${date.toDateString()}`;
+
+		setRaidForm({ ...raidForm, date: newDate });
 	};
 
 	useEffect(() => {
@@ -41,7 +46,9 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	}, [image]);
 
 	useEffect(() => {
-		axios.get(`${imageURL}s3Url`).then((res) => setImageResponse(res.data.url));
+		axios
+			.get(`${imageURL}s3UrlRaids`)
+			.then((res) => setImageResponse(res.data.url));
 	}, []);
 
 	return (
@@ -76,7 +83,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 						selected={startDate}
 						onChange={(date) => {
 							setStartDate(date);
-							setRaidForm({ ...raidForm, date });
+							dateFormat(date);
 						}}
 					/>
 				</Grid>

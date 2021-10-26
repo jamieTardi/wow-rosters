@@ -14,7 +14,7 @@ export const assignments = (state = [], action) => {
 			}
 
 		case REMOVE_ASSIGNMENT:
-			return state;
+			return action.payload;
 		case FETCH_ASSIGNMENTS:
 			return action.payload;
 		default:

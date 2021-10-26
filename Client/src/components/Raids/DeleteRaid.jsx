@@ -17,9 +17,6 @@ const DeleteRaid = ({ raid, deleteWarning, setDeleteWarning }) => {
 		let img = imageTrim(raid.selectedFile[0]);
 		setIsLoading(true);
 		dispatch(deleteRaid(raid._id, setIsLoading));
-		if (raid.selectedFile.length !== 0) {
-			deleteImage(img);
-		}
 		handleClose();
 	};
 

@@ -33,6 +33,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 	const [file, setFile] = useState('');
 	const mobileSize = useSelector((state) => state.isMobile);
 	const serverLoading = useSelector((state) => state.isLoading);
+	const [assignBucket, setAssignBucket] = useState('');
 
 	const [newTactics, setNewTactics] = useState({
 		title: '',
@@ -113,12 +114,10 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 
 	useEffect(() => {
 		dispatch({ type: IS_NOT_LOADING });
-		axios.get(`${imageURL}s3Url`).then((res) => setImageResponse(res.data.url));
+		axios
+			.get(`${imageURL}s3UrlAssign`)
+			.then((res) => setImageResponse(res.data.url));
 	}, []);
-
-	console.log(image);
-
-	//upload photo disable
 
 	return (
 		<div className='w-100 d-flex justify-content-center align-items-center'>
@@ -167,14 +166,12 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 										}>
 										Upload Photo
 									</Button>
-									{newTactics.selectedFile !== '' ? (
+									{newTactics.selectedFile !== '' && (
 										<img
 											src={newTactics.selectedFile}
 											alt='raid image'
 											style={{ width: '100%' }}
 										/>
-									) : (
-										''
 									)}
 								</div>
 							</Grid>

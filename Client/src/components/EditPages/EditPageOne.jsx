@@ -23,6 +23,7 @@ import {
 	IS_NOT_LOADING,
 } from '../../constants/actionTypes';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { maskedDateFormatter } from '@material-ui/pickers/_helpers/text-field-helper';
 
 const EditPageOne = ({ setEditModal }) => {
 	const dispatch = useDispatch();
@@ -39,9 +40,12 @@ const EditPageOne = ({ setEditModal }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [image, setImage] = useState('');
 
-	const handleOpen = () => {
-		setShow(true);
+	const dateFormat = (date) => {
+		let newDate = `${date.toDateString()}`;
+
+		setEditRaid({ ...editRaid, date: newDate });
 	};
+	console.log(editRaid);
 
 	const handleClose = () => {
 		setShow(false);
@@ -76,11 +80,14 @@ const EditPageOne = ({ setEditModal }) => {
 		}
 	}, [image]);
 
-	console.log(selectedRaid);
-	console.log(serverResponse);
+	useEffect(() => {
+		axios
+			.get(`${imageURL}s3UrlRaids`)
+			.then((res) => setImageResponse(res.data.url));
+	}, []);
 
 	useEffect(() => {
-		axios.get(`${imageURL}s3Url`).then((res) => setImageResponse(res.data.url));
+		dispatch({ type: IS_NOT_LOADING });
 	}, []);
 
 	return (
@@ -169,7 +176,7 @@ const EditPageOne = ({ setEditModal }) => {
 								selected={startDate}
 								onChange={(date) => {
 									setStartDate(date);
-									setEditRaid({ ...editRaid, date });
+									dateFormat(date);
 								}}
 							/>
 						</Grid>

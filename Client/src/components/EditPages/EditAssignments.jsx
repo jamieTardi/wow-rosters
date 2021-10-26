@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useStyles } from '../Form/styles';
-import FileBase from 'react-file-base64';
+import { CircularProgress } from '@material-ui/core';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
-
+import axios from 'axios';
 import {
 	Typography,
 	Grid,
@@ -15,18 +15,28 @@ import {
 } from '@material-ui/core';
 import EditAssignTable from '../Assignments/EditAssignTable';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateAssignments, getAssignments } from '../../actions/assignments';
-import { createImageAssign, deleteImage } from '../../api';
+import { updateAssignments } from '../../actions/assignments';
+import { deleteImage } from '../../api';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { v4 as uuidv4 } from 'uuid';
+import { imageURL } from '../../constants/general';
+import loadingGif from '../../images/loadingGif.gif';
+import { useHistory } from 'react-router-dom';
 
-const EditAssignments = ({ show, setShow }) => {
+const EditAssignments = ({
+	show,
+	setShow,
+	setActiveAssignments,
+	activeAssignments,
+}) => {
 	const assignment = useSelector((state) => state.currentAssignment);
-	const allAssignments = useSelector((state) => state.assignments);
+	const assignments = useSelector((state) => state.assignments);
+	const history = useHistory();
 	const user = useSelector((state) => state.currentUser);
 	const [newTactics, setNewTactics] = useState(assignment);
-
+	const [imageResponse, setImageResponse] = useState(null);
 	const raiders = assignment?.assignedRaiders;
+	const [loaded, setLoaded] = useState(false);
 	const [addCharacter, setAddCharacter] = useState(raiders);
 	const [currentRaider, setCurrentRaider] = useState({
 		name: '',
@@ -38,7 +48,8 @@ const EditAssignments = ({ show, setShow }) => {
 	const [updatedAssign, setUpdatedAssign] = useState(assignment);
 	const isDark = useSelector((state) => state.darkMode);
 	const [file, setFile] = useState('');
-	const [newAssingments, setNewAssignments] = useState(null);
+	const [image, setImage] = useState(null);
+	const [filiteredAssigns, setFiliteredAssigns] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
 	const classes = useStyles();
@@ -57,6 +68,7 @@ const EditAssignments = ({ show, setShow }) => {
 		dispatch(updateAssignments(updatedAssign, updatedAssign._id, setIsLoading));
 		if (!isLoading) {
 			setShow(false);
+			history.go(0);
 		}
 	};
 
@@ -68,6 +80,13 @@ const EditAssignments = ({ show, setShow }) => {
 	useEffect(() => {
 		setUpdatedAssign(assignment);
 	}, [assignment]);
+
+	useEffect(() => {
+		let filitered = activeAssignments.filter((assign) => {
+			return assignment._id !== assign._id;
+		});
+		setFiliteredAssigns(filitered);
+	}, []);
 
 	const targetMarkers = [
 		'Skull 💀',
@@ -82,17 +101,19 @@ const EditAssignments = ({ show, setShow }) => {
 
 	const send = (e) => {
 		e.preventDefault();
-		const data = new FormData();
-		data.append('file', file);
-		let img = newTactics.image?.substring(
-			newTactics.image.lastIndexOf('/') + 1,
-			newTactics.image.length,
-		);
-		if (newTactics.image !== '') {
-			deleteImage(img);
-		}
-		// createImageAssign(data, setNewTactics, newTactics);
+		setIsLoading(true);
+		axios
+			.put(imageResponse, file)
+			.then((res) => setImage(res.config.url.split('?')[0]))
+			.then(() => setIsLoading(false))
+			.catch((err) => console.log(err));
 	};
+
+	useEffect(() => {
+		axios
+			.get(`${imageURL}s3UrlAssign`)
+			.then((res) => setImageResponse(res.data.url));
+	}, []);
 
 	return (
 		<div>
@@ -107,20 +128,42 @@ const EditAssignments = ({ show, setShow }) => {
 				</Modal.Header>
 				<Modal.Body>
 					<div>
-						<a download={newTactics.title} href={newTactics.image}>
-							<img
-								style={{ width: '100%' }}
-								src={newTactics.image}
-								alt='raid pic'
-							/>
-						</a>
+						<div>
+							<a download={newTactics.title} href={newTactics.image}>
+								<img
+									style={
+										loaded
+											? {
+													objectFit: 'cover',
+													height: '400px',
+													width: '100%',
+											  }
+											: {
+													objectFit: 'contain',
+													height: '50px',
+													width: '100%',
+											  }
+									}
+									src={
+										loaded
+											? assignment.image
+												? assignment.image
+												: 'https://wow-rosters.herokuapp.com/images/image895.jpg'
+											: loadingGif
+									}
+									onLoad={() => setLoaded(true)}
+								/>
+							</a>
+						</div>
 						<Typography variant='p' gutterBottom>
 							Click on the above image to download 📁
 						</Typography>
 					</div>
 					<div className='w-100'>
 						<form className='w-100'>
-							{(user.role === 'admin' || user.role === 'moderator') && (
+							{(user.role === 'admin' ||
+								user.role === 'moderator' ||
+								user.role === 'guildMaster') && (
 								<>
 									<Grid container spacing={3}>
 										<Grid item xs={12}>
@@ -131,15 +174,15 @@ const EditAssignments = ({ show, setShow }) => {
 												<TextField
 													type='name'
 													fullWidth
-													value={newTactics.title}
+													value={updatedAssign.title}
 													className={classes.input}
 													InputLabelProps={{
 														style: { color: '#fff ' },
 													}}
 													label='Title of the Assignment'
 													onChange={(e) => {
-														setNewTactics({
-															...newTactics,
+														setUpdatedAssign({
+															...updatedAssign,
 															title: e.target.value,
 														});
 													}}
@@ -163,8 +206,15 @@ const EditAssignments = ({ show, setShow }) => {
 														variant='contained'
 														color='success'
 														className='my-2 w-50'
+														disabled={isLoading}
 														onClick={send}
-														startIcon={<CloudUploadIcon />}>
+														startIcon={
+															isLoading ? (
+																<CircularProgress size={20} />
+															) : (
+																<CloudUploadIcon />
+															)
+														}>
 														Upload Photo
 													</Button>
 												</div>
@@ -295,7 +345,9 @@ const EditAssignments = ({ show, setShow }) => {
 									setUpdatedAssign={setUpdatedAssign}
 								/>
 							</div>
-							{(user.role === 'admin' || user.role === 'moderator') && (
+							{(user.role === 'admin' ||
+								user.role === 'moderator' ||
+								user.role === 'guildMaster') && (
 								<Button
 									color='primary'
 									variant='contained'

@@ -71,9 +71,10 @@ const RaidForm = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [pageNum, setPageNum] = useState(0);
 	const [activeStep, setActiveStep] = useState(0);
-	const [raidHour, setRaidHour] = useState('00');
-	const [raidMinute, setRaidMinute] = useState('00');
+	const [raidHour, setRaidHour] = useState('20');
+	const [raidMinute, setRaidMinute] = useState('30');
 	const currentUser = useSelector((state) => state.currentUser);
+
 	const [raidForm, setRaidForm] = useState({
 		title: '',
 		message: '',
@@ -82,7 +83,7 @@ const RaidForm = () => {
 		group: [],
 		guild: currentUser.guild,
 		time: raidHour + ':' + raidMinute,
-		date: '',
+		date: new Date().toDateString(),
 		roster: [],
 	});
 	const classes = useStyles();
@@ -114,7 +115,6 @@ const RaidForm = () => {
 		dispatch({ type: IS_NOT_LOADING });
 	}, []);
 
-	console.log(serverResponse);
 	if (!user?.result?.name) {
 		return (
 			<Paper className={classes.paper}>

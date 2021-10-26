@@ -11,7 +11,11 @@ import assignmentRoutes from './routes/assignment.js';
 import imageRoutes from './routes/images.js';
 import guildsRoutes from './routes/guilds.js';
 import { fileURLToPath } from 'url';
-import { generateUploadURL } from './middleware/images.js';
+import {
+	generateUploadURL,
+	generateUploadURLAssign,
+	generateUploadURLRaids,
+} from './middleware/images.js';
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
@@ -30,10 +34,22 @@ app.use('/guilds', guildsRoutes);
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/', (req, res) => {
-	res.send('Hello apis');
+	res.send('WoW Rosters API is currently running');
 });
+
+//S3 Bucket
 app.get('/s3Url', async (req, res) => {
 	const url = await generateUploadURL();
+	res.send({ url });
+});
+
+app.get('/s3UrlAssign', async (req, res) => {
+	const url = await generateUploadURLAssign();
+	res.send({ url });
+});
+
+app.get('/s3UrlRaids', async (req, res) => {
+	const url = await generateUploadURLRaids();
 	res.send({ url });
 });
 

@@ -140,23 +140,6 @@ export const getAllUsers = (setAllUsers) => {
 
 //Image handling
 
-export const deleteImage = (img) => {
-	API.delete(`/uploads`, { data: { image: img } })
-		.then((res) => console.log(res))
-		.catch((err) => console.log(err));
-};
-
-export const createImage = (data, setRaidForm, raidForm) => {
-	API.post(`/uploads`, data)
-		.then((res) =>
-			setRaidForm({
-				...raidForm,
-				selectedFile: `${imageURL}/images/${res.data}`,
-			}),
-		)
-		.catch((err) => console.log(err));
-};
-
 //Guilds
 
 export const createGuild = (guild, setError, setResponse) =>
