@@ -20,7 +20,7 @@ All members and officers will need to create an account. For ease of use there i
 
 Only users with the correct privileges can create raids, this is the guild master and any officers that they have promoted. The guild master or officer can create a raid by logging in > open menu > create raid. Anything that is created in the raid can be edited or deleted at a later date so do not worry if this is not finalised.
 
-## `Roster Creation and Aiignments`
+## `Roster Creation and Assignments `
 
 Only users with the correct privileges can create rosters, this is the guild master and any officers that they have promoted. The guild master or officer can create a roster by logging in > open menu > create roster. Anything that is created in the raid can be edited or deleted at a later date so do not worry if this is not finalised
 
@@ -44,7 +44,7 @@ I am happy to have anyone contribute to this project, even if you would like to 
 
 ### Front End
 
-You will need to node installed to run the project. The front end is running on Create-react-app, this means that to install the front end please for the repo and then use cd client > npm install to install the dependencies. The UI is mainly built on material UI.
+You will need to have node installed to run the project. The front end is running on Create-react-app, this means that to install the front end please for the repo and then use cd client > npm install to install the dependencies. The UI is mainly built on material UI.
 
 ### Back End
 
