@@ -19,7 +19,7 @@ const CurrentGroup = () => {
 	const classes = useStyles();
 	const raid = useSelector((state) => state.currentRaid);
 	const [groupTable, setGroupTable] = useState(null);
-	const raiders = raid.roster.roster;
+
 	const groupNumber = [1, 2, 3, 4, 5, 6, 7, 8];
 
 	const handleNumberOfColumns = (num) => {

@@ -51,7 +51,7 @@ const GroupTable = ({ groupTable }) => {
 
 	return (
 		<div className='row w-100'>
-			<div className='col-6'>
+			<div className='col-12 col-md-6'>
 				<FormControl className='w-75'>
 					<InputLabel>Raider Name</InputLabel>
 					<Select>
@@ -68,8 +68,8 @@ const GroupTable = ({ groupTable }) => {
 					</Select>
 				</FormControl>
 			</div>
-			<div className='col-6'>
-				<FormControl className='w-75 col-6'>
+			<div className='col-12 col-md-6'>
+				<FormControl className='w-75 col-12 col-md-6'>
 					<InputLabel>Raider Group</InputLabel>
 					<Select>
 						{selectedGroups.map((item) => (

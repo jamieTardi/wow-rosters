@@ -33,7 +33,6 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 	const [file, setFile] = useState('');
 	const mobileSize = useSelector((state) => state.isMobile);
 	const serverLoading = useSelector((state) => state.isLoading);
-	const [assignBucket, setAssignBucket] = useState('');
 
 	const [newTactics, setNewTactics] = useState({
 		title: '',
@@ -154,7 +153,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 									<Button
 										variant='contained'
 										color='success'
-										className='my-2 w-50'
+										className={mobileSize ? 'my-2 ' : 'my-2 w-50'}
 										disabled={isLoading || !file}
 										onClick={send}
 										startIcon={

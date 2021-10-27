@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-
 import { useSelector, useDispatch } from 'react-redux';
 import Home from './components/Home/Home';
 import { Nav } from './components';
@@ -13,6 +12,8 @@ import ViewRosters from './components/Roster/ViewRosters';
 import ViewAssignments from './components/Assignments/ViewAssignments';
 import { IS_MOBILE_CHANGE } from './constants/actionTypes';
 import GuildDash from './components/Guilds/GuildDash';
+import Footer from './components/Footer/Footer';
+
 const App = () => {
 	const dispatch = useDispatch();
 	const isDark = useSelector((state) => state.darkMode);
@@ -60,6 +61,9 @@ const App = () => {
 						component={GuildDash}
 					/>
 				</Switch>
+			</div>
+			<div className='w-100 d-flex justify-content-center '>
+				<Footer />
 			</div>
 		</div>
 	);

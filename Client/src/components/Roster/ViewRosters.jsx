@@ -8,7 +8,7 @@ import { CURRENT_ROSTER } from '../../constants/actionTypes';
 import EditPageTwo from '../EditPages/EditPageTwo';
 import LoadingSpinner from '../UIcomponents/LoadingSpinner';
 import loadingGif from '../../images/loadingGif.gif';
-import { deleteRoster, updateRoster } from '../../actions/roster';
+import { deleteRoster } from '../../actions/roster';
 
 const ViewRosters = () => {
 	const dispatch = useDispatch();

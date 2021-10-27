@@ -22,9 +22,6 @@ const AddMod = ({ show, setShow }) => {
 	const guildData = useSelector((state) => state.guildData);
 	const currentUser = useSelector((state) => state.currentUser);
 
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
-
 	const handleAddEmail = (e) => {
 		setNewEmail(e.target.value);
 	};

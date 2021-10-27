@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Form } from 'react-bootstrap';
-import FileBase from 'react-file-base64';
-import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { createRaid } from '../../actions/raids';
 import RaidPageOne from './RaidPageOne';
@@ -10,7 +7,6 @@ import RaidPageThree from './RaidPageThree';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Container from '@material-ui/core/Container';
 import { Paper } from '@material-ui/core';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import {

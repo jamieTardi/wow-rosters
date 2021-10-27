@@ -5,6 +5,7 @@ import {
 	Select,
 	MenuItem,
 	InputLabel,
+	CircularProgress,
 } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,16 +22,20 @@ const NoRoster = ({ serverResponse, setServerResponse, setThisRaid }) => {
 	const rosters = useSelector((state) => state.createdRosters);
 	const raid = useSelector((state) => state.currentRaid);
 	const user = useSelector((state) => state.currentUser);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmitRoster = () => {
+		setIsLoading(true);
 		dispatch(
 			updateRaid(raid._id, { ...raid, roster: rosterVal }, setServerResponse),
 		);
-		history.go(0);
+
+		setTimeout(() => {
+			setIsLoading(false);
+			history.go(0);
+		}, 1500);
 	};
-	useEffect(() => {
-		setRosterVal(null);
-	}, []);
+
 	return (
 		<>
 			{user.role === 'admin' ||
@@ -52,14 +57,18 @@ const NoRoster = ({ serverResponse, setServerResponse, setThisRaid }) => {
 								</InputLabel>
 								<Select>
 									{rosters.map((roster) => (
-										<MenuItem
-											value={roster.title}
-											className='text-white'
-											onClick={() => {
-												setRosterVal(roster);
-											}}>
-											{roster.title}
-										</MenuItem>
+										<>
+											{roster.guild === user.guild && (
+												<MenuItem
+													value={roster.title}
+													className='text-white'
+													onClick={() => {
+														setRosterVal(roster);
+													}}>
+													{roster.title}
+												</MenuItem>
+											)}
+										</>
 									))}
 								</Select>
 								<div className='my-4'>
@@ -67,7 +76,8 @@ const NoRoster = ({ serverResponse, setServerResponse, setThisRaid }) => {
 										onClick={handleSubmitRoster}
 										color='default'
 										variant='contained'
-										disabled={!rosterVal}>
+										startIcon={isLoading && <CircularProgress size={20} />}
+										disabled={isLoading}>
 										Add this roster
 									</Button>
 								</div>

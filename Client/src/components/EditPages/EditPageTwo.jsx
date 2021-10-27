@@ -21,9 +21,8 @@ import {
 import { useStyles } from '../Form/styles';
 import { useDispatch } from 'react-redux';
 import { updateRoster } from '../../actions/roster';
-import { useHistory } from 'react-router-dom';
 
-const EditPageTwo = ({ hideModal, show, setShow }) => {
+const EditPageTwo = ({ show, setShow }) => {
 	const raid = useSelector((state) => state.currentRaid);
 	const darkMode = useSelector((state) => state.darkMode);
 	const currentRoster = useSelector((state) => state.currentRoster);
@@ -82,7 +81,6 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 	};
 
 	const handleAddNewRaider = () => {
-		// setNewRoster([...raid.roster, currentRaider]);
 		setNewRoster({
 			...newRoster,
 			roster: [...newRoster.roster, currentRaider],
@@ -153,7 +151,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 									</Select>
 								</Grid>
 
-								<Grid item xs={5}>
+								<Grid item item xs={12} md={6}>
 									<TextField
 										type='name'
 										fullWidth
@@ -172,7 +170,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 									/>
 								</Grid>
 
-								<Grid item xs={5}>
+								<Grid item xs={12} md={6}>
 									<InputLabel
 										id='character-select-label'
 										className={classes.select}>
@@ -215,7 +213,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 									/>
 								</Grid>
 
-								<Grid item xs={8}>
+								<Grid item xs={12} md={8}>
 									<Button
 										variant='contained'
 										color='primary'
@@ -223,7 +221,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 										Append Assignee
 									</Button>
 								</Grid>
-								<Grid item xs={4}>
+								<Grid item xs={12} md={4}>
 									<Button
 										variant='contained'
 										color='default'
@@ -365,7 +363,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 						{(user.role === 'admin' ||
 							user.role === 'moderator' ||
 							user.role === 'guildMaster') && (
-							<Grid item xs={6}>
+							<Grid item xs={12} md={6}>
 								<Button
 									variant='contained'
 									color='primary'
@@ -375,7 +373,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 								</Button>
 							</Grid>
 						)}
-						<Grid item xs={6}>
+						<Grid item xs={12} md={6}>
 							<Button
 								variant='contained'
 								color='secondary'

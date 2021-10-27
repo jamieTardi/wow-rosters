@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { createRoster } from '../../api';
+import React, { useState } from 'react';
 import Roster from '../Roster/Roster';
 import { v4 as uuidv4 } from 'uuid';
 import Grid from '@material-ui/core/Grid';
@@ -22,9 +20,8 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 		notes: '',
 		id: uuidv4(),
 	});
-	const dispatch = useDispatch();
+
 	const [show, setShow] = useState(true);
-	const [title, setTitle] = useState(false);
 	const [assignedRoster, setAssignedRoster] = useState([]);
 	const [addTitle, setAddTitle] = useState('');
 	const [showText, setShowText] = useState('');
@@ -39,9 +36,6 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 		'Warlock',
 		'Hunter',
 	];
-
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
 
 	const handleAddCharacter = () => {
 		setShowText('Character Added to Roster 👍');
@@ -66,9 +60,10 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 		<>
 			<Grid container spacing={3}>
 				<Paper className='raid-form-container container mt-5' gutterBottom>
-					<Typography className='py-3'>
+					<Typography className='py-3' variant='h4'>
 						Please fill in the form to create a roster
 					</Typography>
+
 					<FormControl>
 						<Grid item xs={12} gutterBottom>
 							<TextField

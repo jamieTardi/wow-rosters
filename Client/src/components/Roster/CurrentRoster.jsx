@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button } from '@material-ui/core';
+import { Button, CircularProgress } from '@material-ui/core';
 import EditPageTwo from '../EditPages/EditPageTwo';
 import NoRoster from './NoRoster';
 import { updateRaid } from '../../actions/raids';
@@ -19,8 +19,10 @@ const CurrentRoster = () => {
 	const roster = raid ? raid.roster.roster : currentRoster.roster;
 	const [thisRaid, setThisRaid] = useState(raid);
 	const dispatch = useDispatch();
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleRemoveRoster = () => {
+		setIsLoading(true);
 		dispatch(
 			updateRaid(
 				raid._id,
@@ -28,7 +30,11 @@ const CurrentRoster = () => {
 				setServerResponse,
 			),
 		);
-		history.go(0);
+
+		setTimeout(() => {
+			setIsLoading(false);
+			history.go(0);
+		}, 1500);
 	};
 
 	useEffect(() => {
@@ -139,7 +145,8 @@ const CurrentRoster = () => {
 							<Button
 								variant='contained'
 								color='secondary'
-								disabled={serverResponse}
+								disabled={isLoading}
+								startIcon={isLoading && <CircularProgress size={20} />}
 								onClick={handleRemoveRoster}>
 								Remove roster
 							</Button>

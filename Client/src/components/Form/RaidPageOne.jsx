@@ -11,6 +11,7 @@ import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { imageURL } from '../../constants/general';
+import { useSelector } from 'react-redux';
 
 const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	const [file, setFile] = useState('');
@@ -18,6 +19,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 	const [startDate, setStartDate] = useState(new Date());
 	const [imageResponse, setImageResponse] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
+	const isMobile = useSelector((state) => state.isMobile);
 	const classes = useStyles();
 
 	const send = async (e) => {
@@ -124,7 +126,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 				<Button
 					variant='contained'
 					color='success'
-					className='my-2 w-50'
+					className={isMobile ? 'my-2' : 'my-2 w-50'}
 					disabled={isLoading}
 					onClick={send}
 					startIcon={

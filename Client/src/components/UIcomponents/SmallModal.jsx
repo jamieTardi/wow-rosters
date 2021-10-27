@@ -28,7 +28,7 @@ const SmallModal = ({ tabInfo, setOpen, open, setTabInfo }) => {
 	const currentUser = useSelector((state) => state.currentUser);
 	const currentGuild = useSelector((state) => state.currentGuild);
 	const [errorTxt, setErrorTxt] = useState(null);
-
+	const [userData, setUserData] = useState('');
 	const handleClose = () => {
 		setOpen(false);
 		setTabInfo({});
@@ -54,6 +54,7 @@ const SmallModal = ({ tabInfo, setOpen, open, setTabInfo }) => {
 				currentUser._id,
 				{ ...currentUser, character: newName },
 				setIsLoading,
+				setUserData,
 			);
 			dispatch({
 				type: CURRENT_USER,
@@ -68,6 +69,7 @@ const SmallModal = ({ tabInfo, setOpen, open, setTabInfo }) => {
 				currentUser._id,
 				{ ...currentUser, guild: 'guildless' },
 				setIsLoading,
+				setUserData,
 			);
 			let filitered = currentGuild.members.filter(
 				(member) => member !== currentUser.character,
@@ -75,9 +77,7 @@ const SmallModal = ({ tabInfo, setOpen, open, setTabInfo }) => {
 			updateGuild(currentGuild._id, { ...currentGuild, members: filitered });
 			dispatch({ type: LOGOUT });
 			history.push('/');
-
 			history.go(0);
-
 			handleClose();
 		} else {
 			setErrorTxt(

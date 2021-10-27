@@ -89,8 +89,8 @@ const AddMember = ({ setValue }) => {
 			<Paper className={classes.paperDashboard}>
 				<form onSubmit={(e) => handleAddMember(e)}>
 					<Grid container spacing={3}>
-						<Grid sm={12} className='d-flex justify-content-center'>
-							<Typography variant='h5' sx={{ marginTop: '3%' }} gutterBottom>
+						<Grid sm={12} className='d-flex justify-content-center px-4'>
+							<Typography variant='h6' sx={{ marginTop: '3%' }} gutterBottom>
 								Please fill in the form to add a member
 							</Typography>
 						</Grid>

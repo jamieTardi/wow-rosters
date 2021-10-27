@@ -56,7 +56,6 @@ const Information = ({ tabInfo, setTabInfo }) => {
 
 	//Arrays and objects
 
-	//character name update needs to update on guild too
 	const dashBoardItems = [
 		{
 			title: 'Character Name:',

@@ -1,5 +1,4 @@
 import * as api from '../api/index';
-import axios from 'axios';
 import { DELETE_ROSTER, UPDATE_ROSTER } from '../constants/actionTypes';
 
 export const getRoster = () => async (dispatch) => {

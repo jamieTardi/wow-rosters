@@ -1,14 +1,8 @@
 import axios from 'axios';
-import { imageURL } from '../constants/general';
-import {
-	IS_NOT_LOADING,
-	AUTH,
-	CURRENT_USER,
-	LOGOUT,
-} from '../constants/actionTypes';
+import { IS_NOT_LOADING, CURRENT_USER, LOGOUT } from '../constants/actionTypes';
 
-// const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
+// const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 API.interceptors.request.use((req) => {
 	if (localStorage.getItem('profile')) {
@@ -136,11 +130,12 @@ export const getAllUsers = (setAllUsers) => {
 
 //Guilds
 
-export const createGuild = (guild, setError, setResponse) =>
+export const createGuild = (guild, setError, setResponse) => {
 	API.post('/guilds', guild)
 		.then((res) => console.log(res))
 		.then(() => setResponse(true))
 		.catch((err) => setError(err.response.data.message));
+};
 
 export const fetchGuilds = () => API.get('/guilds');
 

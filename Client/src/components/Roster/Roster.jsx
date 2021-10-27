@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateRaid } from '../../actions/raids';
 import SaveIcon from '@material-ui/icons/Save';
 import { Button } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
 import { createRoster } from '../../actions/roster';
 import { useHistory } from 'react-router-dom';
 
-const Roster = ({
-	selectedRaid,
-	setRaidForm,
-	raidForm,
-	assignedRoster,
-	setAssignedRoster,
-	addTitle,
-}) => {
+const Roster = ({ assignedRoster, setAssignedRoster, addTitle }) => {
 	const [rosterAssigned, setRosterAssigned] = useState(true);
 	const dispatch = useDispatch();
 	const currentUser = useSelector((state) => state.currentUser);
@@ -48,7 +40,6 @@ const Roster = ({
 	const handleUpdateRaid = () => {
 		setIsLoading(true);
 		setCompletedTxt(true);
-		// setRaidForm({ ...raidForm, roster: assignedRoster });
 		dispatch(createRoster(completeRoster));
 		setTimeout(() => {
 			setIsLoading(false);

@@ -23,7 +23,6 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 	const dispatch = useDispatch();
 	const [allowSubmit, setAllowSubmit] = useState(false);
 	const [user, setUser] = useState(null);
-	const [users, setUsers] = useState(null);
 	const [error, setError] = useState(null);
 	const currentUser = useSelector((state) => state.currentUser);
 	const [response, setResponse] = useState(false);
@@ -44,6 +43,8 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 	const handleCreateGuild = (e) => {
 		e.preventDefault();
 		createGuild(newGuild, setError, setResponse, dispatch);
+		dispatch({ type: LOGOUT });
+		history.go(0);
 	};
 	const handleClose = () => {
 		setGuildShow(false);

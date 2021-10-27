@@ -6,8 +6,6 @@ import {
 	Button,
 	Grid,
 	InputLabel,
-	Select,
-	MenuItem,
 } from '@material-ui/core';
 import { Modal } from 'react-bootstrap';
 import { useStyles } from '../Form/styles';
@@ -23,14 +21,11 @@ import {
 	IS_NOT_LOADING,
 } from '../../constants/actionTypes';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { maskedDateFormatter } from '@material-ui/pickers/_helpers/text-field-helper';
 
 const EditPageOne = ({ setEditModal }) => {
 	const dispatch = useDispatch();
-	const [raidTime, setRaidTime] = useState('20:30');
 	const selectedRaid = useSelector((state) => state.currentRaid);
 	const serverResponse = useSelector((state) => state.isLoading);
-	const [uploadedImg, setUploadedImg] = useState('');
 	const classes = useStyles();
 	const [show, setShow] = useState(true);
 	const [editRaid, setEditRaid] = useState(selectedRaid);

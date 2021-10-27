@@ -6,11 +6,8 @@ import { Paper, Typography, Button, Fab } from '@material-ui/core';
 import empty from '../../images/empty.svg';
 import { Link, useLocation } from 'react-router-dom';
 import EditAssignments from '../EditPages/EditAssignments';
-import {
-	CURRENT_ASSIGNMENT,
-	REMOVE_ASSIGNMENT,
-} from '../../constants/actionTypes';
-import { deleteImage } from '../../api';
+import { CURRENT_ASSIGNMENT } from '../../constants/actionTypes';
+
 import LoadingSpinner from '../UIcomponents/LoadingSpinner';
 import { getGuilds } from '../../actions/guilds';
 import loadingGif from '../../images/loadingGif.gif';

@@ -63,11 +63,6 @@ const Nav = () => {
 		history.go(0);
 	};
 
-	const handleAddMod = () => {
-		setOpenMenu(false);
-		setShow(true);
-	};
-
 	const handleAddGuild = () => {
 		setOpenMenu(false);
 		setGuildShow(true);

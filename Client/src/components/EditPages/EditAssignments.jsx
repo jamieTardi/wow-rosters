@@ -16,25 +16,19 @@ import {
 import EditAssignTable from '../Assignments/EditAssignTable';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateAssignments } from '../../actions/assignments';
-import { deleteImage } from '../../api';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { v4 as uuidv4 } from 'uuid';
 import { imageURL } from '../../constants/general';
 import loadingGif from '../../images/loadingGif.gif';
 import { useHistory } from 'react-router-dom';
 
-const EditAssignments = ({
-	show,
-	setShow,
-	setActiveAssignments,
-	activeAssignments,
-}) => {
+const EditAssignments = ({ show, setShow, activeAssignments }) => {
 	const assignment = useSelector((state) => state.currentAssignment);
-	const assignments = useSelector((state) => state.assignments);
 	const history = useHistory();
 	const user = useSelector((state) => state.currentUser);
 	const [newTactics, setNewTactics] = useState(assignment);
 	const [imageResponse, setImageResponse] = useState(null);
+	const isMobile = useSelector((state) => state.isMobile);
 	const raiders = assignment?.assignedRaiders;
 	const [loaded, setLoaded] = useState(false);
 	const [addCharacter, setAddCharacter] = useState(raiders);
@@ -48,7 +42,6 @@ const EditAssignments = ({
 	const [updatedAssign, setUpdatedAssign] = useState(assignment);
 	const isDark = useSelector((state) => state.darkMode);
 	const [file, setFile] = useState('');
-	const [image, setImage] = useState(null);
 	const [filiteredAssigns, setFiliteredAssigns] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
@@ -210,7 +203,7 @@ const EditAssignments = ({
 													<Button
 														variant='contained'
 														color='success'
-														className='my-2 w-50'
+														className={isMobile ? 'my-2' : 'my-2 w-50'}
 														disabled={isLoading}
 														onClick={send}
 														startIcon={
@@ -330,6 +323,7 @@ const EditAssignments = ({
 											color='primary'
 											startIcon={<AddToPhotosIcon />}
 											variant='contained'
+											className='mt-3 mt-md-0'
 											type='button'
 											onClick={handleAddCharacter}>
 											Add New Raider

@@ -1,4 +1,3 @@
-import { Typography } from '@material-ui/core';
 import * as api from '../api/index';
 import {
 	FETCH_ASSIGNMENTS,

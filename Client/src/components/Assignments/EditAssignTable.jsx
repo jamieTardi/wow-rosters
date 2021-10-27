@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-	Typography,
-	TextField,
 	Button,
-	Grid,
 	Paper,
 	Table,
 	TableHead,
@@ -11,21 +8,14 @@ import {
 	TableCell,
 	TableBody,
 	TableContainer,
-	InputLabel,
-	Select,
-	MenuItem,
 } from '@material-ui/core';
 import { useStyles } from '../Form/styles';
 import { useSelector } from 'react-redux';
 
 const EditAssignTable = ({
-	assignment,
-	currentRaider,
 	setCurrentRaider,
 	newTactics,
-	addCharacter,
 	updatedAssign,
-	setNewTactics,
 	setUpdatedAssign,
 }) => {
 	const classes = useStyles();
