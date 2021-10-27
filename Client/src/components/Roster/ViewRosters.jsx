@@ -8,6 +8,7 @@ import { CURRENT_ROSTER } from '../../constants/actionTypes';
 import EditPageTwo from '../EditPages/EditPageTwo';
 import LoadingSpinner from '../UIcomponents/LoadingSpinner';
 import loadingGif from '../../images/loadingGif.gif';
+import { deleteRoster, updateRoster } from '../../actions/roster';
 
 const ViewRosters = () => {
 	const dispatch = useDispatch();
@@ -25,7 +26,14 @@ const ViewRosters = () => {
 		dispatch({ type: CURRENT_ROSTER, payload: roster });
 	};
 
-	const handleDeleteRoster = (roster) => {};
+	//needs finishing
+	const handleDeleteRoster = (roster) => {
+		let filitered = guildRoster.filter((item) => {
+			return item._id !== roster._id;
+		});
+		dispatch(deleteRoster(roster._id, roster));
+		setGuildRoster(filitered);
+	};
 
 	useEffect(() => {
 		if (currentRoster !== null) {

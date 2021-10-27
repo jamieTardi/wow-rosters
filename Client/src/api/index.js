@@ -49,11 +49,10 @@ export const fetchRoster = () => API.get('/roster');
 
 export const createRoster = (newRoster) => API.post('/roster', newRoster);
 
-export const updateRoster = (newRoster, id, setIsLoading) => {
-	API.patch(`/roster/${id}`, newRoster)
-		.then(() => setIsLoading(false))
-		.catch((err) => console.log(err));
-};
+export const updateRoster = (newRoster, id) =>
+	API.patch(`/roster/${id}`, newRoster);
+
+export const deleteRoster = (id, roster) => API.delete(`/roster/${id}`, roster);
 
 //Assignments
 

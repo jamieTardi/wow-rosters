@@ -82,7 +82,11 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 	};
 
 	const handleAddNewRaider = () => {
-		setNewRoster([...raid.roster, currentRaider]);
+		// setNewRoster([...raid.roster, currentRaider]);
+		setNewRoster({
+			...newRoster,
+			roster: [...newRoster.roster, currentRaider],
+		});
 	};
 
 	useEffect(() => {

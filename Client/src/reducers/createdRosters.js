@@ -1,4 +1,8 @@
-import { FETCH_ROSTER, UPDATE_ROSTER } from '../constants/actionTypes';
+import {
+	FETCH_ROSTER,
+	UPDATE_ROSTER,
+	DELETE_ROSTER,
+} from '../constants/actionTypes';
 
 export const createdRosters = (state = [], action) => {
 	switch (action.type) {
@@ -8,6 +12,10 @@ export const createdRosters = (state = [], action) => {
 			return state.map((roster) =>
 				roster._id === action.payload._id ? action.payload : roster,
 			);
+		case DELETE_ROSTER:
+			return state.filter((roster) => {
+				return roster._id !== action.payload._id;
+			});
 		default:
 			return state;
 	}

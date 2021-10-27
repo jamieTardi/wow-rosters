@@ -64,116 +64,126 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 	const classes = useStyles();
 	return (
 		<>
-			<Paper className='raid-form-container container mt-5'>
-				<FormControl>
-					<Grid item xs={12}>
-						<TextField
-							type='name'
-							fullWidth
-							value={addTitle}
-							className={classes.input}
-							InputLabelProps={{
-								style: { color: '#fff ' },
-							}}
-							label='Name of the roster'
-							onChange={(e) => {
-								setAddTitle(e.target.value);
-							}}
-						/>
-					</Grid>
-				</FormControl>
-				<FormControl
-					className='w-100'
-					onSubmit={(e) => {
-						handleAddCharacter(e);
-					}}>
-					<InputLabel id='demo-simple-select-label' className={classes.select}>
-						Select a role
-					</InputLabel>
-					<Select
-						onChange={(e) => {
-							setAddCharacter({ ...addCharacter, role: e.target.value });
-						}}>
-						<MenuItem value='Tank' className='text-white'>
-							Tank
-						</MenuItem>
-						<MenuItem value='DPS' className='text-white'>
-							DPS
-						</MenuItem>
-						<MenuItem value='Healer' className='text-white'>
-							Healer
-						</MenuItem>
-					</Select>
-
-					<div className='d-flex justify-content-between my-3'>
-						<Grid item xs={5}>
+			<Grid container spacing={3}>
+				<Paper className='raid-form-container container mt-5' gutterBottom>
+					<Typography className='py-3'>
+						Please fill in the form to create a roster
+					</Typography>
+					<FormControl>
+						<Grid item xs={12} gutterBottom>
 							<TextField
 								type='name'
 								fullWidth
-								value={addCharacter.name}
+								value={addTitle}
 								className={classes.input}
 								InputLabelProps={{
 									style: { color: '#fff ' },
 								}}
-								label='Character Name'
+								label='Name of the roster'
 								onChange={(e) => {
-									setAddCharacter({ ...addCharacter, name: e.target.value });
+									setAddTitle(e.target.value);
+								}}
+							/>
+						</Grid>
+					</FormControl>
+					<FormControl
+						className='w-100 mt-3'
+						onSubmit={(e) => {
+							handleAddCharacter(e);
+						}}>
+						<InputLabel
+							id='demo-simple-select-label'
+							className={classes.select}>
+							Select a role
+						</InputLabel>
+						<Select
+							onChange={(e) => {
+								setAddCharacter({ ...addCharacter, role: e.target.value });
+							}}>
+							<MenuItem value='Tank' className='text-white'>
+								Tank
+							</MenuItem>
+							<MenuItem value='DPS' className='text-white'>
+								DPS
+							</MenuItem>
+							<MenuItem value='Healer' className='text-white'>
+								Healer
+							</MenuItem>
+						</Select>
+
+						<div className='d-flex justify-content-between my-3'>
+							<Grid item xs={5}>
+								<TextField
+									type='name'
+									fullWidth
+									value={addCharacter.name}
+									className={classes.input}
+									InputLabelProps={{
+										style: { color: '#fff ' },
+									}}
+									label='Character Name'
+									onChange={(e) => {
+										setAddCharacter({ ...addCharacter, name: e.target.value });
+									}}
+								/>
+							</Grid>
+
+							<Grid item xs={5}>
+								<FormControl className='w-100'>
+									<InputLabel
+										id='character-select-label'
+										className={classes.select}>
+										Select a Class
+									</InputLabel>
+									<Select
+										label='Select a Character'
+										className='w-100'
+										onChange={(e) => {
+											setAddCharacter({
+												...addCharacter,
+												class: e.target.value,
+											});
+										}}>
+										{charClasses.map((char) => (
+											<MenuItem value={char} className='text-white'>
+												{char}
+											</MenuItem>
+										))}
+									</Select>
+								</FormControl>
+							</Grid>
+						</div>
+						<Grid item>
+							<TextField
+								fullWidth
+								type='name'
+								value={addCharacter.notes}
+								className={classes.input}
+								multiline
+								rows={8}
+								InputLabelProps={{
+									style: { color: '#fff ' },
+								}}
+								label='Notes'
+								onChange={(e) => {
+									setAddCharacter({ ...addCharacter, notes: e.target.value });
 								}}
 							/>
 						</Grid>
 
-						<Grid item xs={5}>
-							<FormControl className='w-100'>
-								<InputLabel
-									id='character-select-label'
-									className={classes.select}>
-									Select a Class
-								</InputLabel>
-								<Select
-									label='Select a Character'
-									className='w-100'
-									onChange={(e) => {
-										setAddCharacter({ ...addCharacter, class: e.target.value });
-									}}>
-									{charClasses.map((char) => (
-										<MenuItem value={char} className='text-white'>
-											{char}
-										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
-						</Grid>
-					</div>
-					<Grid item>
-						<TextField
-							fullWidth
-							type='name'
-							value={addCharacter.notes}
-							className={classes.input}
-							multiline
-							rows={8}
-							InputLabelProps={{
-								style: { color: '#fff ' },
-							}}
-							label='Notes'
-							onChange={(e) => {
-								setAddCharacter({ ...addCharacter, notes: e.target.value });
-							}}
-						/>
-					</Grid>
-
-					<Button
-						variant='contained'
-						className='my-4'
-						color='default'
-						type='button'
-						startIcon={<AddToPhotosIcon />}
-						onClick={handleAddCharacter}>
-						Add Character to Roster
-					</Button>
-					<Typography>{showText}</Typography>
-				</FormControl>
-			</Paper>
+						<Button
+							variant='contained'
+							className='my-4'
+							color='default'
+							type='button'
+							startIcon={<AddToPhotosIcon />}
+							onClick={handleAddCharacter}>
+							Add Character to Roster
+						</Button>
+						<Typography>{showText}</Typography>
+					</FormControl>
+				</Paper>
+			</Grid>
 			<div className='d-flex justify-content-center align-items-center'>
 				<Roster
 					selectedRaid={selectedRaid}

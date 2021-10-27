@@ -1,6 +1,6 @@
 import * as api from '../api/index';
 import axios from 'axios';
-import { UPDATE_ROSTER } from '../constants/actionTypes';
+import { DELETE_ROSTER, UPDATE_ROSTER } from '../constants/actionTypes';
 
 export const getRoster = () => async (dispatch) => {
 	try {
@@ -25,7 +25,17 @@ export const updateRoster =
 		try {
 			const { data } = await api.updateRoster(newRoster, id, setIsLoading);
 			dispatch({ type: UPDATE_ROSTER, payload: data });
+			setIsLoading(false);
 		} catch (err) {
 			console.log(err);
 		}
 	};
+
+export const deleteRoster = (id, roster) => async (dispatch) => {
+	try {
+		await api.deleteRoster(id, roster);
+		dispatch({ type: DELETE_ROSTER, payload: roster });
+	} catch (err) {
+		console.log(err);
+	}
+};

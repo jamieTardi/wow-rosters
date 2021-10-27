@@ -21,3 +21,4 @@ export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const UPDATE_AUTH = 'UPDATE_AUTH';
 export const GET_GUILDS = 'GET_GUILDS';
 export const CURRENT_GUILD = 'CURRENT_GUILD';
+export const DELETE_ROSTER = 'DELETE_ROSTER';
