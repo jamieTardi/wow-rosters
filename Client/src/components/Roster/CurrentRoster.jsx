@@ -56,8 +56,8 @@ const CurrentRoster = () => {
 							</thead>
 							<tbody>
 								{roster &&
-									roster.map((character) => (
-										<tr>
+									roster.map((character, i) => (
+										<tr key={i}>
 											<>
 												{character.role === 'Tank' && (
 													<>
@@ -86,8 +86,8 @@ const CurrentRoster = () => {
 							</thead>
 							<tbody>
 								{roster &&
-									roster.map((character) => (
-										<tr>
+									roster.map((character, i) => (
+										<tr key={i}>
 											<>
 												{character.role === 'DPS' && (
 													<>
@@ -116,8 +116,8 @@ const CurrentRoster = () => {
 							</thead>
 							<tbody>
 								{roster &&
-									roster.map((character) => (
-										<tr>
+									roster.map((character, i) => (
+										<tr key={i}>
 											<>
 												{character.role === 'Healer' && (
 													<>

@@ -33,8 +33,6 @@ const EditAssignTable = ({
 	const darkMode = useSelector((state) => state.darkMode);
 	const raiders = newTactics.assignedRaiders;
 
-	//Set the redux as well to update the component....
-
 	const handleRemove = (id) => {
 		setUpdatedAssign({
 			...updatedAssign,

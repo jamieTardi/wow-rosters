@@ -102,7 +102,7 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 									onChange={(e) => {
 										setNewGuild({ ...newGuild, name: e.target.value });
 									}}
-									InputLabelProps={{
+									inputlabelprops={{
 										style: { color: '#fff ' },
 									}}
 								/>
@@ -117,7 +117,7 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 									onChange={(e) => {
 										setNewGuild({ ...newGuild, realm: e.target.value });
 									}}
-									InputLabelProps={{
+									inputlabelprops={{
 										style: { color: '#fff ' },
 									}}
 								/>
@@ -132,7 +132,7 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 									onChange={(e) => {
 										setNewGuild({ ...newGuild, members: [e.target.value] });
 									}}
-									InputLabelProps={{
+									inputlabelprops={{
 										style: { color: '#fff ' },
 									}}
 								/>
@@ -154,8 +154,10 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 											region: e.target.value,
 										});
 									}}>
-									{regions.map((region) => (
-										<MenuItem value={region}>{region}</MenuItem>
+									{regions.map((region, i) => (
+										<MenuItem key={i} value={region}>
+											{region}
+										</MenuItem>
 									))}
 								</Select>
 							</Grid>
@@ -176,8 +178,10 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 											faction: e.target.value,
 										});
 									}}>
-									{['Horde', 'Alliance'].map((faction) => (
-										<MenuItem value={faction}>{faction}</MenuItem>
+									{['Horde', 'Alliance'].map((faction, i) => (
+										<MenuItem key={i} value={faction}>
+											{faction}
+										</MenuItem>
 									))}
 								</Select>
 							</Grid>
@@ -185,7 +189,7 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 								<TextField
 									id='standard-multiline-static'
 									label='Additional Guild Information (optional)'
-									InputLabelProps={{
+									inputlabelprops={{
 										style: { color: '#fff ' },
 									}}
 									className={classes.input}

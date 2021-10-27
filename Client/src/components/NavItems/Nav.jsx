@@ -86,7 +86,7 @@ const Nav = () => {
 					<Toolbar className='d-flex justify-content-between align-items-center'>
 						<div>
 							<IconButton
-								size='large'
+								size='medium'
 								edge='start'
 								color='inherit'
 								aria-label='menu'

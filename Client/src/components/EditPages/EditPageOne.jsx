@@ -137,7 +137,7 @@ const EditPageOne = ({ setEditModal }) => {
 								onChange={(e) => {
 									setEditRaid({ ...editRaid, title: e.target.value });
 								}}
-								InputLabelProps={{
+								inputlabelprops={{
 									style: { color: '#fff ' },
 								}}
 							/>
@@ -153,7 +153,7 @@ const EditPageOne = ({ setEditModal }) => {
 							<TextField
 								id='standard-basic'
 								label='Author'
-								InputLabelProps={{
+								inputlabelprops={{
 									style: { color: '#fff ' },
 								}}
 								className={classes.input}
@@ -184,7 +184,7 @@ const EditPageOne = ({ setEditModal }) => {
 							<TextField
 								id='standard-multiline-static'
 								label='Additional Information'
-								InputLabelProps={{
+								inputlabelprops={{
 									style: { color: '#fff ' },
 								}}
 								className={classes.input}

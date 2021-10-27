@@ -111,7 +111,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 										fullWidth
 										value={newRoster ? newRoster.title : ''}
 										className={classes.input}
-										InputLabelProps={{
+										inputlabelprops={{
 											style: { color: '#fff ' },
 										}}
 										label='Roster title'
@@ -159,7 +159,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 										fullWidth
 										value={currentRaider ? currentRaider.name : ''}
 										className={classes.input}
-										InputLabelProps={{
+										inputlabelprops={{
 											style: { color: '#fff ' },
 										}}
 										label='Character Name'
@@ -202,7 +202,7 @@ const EditPageTwo = ({ hideModal, show, setShow }) => {
 										fullWidth
 										value={currentRaider ? currentRaider.notes : ''}
 										className={classes.input}
-										InputLabelProps={{
+										inputlabelprops={{
 											style: { color: '#fff ' },
 										}}
 										label='Notes'

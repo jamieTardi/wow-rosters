@@ -73,7 +73,7 @@ const NewestRaid = ({ raid, setSelectedRaid, setExpandCard }) => {
 							<Typography
 								variant='body2'
 								component='p'
-								InputLabelProps={{
+								inputlabelprops={{
 									style: { color: 'rgba(255, 255, 255, 0.7) !important ' },
 								}}
 								className={classes.cardText}>

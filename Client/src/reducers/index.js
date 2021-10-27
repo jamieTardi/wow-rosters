@@ -19,6 +19,7 @@ import { isMobile } from './isMobile';
 import { errorMessage } from './errorMessage';
 import { guildData } from './guildData';
 import { currentGuild } from './currentGuild';
+import { guildAssignments } from './guildAssignments';
 
 const rootReducer = combineReducers({
 	raids,
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
 	currentRaid,
 	deleteLoad,
 	assignments,
+	guildAssignments,
 	isLoading,
 	isMobile,
 	darkMode,

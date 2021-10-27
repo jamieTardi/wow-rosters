@@ -4,12 +4,10 @@ import { getRaids } from '../../actions/raids';
 import { useStyles } from '../Form/styles';
 import RaidModal from './RaidModal';
 import NewestRaid from './NewestRaid';
-import { v4 as uuidv4 } from 'uuid';
-import { Nav } from '../index';
 import emptyImg from '../../images/empty.svg';
 import { Image } from 'react-bootstrap';
 import Loading from '../UIcomponents/Loading';
-import { Paper } from '@mui/material';
+import { Paper, CircularProgress } from '@mui/material';
 
 const Raids = () => {
 	const classes = useStyles();
@@ -29,9 +27,13 @@ const Raids = () => {
 			<div className='row'>
 				<Paper className={classes.paper}>
 					<h4 className='my-4 raids-title'>
-						{currentUser.role === 'Guest'
-							? 'Welcome to WoW rosters software for building warcraft raid teams'
-							: `Current raids for ${currentUser.guild}'s raid team`}
+						{currentUser.role === undefined ? (
+							<CircularProgress color='success' />
+						) : currentUser.role === 'Guest' ? (
+							'Welcome to WoW rosters software for building warcraft raid teams'
+						) : (
+							`Current raids for ${currentUser.guild}'s raid team`
+						)}
 					</h4>
 					{currentUser.role === 'Guest' && (
 						<>
@@ -75,19 +77,17 @@ const Raids = () => {
 					createdRaids
 						.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 						.map((raid, i) => (
-							<>
-								<>
-									{currentUser.guild === raid.guild && (
-										<div className='mt-4 col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex justify-content-center align-items-center mb-5'>
-											<NewestRaid
-												raid={raid}
-												setSelectedRaid={setSelectedRaid}
-												setExpandCard={setExpandCard}
-											/>
-										</div>
-									)}
-								</>
-							</>
+							<React.Fragment key={i}>
+								{currentUser.guild === raid.guild && (
+									<div className='mt-4 col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex justify-content-center align-items-center mb-5'>
+										<NewestRaid
+											raid={raid}
+											setSelectedRaid={setSelectedRaid}
+											setExpandCard={setExpandCard}
+										/>
+									</div>
+								)}
+							</React.Fragment>
 						))
 				)}
 				{selectedRaid && (

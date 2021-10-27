@@ -41,3 +41,17 @@ export const updateRoster = async (req, res) => {
 
 	res.json(updatedRoster);
 };
+
+export const deleteRoster = async (req, res) => {
+	const { id } = req.params;
+
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(404).send('No Roster with that id');
+	}
+	try {
+		await RosterConfig.findByIdAndDelete(id);
+		res.status(204).json({ message: 'Roster deleted correctly.' });
+	} catch (err) {
+		res.status(404).json({ message: err });
+	}
+};

@@ -64,7 +64,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 						fullWidth
 						label='Name Of the Raid'
 						value={raidForm.title}
-						InputLabelProps={{
+						inputlabelprops={{
 							style: { color: '#fff ' },
 						}}
 						onChange={(e) => {
@@ -92,7 +92,7 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 					<TextField
 						id='standard-multiline-static'
 						label='Additional Information'
-						InputLabelProps={{
+						inputlabelprops={{
 							style: { color: '#fff ' },
 						}}
 						className={classes.input}
@@ -107,7 +107,10 @@ const RaidPageOne = ({ raidForm, setRaidForm }) => {
 				</Grid>
 			</Grid>
 
-			<InputLabel className='my-3'>Upload an Image for the Raid</InputLabel>
+			<InputLabel className='my-3'>
+				Upload an Image for the Raid (Optional, if no image selected a default
+				image will be used)
+			</InputLabel>
 			<input
 				type='file'
 				id='file'

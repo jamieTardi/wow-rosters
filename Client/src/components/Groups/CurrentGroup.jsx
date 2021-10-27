@@ -39,8 +39,9 @@ const CurrentGroup = () => {
 						</Typography>
 						<FormControl className='w-100'>
 							<FormGroup className='d-flex flex-row'>
-								{groupNumber.map((group) => (
+								{groupNumber.map((group, i) => (
 									<FormControlLabel
+										key={i}
 										style={{ width: 'fit-content' }}
 										control={
 											<Checkbox

@@ -118,7 +118,7 @@ const Auth = () => {
 					onSubmit={(e) => {
 						handleSubmit(e);
 					}}>
-					<Grid spacing={3}>
+					<Grid item>
 						{isSignUp && (
 							<>
 								<Input
@@ -215,7 +215,7 @@ const Auth = () => {
 							</Button>
 						)}
 					/>
-					<Grid container justify='flex-end'>
+					<Grid container spacing={5} justifyContent='flex-end'>
 						<Grid item>
 							<Button onClick={switchMode} variant='contained' color='default'>
 								{isSignUp

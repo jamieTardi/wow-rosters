@@ -26,7 +26,7 @@ export const generateUploadURL = async () => {
 	const params = {
 		Bucket: bucketName,
 		Key: imageName,
-		Expires: 60,
+		Expires: 400,
 	};
 	const uploadURL = await s3.getSignedUrlPromise('putObject', params);
 	return uploadURL;
@@ -39,7 +39,7 @@ export const generateUploadURLAssign = async () => {
 	const params = {
 		Bucket: assignBucket,
 		Key: imageName,
-		Expires: 60,
+		Expires: 400,
 	};
 	const uploadURL = await s3.getSignedUrlPromise('putObject', params);
 	return uploadURL;
@@ -52,7 +52,7 @@ export const generateUploadURLRaids = async () => {
 	const params = {
 		Bucket: raidsBucket,
 		Key: imageName,
-		Expires: 60,
+		Expires: 400,
 	};
 	const uploadURL = await s3.getSignedUrlPromise('putObject', params);
 	return uploadURL;

@@ -179,7 +179,7 @@ const AddMod = ({ show, setShow }) => {
 							onChange={(e) => {
 								handleAddEmail(e);
 							}}
-							InputLabelProps={{
+							inputlabelprops={{
 								style: { color: '#fff ' },
 							}}
 						/>
@@ -198,7 +198,7 @@ const AddMod = ({ show, setShow }) => {
 							onChange={(e) => {
 								handleConfirmEmail(e);
 							}}
-							InputLabelProps={{
+							inputlabelprops={{
 								style: { color: '#fff ' },
 							}}
 						/>

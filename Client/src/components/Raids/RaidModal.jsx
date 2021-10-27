@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import moment from 'moment';
-import Roster from '../Roster/Roster';
-import Assignment from '../Assignments/Assignments';
-import RosterForm from '../Form/RosterForm';
-import { useSelector } from 'react-redux';
-import AssignRoster from '../Roster/AssignRoster';
+
+import { useSelector, useDispatch } from 'react-redux';
+
 import CurrentRoster from '../Roster/CurrentRoster';
-import CurrentAssignments from './CurrentAssignments';
+
 import { Button } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircle from '@material-ui/icons/AddCircle';
 import EditPageOne from '../EditPages/EditPageOne';
-import MoreHorizSharpIcon from '@material-ui/icons/MoreHorizSharp';
+
 import TabbedMenu from '../Assignments/TabbedMenu';
 import AssignmentSelector from '../Assignments/AssignmentSelector';
 import CurrentGroup from '../Groups/CurrentGroup';
@@ -22,16 +20,31 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { getGuilds } from '../../actions/guilds';
 
 const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 	const [editModal, setEditModal] = useState(false);
+	const dispatch = useDispatch();
 	const darkMode = useSelector((state) => state.darkMode);
 	const user = useSelector((state) => state.currentUser);
 	const currentRaid = useSelector((state) => state.currentRaid);
 	const currentUser = useSelector((state) => state.currentUser);
-	const raids = useSelector((state) => state.raids);
-
+	const guilds = useSelector((state) => state.guildData);
 	const [addAssign, setAddAssign] = useState(false);
+	const [userGuild, setUserGuild] = useState(null);
+
+	useEffect(() => {
+		if (currentUser && guilds) {
+			let filitered = guilds.filter((guild) => {
+				return guild.name === user.guild;
+			});
+			setUserGuild(filitered);
+		}
+	}, [guilds]);
+
+	useEffect(() => {
+		dispatch(getGuilds());
+	}, []);
 
 	return (
 		<>
@@ -71,34 +84,40 @@ const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 							<div
 								className='col-6'
 								style={{ color: 'rgba(255, 255, 255, 0.7) !important' }}>
-								Raid created:{' '}
+								Raid created: <br />
 								<span className='raid-message'>
 									{moment(currentRaid.createdAt).fromNow()}
 								</span>
 							</div>
 							<div className='col-6 text-end'>
 								<span>
-									<span>Created by: </span>
-									<span className='raid-message'>{currentUser.character}</span>
+									<span>
+										Created by: <br />
+									</span>
+									<span className='raid-message'>{currentRaid.creator}</span>
 								</span>
 							</div>
 						</div>
 						<div className='row mt-2'>
 							<div className='col-6'>
-								Raid Date:{' '}
+								Raid Date: <br />
 								<span className='raid-message'>{currentRaid.date}</span>
 							</div>
 							<div className='col-6 text-end'>
-								Time of Raid:{' '}
+								Time of Raid: <br />
 								<span className='raid-message'>{currentRaid.time}</span>
 							</div>
 						</div>
 						<div className='row mt-2'>
 							<div className='col-6'>
-								Guild: <span className='raid-message'>{currentRaid.guild}</span>
+								Guild: <br />
+								<span className='raid-message'>{currentRaid.guild}</span>
 							</div>
 							<div className='col-6 text-end'>
-								Realm: <span className='raid-message'>{currentUser.guild}</span>
+								Realm: <br />
+								<span className='raid-message'>
+									{userGuild ? userGuild[0].realm : 'Loading Realm...'}
+								</span>
 							</div>
 						</div>
 

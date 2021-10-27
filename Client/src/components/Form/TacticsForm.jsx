@@ -184,7 +184,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 										value={newTactics.title}
 										defaultValue=''
 										className={classes.input}
-										InputLabelProps={{
+										inputlabelprops={{
 											style: { color: '#fff ' },
 										}}
 										label='Title of the Assignment'
@@ -221,7 +221,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 								fullWidth
 								value={addCharacter.name}
 								className={classes.input}
-								InputLabelProps={{
+								inputlabelprops={{
 									style: { color: '#fff ' },
 								}}
 								label='Character Name'
@@ -260,7 +260,7 @@ const TacticsForm = ({ raidForm, setRaidForm }) => {
 								className={classes.input}
 								multiline
 								rows={8}
-								InputLabelProps={{
+								inputlabelprops={{
 									style: { color: '#fff ' },
 								}}
 								label='Assignment Details'

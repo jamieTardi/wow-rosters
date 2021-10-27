@@ -95,7 +95,7 @@ const RaidForm = () => {
 		setIsLoading(true);
 		dispatch({ type: IS_LOADING });
 
-		dispatch(createRaid({ ...raidForm, creator: user.result.name }));
+		dispatch(createRaid({ ...raidForm, creator: currentUser.character }));
 		setRaidForm({
 			title: '',
 			message: '',

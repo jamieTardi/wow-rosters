@@ -7,8 +7,8 @@ import {
 	LOGOUT,
 } from '../constants/actionTypes';
 
-const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
-// const API = axios.create({ baseURL: 'http://localhost:5000' });
+// const API = axios.create({ baseURL: 'https://wow-rosters.herokuapp.com' });
+const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 API.interceptors.request.use((req) => {
 	if (localStorage.getItem('profile')) {
@@ -61,13 +61,8 @@ export const fetchAssignments = () => API.get('/create-assignment');
 export const createAssignment = (newAssignment) =>
 	API.post('/create-assignment', newAssignment);
 
-export const updateAssignments = (assignment, id, isLoading) => {
-	API.patch(`/create-assignment/${id}`, assignment)
-		.then((res) => {
-			console.log(res);
-		})
-		.catch((err) => console.log(err));
-};
+export const updateAssignments = (assignment, id, isLoading) =>
+	API.patch(`/create-assignment/${id}`, assignment);
 
 export const deleteAssignment = (id, isLoading) => {
 	API.delete(`/create-assignment/${id}`)

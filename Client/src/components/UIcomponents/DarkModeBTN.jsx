@@ -25,7 +25,7 @@ const DarkModeBTN = () => {
 		<input
 			type='checkbox'
 			name='checkbox'
-			class='switch'
+			className='switch'
 			onClick={handleDarkMode}
 		/>
 	);

@@ -104,7 +104,12 @@ const EditAssignments = ({
 		setIsLoading(true);
 		axios
 			.put(imageResponse, file)
-			.then((res) => setImage(res.config.url.split('?')[0]))
+			.then((res) =>
+				setUpdatedAssign({
+					...updatedAssign,
+					image: res.config.url.split('?')[0],
+				}),
+			)
 			.then(() => setIsLoading(false))
 			.catch((err) => console.log(err));
 	};
@@ -146,8 +151,8 @@ const EditAssignments = ({
 									}
 									src={
 										loaded
-											? assignment.image
-												? assignment.image
+											? updatedAssign.image
+												? updatedAssign.image
 												: 'https://wow-rosters.herokuapp.com/images/image895.jpg'
 											: loadingGif
 									}
@@ -176,7 +181,7 @@ const EditAssignments = ({
 													fullWidth
 													value={updatedAssign.title}
 													className={classes.input}
-													InputLabelProps={{
+													inputlabelprops={{
 														style: { color: '#fff ' },
 													}}
 													label='Title of the Assignment'
@@ -256,7 +261,7 @@ const EditAssignments = ({
 												fullWidth
 												value={currentRaider ? currentRaider.name : ''}
 												className={classes.input}
-												InputLabelProps={{
+												inputlabelprops={{
 													style: { color: '#fff ' },
 												}}
 												label='Character Name'
@@ -297,7 +302,7 @@ const EditAssignments = ({
 												className={classes.input}
 												multiline
 												rows={8}
-												InputLabelProps={{
+												inputlabelprops={{
 													style: { color: '#fff ' },
 												}}
 												label='Assignment Details'

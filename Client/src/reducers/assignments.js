@@ -2,6 +2,7 @@ import {
 	ADD_ASSIGNMENT,
 	REMOVE_ASSIGNMENT,
 	FETCH_ASSIGNMENTS,
+	UPDATE_ASSIGNMENTS,
 } from '../constants/actionTypes';
 
 export const assignments = (state = [], action) => {
@@ -12,7 +13,8 @@ export const assignments = (state = [], action) => {
 			} else {
 				return [action.payload];
 			}
-
+		case UPDATE_ASSIGNMENTS:
+			return [...state, action.payload];
 		case REMOVE_ASSIGNMENT:
 			return action.payload;
 		case FETCH_ASSIGNMENTS:

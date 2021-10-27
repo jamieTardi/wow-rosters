@@ -76,7 +76,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 								fullWidth
 								value={addTitle}
 								className={classes.input}
-								InputLabelProps={{
+								inputlabelprops={{
 									style: { color: '#fff ' },
 								}}
 								label='Name of the roster'
@@ -118,7 +118,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 									fullWidth
 									value={addCharacter.name}
 									className={classes.input}
-									InputLabelProps={{
+									inputlabelprops={{
 										style: { color: '#fff ' },
 									}}
 									label='Character Name'
@@ -161,7 +161,7 @@ const RosterForm = ({ selectedRaid, setRaidForm, raidForm }) => {
 								className={classes.input}
 								multiline
 								rows={8}
-								InputLabelProps={{
+								inputlabelprops={{
 									style: { color: '#fff ' },
 								}}
 								label='Notes'
