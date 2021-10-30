@@ -27,6 +27,7 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 	const currentUser = useSelector((state) => state.currentUser);
 	const [response, setResponse] = useState(false);
 	const [serverMsg, setServerMsg] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const [newGuild, setNewGuild] = useState({
 		name: '',
@@ -41,10 +42,14 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 	const regions = ['Americas', 'Europe', 'Korea', 'Taiwan', 'China'];
 
 	const handleCreateGuild = (e) => {
+		setIsLoading(true);
 		e.preventDefault();
 		createGuild(newGuild, setError, setResponse, dispatch);
-		dispatch({ type: LOGOUT });
-		history.go(0);
+		setTimeout(() => {
+			dispatch({ type: LOGOUT });
+			setIsLoading(false);
+			history.go(0);
+		}, 1700);
 	};
 	const handleClose = () => {
 		setGuildShow(false);
@@ -209,9 +214,9 @@ const AddGuild = ({ guildShow, setGuildShow }) => {
 							variant='contained'
 							type='submit'
 							className='mt-3'
-							startIcon={user ? <CircularProgress size={20} /> : <Cloud />}
-							disabled={!allowSubmit || user}>
-							{user ? 'Uploading...' : 'Create Guild'}
+							startIcon={isLoading ? <CircularProgress size={20} /> : <Cloud />}
+							disabled={!allowSubmit || isLoading}>
+							{isLoading ? 'Uploading...' : 'Create Guild'}
 						</Button>
 						{error && (
 							<p className='text-danger' style={{ fontSize: '0.8rem' }}>

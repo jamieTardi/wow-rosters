@@ -116,7 +116,9 @@ const RaidModal = ({ expandCard, setExpandCard, raid }) => {
 							<div className='col-6 text-end'>
 								Realm: <br />
 								<span className='raid-message'>
-									{userGuild ? userGuild[0].realm : 'Loading Realm...'}
+									{userGuild && userGuild[0] !== undefined
+										? userGuild[0].realm
+										: 'Loading Realm...'}
 								</span>
 							</div>
 						</div>

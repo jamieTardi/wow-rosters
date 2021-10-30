@@ -18,6 +18,7 @@ import {
 	CircularProgress,
 } from '@material-ui/core';
 import { IS_LOADING, IS_NOT_LOADING } from '../../constants/actionTypes';
+import { getAssignments } from '../../actions/assignments';
 
 const useStyles = makeStyles((theme) => ({
 	appBar: {
@@ -104,11 +105,17 @@ const RaidForm = () => {
 			roster: [],
 		});
 		if (!serverResponse) {
-			history.push('/');
+			setTimeout(() => {
+				setIsLoading(false);
+				history.push('/');
+			}, 1500);
 		}
 	};
 	useEffect(() => {
 		dispatch({ type: IS_NOT_LOADING });
+	}, []);
+	useEffect(() => {
+		dispatch(getAssignments);
 	}, []);
 
 	if (!user?.result?.name) {
@@ -200,16 +207,16 @@ const RaidForm = () => {
 											variant='contained'
 											color='primary'
 											startIcon={
-												!serverResponse ? (
+												!isLoading ? (
 													<CloudUploadIcon />
 												) : (
 													<CircularProgress size={20} />
 												)
 											}
 											className={classes.button}
-											disabled={serverResponse}
+											disabled={isLoading}
 											onClick={handleSubmit}>
-											{serverResponse ? 'Creating...' : 'Create Raid'}
+											{isLoading ? 'Creating...' : 'Create Raid'}
 										</Button>
 									) : (
 										<Button
